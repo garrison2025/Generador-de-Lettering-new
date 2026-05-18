@@ -40,20 +40,3 @@ export const loadFont = async (fontFamily: string) => {
     console.error("Failed to load font", fontFamily, e)
   }
 };
-
-export function usePreloadFonts() {
-  useEffect(() => {
-    const fontId = 'google-fonts-lettering-all';
-    
-    if (!document.getElementById(fontId)) {
-      const families = FONTS.map(f => f.href).join('&family=');
-      const url = `https://fonts.googleapis.com/css2?family=${families}&display=swap`;
-
-      const link = document.createElement("link");
-      link.id = fontId;
-      link.rel = "stylesheet";
-      link.href = url;
-      document.head.appendChild(link);
-    }
-  }, []);
-}

@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { PenTool, Menu, X } from 'lucide-react';
-import { usePreloadFonts } from '@/lib/fonts';
 
 export default function Layout() {
-  usePreloadFonts();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isEditor = location.pathname === '/editor' || location.pathname.startsWith('/generador-') || location.pathname.startsWith('/letras-');
