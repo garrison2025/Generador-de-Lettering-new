@@ -102,6 +102,13 @@ export default function LetrasFreeFire() {
   const [inputText, setInputText] = useState('ProPlayer');
   const deferredInput = useDeferredValue(inputText);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(12);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setVisibleCount(DECORATORS.length * 3);
+    }, 100);
+  }, []);
 
   useEffect(() => {
     // Removed document.title
@@ -249,7 +256,7 @@ export default function LetrasFreeFire() {
           { ...dec, font: 'normal' },
           { ...dec, font: 'smallCaps' },
           { ...dec, font: 'gothic' }
-        ]).map((dec, idx) => {
+        ]).slice(0, visibleCount).map((dec, idx) => {
           const appliedText = applyFont(deferredInput || 'Hero', dec.font);
           const fullName = `${dec.prefix}${appliedText}${dec.suffix}`;
           const isCopied = copiedId === fullName;
