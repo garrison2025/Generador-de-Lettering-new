@@ -54,23 +54,6 @@ export function usePreloadFonts() {
       link.rel = "stylesheet";
       link.href = url;
       document.head.appendChild(link);
-
-      // Force browser to fetch and parse the fonts immediately
-      const hiddenRenderDiv = document.createElement("div");
-      hiddenRenderDiv.style.opacity = "0";
-      hiddenRenderDiv.style.position = "absolute";
-      hiddenRenderDiv.style.pointerEvents = "none";
-      hiddenRenderDiv.style.zIndex = "-9999";
-      hiddenRenderDiv.style.width = "0";
-      hiddenRenderDiv.style.height = "0";
-      hiddenRenderDiv.style.overflow = "hidden";
-      
-      const spans = FONTS.map(
-        f => `<span style="font-family: '${f.family}'">preload</span>`
-      ).join('');
-      
-      hiddenRenderDiv.innerHTML = spans;
-      document.body.appendChild(hiddenRenderDiv);
     }
   }, []);
 }
