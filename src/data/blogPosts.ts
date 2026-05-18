@@ -91,7 +91,7 @@ Si tú juegas con tu pareja o amigos inseparables, combinar nicks genera un fuer
 
 ## 7. Conclusión: Hazlo tuyo
 
-Al final del día, tu cuenta es el reflejo de tu espíritu competitivo. Herramientas como 'LetrasPro' hacen el trabajo duro al transformar tu texto en milisegundos, evitando que pierdas horas buscando los caracteres raros en la web buscando tablas aburridas de Unicode. 
+Al final del día, tu cuenta es el reflejo de tu espíritu competitivo. Herramientas como 'Generador de Lettering' hacen el trabajo duro al transformar tu texto en milisegundos, evitando que pierdas horas buscando los caracteres raros en la web buscando tablas aburridas de Unicode. 
 
 Da el salto, personaliza tu nick en el siguiente reseteo de temporada heroica y déjales claro a esos escuadrones camperos de la factory quién manda. Combina la Aura Mística de los nombres góticos con las métricas perfectas de *K/D ratio* (estadística de kills) y siéntete orgulloso cada vez que consigas un ansiado **¡BOOYAH!**.`
   },

@@ -11,7 +11,7 @@ interface SEOProps {
   image?: string;
 }
 
-export function SEO({ title, description, canonical, keywords, type = 'website', jsonSchema, image = 'https://letraspro.com/og-image.jpg' }: SEOProps) {
+export function SEO({ title, description, canonical, keywords, type = 'website', jsonSchema, image = 'https://generadordelettering.org/og-image.jpg' }: SEOProps) {
   const currentUrl = canonical || window.location.href;
 
   return (
@@ -26,7 +26,7 @@ export function SEO({ title, description, canonical, keywords, type = 'website',
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
-      <meta property="og:site_name" content="LetrasPro" />
+      <meta property="og:site_name" content="Generador de Lettering" />
       <meta property="og:locale" content="es_ES" />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:title" content={title} />

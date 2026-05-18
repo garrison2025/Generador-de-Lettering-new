@@ -50,7 +50,7 @@ function generateSVG(title: string) {
           <line x1="50" y1="${y + 35}" x2="750" y2="${y + 35}" stroke="#ddd" stroke-width="1.5" />
         `;
     }).join('')}
-    <text x="400" y="1100" font-family="sans-serif" font-size="14" fill="#999" text-anchor="middle">Generado por LetrasPro / GeneradorAesthetic.com</text>
+    <text x="400" y="1100" font-family="sans-serif" font-size="14" fill="#999" text-anchor="middle">Generado por Generador de Lettering / GeneradorAesthetic.com</text>
   </svg>`;
 }
 

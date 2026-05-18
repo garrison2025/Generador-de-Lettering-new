@@ -17,7 +17,7 @@ export default function BlogPost() {
   return (
     <>
       <SEO 
-        title={`${post.title} | LetrasPro Blog`}
+        title={`${post.title} | Generador de Lettering Blog`}
         description={post.excerpt}
         keywords={post.keywords}
         type="article"
@@ -28,7 +28,7 @@ export default function BlogPost() {
             "@type": "BlogPosting",
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": `https://letraspro.com/blog/${post.slug}`
+              "@id": `https://generadordelettering.org/blog/${post.slug}`
             },
             "headline": post.title,
             "description": post.excerpt,
@@ -38,14 +38,14 @@ export default function BlogPost() {
             "author": {
               "@type": "Organization",
               "name": "LetrasPro",
-              "url": "https://letraspro.com/"
+              "url": "https://generadordelettering.org/"
             },
             "publisher": {
               "@type": "Organization",
               "name": "LetrasPro",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://letraspro.com/og-image.jpg"
+                "url": "https://generadordelettering.org/og-image.jpg"
               }
             }
           },
@@ -57,19 +57,19 @@ export default function BlogPost() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Inicio",
-                "item": "https://letraspro.com/"
+                "item": "https://generadordelettering.org/"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Blog",
-                "item": "https://letraspro.com/blog"
+                "item": "https://generadordelettering.org/blog"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
                 "name": post.title,
-                "item": `https://letraspro.com/blog/${post.slug}`
+                "item": `https://generadordelettering.org/blog/${post.slug}`
               }
             ]
           }

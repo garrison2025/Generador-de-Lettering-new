@@ -87,7 +87,7 @@ const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Nombres para Free Fire y Generador de Letras Insanas",
-  "url": "https://letraspro.com/herramientas/letras-free-fire",
+  "url": "https://generadordelettering.org/herramientas/letras-free-fire",
   "description": "Crea nombres insanos de Free Fire que den miedo con alas, símbolos y letras exclusivas para copiar y pegar en tu perfil y clanes.",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "All",
@@ -129,7 +129,7 @@ export default function LetrasFreeFire() {
         title="Generador de Nombres | Letras para Free Fire con Símbolos"
         description="Generador de nombres pro para Free Fire. Crea nicks épicos con alas, coronas, cruces y letras raras para destacar en el juego."
         keywords="letras para free fire, nombres para free fire, generador nombres free fire, simbolos free fire letras"
-        canonical="https://letraspro.com/herramientas/letras-free-fire"
+        canonical="https://generadordelettering.org/herramientas/letras-free-fire"
         jsonSchema={[
           faqSchema, 
           softwareSchema,
@@ -141,19 +141,19 @@ export default function LetrasFreeFire() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Inicio",
-                "item": "https://letraspro.com/"
+                "item": "https://generadordelettering.org/"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Herramientas",
-                "item": "https://letraspro.com/"
+                "item": "https://generadordelettering.org/"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
                 "name": "Letras para Free Fire",
-                "item": "https://letraspro.com/herramientas/letras-free-fire"
+                "item": "https://generadordelettering.org/herramientas/letras-free-fire"
               }
             ]
           }
@@ -238,7 +238,7 @@ export default function LetrasFreeFire() {
 
       <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
         <span className="bg-[#FACC15] w-2 h-6 inline-block rounded-sm"></span>
-        Nombres Generados LetrasPro
+        Nombres Generados Generador de Lettering
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -299,7 +299,7 @@ const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Generador de Letras Aesthetic para TikTok",
-  "url": "https://letraspro.com/herramientas/letras-tiktok",
+  "url": "https://generadordelettering.org/herramientas/letras-tiktok",
   "description": "Conversor online de texto normal a letras aesthetic, cursivas y decoradas ideal para las biografías y videos de TikTok.",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "All",
@@ -324,10 +324,10 @@ export default function LetrasTikTok() {
   return (
     <>
       <SEO 
-        title="Conversor de Letras Bonitas para TikTok | LetrasPro"
+        title="Conversor de Letras Bonitas para TikTok | Generador de Lettering"
         description="Generador de letras bonitas y aesthetic para TikTok. Copia y pega letras cursivas, góticas y símbolos para mejorar tu perfil y videos."
         keywords="letras para tiktok, letras bonitas tiktok, generador de letras tiktok, nombres para tiktok"
-        canonical="https://letraspro.com/herramientas/letras-tiktok"
+        canonical="https://generadordelettering.org/herramientas/letras-tiktok"
         jsonSchema={[
           faqSchema, 
           softwareSchema,
@@ -339,19 +339,19 @@ export default function LetrasTikTok() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Inicio",
-                "item": "https://letraspro.com/"
+                "item": "https://generadordelettering.org/"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Herramientas",
-                "item": "https://letraspro.com/"
+                "item": "https://generadordelettering.org/"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
                 "name": "Letras para TikTok",
-                "item": "https://letraspro.com/herramientas/letras-tiktok"
+                "item": "https://generadordelettering.org/herramientas/letras-tiktok"
               }
             ]
           }

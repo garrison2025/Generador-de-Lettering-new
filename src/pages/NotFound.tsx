@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <>
       <SEO 
-        title="Página no encontrada (404) | LetrasPro"
+        title="Página no encontrada (404) | Generador de Lettering"
         description="Lo sentimos, no pudimos encontrar la página que buscas. Descubre nuestro conversor de letras bonitas y otras herramientas para tus redes sociales."
       />
       <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center py-20">

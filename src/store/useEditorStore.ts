@@ -4,15 +4,26 @@ export interface EditorState {
   text: string;
   fontFamily: string;
   fontSize: number;
+  letterSpacing: number;
+  lineHeight: number;
   textAlign: 'left' | 'center' | 'right';
   textColor: string;
   backgroundColor: string; // 'transparent' or hex
+  textOpacity: number;
+  isGradient: boolean;
+  gradientStartColor: string;
+  gradientEndColor: string;
   shadowOffsetX: number;
   shadowOffsetY: number;
   shadowBlur: number;
   shadowColor: string;
   strokeWidth: number;
   strokeColor: string;
+  rotation: number;
+  backgroundImage: string | null;
+  canvasRatio: 'free' | '1:1' | '16:9' | '9:16';
+  overlayColor: string;
+  overlayOpacity: number;
 }
 
 interface EditorStore extends EditorState {
@@ -29,15 +40,26 @@ const DEFAULT_STATE: EditorState = {
   text: 'Generador\nde Lettering',
   fontFamily: 'Dancing Script',
   fontSize: 80,
+  letterSpacing: 0,
+  lineHeight: 1.2,
   textAlign: 'center',
   textColor: '#000000',
   backgroundColor: 'transparent',
+  textOpacity: 1,
+  isGradient: false,
+  gradientStartColor: '#FF6B6B',
+  gradientEndColor: '#3B82F6',
   shadowOffsetX: 0,
   shadowOffsetY: 0,
   shadowBlur: 0,
   shadowColor: '#000000',
   strokeWidth: 0,
   strokeColor: '#000000',
+  rotation: 0,
+  backgroundImage: null,
+  canvasRatio: 'free',
+  overlayColor: '#000000',
+  overlayOpacity: 0,
 };
 
 const RANDOM_TEXTS = ["Hola Mundo", "Vivir es Increíble", "Amor y Paz", "Arte Digital", "Sueña en Grande", "Buenas Vibras"];
@@ -56,15 +78,26 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
       text: newState.text,
       fontFamily: newState.fontFamily,
       fontSize: newState.fontSize,
+      letterSpacing: newState.letterSpacing,
+      lineHeight: newState.lineHeight,
       textAlign: newState.textAlign,
       textColor: newState.textColor,
       backgroundColor: newState.backgroundColor,
+      textOpacity: newState.textOpacity,
+      isGradient: newState.isGradient,
+      gradientStartColor: newState.gradientStartColor,
+      gradientEndColor: newState.gradientEndColor,
       shadowOffsetX: newState.shadowOffsetX,
       shadowOffsetY: newState.shadowOffsetY,
       shadowBlur: newState.shadowBlur,
       shadowColor: newState.shadowColor,
       strokeWidth: newState.strokeWidth,
       strokeColor: newState.strokeColor,
+      rotation: newState.rotation,
+      backgroundImage: newState.backgroundImage,
+      canvasRatio: newState.canvasRatio,
+      overlayColor: newState.overlayColor,
+      overlayOpacity: newState.overlayOpacity,
     };
     
     const newHistory = state.history.slice(0, state.historyIndex + 1);

@@ -71,8 +71,8 @@ export default function Home() {
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Generador de Lettering LetrasPro",
-    "url": "https://letraspro.com/",
+    "name": "Generador de Lettering Generador de Lettering",
+    "url": "https://generadordelettering.org/",
     "description": "Herramientas gratuitas para crear lettering digital, plantillas de práctica y generadores de letras raras y bonitas para redes sociales y videojuegos.",
     "applicationCategory": "DesignApplication",
     "operatingSystem": "All",
@@ -87,12 +87,12 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "LetrasPro",
-    "url": "https://letraspro.com/",
+    "url": "https://generadordelettering.org/",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://letraspro.com/herramientas/conversor-letras-bonitas?q={search_term_string}"
+        "urlTemplate": "https://generadordelettering.org/herramientas/conversor-letras-bonitas?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }

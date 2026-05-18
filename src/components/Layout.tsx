@@ -99,7 +99,7 @@ export default function Layout() {
                   <div className="bg-[#4F46E5] text-white p-1 rounded shadow-sm">
                     <PenTool className="w-5 h-5" />
                   </div>
-                  <span className="font-bold text-lg tracking-tight leading-none">LetrasPro</span>
+                  <span className="font-bold text-lg tracking-tight leading-none">Generador de Lettering</span>
                 </Link>
                 <p className="text-gray-500 text-sm mb-6">
                   Tu plataforma definitiva para arte tipográfico, conversor de letras, y recursos de diseño web y gaming.

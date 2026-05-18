@@ -292,7 +292,7 @@ const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Conversor y Generador de Letras Bonitas",
-  "url": "https://letraspro.com/herramientas/conversor-letras-bonitas",
+  "url": "https://generadordelettering.org/herramientas/conversor-letras-bonitas",
   "description": "Conversor de texto online gratuito para crear tipografías raras, góticas y cursivas para Instagram, TikTok y Whatsapp.",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "All",
@@ -324,7 +324,7 @@ export default function ConversorLetrasBonitas() {
         title="Conversor de Letras Bonitas | Generador Aesthetic"
         description="Generador y convertidor de textos. Personaliza tus redes sociales con las letras más bonitas y elegantes para copiar y pegar donde quieras."
         keywords="letras bonitas, conversor de letras, generar letras, letras copy paste"
-        canonical="https://letraspro.com/herramientas/conversor-letras-bonitas"
+        canonical="https://generadordelettering.org/herramientas/conversor-letras-bonitas"
         jsonSchema={[
           faqSchema, 
           softwareSchema,
@@ -336,19 +336,19 @@ export default function ConversorLetrasBonitas() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Inicio",
-                "item": "https://letraspro.com/"
+                "item": "https://generadordelettering.org/"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Herramientas",
-                "item": "https://letraspro.com/"
+                "item": "https://generadordelettering.org/"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
                 "name": "Conversor Letras Bonitas",
-                "item": "https://letraspro.com/herramientas/conversor-letras-bonitas"
+                "item": "https://generadordelettering.org/herramientas/conversor-letras-bonitas"
               }
             ]
           }

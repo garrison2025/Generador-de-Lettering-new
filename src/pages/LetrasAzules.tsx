@@ -319,14 +319,14 @@ export default function LetrasAzules() {
         title="Letras Azules para Copiar | Generador de Letras en Cuadraditos"
         description="Convierte tu texto en letras azules gruesas o letras cuadradas para copiar y pegar en WhatsApp, Facebook, Instagram y Twitter."
         keywords="letras azules, conversor de letras azules, generador letras cuadraditos, letras emojie azules copy paste"
-        canonical="https://letraspro.com/herramientas/letras-azules"
+        canonical="https://generadordelettering.org/herramientas/letras-azules"
         jsonSchema={[
           faqSchema, 
           {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": "Generador de Letras Azules",
-            "url": "https://letraspro.com/herramientas/letras-azules",
+            "url": "https://generadordelettering.org/herramientas/letras-azules",
             "description": "Convierte tu texto en letras azules gruesas o letras cuadradas para copiar y pegar.",
             "applicationCategory": "UtilitiesApplication",
             "operatingSystem": "All",
@@ -344,19 +344,19 @@ export default function LetrasAzules() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Inicio",
-                "item": "https://letraspro.com/"
+                "item": "https://generadordelettering.org/"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Herramientas",
-                "item": "https://letraspro.com/"
+                "item": "https://generadordelettering.org/"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
                 "name": "Letras Azules",
-                "item": "https://letraspro.com/herramientas/letras-azules"
+                "item": "https://generadordelettering.org/herramientas/letras-azules"
               }
             ]
           }
