@@ -100,7 +100,7 @@ export default function Editor() {
                 <button 
                   className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
                   onClick={() => useEditorStore.getState().redo()}
-                  disabled={useEditorStore((state: any) => state.historyIndex >= state.history.length - 1)}
+                  disabled={useEditorStore((state: any) => !state.history || state.historyIndex >= state.history.length - 1)}
                 >
                   <span className="flex items-center justify-center gap-1 lg:gap-2">
                     <span className="hidden sm:inline">Rehacer</span>
