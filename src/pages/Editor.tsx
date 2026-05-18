@@ -1,0 +1,154 @@
+import { useEffect } from 'react';
+import { Home } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { CanvasArea } from '../components/Editor/CanvasArea';
+import { ControlPanel } from '../components/Editor/ControlPanel';
+import { useEditorStore } from '@/store/useEditorStore';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { SEO } from '../components/SEO';
+
+export default function Editor() {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Check if Ctrl or Cmd is pressed
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key === 'z') {
+          e.preventDefault();
+          useEditorStore.getState().undo();
+        } else if (e.key === 'y' || (e.shiftKey && e.key === 'z') || e.key === 'Z') {
+          e.preventDefault();
+          useEditorStore.getState().redo();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  return (
+    <>
+      <SEO 
+        title="Editor de Lettering Online | App Creador de Letras Gratis"
+        description="El mejor editor de lettering digital gratis. Escribe texto, cambia el color, añade contornos y luces de neón en un lienzo online. Exporta imágenes en alta calidad."
+        keywords="editor de lettering, creador de tipografia, herramientas de diseño de texto, añadir sombra a letras"
+      />
+    <div className="max-w-7xl mx-auto px-4 py-8 w-full flex-1">
+      {/* Breadcrumb */}
+      <div className="flex items-center gap-2 text-sm text-gray-500 mb-6 font-medium">
+        <Link to="/" className="flex items-center gap-1 hover:text-[#5A4AD2] transition"><Home className="w-4 h-4" /> Inicio</Link>
+        <span className="text-gray-300">&gt;</span>
+        <span className="text-[#5A4AD2]">Editor de Lettering</span>
+      </div>
+      
+      <div className="mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Editor de Lettering Profesional</h1>
+        <p className="text-gray-500 max-w-3xl text-sm md:text-base">
+          Crea diseños de texto únicos y personalizados con nuestra herramienta intuitiva. Ajusta fuentes,
+          colores, tamaños y efectos para lograr el lettering perfecto.
+        </p>
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-8 items-start">
+        {/* On mobile, canvas is at top and sticky, on desktop canvas takes remaining space */}
+        <div className="flex-1 flex flex-col gap-6 w-full order-1 lg:order-2">
+           <div className="bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col sticky lg:relative top-0 z-20">
+             <div className="p-3 lg:p-4 border-b border-gray-100 flex justify-between items-center bg-white rounded-t-xl z-10">
+               <h2 className="font-bold text-lg text-gray-900 hidden sm:block">Vista Previa</h2>
+               
+               <DropdownMenu>
+                 <DropdownMenuTrigger className="flex items-center gap-2 px-3 py-1.5 border border-gray-200 rounded text-sm font-medium hover:bg-gray-50 transition text-gray-700">
+                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                   <span className="hidden sm:inline">Exportar</span>
+                 </DropdownMenuTrigger>
+                 <DropdownMenuContent align="end" className="w-56">
+                   <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'png', pixelRatio: 1 } }))}>
+                     Exportar como PNG (Normal)
+                   </DropdownMenuItem>
+                   <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'png', pixelRatio: 3 } }))}>
+                     Exportar como PNG (Alta Resolución)
+                   </DropdownMenuItem>
+                   <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'jpeg', pixelRatio: 1 } }))}>
+                     Exportar como JPG (Normal)
+                   </DropdownMenuItem>
+                   <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'jpeg', pixelRatio: 3 } }))}>
+                     Exportar como JPG (Alta Resolución)
+                   </DropdownMenuItem>
+                   <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'webp', pixelRatio: 1 } }))}>
+                     Exportar como WEBP (Optimizada)
+                   </DropdownMenuItem>
+                   <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'webp', pixelRatio: 3 } }))}>
+                     Exportar como WEBP (Alta Resolución)
+                   </DropdownMenuItem>
+                 </DropdownMenuContent>
+               </DropdownMenu>
+             </div>
+             <div className="h-[250px] md:h-[400px] w-full relative bg-[#F8F9FC]">
+               <CanvasArea />
+             </div>
+              <div className="p-3 lg:p-4 border-t border-gray-100 flex flex-wrap gap-2 lg:gap-4 bg-white rounded-b-xl">
+                <button 
+                  className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
+                  onClick={() => useEditorStore.getState().undo()}
+                  disabled={useEditorStore((state: any) => state.historyIndex === 0)}
+                >
+                  <span className="flex items-center justify-center gap-1 lg:gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+                    <span className="hidden sm:inline">Deshacer</span>
+                  </span>
+                </button>
+                <button 
+                  className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
+                  onClick={() => useEditorStore.getState().redo()}
+                  disabled={useEditorStore((state: any) => state.historyIndex >= state.history.length - 1)}
+                >
+                  <span className="flex items-center justify-center gap-1 lg:gap-2">
+                    <span className="hidden sm:inline">Rehacer</span>
+                    <svg className="w-4 h-4 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 10h-10a8 8 0 00-8 8v2M21 10l-6 6m6-6l-6-6"/></svg>
+                    <svg className="w-4 h-4 sm:hidden block" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{transform: "scaleX(-1)"}}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+                  </span>
+                </button>
+                <button 
+                  className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 text-gray-700 transition"
+                  onClick={() => useEditorStore.getState().resetState()}
+                >
+                  Reiniciar
+                </button>
+                <button 
+                  className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 text-gray-700 transition"
+                  onClick={() => useEditorStore.getState().randomizeState()}
+                >
+                  Aleatorio
+                </button>
+             </div>
+           </div>
+
+           <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden p-6 mb-2 hidden lg:block">
+             <h3 className="font-bold text-lg text-gray-900 mb-4">Plantillas Populares</h3>
+             <ul className="space-y-3">
+               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Invitación de Boda</Link></li>
+               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Feliz Cumpleaños</Link></li>
+               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Graduación</Link></li>
+               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Motivación Diaria</Link></li>
+               <li className="pt-2"><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-bold text-sm">Ver todas las plantillas...</Link></li>
+             </ul>
+           </div>
+
+           <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden p-6 mb-8 hidden lg:block">
+             <h3 className="font-bold text-lg text-gray-900 mb-4">Consejos Rápidos</h3>
+             <ul className="space-y-2 text-sm text-gray-600 list-disc pl-4">
+               <li>Usa fuentes legibles para mensajes importantes.</li>
+               <li>Contrasta bien el color del texto con el fondo.</li>
+               <li>Experimenta con sombras y contornos para dar profundidad.</li>
+             </ul>
+           </div>
+        </div>
+
+        <div className="w-full lg:w-[350px] shrink-0 border border-gray-100 rounded-xl bg-white shadow-sm overflow-hidden flex flex-col order-2 lg:order-1">
+           <ControlPanel />
+        </div>
+      </div>
+    </div>
+    </>
+  );
+}
