@@ -237,6 +237,7 @@ export function ControlPanel() {
                       onClick={() => store.updateState({ backgroundColor: color, backgroundImage: null })}
                       className={`w-8 h-8 rounded-full border-2 ${store.backgroundColor === color && !store.backgroundImage ? 'border-[#5A4AD2] scale-110 shadow-sm' : 'border-gray-200'} transition-all`}
                       style={{ backgroundColor: color }}
+                      aria-label={`Fondo ${color}`}
                     />
                   ))}
                   {store.backgroundImage && (

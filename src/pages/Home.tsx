@@ -43,7 +43,7 @@ function FaqItem({ q, a }: { q: string, a: string }) {
         className="w-full flex items-center justify-between p-4 text-left font-medium text-gray-800 hover:bg-gray-50 transition"
       >
         <span className="text-[15px]">{q}</span>
-        <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       {isOpen && (
         <div className="p-4 pt-0 text-gray-600 text-[15px] leading-relaxed border-t border-gray-100 bg-white">
@@ -258,21 +258,21 @@ export default function Home() {
               <span className="text-[#FF6B6B] text-xs font-bold tracking-wider uppercase mb-2">Tutoriales</span>
               <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight"><Link to="/blog/biografia-tiktok-aesthetic-dark" className="hover:text-[#5A4AD2] transition-colors">Biografía Aesthetic Dark en TikTok</Link></h3>
               <p className="text-gray-600 text-sm mb-6 flex-1">Aprende los secretos para optimizar tu perfil con la estética dark y grunge, letras cursivas y más.</p>
-              <Link to="/blog/biografia-tiktok-aesthetic-dark" className="text-[#5A4AD2] font-semibold text-sm hover:underline flex items-center">Leer artículo &rarr;</Link>
+              <Link to="/blog/biografia-tiktok-aesthetic-dark" className="text-[#5A4AD2] font-semibold text-sm hover:underline flex items-center" aria-label="Leer artículo sobre Biografía Aesthetic Dark en TikTok">Leer artículo &rarr;</Link>
             </div>
             
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col">
               <span className="text-[#34D399] text-xs font-bold tracking-wider uppercase mb-2">Gaming</span>
               <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight"><Link to="/blog/mejores-nombres-insanos-free-fire" className="hover:text-[#5A4AD2] transition-colors">Los mejores nombres insanos Free Fire</Link></h3>
               <p className="text-gray-600 text-sm mb-6 flex-1">Descubre cómo crear nombres que den miedo, usando símbolos, espacios invisibles y letras raras.</p>
-              <Link to="/blog/mejores-nombres-insanos-free-fire" className="text-[#5A4AD2] font-semibold text-sm hover:underline flex items-center">Leer artículo &rarr;</Link>
+              <Link to="/blog/mejores-nombres-insanos-free-fire" className="text-[#5A4AD2] font-semibold text-sm hover:underline flex items-center" aria-label="Leer artículo sobre Los mejores nombres insanos Free Fire">Leer artículo &rarr;</Link>
             </div>
             
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col">
               <span className="text-[#FBBF24] text-xs font-bold tracking-wider uppercase mb-2">Trucos</span>
               <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight"><Link to="/blog/letras-invisibles-espacios-guia-redes-sociales" className="hover:text-[#5A4AD2] transition-colors">Espacios y letras invisibles (Guía)</Link></h3>
               <p className="text-gray-600 text-sm mb-6 flex-1">Todo lo que necesitas saber sobre los caracteres Unicode transparentes y los espacios en blanco.</p>
-              <Link to="/blog/letras-invisibles-espacios-guia-redes-sociales" className="text-[#5A4AD2] font-semibold text-sm hover:underline flex items-center">Leer artículo &rarr;</Link>
+              <Link to="/blog/letras-invisibles-espacios-guia-redes-sociales" className="text-[#5A4AD2] font-semibold text-sm hover:underline flex items-center" aria-label="Leer artículo sobre Espacios y letras invisibles">Leer artículo &rarr;</Link>
             </div>
           </div>
           

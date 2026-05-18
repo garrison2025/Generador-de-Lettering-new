@@ -166,7 +166,7 @@ export default function LetrasFreeFire() {
             <Link to="/" className="hover:text-[#FACC15] transition-colors">Inicio</Link>
           </li>
           <li className="flex items-center space-x-2">
-            <span className="text-gray-400">/</span>
+            <span className="text-gray-500">/</span>
             <span className="text-gray-900" aria-current="page">Letras para Free Fire</span>
           </li>
         </ol>
@@ -188,6 +188,7 @@ export default function LetrasFreeFire() {
               onClick={generateRandomBase}
               className="flex items-center gap-1.5 text-xs font-bold text-[#FACC15] hover:text-yellow-300 transition"
               title="Generar nombre aleatorio"
+              aria-label="Generar nombre aleatorio"
             >
               <Dices className="w-4 h-4" />
               <span className="hidden sm:inline">Aleatorio</span>
@@ -211,8 +212,9 @@ export default function LetrasFreeFire() {
             {inputText && (
               <button 
                 onClick={() => setInputText('')}
-                className="text-gray-400 hover:text-white transition"
+                className="text-gray-500 hover:text-white transition"
                 title="Borrar texto"
+                aria-label="Borrar texto"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
@@ -221,13 +223,14 @@ export default function LetrasFreeFire() {
         </div>
 
         <div className="pb-2">
-          <p className="text-xs font-bold text-gray-400 mb-2 uppercase">Símbolos Rápidos (Clic para añadir):</p>
+          <p className="text-xs font-bold text-gray-500 mb-2 uppercase">Símbolos Rápidos (Clic para añadir):</p>
           <div className="flex flex-wrap gap-2">
             {SYMBOLS.map((sym, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSymbolClick(sym)}
                 className="w-10 h-10 bg-gray-800 hover:bg-[#FACC15] hover:text-gray-900 text-gray-300 rounded border border-gray-700 hover:border-[#FACC15] transition-colors font-bold text-lg flex items-center justify-center"
+                aria-label={`Añadir símbolo ${sym}`}
               >
                 {sym}
               </button>
@@ -257,7 +260,7 @@ export default function LetrasFreeFire() {
                 <p className="text-xl md:text-2xl text-gray-900 truncate px-2 font-medium pr-12" title={fullName}>
                   {fullName}
                 </p>
-                <span className={`absolute right-2 text-xs font-bold ${fullName.length > 12 ? 'text-red-500' : 'text-gray-400'}`}>
+                <span className={`absolute right-2 text-xs font-bold ${fullName.length > 12 ? 'text-red-500' : 'text-gray-500'}`}>
                   {fullName.length}
                 </span>
               </div>

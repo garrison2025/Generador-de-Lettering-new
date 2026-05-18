@@ -334,13 +334,13 @@ export default function ConversorTexto() {
             id="text-input"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            className="w-full h-32 p-4 bg-gray-50 border-2 border-gray-100 rounded-xl focus:ring-0 focus:border-[#5A4AD2] outline-none resize-none text-xl font-medium pr-12 transition-all shadow-inner placeholder:text-gray-400"
+            className="w-full h-32 p-4 bg-gray-50 border-2 border-gray-100 rounded-xl focus:ring-0 focus:border-[#5A4AD2] outline-none resize-none text-xl font-medium pr-12 transition-all shadow-inner placeholder:text-gray-500"
             placeholder="Escribe algo increíble..."
           />
           {inputText && (
             <button 
               onClick={() => setInputText('')}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-1 transition"
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-1 transition"
               title="Borrar texto"
               aria-label="Borrar texto"
             >

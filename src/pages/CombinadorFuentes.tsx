@@ -87,7 +87,7 @@ export default function CombinadorFuentes() {
               onChange={(e) => setCustomText(e.target.value)}
               className="w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl focus:ring-0 focus:border-[#5A4AD2] outline-none transition font-medium"
             />
-            <Type className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Type className="w-5 h-5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
           </div>
           <div className="w-full md:w-48 flex flex-col gap-2">
             <div className="flex justify-between items-center">
@@ -110,7 +110,7 @@ export default function CombinadorFuentes() {
               <span className="font-bold text-[#5A4AD2] tracking-tight">{pairing.title}</span>
               <div className="text-right">
                 <span className="block text-xs font-bold text-gray-900">{pairing.primaryFont}</span>
-                <span className="block text-[10px] uppercase tracking-wider text-gray-400 mt-0.5">{pairing.secondaryFont}</span>
+                <span className="block text-[10px] uppercase tracking-wider text-gray-500 mt-0.5">{pairing.secondaryFont}</span>
               </div>
             </div>
             

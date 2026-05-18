@@ -26,9 +26,9 @@ export default function Blog() {
             <h2 className="text-2xl font-bold mb-4 leading-tight text-gray-900 hover:text-[#5A4AD2] transition-colors">
               <Link to={`/blog/${post.slug}`}>{post.title}</Link>
             </h2>
-            <p className="text-sm text-gray-400 font-medium mb-4">{new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            <p className="text-sm text-gray-500 font-medium mb-4">{new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             <p className="text-gray-600 mb-8 flex-1 leading-relaxed">{post.excerpt}</p>
-            <Link to={`/blog/${post.slug}`} className="text-[#5A4AD2] font-bold text-sm hover:underline flex items-center group">
+            <Link to={`/blog/${post.slug}`} aria-label={`Leer artículo completo sobre ${post.title}`} className="text-[#5A4AD2] font-bold text-sm hover:underline flex items-center group">
               Leer artículo completo 
               <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-1 transition-all">&rarr;</span>
             </Link>

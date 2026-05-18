@@ -54,6 +54,7 @@ export default function Layout() {
             <button 
               className="md:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -69,7 +70,7 @@ export default function Layout() {
               <Link to="/plantillas" onClick={() => setMobileMenuOpen(false)} className={`block px-3 py-3 rounded-md text-base font-medium ${location.pathname === '/plantillas' ? 'text-[#4F46E5] bg-indigo-50' : 'text-gray-900 hover:bg-gray-50'}`}>Plantillas</Link>
               <Link to="/blog" onClick={() => setMobileMenuOpen(false)} className={`block px-3 py-3 rounded-md text-base font-medium ${location.pathname.startsWith('/blog') ? 'text-[#4F46E5] bg-indigo-50' : 'text-gray-900 hover:bg-gray-50'}`}>Blog</Link>
               <div className="px-3 pt-4 pb-2 border-t border-gray-100 mt-2">
-                <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Herramientas Populares</span>
+                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Herramientas Populares</span>
               </div>
               <Link to="/herramientas/conversor-letras-bonitas" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Conv. Letras Bonitas</Link>
               <Link to="/herramientas/letras-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Letras Free Fire</Link>

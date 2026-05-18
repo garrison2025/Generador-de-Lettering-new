@@ -96,7 +96,7 @@ export default function PaletasColor() {
                   <div className="flex gap-1 shrink-0">
                     <button 
                       onClick={() => copyToClipboard(JSON.stringify(palette.colors), 'palette')}
-                      className="text-gray-400 hover:bg-gray-100 hover:text-gray-900 p-2 rounded-lg transition"
+                      className="text-gray-500 hover:bg-gray-100 hover:text-gray-900 p-2 rounded-lg transition"
                       title="Copiar arreglo de colores"
                     >
                       {copiedPalette === JSON.stringify(palette.colors) ? <Check className="w-4 h-4 text-green-600" /> : <Droplet className="w-4 h-4" />}

@@ -37,7 +37,7 @@ export default function Editor() {
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-gray-500 mb-6 font-medium">
         <Link to="/" className="flex items-center gap-1 hover:text-[#5A4AD2] transition"><Home className="w-4 h-4" /> Inicio</Link>
-        <span className="text-gray-300">&gt;</span>
+        <span className="text-gray-500">&gt;</span>
         <span className="text-[#5A4AD2]">Editor de Lettering</span>
       </div>
       
@@ -91,6 +91,7 @@ export default function Editor() {
                   className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
                   onClick={() => useEditorStore.getState().undo()}
                   disabled={useEditorStore((state: any) => state.historyIndex === 0)}
+                  aria-label="Deshacer"
                 >
                   <span className="flex items-center justify-center gap-1 lg:gap-2">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
@@ -101,6 +102,7 @@ export default function Editor() {
                   className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
                   onClick={() => useEditorStore.getState().redo()}
                   disabled={useEditorStore((state: any) => !state.history || state.historyIndex >= state.history.length - 1)}
+                  aria-label="Rehacer"
                 >
                   <span className="flex items-center justify-center gap-1 lg:gap-2">
                     <span className="hidden sm:inline">Rehacer</span>

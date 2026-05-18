@@ -369,7 +369,7 @@ export default function LetrasAzules() {
             <Link to="/" className="hover:text-[#5A4AD2] transition-colors">Inicio</Link>
           </li>
           <li className="flex items-center space-x-2">
-            <span className="text-gray-400">/</span>
+            <span className="text-gray-500">/</span>
             <span className="text-gray-900" aria-current="page">Letras Azules</span>
           </li>
         </ol>
@@ -393,13 +393,13 @@ export default function LetrasAzules() {
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-100 rounded-xl focus:ring-0 focus:border-[#5A4AD2] outline-none text-xl font-medium pr-12 transition-all shadow-inner placeholder:text-gray-400"
+            className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-100 rounded-xl focus:ring-0 focus:border-[#5A4AD2] outline-none text-xl font-medium pr-12 transition-all shadow-inner placeholder:text-gray-500"
             placeholder="Introduce una palabra o frase..."
           />
           {inputText && (
             <button 
               onClick={() => setInputText('')}
-              className="absolute top-1/2 -translate-y-1/2 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-1.5 transition"
+              className="absolute top-1/2 -translate-y-1/2 right-4 text-gray-500 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-1.5 transition"
               title="Borrar texto"
               aria-label="Borrar texto"
             >

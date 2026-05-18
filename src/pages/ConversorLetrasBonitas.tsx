@@ -361,7 +361,7 @@ export default function ConversorLetrasBonitas() {
             <Link to="/" className="hover:text-[#5A4AD2] transition-colors">Inicio</Link>
           </li>
           <li className="flex items-center space-x-2">
-            <span className="text-gray-400">/</span>
+            <span className="text-gray-500">/</span>
             <span className="text-gray-900" aria-current="page">Letras Bonitas</span>
           </li>
         </ol>
@@ -390,13 +390,13 @@ export default function ConversorLetrasBonitas() {
               id="text-input"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="w-full h-32 p-5 bg-white border-2 border-gray-200 rounded-xl focus:ring-0 focus:border-[#5A4AD2] outline-none resize-none text-xl md:text-2xl font-medium pr-12 shadow-inner transition-colors placeholder:text-gray-400"
+              className="w-full h-32 p-5 bg-white border-2 border-gray-200 rounded-xl focus:ring-0 focus:border-[#5A4AD2] outline-none resize-none text-xl md:text-2xl font-medium pr-12 shadow-inner transition-colors placeholder:text-gray-500"
               placeholder="Escribe aquí para transformar tu letra..."
             />
             {inputText && (
               <button 
                 onClick={() => setInputText('')}
-                className="absolute top-4 right-4 text-gray-400 hover:text-[#5A4AD2] bg-gray-50 hover:bg-[#5A4AD2]/10 rounded-full p-2 transition-colors"
+                className="absolute top-4 right-4 text-gray-500 hover:text-[#5A4AD2] bg-gray-50 hover:bg-[#5A4AD2]/10 rounded-full p-2 transition-colors"
                 title="Borrar todo"
                 aria-label="Borrar texto"
               >
@@ -420,7 +420,7 @@ export default function ConversorLetrasBonitas() {
               }`}
             >
               <div className="flex-1 w-full overflow-hidden">
-                <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">{style.name}</span>
+                <span className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">{style.name}</span>
                 <p className="text-2xl text-gray-900 break-words w-full max-h-32 overflow-y-auto pr-2 custom-scrollbar" title={converted}>
                   {converted}
                 </p>

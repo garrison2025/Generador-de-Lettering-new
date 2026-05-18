@@ -364,7 +364,7 @@ export default function LetrasTikTok() {
             <Link to="/" className="hover:text-pink-600 transition-colors">Inicio</Link>
           </li>
           <li className="flex items-center space-x-2">
-            <span className="text-gray-400">/</span>
+            <span className="text-gray-500">/</span>
             <span className="text-gray-900" aria-current="page">Letras para TikTok</span>
           </li>
         </ol>
@@ -397,7 +397,7 @@ export default function LetrasTikTok() {
           {inputText && (
             <button 
               onClick={() => setInputText('')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-pink-300 hover:text-pink-500 hover:bg-pink-50 rounded-full p-2 transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-pink-500 hover:text-pink-500 hover:bg-pink-50 rounded-full p-2 transition-colors"
               title="Borrar todo"
               aria-label="Borrar texto"
             >
@@ -414,7 +414,7 @@ export default function LetrasTikTok() {
           return (
             <div key={idx} className="bg-white border text-center md:text-left border-gray-200 rounded-2xl p-4 flex flex-col md:flex-row items-center gap-4 hover:border-pink-300 hover:shadow-md transition-all group">
               <div className="w-full md:w-48 shrink-0">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">{style.name}</span>
+                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">{style.name}</span>
               </div>
               <div className="flex-1 overflow-hidden">
                 <p className="text-xl md:text-2xl text-gray-900 truncate px-4 py-2 border-b md:border-b-0 border-gray-100 w-full" title={converted}>
@@ -448,7 +448,7 @@ export default function LetrasTikTok() {
       </div>
       
       <div className="mt-16 bg-white rounded-2xl p-8 border border-gray-200 text-center flex flex-col items-center">
-        <Heart className="w-12 h-12 text-pink-400 mb-4" />
+        <Heart className="w-12 h-12 text-pink-500 mb-4" />
         <h2 className="text-2xl font-bold text-gray-900 mb-3">Dale más estilo a tus redes</h2>
         <p className="text-gray-600 mb-6 max-w-xl mx-auto">
           ¿Necesitas algo más que texto? Prueba nuestro Editor de Lettering para crear imágenes, carteles y gráficos espectaculares con fuentes personalizadas y fondos gradientes.

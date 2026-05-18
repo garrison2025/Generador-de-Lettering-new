@@ -29,7 +29,7 @@ export default function NotFound() {
               <h3 className="font-bold text-xl text-gray-900 group-hover:text-pink-600 transition-colors">Conversor de Letras Bonitas</h3>
               <p className="text-sm text-gray-500 mt-2">Nuestra herramienta estrella para Instagram, WhatsApp y TikTok. ¡Más de 50 estilos gratis!</p>
             </div>
-            <ArrowRight className="w-6 h-6 text-gray-400 group-hover:text-pink-500 ml-4 shrink-0" />
+            <ArrowRight className="w-6 h-6 text-gray-500 group-hover:text-pink-500 ml-4 shrink-0" />
           </Link>
           <Link 
             to="/herramientas/letras-free-fire"
@@ -39,7 +39,7 @@ export default function NotFound() {
               <h3 className="font-bold text-xl text-gray-900 group-hover:text-yellow-600 transition-colors">Nombres para Free Fire</h3>
               <p className="text-sm text-gray-500 mt-2">Crea nicks insanos y épicos con símbolos, espacios invisibles, coronas y alas.</p>
             </div>
-            <ArrowRight className="w-6 h-6 text-gray-400 group-hover:text-yellow-500 ml-4 shrink-0" />
+            <ArrowRight className="w-6 h-6 text-gray-500 group-hover:text-yellow-500 ml-4 shrink-0" />
           </Link>
         </div>
 
