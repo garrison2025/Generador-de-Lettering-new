@@ -99,18 +99,10 @@ export default function PlantillasPractica() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {SHEETS.map((sheet, idx) => (
+        {SHEETS.map((sheet) => (
           <div key={sheet.title} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col group">
             <div className="h-48 relative overflow-hidden bg-gray-100">
-              <img 
-                src={sheet.img} 
-                alt={sheet.title} 
-                width="400" 
-                height="192"
-                decoding={idx < 2 ? "sync" : "async"}
-                loading={idx < 2 ? "eager" : "lazy"} 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-              />
+              <img src={sheet.img} alt={sheet.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-gray-700 shadow-sm">
                 {sheet.format}
               </div>

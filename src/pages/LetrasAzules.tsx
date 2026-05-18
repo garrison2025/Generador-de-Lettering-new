@@ -247,13 +247,6 @@ export default function LetrasAzules() {
   const [inputText, setInputText] = useState('LETRAS AZULES');
   const deferredInput = useDeferredValue(inputText);
   const [copiedResult, setCopiedResult] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(9);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setVisibleCount(STYLES.length);
-    }, 100);
-  }, []);
 
   useEffect(() => {
     // Removed document.title 
@@ -417,7 +410,7 @@ export default function LetrasAzules() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-        {STYLES.slice(0, visibleCount).map((style) => {
+        {STYLES.map((style) => {
           const resultText = convertText(deferredInput, style.id);
           const isCopied = copiedResult === style.id;
           

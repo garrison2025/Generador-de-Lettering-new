@@ -307,13 +307,6 @@ export default function ConversorLetrasBonitas() {
   const [inputText, setInputText] = useState('Letras hermosas');
   const deferredInput = useDeferredValue(inputText);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(9); // Initial fast render
-
-  useEffect(() => {
-    setTimeout(() => {
-      setVisibleCount(STYLES.length);
-    }, 100);
-  }, []);
 
   useEffect(() => {
     // Removed document.title 
@@ -415,7 +408,7 @@ export default function ConversorLetrasBonitas() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {STYLES.slice(0, visibleCount).map((style) => {
+        {STYLES.map((style) => {
           const converted = convertText(deferredInput, style.id);
           const isCopied = copiedId === style.id;
           

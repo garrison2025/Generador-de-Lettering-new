@@ -292,13 +292,6 @@ export default function ConversorTexto() {
   const [inputText, setInputText] = useState('Lettering Mágico');
   const deferredInput = useDeferredValue(inputText);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(9);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setVisibleCount(STYLES.length);
-    }, 100);
-  }, []);
 
   useEffect(() => {
     // Removed document.title
@@ -358,7 +351,7 @@ export default function ConversorTexto() {
       </div>
 
       <div className="space-y-4">
-        {STYLES.slice(0, visibleCount).map((style) => {
+        {STYLES.map((style) => {
           const converted = convertText(deferredInput || 'Escribe algo', style.id);
           
           return (

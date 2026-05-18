@@ -314,13 +314,6 @@ export default function LetrasTikTok() {
   const [inputText, setInputText] = useState('');
   const deferredInput = useDeferredValue(inputText);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(9);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setVisibleCount(STYLES.length);
-    }, 100);
-  }, []);
 
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -415,7 +408,7 @@ export default function LetrasTikTok() {
       </div>
 
       <div className="space-y-4">
-        {STYLES.slice(0, visibleCount).map((style, idx) => {
+        {STYLES.map((style, idx) => {
           const converted = convertText(deferredInput, style.id, style.deco);
           
           return (
