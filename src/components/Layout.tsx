@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { PenTool, Menu, X } from 'lucide-react';
+import CookieConsent from './CookieConsent';
 
 export default function Layout() {
   const location = useLocation();
@@ -145,6 +146,7 @@ export default function Layout() {
           </div>
         </footer>
       )}
+      <CookieConsent />
     </div>
   );
 }
