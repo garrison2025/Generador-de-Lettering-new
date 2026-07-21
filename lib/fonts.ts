@@ -29,26 +29,9 @@ export const PRESET_COLORS = [
   "#000000", "#FFFFFF", "#FF6B6B", "#FBBF24", "#34D399", "#3B82F6", "#5A4AD2", "#9333EA"
 ];
 
-export const loadFont = async (fontFamily: string): Promise<void> => {
+export const loadFont = async (fontFamily: string) => {
   const fontDef = FONTS.find(f => f.family === fontFamily);
   if (!fontDef) return;
-
-  // Ensure the stylesheet for this font is appended to the document
-  const linkId = `google-font-${fontFamily.replace(/\s+/g, '-').toLowerCase()}`;
-  if (!document.getElementById(linkId)) {
-    const link = document.createElement('link');
-    link.id = linkId;
-    link.rel = 'stylesheet';
-    link.href = `https://fonts.googleapis.com/css2?family=${fontDef.href}&display=swap`;
-    document.head.appendChild(link);
-    
-    // Wait for the stylesheet to load
-    await new Promise<void>((resolve) => {
-      link.onload = () => resolve();
-      link.onerror = () => resolve();
-      setTimeout(resolve, 800); // safety timeout
-    });
-  }
 
   try {
     await document.fonts.load(`16px "${fontFamily}"`);
