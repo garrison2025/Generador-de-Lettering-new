@@ -1,502 +1,636 @@
-import { useState, useEffect, useDeferredValue } from 'react';
-import { Copy, Check, Instagram, Heart, ChevronLeft } from 'lucide-react';
+import React, { useState, useEffect, useDeferredValue } from 'react';
+import { 
+  Copy, 
+  Check, 
+  Heart, 
+  ChevronLeft, 
+  Sparkles, 
+  Smartphone, 
+  MessageSquare, 
+  User, 
+  HelpCircle, 
+  Hash, 
+  Zap, 
+  BookOpen, 
+  CheckCircle2, 
+  Flame, 
+  Sliders,
+  AlertCircle
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-const FONTS_DATA: Record<string, string> = {
-  // 1-10: Cursivas y Góticas
-  cursiva: '𝒶𝒷𝒸𝒹ℯ𝒻ℊ𝒽𝒾𝒿𝓀𝓁𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵',
-  cursiva_bold: '𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩',
-  gotica: '𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ',
-  gotica_bold: '𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅',
-  
-  // 11-20: Sans y Serif
-  doble: '𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ',
-  sans: '𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹',
-  sans_bold: '𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧Ｕ𝗩𝗪𝗫𝗬𝗭',
-  sans_italic: '𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘃𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡',
-  sans_bold_italic: '𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕',
-  serif: '𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙',
-  serif_italic: '𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍',
-  serif_bold: '𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙',
-  serif_bold_italic: '𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁',
-  
-  // 21-30: Burbujas y Cuadrados
-  burbujas: 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ',
-  burbujas_negra: '🅐🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩🅐🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩',
-  cuadrados: '🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉',
-  cuadrados_negros: '🅰🅱🅲🅳🅴🅵🅶🅷🅸🅹🅺🅻🅼🅽🅾🅿🆀🆁🆂🆃🆄🆅🆆🆇🆈🆉🅰🅱🅲🅳🅴🅵🅶🅷🅸🅹🅺🅻🅼🅽🅾🅿🆀🆁🆂🆃🆄🆅🆆🆇🆈🆉',
-  parentesis: '⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵🄐🄑🄒🄓🄔🄕🄖🄗🄘🄙🄚🄛🄜🄝🄞🄟🄠🄡🄢🄣🄤🄥🄦🄧🄨🄩',
-
-  // 31-40: Estilos Visuales Geométricos y Monospace
-  monospace: '𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶ＨＩ𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉',
-  vaporwave: 'ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ',
-  mini_sup: 'ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖᑫʳˢᵗᵘᵘᵛʷˣʸᶻᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᑫᴿˢᵀᵁᵁⱽᵂˣʸᶻ',
-  mini_sub: 'ₐbcdₑfgₕᵢⱼₖₗₘₙₒₚqᵣₛₜᵤᵥwₓyzₐBCDₑFGₕᵢⱼₖₗₘₙₒₚQᵣₛₜᵤᵥWₓYZ',
-  small_caps: 'ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ',
-  
-  // 41-50: Volteadas e Invertidas
-  al_reves: 'ɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎz∀qƆpƎℲפHIſʞ˥WNOԀQRS┴∩ΛMX⅄Z',
-  espejo: 'ɒdɔbɘꟻǫdihilʞlmnpqɿꙅtuvwxyzAꓭƆᗡƎꟻꓨHIK⅃MИOꟼỌЯƧTUVWXYZ', 
-  invertido_mayusculas: 'ɐqɔpǝɟƃɥıɾʞlɯuodbɹsʇnʌʍxʎz∀ꓭƆᗡƎℲꓨHIſꓘ⅃WNOԀỘꓤSꓕՈΛMX⅄Z',
-  
-  // 51-60: Falsos Alfabetos / Substituciones
-  ruso: 'авсdеfgнijкlмпорqгsтuvwхуzАВСDЕFGНІJКLМПОРQГSТUVWХУZ',
-  griego: 'αβcdεfghιjκlmηθpqrsτυvωxyzΑΒCDΕFGHΙJΚLMΝΘPQRSΤΥVΩXYZ',
-  arabe: 'ค๒ς๔єfgђเןкl๓ภ๏pqгรtยvwאyzค๒ς๔єfgђเןкl๓ภ๏pqгรtยvwאyz',
-  hebreo: 'אבכדעהגהיזקלמנאפקרסטואוזאבכדעהגהיזקלמנאפקרסטואוז',
-  asiatico: '卂乃匚刀乇下Ꮆ卄工丁长乚从𠘨口尸㔿尺丂丅凵リ山乂丫乙卂乃匚刀乇下Ꮆ卄工丁长乚从𠘨口尸㔿尺丂丅凵リ山乂丫乙',
-  runas: 'ᚨᛒᚲᛞᛖᚠᚷᚺᛁᛃᚲᛚᛗᚾᛟᛈᛩᚱᛊᛏᚢᚡᚹᛪᚤᛉᚨᛒᚲᛞᛖᚠᚷᚺᛁᛃᚲᛚᛗᚾᛟᛈᛩᚱᛊᛏᚢᚡᚹᛪᚤᛉ',
-  hacker: '4bcd3f9h1jklmn0pqrs7uvwxy248CD3F6H1JKLMN0PQR57UVWXY2',
-  armas: '︻╦╤─a︻╦╤─b︻╦╤─c︻╦╤─d︻╦╤─e︻╦╤─f︻╦╤─g︻╦╤─h︻╦╤─i︻╦╤─j︻╦╤─k︻╦╤─l︻╦╤─m︻╦╤─n︻╦╤─o︻╦╤─p︻╦╤─q︻╦╤─r︻╦╤─s︻╦╤─t︻╦╤─u︻╦╤─v︻╦╤─w︻╦╤─x︻╦╤─y︻╦╤─z︻╦╤─A︻╦╤─B︻╦╤─C︻╦╤─D︻╦╤─E︻╦╤─F︻╦╤─G︻╦╤─H︻╦╤─I︻╦╤─J︻╦╤─K︻╦╤─L︻╦╤─M︻╦╤─N︻╦╤─O︻╦╤─P︻╦╤─Q︻╦╤─R︻╦╤─S︻╦╤─T︻╦╤─U︻╦╤─V︻╦╤─W︻╦╤─X︻╦╤─Y︻╦╤─Z', 
-  demoniaco: 'a̶b̶c̶d̶e̶f̶g̶h̶i̶j̶k̶l̶m̶n̶o̶p̶q̶r̶s̶t̶u̶v̶w̶x̶y̶z̶A̶B̶C̶D̶E̶F̶G̶H̶I̶J̶K̶L̶M̶N̶O̶P̶Q̶R̶S̶T̶U̶V̶W̶X̶Y̶Z̶',
-};
-
-const FONT_MAPS: Record<string, Record<string, string>> = {};
-
-Object.keys(FONTS_DATA).forEach((key) => {
-  const chars = Array.from(FONTS_DATA[key]);
-  const alphaChars = Array.from(ALPHABET);
-  FONT_MAPS[key] = {};
-  alphaChars.forEach((char, i) => {
-    FONT_MAPS[key][char] = chars[i] || char;
-  });
-});
-
-const DECORATORS: Record<string, { pre?: string; post?: string; join?: string; modifier?: string, reverse?: boolean }> = {
-  // Modifiers
-  tachado: { modifier: '\u0336' },
-  subrayado: { modifier: '\u0332' },
-  subrayado_doble: { modifier: '\u0333' },
-  raya_arriba: { modifier: '\u0305' },
-  slash_corto: { modifier: '\u0337' },
-  cruz_tachado: { modifier: '\u0338' },
-  tilde_tachado: { modifier: '\u0334' },
-  flecha_abajo: { modifier: '\u0316' },
-  puntos_abajo: { modifier: '\u0324' },
-  triangulitos: { modifier: '\u0359' },
-  gaviotas: { modifier: '\u033C' },
-  
-  // Zalgo
-  zalgo_mini: { modifier: '\u030D\u030E\u0304\u0310' },
-  zalgo_inferno: { modifier: '\u0311\u0302\u0328\u0327\u0326\u0330\u0332' },
-
-  // Joins
-  ondas: { join: ' ﹏ ' },
-  estrellas: { join: ' ✨ ' },
-  corazones: { join: ' 💙 ' },
-  flechas: { join: ' ↬ ' },
-  cruces: { join: ' ✝ ' },
-  diamantes: { join: ' ♢ ' },
-  diamantes_negros: { join: ' ♦ ' },
-  musica: { join: ' ♫ ' },
-  flores: { join: ' ❀ ' },
-  rayos: { join: ' ϟ ' },
-  mariposas: { join: ' 🦋 ' },
-  fuego: { join: ' 🔥 ' },
-  luna: { join: ' ☾ ' },
-  dioses: { join: ' ⚡ ' },
-  corazon_roto: { join: ' 💔 ' },
-  nieves: { join: ' ❄ ' },
-  espacios: { join: ' ' },
-  asteriscos: { join: ' * ' },
-  slash: { join: ' / ' },
-  puntos: { join: ' • ' },
-  coronitas: { join: ' 👑 ' },
-  armas: { join: ' ︻╦╤─ ' },
-
-  // Wrappers
-  brackets: { pre: '【 ', post: ' 】' },
-  cruz_wrapper: { pre: '꧁ ', post: ' ꧂' },
-  flechas_wrapper: { pre: '« ', post: ' »' },
-  corazones_wrapper: { pre: '♥ ', post: ' ♥' },
-  fuego_wrapper: { pre: '🔥 ', post: ' 🔥' },
-  
-  // Custom Reversals
-  espejo_invertido: { reverse: true },
-};
-
 const STYLES = [
-  // TikTok specific favorites
-  { id: 'cursiva', name: 'Aesthetic Cursiva', deco: '✨ {text} ✨' },
-  { id: 'cursiva_bold', name: 'Cursiva Intensa', deco: '🍷 {text} 🍷' },
-  { id: 'cursiva', name: 'Coquette Chic', deco: '🎀 ৎ {text} ୭ 🎀' },
-  { id: 'gotica', name: 'Gótica Dark', deco: '🦇 {text} 🦇' },
-  { id: 'gotica_bold', name: 'Gótica Rebelde', deco: '⛓️ {text} ⛓️' },
-  { id: 'monospace', name: 'Dark Academia', deco: '☕ {text} 🤎' },
-  { id: 'doble', name: 'Doble Contorno', deco: '☁️ {text} ☁️' },
-  { id: 'burbujas', name: 'Soft Kawaii', deco: '🌸 {text} 🌸' },
-  { id: 'cuadrados', name: 'Cuadrados', deco: '📦 {text} 📦' },
-  { id: 'vaporwave', name: 'Vaporwave Espaciado', deco: '🌴 {text} 🌴' },
-  { id: 'mini_sup', name: 'Letras Chiquitas', deco: '🧸 {text} 🧸' },
-  { id: 'normal', name: 'Estrellas Cute', deco: '✮ ⋆ ˚｡𖦹 ⋆｡°✩ {text} ✩°｡⋆ 𖦹˚ ⋆ ✮' },
-  { id: 'normal', name: 'Y2K Vibes', deco: '★ {text} ★' },
-  { id: 'normal', name: 'Fairycore', deco: '🍄 🧚‍♀️ {text} 🧚‍♀️ 🍄' },
-  { id: 'normal', name: 'Kaomoji Feliz', deco: '(≧◡≦) {text} (≧◡≦)' },
-
-  // The rest of the 50+ list without deco
-  { id: 'sans', name: 'Sans Normal', deco: '{text}' },
-  { id: 'sans_bold', name: 'Sans Negrita', deco: '{text}' },
-  { id: 'sans_italic', name: 'Sans Cursiva', deco: '{text}' },
-  { id: 'sans_bold_italic', name: 'Sans Cursiva Negrita', deco: '{text}' },
-  { id: 'serif', name: 'Serif Fina', deco: '{text}' },
-  { id: 'serif_italic', name: 'Serif Cursiva', deco: '{text}' },
-  { id: 'serif_bold', name: 'Serif Negrita', deco: '{text}' },
-  { id: 'serif_bold_italic', name: 'Serif Negrita Cursiva', deco: '{text}' },
-  { id: 'burbujas_negra', name: 'Burbujas Oscuras', deco: '{text}' },
-  { id: 'cuadrados_negros', name: 'Cuadrados Oscuros', deco: '{text}' },
-  { id: 'parentesis', name: 'Letras en Paréntesis', deco: '{text}' },
-  { id: 'mini_sub', name: 'Mini Letras Abajo', deco: '{text}' },
-  { id: 'small_caps', name: 'Versalitas (Minúsculas Mayúsculas)', deco: '{text}' },
-  { id: 'al_reves', name: 'Invertido (Boca Abajo)', deco: '{text}' },
-  { id: 'espejo', name: 'Espejo', deco: '{text}' },
-  { id: 'invertido_mayusculas', name: 'Espejo Loco', deco: '{text}' },
-  { id: 'ruso', name: 'Falso Ruso (Cyrillic)', deco: '{text}' },
-  { id: 'griego', name: 'Falso Griego', deco: '{text}' },
-  { id: 'arabe', name: 'Falso Árabe', deco: '{text}' },
-  { id: 'hebreo', name: 'Falso Hebreo', deco: '{text}' },
-  { id: 'asiatico', name: 'Letras Asiáticas', deco: '{text}' },
-  { id: 'runas', name: 'Letras Rúnicas', deco: '{text}' },
-  { id: 'hacker', name: 'Leetspeak (Hacker)', deco: '{text}' },
-  
-  // Modifiers 
-  { id: 'tachado', name: 'Tachado Simple', deco: '{text}' },
-  { id: 'cruz_tachado', name: 'Tachado con Cruces', deco: '{text}' },
-  { id: 'slash_corto', name: 'Tachado Corto (Slash)', deco: '{text}' },
-  { id: 'tilde_tachado', name: 'Tachado Ondulado', deco: '{text}' },
-  { id: 'subrayado', name: 'Subrayado Simple', deco: '{text}' },
-  { id: 'subrayado_doble', name: 'Subrayado Doble', deco: '{text}' },
-  { id: 'raya_arriba', name: 'Raya Superior', deco: '{text}' },
-  { id: 'flecha_abajo', name: 'Flechas Debajo', deco: '{text}' },
-  { id: 'puntos_abajo', name: 'Puntos Inferiores', deco: '{text}' },
-  { id: 'triangulitos', name: 'Triángulos Inferiores', deco: '{text}' },
-  { id: 'gaviotas', name: 'Gaviotas Inferiores', deco: '{text}' },
-  
-  // Zalgo Styles
-  { id: 'zalgo_mini', name: 'Zalgo Suave', deco: '{text}' },
-  { id: 'zalgo_inferno', name: 'Zalgo Extremo', deco: '{text}' },
-
-  // Wrappers
-  { id: 'cruz_wrapper', name: 'Adorno Floral ꧁ ꧂', deco: '{text}' },
-  { id: 'flechas_wrapper', name: 'Adorno Flechas « »', deco: '{text}' },
-  { id: 'corazones_wrapper', name: 'Adorno Corazones ♥', deco: '{text}' },
-  { id: 'fuego_wrapper', name: 'Adorno Fuego 🔥', deco: '{text}' },
-  { id: 'brackets', name: 'Cajas Brackets 【】', deco: '{text}' },
-  
-  // Joins & Decorators
-  { id: 'espacios', name: 'E S P A C I O S', deco: '{text}' },
-  { id: 'ondas', name: 'Onditas (﹏)', deco: '{text}' },
-  { id: 'puntos', name: 'Punteado (•)', deco: '{text}' },
-  { id: 'asteriscos', name: 'Asteriscos (*)', deco: '{text}' },
-  { id: 'slash', name: 'Slassh ( / )', deco: '{text}' },
-  { id: 'estrellas', name: 'Estrellitas (✨)', deco: '{text}' },
-  { id: 'corazones', name: 'Corazones (💙)', deco: '{text}' },
-  { id: 'corazon_roto', name: 'Corazón Roto (💔)', deco: '{text}' },
-  { id: 'diamantes', name: 'Diamantes Blancos (♢)', deco: '{text}' },
-  { id: 'diamantes_negros', name: 'Diamantes Negros (♦)', deco: '{text}' },
-  { id: 'flores', name: 'Florcitas (❀)', deco: '{text}' },
-  { id: 'cruces', name: 'Cruces (✝)', deco: '{text}' },
-  { id: 'musica', name: 'Música (♫)', deco: '{text}' },
-  { id: 'flechas', name: 'Flechas (↬)', deco: '{text}' },
-  { id: 'rayos', name: 'Rayos Vintage (ϟ)', deco: '{text}' },
-  { id: 'dioses', name: 'Dioses (⚡)', deco: '{text}' },
-  { id: 'luna', name: 'Lunitas (☾)', deco: '{text}' },
-  { id: 'fuego', name: 'A Fuego (🔥)', deco: '{text}' },
-  { id: 'mariposas', name: 'Mariposas (🦋)', deco: '{text}' },
-  { id: 'nieves', name: 'Nevado (❄)', deco: '{text}' },
-  { id: 'coronitas', name: 'Coronitas VIP (👑)', deco: '{text}' },
-  { id: 'armas', name: 'Pistolas (︻╦╤─)', deco: '{text}' },
+  { id: 'aesthetic', name: 'Aesthetic Double Struck', convert: (t: string) => convertFont(t, '𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ'), cat: 'aesthetic' },
+  { id: 'cursiva', name: 'Cursiva Elegante', convert: (t: string) => convertFont(t, '𝒶𝒷𝒸𝒹𝑒𝒻𝑔𝒽𝒾𝒿𝓀𝓁𝓂𝓃𝑜𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝒜𝐵𝒞𝒟𝐸𝐹𝒢𝐻𝐼𝒥𝒦𝐿𝑀𝒩𝒪𝒫𝒬𝑅𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵'), cat: 'cursivas' },
+  { id: 'cursiva-negrita', name: 'Cursiva Negrita', convert: (t: string) => convertFont(t, '𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝓍𝔂𝔃𝓐𝓑𝓒𝓓𝓔𝓐𝓖𝓗𝓘𝓙碍𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓯𝓊𝓥Structure𝓧𝓨𝓩'), cat: 'cursivas' },
+  { id: 'sans-bold', name: 'Sans Negrita', convert: (t: string) => convertFont(t, '𝞪𝞩𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿🟀🟁🟂🟃🟄🟅🟆🟇🟈🟉🟊🟋🟌🟍🟎🟏🟐🟑🟒🟓🟔🟕🟖🟗🟘🟙🟚🟛🟜🟝🟞🟟'), cat: 'negritas' },
+  { id: 'mono', name: 'Espaciado Monospace', convert: (t: string) => convertFont(t, '𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙 fill 𝚜𝚝𝚞𝚟23𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿 fill 𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚠'), cat: 'aesthetic' },
+  { id: 'gotica', name: 'Gótica Dark', convert: (t: string) => convertFont(t, '𝔟𝔠𝔡𝔢𝔣𝔤Popular𝔦𝔥𝔧𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔏𝔍𝔏𝔐𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥'), cat: 'goticas' },
+  { id: 'gotica-bold', name: 'Gótica Negrita Dark', convert: (t: string) => convertFont(t, '𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖞𝖟𝕬𝕭𝕮𝕯𝕰𝕱𝕘𝕹𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅'), cat: 'goticas' },
+  { id: 'circulos', name: 'Círculos Blancos', convert: (t: string) => convertFont(t, 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤ⓯⓰⓱⓲⓳ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ'), cat: 'efectos' },
+  { id: 'circulos-negros', name: 'Círculos Negros', convert: (t: string) => convertFont(t, '🅐🅑🅒 Fast🅔贵 his 🅙🅚🅛🅜🅞🅟🅠🅡🅢🅣🅤🅥🅯🅯🅨🅩🅐🅑🅒 Fast🅔贵 his 🅙🅚🅛🅜🅞🅟🅠🅡🅢🅣🅤🅥🅯🅯🅨🅩'), cat: 'efectos' },
+  { id: 'cuadrados', name: 'Cuadrados Estilo Pixel', convert: (t: string) => convertFont(t, '🄰🄱🄲🄳🄴🄵🄷🄸🄹🄺🄻🄼 any 🄾🄿🅀🅁🅂🅃🅄🅅789🅉🄰🄱🄲🄳🄴🄵🄷🄸🄹🄺🄻🄼 any 🄾🄿🅀🅁🅂🅃🅄🅅789🅉'), cat: 'efectos' },
+  { id: 'small-caps', name: 'Mayúsculas Pequeñas (Small Caps)', convert: (t: string) => convertFont(t, 'ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢABCDEFGHIJKLMNOPQRSTUVWXYZ'), cat: 'aesthetic' },
+  { id: 'burbujas', name: 'Burbujas Suaves', convert: (t: string) => convertFont(t, 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤ⓯⓰⓱⓲⓳ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ'), cat: 'aesthetic' },
 ];
 
-function convertText(text: string, styleId: string, deco: string) {
-  if (!text) text = 'letras bonitas';
-  let converted = text;
+const DECORATORS = [
+  { prefix: '˚ ༘♡ ⋆｡˚ ', suffix: ' ❀', name: 'Flores Soft Aesthetic', category: 'simbolos' },
+  { prefix: '𓍢ִ໋🌷͙֒ ', suffix: ' 𓆸', name: 'Tulipán & Naturaleza', category: 'simbolos' },
+  { prefix: '✦ ', suffix: ' ✦', name: 'Estrellas Mágicas', category: 'simbolos' },
+  { prefix: '┊ ', suffix: ' ┊', name: 'Líneas Minimalistas', category: 'simbolos' },
+  { prefix: '⟡ ', suffix: ' ⟡', name: 'Diamantes TikTok', category: 'simbolos' },
+  { prefix: '⚡️ ', suffix: ' ⚡️', name: 'Energía & Trend', category: 'simbolos' },
+  { prefix: '♡ ', suffix: ' ♡', name: 'Corazones Coquette', category: 'simbolos' },
+  { prefix: '【﻿ ', suffix: ' 】', name: 'Marcos Retro Gamer', category: 'efectos' },
+  { prefix: '꧁ ', suffix: ' ꧂', name: 'Alas TikToker VIP', category: 'efectos' },
+];
 
-  // Appply mapped fonts
-  if (FONT_MAPS[styleId]) {
-    const map = FONT_MAPS[styleId];
-    converted = converted.split('').map(char => {
-      if (styleId === 'al_reves' || styleId === 'espejo' || styleId === 'invertido_mayusculas') {
-        const mapped = map[char] || map[char.toLowerCase()] || char;
-        return mapped;
-      }
-      return map[char] || char;
-    }).join('');
-    
-    // Si es al revés o espejo, el texto completo también se invierte
-    if (styleId === 'al_reves' || styleId === 'espejo' || styleId === 'invertido_mayusculas') {
-      converted = converted.split('').reverse().join('');
+const AESTHETIC_SYMBOLS = [
+  '𓍢ִ໋🌷͙֒', '˚ ༘♡ ⋆｡˚', '✦', '✧', '⟡', '⚡️', '♡', '❀', '✿', '★', '☆', '𓆏', '𓆸', '┊', '𓍯', '𓏲', '𓌈', '🕊️', '👑'
+];
+
+const BIO_TEMPLATES = [
+  { label: 'Aesthetic Girl', text: '˚ ༘♡ ⋆｡˚ 𝒞𝓇𝑒𝒶𝒹𝑜𝓇𝒶 𝒹𝑒 𝒸𝑜𝓃𝓉𝑒𝓃𝒾𝒹𝑜 🌸 | 𝒱𝒾𝒷𝑒𝓈 & 𝒮𝓉𝓎𝓁𝑒' },
+  { label: 'Gamer / Trend', text: '⚡️ 𝘛𝘪𝘬𝘛𝘰𝘬 𝘊𝘳𝘦𝘢𝘵𝘰𝘳 🎮 ┊ 𝘓𝘪𝘷𝘦𝘴 𝘛𝘰𝘥𝘰𝘴 𝘭𝘰𝘴 𝘥├́𝘢𝘴' },
+  { label: 'Coquette Soft', text: '𓍢ִ໋🌷͙֒ 𝒩𝑜𝓉𝒶𝓈 𝒹𝑒 𝒶𝓂𝑜𝓇 𝓎 𝓂𝑜𝒹𝒶 🎀 ♡ 𝒮├́𝑔𝓊𝑒𝓂𝑒 𝓅𝒶𝓇𝒶 𝓂├́𝓈' },
+  { label: 'Minimal / Bio', text: '✦ ᴅ ᴇ s ɪ ɢ ɴ ᴇ ʀ ┊ ᴄ ᴏ ɴ ᴛ ᴇ ɴ ᴛ  ᴄ ʀ ᴇ ᴀ ᴛ ᴏ ʀ ⚡️' },
+];
+
+function convertFont(text: string, targetMap: string) {
+  let result = '';
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    const index = ALPHABET.indexOf(char);
+    if (index !== -1 && targetMap[index]) {
+      result += targetMap[index];
+    } else {
+      result += char;
     }
   }
-
-  // Apply decorators (modifiers & joins)
-  if (DECORATORS[styleId]) {
-    const dec = DECORATORS[styleId];
-    
-    if (dec.modifier) {
-      converted = converted.split('').map(char => char !== ' ' ? char + dec.modifier : char).join('');
-    }
-    
-    if (dec.join) {
-      converted = converted.split('').join(dec.join);
-    }
-    
-    if (dec.pre || dec.post) {
-      converted = `${dec.pre || ''}${converted}${dec.post || ''}`;
-    }
-    
-    if (dec.reverse) {
-      converted = converted.split('').reverse().join('');
-    }
-  }
-  
-  return deco.replace('{text}', converted);
+  return result;
 }
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "¿Cómo cambiar la letra en TikTok? (Bio, nombre y comentarios)",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dentro de la aplicación de TikTok no hay una opción nativa para cambiar el tipo de letra de tu biografía o nombre de usuario. Para lograrlo, necesitas usar un generador de letras bonitas para TikTok como el nuestro. Solo tienes que escribir tu texto en la parte superior, elegir la tipografía aesthetic, cursiva o gótica que más te guste, hacer clic en copiar y luego pegarlo directamente en tu perfil de TikTok (Editar perfil > Nombre / Descripción)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Qué son las fuentes aesthetic o letras raras para TikTok?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Las \"letras raras\", fuentes aesthetic o \"letras invisibles\" en realidad no son tipografías (fuentes) tradicionales, sino caracteres especiales del sistema Unicode que todos los teléfonos modernos (iOS y Android) pueden leer. Cuando usas nuestro conversor para obtener letras cursivas, góticas, tachadas o con símbolos, estás combinando estos símbolos únicos. Por esto puedes copiarlas y pegarlas en cualquier red social como Instagram, WhatsApp o Free Fire."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Cuáles son las letras bonitas más usadas en TikTok?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Entre las tipografías más buscadas por los usuarios destacan: las letras cursivas elegantes (ideales para biografías tipo \"Coquette\" o románticas), las letras góticas o dark (muy usadas para la estética Dark Academia o Grunge), las letras chiquitas y los nombres combinados con símbolos (estrellas, corazones, mariposas y cruces). Nuestro conversor cuenta con todas ellas y más de 50 estilos VIP diferentes."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Puedo usar este conversor de letras para nombres de Free Fire o Instagram?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "¡Sí, absolutamente! Aunque hemos seleccionado las decoraciones favoritas de TikTok, cualquier texto generado aquí es 100% compatible como letras para Instagram, nombres para Free Fire, Roblox, WhatsApp y Facebook. Al estar basados en Unicode, son aceptados prácticamente en cualquier plataforma de internet."
-      }
-    }
-  ]
-};
-
-const softwareSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Generador de Letras Aesthetic para TikTok",
-  "url": "https://generadordelettering.org/herramientas/letras-tiktok",
-  "description": "Conversor online de texto normal a letras aesthetic, cursivas y decoradas ideal para las biografías y videos de TikTok.",
-  "applicationCategory": "UtilitiesApplication",
-  "operatingSystem": "All",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  }
-};
-
 export default function LetrasTikTok() {
-  const [inputText, setInputText] = useState('');
-  const deferredInput = useDeferredValue(inputText);
+  const [inputText, setInputText] = useState('Aesthetic TikTok');
+  const [selectedCategory, setSelectedCategory] = useState<string>('todas');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem('tiktok_fav_fonts');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
 
-  const copyToClipboard = (text: string, id: string) => {
+  const [previewMode, setPreviewMode] = useState<'bio' | 'comment'>('bio');
+
+  const deferredInput = useDeferredValue(inputText);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tiktok_fav_fonts', JSON.stringify(favorites));
+    } catch (e) {
+      console.error(e);
+    }
+  }, [favorites]);
+
+  const handleCopy = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
 
+  const toggleFavorite = (text: string) => {
+    if (favorites.includes(text)) {
+      setFavorites(favorites.filter(f => f !== text));
+    } else {
+      setFavorites([...favorites, text]);
+    }
+  };
+
+  const addSymbolToInput = (symbol: string) => {
+    setInputText(prev => prev + ' ' + symbol);
+  };
+
+  // Generate generated list
+  const generatedList = STYLES.map(style => {
+    const converted = style.convert(deferredInput || 'Aesthetic TikTok');
+    return {
+      id: style.id,
+      name: style.name,
+      text: converted,
+      category: style.cat
+    };
+  });
+
+  const generatedDecorators = DECORATORS.map((dec, idx) => {
+    const converted = STYLES[0].convert(deferredInput || 'Aesthetic TikTok');
+    return {
+      id: `dec-${idx}`,
+      name: dec.name,
+      text: `${dec.prefix}${converted}${dec.suffix}`,
+      category: dec.category
+    };
+  });
+
+  const allCombinations = [...generatedList, ...generatedDecorators];
+
+  const filteredItems = selectedCategory === 'todas'
+    ? allCombinations
+    : allCombinations.filter(item => item.category === selectedCategory);
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "▲ ¿Cómo poner letras bonitas y aesthetic en la Bio de TikTok?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simplemente escribe tu texto en la casilla superior de nuestro generador, elige el estilo de letra o tipografía que más te guste, haz clic en 'Copiar' y pégalo directamente en la edición de tu perfil de TikTok (Bio/Descripción)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "▲ ¿Las fuentes creadas son compatibles con iPhone y Android en TikTok?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "¡Sí! Todas las letras bonitas y símbolos que genera nuestra herramienta utilizan caracteres Unicode estándar, compatibles al 100% con la aplicación de TikTok tanto en iOS (iPhone/iPad) como en Android y la versión web de TikTok."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "▲ ¿Puedo usar estas letras en los comentarios y nombres de usuario de TikTok?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, puedes usar estas tipografías en tu nombre de usuario de TikTok, en la biografía, en las descripciones de tus videos y en los comentarios para llamar la atención de tus seguidores."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "▲ ¿Cuál es el límite de caracteres para la Biografía de TikTok?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TikTok permite un límite de hasta 80 caracteres en la sección de Biografía de tu perfil. Nuestro conversor incluye un contador en tiempo real para ayudarte a no exceder este límite."
+        }
+      }
+    ]
+  };
+
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Conversor de Letras Bonitas para TikTok Aesthetic",
+    "url": "https://generadordelettering.org/herramientas/letras-tiktok",
+    "description": "Generador gratuito de letras bonitas, tipografías aesthetic, cursivas y símbolos para la bio y comentarios de TikTok.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Inicio",
+        "item": "https://generadordelettering.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Herramientas",
+        "item": "https://generadordelettering.org/herramientas"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Letras para TikTok Aesthetic",
+        "item": "https://generadordelettering.org/herramientas/letras-tiktok"
+      }
+    ]
+  };
+
   return (
     <>
       <SEO 
-        title="Conversor de Letras Bonitas para TikTok | Generador de Lettering"
-        description="Generador de letras bonitas y aesthetic para TikTok. Copia y pega letras cursivas, góticas y símbolos para mejorar tu perfil y videos."
-        keywords="letras para tiktok, letras bonitas tiktok, generador de letras tiktok, nombres para tiktok"
+        title="Conversor de Letras Bonitas para TikTok Aesthetic (Copiar y Pegar)"
+        description="Generador de fuentes y letras bonitas para la bio, comentarios y subtítulos de TikTok. Tipografías aesthetic, cursivas, negritas y símbolos para destacar en TikTok."
         canonical="https://generadordelettering.org/herramientas/letras-tiktok"
-        jsonSchema={[
-          faqSchema, 
-          softwareSchema,
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Inicio",
-                "item": "https://generadordelettering.org/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Herramientas",
-                "item": "https://generadordelettering.org/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": "Letras para TikTok",
-                "item": "https://generadordelettering.org/herramientas/letras-tiktok"
-              }
-            ]
-          }
-        ]}
+        keywords="letras para tiktok, letras bonitas para tiktok, conversor de letras tiktok, fuentes aesthetic tiktok, letras para la bio de tiktok, tipografias tiktok copiar y pegar"
+        jsonSchema={[faqSchema, softwareSchema, breadcrumbSchema]}
       />
-      <div className="max-w-4xl mx-auto px-4 py-12 w-full">
-      <nav aria-label="Breadcrumb" className="mb-8">
-        <ol className="flex items-center space-x-2 text-sm text-gray-500 font-medium">
-          <li>
-            <Link to="/" className="hover:text-pink-600 transition-colors">Inicio</Link>
-          </li>
-          <li className="flex items-center space-x-2">
-            <span className="text-gray-500">/</span>
-            <span className="text-gray-900" aria-current="page">Letras para TikTok</span>
-          </li>
-        </ol>
-      </nav>
 
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Conversor de Letras Bonitas para TikTok</h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-          La mejor herramienta para <strong>conversiones de letras bonitas</strong>. Personaliza tu biografía, nombre y comentarios en TikTok, Instagram o WhatsApp.
-        </p>
-        <div className="flex justify-center gap-3">
-           <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-pink-100 text-pink-700 font-semibold rounded-full text-sm"><Instagram className="w-4 h-4"/> Instagram</span>
-           <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black text-white font-semibold rounded-full text-sm"><svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002-.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z"/></svg> TikTok</span>
+      {/* Hero Breadcrumb Header */}
+      <div className="bg-gradient-to-b from-black via-gray-900 to-gray-900 text-white pt-8 pb-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          {/* Breadcrumb Links */}
+          <nav className="flex items-center gap-2 text-xs text-gray-400 mb-6">
+            <Link to="/" className="hover:text-white transition flex items-center gap-1">
+              <ChevronLeft className="w-3.5 h-3.5" /> Inicio
+            </Link>
+            <span>/</span>
+            <span className="text-gray-300">Herramientas</span>
+            <span>/</span>
+            <span className="text-pink-400 font-medium">Letras para TikTok</span>
+          </nav>
+
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-pink-500/20 to-cyan-500/20 border border-pink-500/30 text-pink-300 text-xs font-semibold">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                TikTok Aesthetic Font Generator 2026
+              </div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
+                Conversor de <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400">Letras Bonitas para TikTok</span>
+              </h1>
+              <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+                Transforma tu texto en tipografías únicas, letras cursivas, góticas y símbolos aesthetic para destacar en tu **Bio, nombres de usuario y comentarios de TikTok**. ¡Copia y pega en un clic!
+              </p>
+            </div>
+
+            {/* Quick Stats Pill */}
+            <div className="hidden lg:flex flex-col gap-2 p-4 rounded-2xl bg-gray-800/80 border border-gray-700/80 backdrop-blur text-xs">
+              <div className="flex items-center gap-2 text-pink-400 font-bold">
+                <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                Compatibilidad 100% TikTok
+              </div>
+              <div className="text-gray-400">+50 Estilos Cursivos & Aesthetic</div>
+              <div className="text-gray-400">Límite de Bio TikTok (80 chars)</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl shadow-sm border border-pink-100 p-6 md:p-8 mb-10">
-        <div className="flex justify-between items-end mb-3">
-          <label htmlFor="text-input" className="block text-sm font-bold text-gray-800 uppercase tracking-wide">¿Qué quieres convertir?</label>
-          <span className="text-xs font-medium text-pink-500 bg-pink-100 px-2 py-1 rounded">{inputText.length} caracteres</span>
-        </div>
-        <div className="relative">
-          <input
-            id="text-input"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            className="w-full h-16 pl-6 pr-14 bg-white border-2 border-pink-200 rounded-xl focus:ring-4 focus:ring-pink-100 focus:border-pink-400 outline-none text-xl font-medium shadow-sm transition-all"
-            placeholder="Escribe aquí tu frase aesthetic..."
-          />
-          {inputText && (
-            <button 
-              onClick={() => setInputText('')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-pink-500 hover:text-pink-500 hover:bg-pink-50 rounded-full p-2 transition-colors"
-              title="Borrar todo"
-              aria-label="Borrar texto"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
-          )}
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        {STYLES.map((style, idx) => {
-          const converted = convertText(deferredInput, style.id, style.deco);
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+        {/* Main Interactive Input Container */}
+        <div className="bg-white rounded-3xl p-6 md:p-8 border border-gray-200 shadow-xl space-y-6">
           
-          return (
-            <div key={idx} className="bg-white border text-center md:text-left border-gray-200 rounded-2xl p-4 flex flex-col md:flex-row items-center gap-4 hover:border-pink-300 hover:shadow-md transition-all group">
-              <div className="w-full md:w-48 shrink-0">
-                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">{style.name}</span>
-              </div>
-              <div className="flex-1 overflow-hidden">
-                <p className="text-xl md:text-2xl text-gray-900 truncate px-4 py-2 border-b md:border-b-0 border-gray-100 w-full" title={converted}>
-                  {converted}
-                </p>
-              </div>
+          {/* Input Label + Character Counter */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <label htmlFor="tiktok-input" className="text-sm font-bold text-gray-900 flex items-center gap-2">
+              <Smartphone className="w-4 h-4 text-pink-500" />
+              Escribe tu biografía o nombre para TikTok:
+            </label>
+            <div className="flex items-center gap-2">
+              <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
+                inputText.length > 80 
+                  ? 'bg-red-100 text-red-700 border border-red-200' 
+                  : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+              }`}>
+                {inputText.length} / 80 caracteres (Bio TikTok)
+              </span>
+            </div>
+          </div>
+
+          {/* Text Area Input */}
+          <div className="relative">
+            <input
+              id="tiktok-input"
+              type="text"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              placeholder="Ej: Aesthetic Girl / S├́gueme para m├́s..."
+              className="w-full px-5 py-4 text-lg md:text-xl font-medium rounded-2xl border-2 border-gray-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 transition shadow-inner text-gray-900 pr-12"
+            />
+            {inputText && (
               <button
-                onClick={() => copyToClipboard(converted, String(idx))}
-                aria-label={`Copiar estilo ${style.name}`}
-                className={`shrink-0 flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold transition-all w-full md:w-auto ${
-                  copiedId === String(idx) 
-                    ? 'bg-pink-500 text-white shadow-pink-500/20 shadow-lg' 
-                    : 'bg-pink-50 text-pink-600 hover:bg-pink-100 group-hover:scale-105'
+                onClick={() => setInputText('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 font-bold text-sm bg-gray-100 rounded-full w-7 h-7 flex items-center justify-center transition"
+                title="Borrar texto"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+
+          {inputText.length > 80 && (
+            <div className="flex items-center gap-2 text-xs text-amber-700 bg-amber-50 p-3 rounded-xl border border-amber-200">
+              <AlertCircle className="w-4 h-4 flex-shrink-0 text-amber-600" />
+              Nota: La biografía de TikTok limita el texto a 80 caracteres. Asegúrate de recortar tu texto para que no quede incompleto en tu perfil.
+            </div>
+          )}
+
+          {/* Aesthetic Symbols Quick Toolbar */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-gray-600 uppercase tracking-wider flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-pink-500" />
+                Añadir Símbolos Aesthetic Populares:
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {AESTHETIC_SYMBOLS.map((sym, i) => (
+                <button
+                  key={i}
+                  onClick={() => addSymbolToInput(sym)}
+                  className="px-2.5 py-1 text-sm bg-gray-50 hover:bg-pink-50 hover:text-pink-600 hover:border-pink-300 border border-gray-200 rounded-xl transition font-medium"
+                >
+                  {sym}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Bio Templates */}
+          <div>
+            <span className="text-xs font-bold text-gray-600 uppercase tracking-wider block mb-2">
+              Plantillas de Biografía para TikTok (Haz clic para usar):
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+              {BIO_TEMPLATES.map((tmpl, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setInputText(tmpl.text)}
+                  className="p-2.5 rounded-xl border border-gray-200 bg-gray-50/70 hover:bg-white hover:border-pink-400 hover:shadow-sm text-left transition group"
+                >
+                  <div className="text-[11px] font-bold text-pink-600 mb-0.5">{tmpl.label}</div>
+                  <div className="text-xs text-gray-700 truncate font-medium">{tmpl.text}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Live TikTok Mobile Mockup Preview Box */}
+          <div className="mt-6 p-4 md:p-6 bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-gray-800 text-white">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-800">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-pink-500 animate-pulse" />
+                <span className="text-xs font-bold tracking-wider text-gray-300 uppercase">
+                  Vista Previa en Vivo de TikTok
+                </span>
+              </div>
+              <div className="flex items-center bg-gray-800 p-1 rounded-xl text-xs font-medium">
+                <button
+                  onClick={() => setPreviewMode('bio')}
+                  className={`px-3 py-1 rounded-lg transition ${previewMode === 'bio' ? 'bg-pink-600 text-white font-bold' : 'text-gray-400 hover:text-white'}`}
+                >
+                  Bio Perfil
+                </button>
+                <button
+                  onClick={() => setPreviewMode('comment')}
+                  className={`px-3 py-1 rounded-lg transition ${previewMode === 'comment' ? 'bg-cyan-600 text-white font-bold' : 'text-gray-400 hover:text-white'}`}
+                >
+                  Comentario
+                </button>
+              </div>
+            </div>
+
+            {previewMode === 'bio' ? (
+              <div className="max-w-sm mx-auto bg-gray-900/90 rounded-2xl p-4 border border-gray-800 shadow-2xl space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-pink-500 to-cyan-400 p-0.5">
+                    <div className="w-full h-full rounded-full bg-gray-900 flex items-center justify-center">
+                      <User className="w-6 h-6 text-gray-300" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm text-white flex items-center gap-1">
+                      @usuario_tiktok
+                      <span className="w-3.5 h-3.5 rounded-full bg-cyan-400 text-black text-[9px] font-black flex items-center justify-center">✓</span>
+                    </div>
+                    <div className="text-xs text-gray-400">12.5K Seguidores</div>
+                  </div>
+                </div>
+                {/* Live Bio Text */}
+                <div className="bg-black/60 p-3 rounded-xl border border-gray-800 text-sm text-gray-100 font-normal leading-snug break-words">
+                  {inputText || 'Tu biografía de TikTok aparecerá aquí con tus letras bonitas.'}
+                </div>
+              </div>
+            ) : (
+              <div className="max-w-sm mx-auto bg-gray-900/90 rounded-2xl p-4 border border-gray-800 shadow-2xl">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center text-xs font-bold">
+                    TK
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-1 text-xs font-bold text-gray-300">
+                      @aesthetic_fan <span className="text-[10px] text-gray-500">· hace 2m</span>
+                    </div>
+                    <div className="text-sm text-white mt-1 break-words">
+                      {inputText || '¡Increíble video! ✨'}
+                    </div>
+                    <div className="flex items-center gap-4 text-xs text-gray-500 mt-2">
+                      <span>Responder</span>
+                      <span className="flex items-center gap-1"><Heart className="w-3 h-3 text-pink-500" /> 142</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Filter Categories Bar */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none pt-2 border-t border-gray-100">
+            <span className="text-xs font-bold text-gray-500 uppercase mr-1">Filtrar:</span>
+            {[
+              { id: 'todas', label: 'Todas las Fuentes' },
+              { id: 'aesthetic', label: 'Aesthetic' },
+              { id: 'cursivas', label: 'Cursivas' },
+              { id: 'negritas', label: 'Negritas' },
+              { id: 'goticas', label: 'Góticas Dark' },
+              { id: 'simbolos', label: 'Con Símbolos' },
+              { id: 'efectos', label: 'Efectos Especiales' },
+            ].map(cat => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition ${
+                  selectedCategory === cat.id
+                    ? 'bg-pink-600 text-white shadow-sm'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
-                {copiedId === String(idx) ? (
-                  <>
-                    <Check className="w-5 h-5" />
-                    Copiado ૮ ՛ﻌ՝ ა
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-5 h-5" />
-                    Copiar
-                  </>
-                )}
+                {cat.label}
               </button>
+            ))}
+          </div>
+
+          {/* Generated Font Cards Grid */}
+          <div className="space-y-3 pt-2">
+            {filteredItems.map((item) => {
+              const isCopied = copiedId === item.id;
+              const isFav = favorites.includes(item.text);
+
+              return (
+                <div
+                  key={item.id}
+                  className="group bg-gray-50/80 hover:bg-white p-4 rounded-2xl border border-gray-200/80 hover:border-pink-300 hover:shadow-md transition flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                >
+                  <div className="space-y-1 flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-bold text-gray-600 uppercase tracking-wider bg-gray-200/70 px-2 py-0.5 rounded-md">
+                        {item.name}
+                      </span>
+                    </div>
+                    <div className="text-base sm:text-lg text-gray-900 font-medium break-words leading-relaxed select-all">
+                      {item.text}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 flex-shrink-0 self-end sm:self-center">
+                    <button
+                      onClick={() => toggleFavorite(item.text)}
+                      className={`p-2.5 rounded-xl border transition ${
+                        isFav 
+                          ? 'bg-pink-50 border-pink-300 text-pink-600' 
+                          : 'bg-white border-gray-200 text-gray-400 hover:text-pink-500'
+                      }`}
+                      title={isFav ? 'Quitar de favoritos' : 'Guardar en favoritos'}
+                    >
+                      <Heart className={`w-4 h-4 ${isFav ? 'fill-current' : ''}`} />
+                    </button>
+
+                    <button
+                      onClick={() => handleCopy(item.text, item.id)}
+                      className={`px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-xs ${
+                        isCopied
+                          ? 'bg-emerald-600 text-white'
+                          : 'bg-black text-white hover:bg-pink-600 active:scale-95'
+                      }`}
+                    >
+                      {isCopied ? (
+                        <>
+                          <Check className="w-4 h-4" /> ¡Copiado!
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4" /> Copiar
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Saved Favorites Section */}
+          {favorites.length > 0 && (
+            <div className="mt-8 p-6 bg-pink-50/60 rounded-2xl border border-pink-200 space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-bold text-pink-900 text-sm flex items-center gap-2">
+                  <Heart className="w-4 h-4 text-pink-600 fill-current" />
+                  Mis Letras Favoritas Guardadas ({favorites.length})
+                </h3>
+                <button
+                  onClick={() => setFavorites([])}
+                  className="text-xs text-pink-700 hover:underline font-semibold"
+                >
+                  Borrar todas
+                </button>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {favorites.map((fav, i) => (
+                  <div key={i} className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-pink-100 text-xs font-medium">
+                    <span className="truncate mr-2 text-gray-900">{fav}</span>
+                    <button
+                      onClick={() => handleCopy(fav, `fav-${i}`)}
+                      className="px-2 py-1 bg-pink-600 text-white rounded-lg font-bold hover:bg-pink-700 text-[11px]"
+                    >
+                      {copiedId === `fav-${i}` ? '✓' : 'Copiar'}
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
-          );
-        })}
-      </div>
-      
-      <div className="mt-16 bg-white rounded-2xl p-8 border border-gray-200 text-center flex flex-col items-center">
-        <Heart className="w-12 h-12 text-pink-500 mb-4" />
-        <h2 className="text-2xl font-bold text-gray-900 mb-3">Dale más estilo a tus redes</h2>
-        <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-          ¿Necesitas algo más que texto? Prueba nuestro Editor de Lettering para crear imágenes, carteles y gráficos espectaculares con fuentes personalizadas y fondos gradientes.
-        </p>
-        <Link to="/editor" className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-3 rounded-xl font-bold hover:opacity-90 transition shadow-md hover:shadow-lg">
-          Ir al Editor de Imágenes
-        </Link>
-      </div>
+          )}
 
-      <section className="mt-16 text-left space-y-8 bg-pink-50/50 p-8 rounded-3xl border border-pink-100">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-black text-gray-900 tracking-tight">Preguntas Frecuentes sobre Letras para TikTok</h2>
-          <p className="text-gray-600 mt-3">Todo lo que necesitas saber sobre cómo cambiar la letra en tus vídeos y perfil de TikTok.</p>
         </div>
-        
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">¿Cómo cambiar la letra en TikTok? (Bio, nombre y comentarios)</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Dentro de la aplicación de TikTok no hay una opción nativa para cambiar el tipo de letra de tu biografía o nombre de usuario. Para lograrlo, necesitas usar un <strong>generador de letras bonitas para TikTok</strong> como el nuestro. Solo tienes que escribir tu texto en la parte superior, elegir la tipografía <em>aesthetic</em>, cursiva o gótica que más te guste, hacer clic en copiar y luego pegarlo directamente en tu perfil de TikTok (Editar perfil &gt; Nombre / Descripción).
-            </p>
-          </div>
 
-          <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">¿Qué son las fuentes aesthetic o letras raras para TikTok?</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Las "letras raras", fuentes <em>aesthetic</em> o "letras invisibles" en realidad no son tipografías (fuentes) tradicionales, sino caracteres especiales del sistema Unicode que todos los teléfonos modernos (iOS y Android) pueden leer. Cuando usas nuestro conversor para obtener <strong>letras cursivas, góticas, tachadas o con símbolos</strong>, estás combinando estos símbolos únicos. Por esto puedes copiarlas y pegarlas en cualquier red social como Instagram, WhatsApp o Free Fire.
-            </p>
-          </div>
+        {/* Detailed SEO Content Section */}
+        <div className="mt-12 bg-white rounded-3xl p-6 md:p-10 border border-gray-200 shadow-sm space-y-8 text-gray-700 leading-relaxed">
           
-          <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">¿Cuáles son las letras bonitas más usadas en TikTok?</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Entre las tipografías más buscadas por los usuarios destacan: las <strong>letras cursivas elegantes</strong> (ideales para biografías tipo "Coquette" o románticas), las <strong>letras góticas o dark</strong> (muy usadas para la estética Dark Academia o Grunge), las letras chiquitas y los nombres combinados con símbolos (estrellas, corazones, mariposas y cruces). Nuestro conversor cuenta con todas ellas y más de 50 estilos VIP diferentes.
+          {/* Section 1 */}
+          <section className="space-y-3">
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900 flex items-center gap-2">
+              <Sparkles className="w-6 h-6 text-pink-500" />
+              ¿Cómo usar el Conversor de Letras Bonitas para TikTok?
+            </h2>
+            <p>
+              El **Generador de Fuentes para TikTok** te permite personalizar completamente el texto de tu biografía, nombre de usuario y comentarios con estilos tipográficos únicos (cursivas, fuentes góticas, letras encuadradas, letras pequeñas y símbolos aesthetic).
             </p>
-          </div>
+            <ol className="list-decimal list-inside space-y-2 font-medium text-gray-800 bg-gray-50 p-4 rounded-2xl border border-gray-100">
+              <li>Escribe el texto deseado en el cuadro de entrada de la herramienta arriba.</li>
+              <li>Explora la lista de tipografías generadas e inserta símbolos aesthetic si lo deseas.</li>
+              <li>Haz clic en el botón **"Copiar"** al lado del diseño que más te guste.</li>
+              <li>Abre la app de **TikTok**, dirígete a tu perfil, selecciona **Editar Perfil** y pega el texto en tu **Biografía** o **Nombre**.</li>
+            </ol>
+          </section>
 
-          <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">¿Puedo usar este conversor de letras para nombres de Free Fire o Instagram?</h3>
-            <p className="text-gray-600 leading-relaxed">
-              ¡Sí, absolutamente! Aunque hemos seleccionado las decoraciones favoritas de TikTok, cualquier texto generado aquí es 100% compatible como <strong>letras para Instagram</strong>, nombres para <strong>Free Fire, Roblox, WhatsApp</strong> y Facebook. Al estar basados en Unicode, son aceptados prácticamente en cualquier plataforma de internet.
-            </p>
-          </div>
+          {/* Section 2 */}
+          <section className="space-y-3">
+            <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+              <Flame className="w-5 h-5 text-pink-500" />
+              Estilos de Letras Aesthetic más virales en TikTok
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80">
+                <h3 className="font-bold text-gray-900 mb-1 text-sm">✦ Letras Cursivas e Itálicas</h3>
+                <p className="text-xs text-gray-600">
+                  Ideales para un estilo elegante, femenino o suave (soft aesthetic). Perfectas para frases motivacionales y cuentas de moda.
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80">
+                <h3 className="font-bold text-gray-900 mb-1 text-sm">✦ Tipografías Góticas (Dark)</h3>
+                <p className="text-xs text-gray-600">
+                  Muy utilizadas por creadores de contenido de videojuegos, anime, cultura alternativa y estética grunge o alt.
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80">
+                <h3 className="font-bold text-gray-900 mb-1 text-sm">✦ Small Caps (Mayúsculas Pequeñas)</h3>
+                <p className="text-xs text-gray-600">
+                  Un estilo minimalista y moderno que mantiene una excelente legibilidad en pantallas móviles pequeñas.
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80">
+                <h3 className="font-bold text-gray-900 mb-1 text-sm">✦ Círculos y Símbolos Encajados</h3>
+                <p className="text-xs text-gray-600">
+                  Resaltan palabras clave o enlaces en tu biografía para guiar la atención de tus seguidores hacia un link específico.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 3: FAQ Accordion / Grid */}
+          <section className="space-y-4 pt-4 border-t border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+              <HelpCircle className="w-5 h-5 text-cyan-500" />
+              Preguntas Frecuentes sobre Letras para TikTok (FAQ)
+            </h2>
+
+            <div className="space-y-3">
+              {faqSchema.mainEntity.map((faq, i) => (
+                <div key={i} className="p-4 rounded-2xl border border-gray-200 bg-gray-50/50">
+                  <h3 className="font-bold text-gray-900 text-sm md:text-base mb-1">
+                    {faq.name}
+                  </h3>
+                  <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
+                    {faq.acceptedAnswer.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
         </div>
-      </section>
 
-      <RelatedTools currentPath="/herramientas/letras-tiktok" />
-    </div>
+        {/* Cross-linking to Other Tools */}
+        <RelatedTools currentPath="/herramientas/letras-tiktok" />
+      </div>
     </>
   );
 }

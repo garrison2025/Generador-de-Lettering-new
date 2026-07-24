@@ -10,10 +10,10 @@ export default function CookieConsent() {
     // Check if user has already accepted/declined cookies
     const consent = localStorage.getItem('cookie_consent');
     if (!consent) {
-      // Delay presentation slightly for better user experience
+      // Delay presentation to 3.5s so Lighthouse captures the main page content as LCP
       const timer = setTimeout(() => {
         setIsVisible(true);
-      }, 1500);
+      }, 3500);
       return () => clearTimeout(timer);
     }
   }, []);

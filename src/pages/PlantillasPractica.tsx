@@ -9,7 +9,7 @@ const SHEETS = [
     description: 'Aprende a controlar la presión: trazos finos hacia arriba y gruesos hacia abajo. Ideal para principiantes con rotulador de punta pincel.',
     level: 'Principiante',
     format: 'A4 SVG',
-    img: 'https://images.unsplash.com/photo-1586077595304-eb5dc146bd2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+    img: 'https://images.unsplash.com/photo-1586077595304-eb5dc146bd2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=75&fm=webp',
     color: 'bg-green-100 text-green-700'
   },
   {
@@ -17,7 +17,7 @@ const SHEETS = [
     description: 'Práctica de las letras minúsculas en cursiva (brush lettering). Contiene guías paso a paso para formar cada letra.',
     level: 'Principiante',
     format: 'A4 SVG',
-    img: 'https://images.unsplash.com/photo-1549488344-c68936dd0ea0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+    img: 'https://images.unsplash.com/photo-1549488344-c68936dd0ea0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=75&fm=webp',
     color: 'bg-green-100 text-green-700'
   },
   {
@@ -25,7 +25,7 @@ const SHEETS = [
     description: 'Hojas avanzadas con florituras y variaciones para el alfabeto en mayúsculas. Perfecto para titulares y nombres.',
     level: 'Intermedio',
     format: 'A4 SVG',
-    img: 'https://images.unsplash.com/photo-1550592704-6c76defa99ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+    img: 'https://images.unsplash.com/photo-1550592704-6c76defa99ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=75&fm=webp',
     color: 'bg-orange-100 text-orange-700'
   },
   {
@@ -33,7 +33,7 @@ const SHEETS = [
     description: 'Aprende a conectar letras de forma elegante y a añadir florituras, remates y adornos para un lettering profesional.',
     level: 'Avanzado',
     format: 'A4 SVG',
-    img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+    img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=75&fm=webp',
     color: 'bg-red-100 text-red-700'
   }
 ];
@@ -102,7 +102,15 @@ export default function PlantillasPractica() {
         {SHEETS.map((sheet) => (
           <div key={sheet.title} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col group">
             <div className="h-48 relative overflow-hidden bg-gray-100">
-              <img src={sheet.img} alt={sheet.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <img 
+                src={sheet.img} 
+                alt={sheet.title} 
+                width="400" 
+                height="192" 
+                loading="lazy" 
+                decoding="async" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+              />
               <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-gray-700 shadow-sm">
                 {sheet.format}
               </div>
