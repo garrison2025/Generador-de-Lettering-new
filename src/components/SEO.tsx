@@ -18,7 +18,7 @@ export function SEO({
   keywords, 
   type = 'website', 
   jsonSchema, 
-  image = 'https://generadordelettering.org/icon.svg' 
+  image = 'https://generadordelettering.org/og-image.jpg' 
 }: SEOProps) {
   const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://generadordelettering.org');
 

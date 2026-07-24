@@ -15,6 +15,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     excerpt: 'Descubre cómo crear nombres que den miedo, usando símbolos, alas y letras raras para dominar en Free Fire.',
     date: '2024-05-15',
     keywords: 'nombres para free fire, nombres insanos free fire, mejores nombres free fire, simbolos para free fire, letras raras para juegos',
+    image: 'https://generadordelettering.org/og-image.jpg',
     content: `En la vasta y competitiva arena de **Garena Free Fire**, tu habilidad con las armas, tus reflejos y tus rotaciones estratégicas no son las únicas cosas que te hacen destacar frente al resto de los escuadras. Antes siquiera de disparar tu primera bala o aterrizar en la zona de conflicto, ya estás enviando un mensaje claro a tus oponentes a través de tu nombre de usuario (Nick). Un **nombre rudo, 'insano' y estético** puede causar una gran impresión psicológica, haciendo dudar incluso al rival más veterano. Si ves en la feed de eliminaciones a alguien llamado 'PablitoGamer20' no causa el mismo respeto que alguien cuyo nombre está adornado con alas, cruces y letras góticas irrompibles.
 
 En esta guía definitiva y detallada (creada pensando tanto para jugadores solitarios como para líderes de escuadra y e-sports), repasaremos no solo una lista completa de **los mejores y más insanos nombres para Free Fire**, sino también te enseñaremos la psicología detrás de un buen nick, y cómo tú mismo puedes crear el tuyo usando generadores de letras bonitas y herramientas de texto avanzado.
@@ -101,6 +102,7 @@ Da el salto, personaliza tu nick en el siguiente reseteo de temporada heroica y 
     excerpt: 'Aprende los secretos para optimizar tu perfil de TikTok con la estética dark y grunge, fuentes de texto cursivo y frases oscuras.',
     date: '2024-05-15',
     keywords: 'biografía tiktok, estética aesthetic dark, biografía aesthetic, letras para tiktok, bio tiktok ideas',
+    image: 'https://generadordelettering.org/og-image.jpg',
     content: `La estética Dark Aesthetic, Grunge y Dark Academia ha dominado gran parte de TikTok en la última década. Las cuentas que prosperan en esta área a menudo ven tasas de engagement altísimas porque los seguidores conectan de inmediato con la melancolía, el misterio y la profundidad estilizada que este nicho transmite.
 
 Al igual que un buen video de TikTok atrapa en los primeros dos segundos, tu **biografía de perfil atrapa a un potencial seguidor en menos de tres segundos**. En la fugaz retención de atención de internet, tu descripción en el perfil (Bio) debe gritar instantáneamente 'soy misterioso, curado, oscuro y elegante' antes de que deslicen hacia abajo y te pierdan en el algoritmo.
@@ -194,6 +196,7 @@ Empieza hoy mismo tu 're-branding'. Experimenta, combina estilos y busca la oscu
     excerpt: 'Todo lo que necesitas saber sobre los caracteres Unicode transparentes y cómo usarlos para crear espacios en blanco donde las apps no te dejan.',
     date: '2024-05-16',
     keywords: 'letras invisibles, espacio invisible free fire, espacio en blanco instagram, como hacer letras transparentes, caracter vacio',
+    image: 'https://generadordelettering.org/og-image.jpg',
     content: `¿Alguna vez te has frustrado porque Instagram elimina tus saltos de línea y junta todos tus párrafos en un gran bloque de texto ilegible? ¿O intentaste poner un espacio entre las palabras de tu nombre de Free Fire y el juego te arrojó un error de 'Símbolo no permitido'? 
 
 El internet está construido bajo reglas muy rígidas. Una de esas reglas es la sanitización de los espacios comunes. Las bases de datos de aplicaciones como TikTok, Instagram o Garena suelen eliminar lo que ellos consideran 'espacios en blanco innecesarios'. Sin embargo, la comunidad ha encontrado a lo largo de los años pequeños 'huecos' en el sistema utilizando los formidables **Caracteres Invisibles Unicode**.
