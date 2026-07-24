@@ -29,6 +29,8 @@ const LetrasAzules = lazy(() => import('./pages/LetrasAzules'));
 const LetrasFreeFire = lazy(() => import('./pages/LetrasFreeFire'));
 const LetrasTikTok = lazy(() => import('./pages/LetrasTikTok'));
 const ConversorLetrasBonitas = lazy(() => import('./pages/ConversorLetrasBonitas'));
+const GeneradorNombresInstagram = lazy(() => import('./pages/GeneradorNombresInstagram'));
+const GeneradorNombresFreeFire = lazy(() => import('./pages/GeneradorNombresFreeFire'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -55,6 +57,10 @@ export default function App() {
             <Route path="herramientas/letras-free-fire" element={<LetrasFreeFire />} />
             <Route path="herramientas/letras-tiktok" element={<LetrasTikTok />} />
             <Route path="herramientas/conversor-letras-bonitas" element={<ConversorLetrasBonitas />} />
+            <Route path="herramientas/generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />
+            <Route path="herramientas/generador-de-nombres-para-free-fire" element={<GeneradorNombresFreeFire />} />
+            <Route path="generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />
+            <Route path="generador-de-nombres-para-free-fire" element={<GeneradorNombresFreeFire />} />
 
             <Route path="blog" element={<Blog />} />
             <Route path="blog/:slug" element={<BlogPost />} />

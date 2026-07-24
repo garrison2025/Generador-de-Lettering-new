@@ -71,7 +71,7 @@ export default function Home() {
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Generador de Lettering Generador de Lettering",
+    "name": "Generador de Lettering",
     "url": "https://generadordelettering.org/",
     "description": "Herramientas gratuitas para crear lettering digital, plantillas de práctica y generadores de letras raras y bonitas para redes sociales y videojuegos.",
     "applicationCategory": "DesignApplication",

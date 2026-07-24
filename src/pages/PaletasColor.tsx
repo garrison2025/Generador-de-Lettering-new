@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { PenTool, Palette, Download, Copy, Check, ChevronLeft, Droplet } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { SEO } from '../components/SEO';
+import { RelatedTools } from '../components/RelatedTools';
 
 const PALETTES = [
   { name: 'Ocaso Cálido', colors: ['#FF6B6B', '#FF8E53', '#FFAF3B', '#FFD166', '#FFF0A8'] },
@@ -130,6 +131,8 @@ export default function PaletasColor() {
           Abrir en el Editor de Letras
         </Link>
       </div>
+
+      <RelatedTools currentPath="/herramientas/paletas-de-color" />
     </div>
     </>
   );

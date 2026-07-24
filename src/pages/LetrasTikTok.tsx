@@ -1,6 +1,8 @@
 import { useState, useEffect, useDeferredValue } from 'react';
 import { Copy, Check, Instagram, Heart, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { SEO } from '../components/SEO';
+import { RelatedTools } from '../components/RelatedTools';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -208,8 +210,6 @@ const STYLES = [
   { id: 'coronitas', name: 'Coronitas VIP (👑)', deco: '{text}' },
   { id: 'armas', name: 'Pistolas (︻╦╤─)', deco: '{text}' },
 ];
-
-import { SEO } from '../components/SEO';
 
 function convertText(text: string, styleId: string, deco: string) {
   if (!text) text = 'letras bonitas';
@@ -494,6 +494,8 @@ export default function LetrasTikTok() {
           </div>
         </div>
       </section>
+
+      <RelatedTools currentPath="/herramientas/letras-tiktok" />
     </div>
     </>
   );

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { PenTool, ArrowRight, ChevronLeft, Type } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { SEO } from '../components/SEO';
+import { RelatedTools } from '../components/RelatedTools';
 
 const PAIRINGS = [
   {
@@ -155,6 +156,8 @@ export default function CombinadorFuentes() {
           Ir al Generador Visual
         </Link>
       </div>
+
+      <RelatedTools currentPath="/herramientas/combinador-de-fuentes" />
     </div>
     </>
   );

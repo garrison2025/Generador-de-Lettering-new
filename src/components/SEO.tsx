@@ -11,15 +11,29 @@ interface SEOProps {
   image?: string;
 }
 
-export function SEO({ title, description, canonical, keywords, type = 'website', jsonSchema, image = 'https://generadordelettering.org/og-image.jpg' }: SEOProps) {
-  const currentUrl = canonical || window.location.href;
+export function SEO({ 
+  title, 
+  description, 
+  canonical, 
+  keywords, 
+  type = 'website', 
+  jsonSchema, 
+  image = 'https://generadordelettering.org/icon.svg' 
+}: SEOProps) {
+  const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://generadordelettering.org');
+
+  const schemasToRender = Array.isArray(jsonSchema) 
+    ? jsonSchema 
+    : jsonSchema 
+      ? [jsonSchema] 
+      : [];
 
   return (
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       
       {/* Canonical URL */}
       <link rel="canonical" href={currentUrl} />
@@ -41,11 +55,12 @@ export function SEO({ title, description, canonical, keywords, type = 'website',
       <meta name="twitter:image" content={image} />
 
       {/* JSON-LD Structured Data */}
-      {jsonSchema && (
-        <script type="application/ld+json">
-          {JSON.stringify(jsonSchema)}
+      {schemasToRender.map((schema, index) => (
+        <script key={index} type="application/ld+json">
+          {JSON.stringify(schema)}
         </script>
-      )}
+      ))}
     </Helmet>
   );
 }
+

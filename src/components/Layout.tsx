@@ -40,6 +40,8 @@ export default function Layout() {
                 <Link to="/herramientas/conversor-texto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Conversor de Texto</Link>
                 <div className="mx-3 my-1 border-t border-gray-100"></div>
                 <Link to="/herramientas/conversor-letras-bonitas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-bold">Conv. Letras Bonitas</Link>
+                <Link to="/herramientas/generador-de-nombres-para-instagram" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-medium">Nombres para Instagram</Link>
+                <Link to="/herramientas/generador-de-nombres-para-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-medium">Nombres para Free Fire</Link>
                 <Link to="/herramientas/letras-azules" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Letras Azules</Link>
                 <Link to="/herramientas/letras-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Letras Free Fire</Link>
                 <Link to="/herramientas/letras-tiktok" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Letras TikTok Aesthetic</Link>
@@ -74,6 +76,8 @@ export default function Layout() {
                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Herramientas Populares</span>
               </div>
               <Link to="/herramientas/conversor-letras-bonitas" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Conv. Letras Bonitas</Link>
+              <Link to="/herramientas/generador-de-nombres-para-instagram" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Nombres para Instagram</Link>
+              <Link to="/herramientas/generador-de-nombres-para-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Nombres para Free Fire</Link>
               <Link to="/herramientas/letras-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Letras Free Fire</Link>
               <Link to="/herramientas/letras-tiktok" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Letras TikTok Aesthetic</Link>
               <div className="mt-4 pt-4 px-3 w-full border-t border-gray-50">
@@ -109,11 +113,12 @@ export default function Layout() {
               <div>
                 <h3 className="font-bold text-gray-900 mb-4 whitespace-nowrap">Herramientas</h3>
                 <ul className="space-y-3 text-sm text-gray-600">
+                  <li><Link to="/herramientas/generador-de-nombres-para-instagram" className="hover:text-[#4F46E5] font-medium">Nombres para Instagram</Link></li>
+                  <li><Link to="/herramientas/generador-de-nombres-para-free-fire" className="hover:text-[#4F46E5] font-medium">Nombres para Free Fire</Link></li>
                   <li><Link to="/herramientas/conversor-letras-bonitas" className="hover:text-[#4F46E5]">Letras Bonitas</Link></li>
                   <li><Link to="/herramientas/letras-free-fire" className="hover:text-[#4F46E5]">Letras Free Fire</Link></li>
                   <li><Link to="/herramientas/letras-tiktok" className="hover:text-[#4F46E5]">Letras para TikTok</Link></li>
                   <li><Link to="/editor" className="hover:text-[#4F46E5]">Editor Avanzado</Link></li>
-                  <li><Link to="/plantillas" className="hover:text-[#4F46E5]">Plantillas</Link></li>
                 </ul>
               </div>
 

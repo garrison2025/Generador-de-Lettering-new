@@ -2,6 +2,7 @@ import { useState, useEffect, useDeferredValue } from 'react';
 import { Copy, Check, Sparkles, PenTool, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import { RelatedTools } from '../components/RelatedTools';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -303,6 +304,31 @@ const softwareSchema = {
   }
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://generadordelettering.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Herramientas",
+      "item": "https://generadordelettering.org/herramientas"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Conversor de Letras Bonitas",
+      "item": "https://generadordelettering.org/herramientas/conversor-letras-bonitas"
+    }
+  ]
+};
+
 export default function ConversorLetrasBonitas() {
   const [inputText, setInputText] = useState('Letras hermosas');
   const deferredInput = useDeferredValue(inputText);
@@ -506,6 +532,8 @@ export default function ConversorLetrasBonitas() {
           </div>
         </div>
       </section>
+
+      <RelatedTools currentPath="/herramientas/conversor-letras-bonitas" />
     </div>
     </>
   );

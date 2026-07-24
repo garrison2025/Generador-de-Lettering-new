@@ -2,6 +2,7 @@ import { useState, useEffect, useDeferredValue } from 'react';
 import { Copy, Check, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import { RelatedTools } from '../components/RelatedTools';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -496,6 +497,8 @@ export default function LetrasAzules() {
           </div>
         </div>
       </section>
+
+      <RelatedTools currentPath="/herramientas/letras-azules" />
     </div>
     </>
   );

@@ -2,6 +2,7 @@ import { useState, useEffect, useDeferredValue } from 'react';
 import { Copy, Check, ChevronLeft, Dices } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import { RelatedTools } from '../components/RelatedTools';
 
 const DECORATORS = [
   { prefix: '꧁ ༒ ', suffix: ' ༒ ꧂', name: 'Alas Divinas' },
@@ -343,6 +344,8 @@ export default function LetrasFreeFire() {
           </div>
         </div>
       </section>
+
+      <RelatedTools currentPath="/herramientas/letras-free-fire" />
     </div>
     </>
   );
