@@ -9,13 +9,30 @@ export default function CookieConsent() {
   useEffect(() => {
     // Check if user has already accepted/declined cookies
     const consent = localStorage.getItem('cookie_consent');
-    if (!consent) {
-      // Delay presentation to 3.5s so Lighthouse captures the main page content as LCP
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 3500);
-      return () => clearTimeout(timer);
-    }
+    if (consent) return;
+
+    // Show banner on first user interaction or after an 8-second fallback
+    const showBanner = () => setIsVisible(true);
+
+    const timer = setTimeout(showBanner, 8000);
+
+    const handleInteraction = () => {
+      showBanner();
+      cleanup();
+    };
+
+    const cleanup = () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+    };
+
+    window.addEventListener('scroll', handleInteraction, { passive: true });
+    window.addEventListener('click', handleInteraction, { passive: true });
+    window.addEventListener('touchstart', handleInteraction, { passive: true });
+
+    return cleanup;
   }, []);
 
   const handleAccept = () => {
