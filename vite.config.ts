@@ -14,7 +14,7 @@ export default defineConfig(({mode}) => {
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: 'script-defer',
-        includeAssets: ['favicon.ico', 'icon.svg', 'apple-touch-icon.png'],
+        includeAssets: ['favicon-32x32.png', 'icon.svg', 'apple-touch-icon.png', 'og-image.jpg', 'og-image.webp'],
         manifest: {
           name: 'LetrasPro - Generador de Letras',
           short_name: 'LetrasPro',
@@ -24,8 +24,18 @@ export default defineConfig(({mode}) => {
           display: 'standalone',
           icons: [
             {
+              src: 'pwa-192x192.png',
+              sizes: '192x192',
+              type: 'image/png'
+            },
+            {
+              src: 'pwa-512x512.png',
+              sizes: '512x512',
+              type: 'image/png'
+            },
+            {
               src: 'icon.svg',
-              sizes: '192x192 512x512',
+              sizes: '512x512',
               type: 'image/svg+xml',
               purpose: 'any maskable'
             }
