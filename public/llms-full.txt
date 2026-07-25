@@ -1,0 +1,48 @@
+# Generador de Lettering - Full Documentation
+
+> Guía completa y documentación del sitio Generador de Lettering (generadordelettering.org).
+
+## Introducción
+
+Generador de Lettering es un sitio web que proporciona conversores de texto, fuentes tipográficas en caracteres Unicode, herramientas de diseño gráfico, plantillas de caligrafía y recursos educativos en español.
+
+---
+
+## Herramientas Principales
+
+### Conversor de Letras Bonitas
+URL: https://generadordelettering.org/herramientas/conversor-letras-bonitas
+Permite ingresar cualquier palabra o frase y genera al instante decenas de variantes con símbolos aesthetic, letras cursivas, fuentes góticas, tachadas, con círculos y estilos decorativos para copiar y pegar en redes sociales como Instagram, TikTok, Facebook y WhatsApp.
+
+### Generador de Nombres para Free Fire
+URL: https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire
+Diseñado específicamente para la comunidad de jugadores de Garena Free Fire. Genera apodos "insanos" con símbolos especiales como alas, cruces, coronas y espacios invisibles Unicode.
+
+### Generador de Nombres para Instagram
+URL: https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram
+Herramienta para crear nombres de usuario y frases para la biografía de Instagram utilizando fuentes tipográficas elegantes y símbolos visuales.
+
+### Generador de Letras Góticas
+URL: https://generadordelettering.org/generador-de-letras-goticas
+Especializado en la conversión de texto a caracteres de estilo gótico clásico (Fraktur, Bold Fraktur) de la norma Unicode.
+
+### Generador de Letras Cursivas
+URL: https://generadordelettering.org/generador-de-letras-cursivas
+Transforma el texto en caligrafía cursiva, manuscrita y de estilo elegante.
+
+---
+
+## Editor y Plantillas
+
+### Editor de Lettering
+URL: https://generadordelettering.org/editor
+Canvas interactivo para crear pósteres, frases y composiciones visuales ajustando fuentes, colores, sombras, bordes y fondos.
+
+### Plantillas de Práctica
+URL: https://generadordelettering.org/plantillas
+Colección de hojas con guías trazadas para imprimir o descargar en SVG/PDF para practicar el trazo manual con rotuladores de punta pincel (brush pens).
+
+---
+
+## Información de Contacto y Licencia
+Todo el contenido y herramientas son de libre acceso para uso personal y creativo.

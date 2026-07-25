@@ -1,0 +1,23 @@
+# Generador de Lettering
+
+> Conversor de letras bonitas, fuentes elegantes, fuentes para Instagram, TikTok y Free Fire, y herramientas de caligrafía digital.
+
+Generador de Lettering es una plataforma web gratuita que permite convertir texto plano en estilos tipográficos con caracteres Unicode, personalizar diseños de caligrafía, generar plantillas de práctica y crear nombres con símbolos.
+
+## Core Features & Tools
+
+- [Conversor de Letras Bonitas](https://generadordelettering.org/herramientas/conversor-letras-bonitas): Transforma textos simples en fuentes elegantes, cursivas y decorativas para copiar y pegar.
+- [Generador de Nombres para Free Fire](https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire): Crea nombres insanos con símbolos, alas y letras raras para Free Fire.
+- [Generador de Nombres para Instagram](https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram): Ideas y tipografías estilizadas para la biografía y perfil de Instagram.
+- [Letras Góticas](https://generadordelettering.org/generador-de-letras-goticas): Generador de fuentes góticas antiguas y modernas.
+- [Letras Cursivas](https://generadordelettering.org/generador-de-letras-cursivas): Conversor de tipografías cursivas y manuscritas.
+- [Editor y Creador de Lettering](https://generadordelettering.org/editor): Herramienta interactiva para diseñar composiciones tipográficas personalizadas con sombras y bordes.
+- [Plantillas de Práctica](https://generadordelettering.org/plantillas): Hojas de guía para practicar caligrafía y lettering a mano.
+- [Combinador de Fuentes](https://generadordelettering.org/herramientas/combinador-de-fuentes): Explora combinaciones de fuentes para diseño gráfico.
+- [Paletas de Color](https://generadordelettering.org/herramientas/paletas-de-color): Paletas cromáticas para proyectos tipográficos.
+- [Blog y Guías](https://generadordelettering.org/blog): Artículos y tutoriales sobre lettering, fuentes Unicode y estética digital.
+
+## Resources
+
+- [Sitemap](https://generadordelettering.org/sitemap.xml): Mapa del sitio XML.
+- [Robots.txt](https://generadordelettering.org/robots.txt): Directivas de acceso e indexación.

@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://generadordelettering.org/sitemap.xml
+# LLMs.txt for AI crawlers & agents
+# https://llmstxt.org/
