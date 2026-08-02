@@ -133,19 +133,25 @@ export default function Layout() {
               </div>
 
               <div>
-                <h3 className="font-bold text-gray-900 mb-4 whitespace-nowrap">Empresa</h3>
+                <h3 className="font-bold text-gray-900 mb-4 whitespace-nowrap">Empresa y Legal</h3>
                 <ul className="space-y-3 text-sm text-gray-600">
                   <li><Link to="/sobre-nosotros" className="hover:text-[#4F46E5]">Sobre Nosotros</Link></li>
                   <li><Link to="/contacto" className="hover:text-[#4F46E5]">Contacto</Link></li>
                   <li><Link to="/politica-de-privacidad" className="hover:text-[#4F46E5]">Privacidad</Link></li>
                   <li><Link to="/terminos-y-condiciones" className="hover:text-[#4F46E5]">Términos</Link></li>
+                  <li><a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="hover:text-[#4F46E5] text-xs text-gray-400">LLMs.txt (AI Spec)</a></li>
                 </ul>
               </div>
             </div>
 
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
               <div className="text-center md:text-left">
-                © {new Date().getFullYear()} LetrasPro. Todos los derechos reservados.
+                © {new Date().getFullYear()} LetrasPro - Generador de Lettering. Todos los derechos reservados.
+              </div>
+              <div className="flex items-center space-x-4">
+                <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:underline">Mapa del Sitio (XML)</a>
+                <span>•</span>
+                <a href="/robots.txt" target="_blank" rel="noopener noreferrer" className="hover:underline">Robots.txt</a>
               </div>
             </div>
           </div>
