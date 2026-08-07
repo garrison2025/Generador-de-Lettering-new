@@ -35,13 +35,58 @@ export function ControlPanel() {
           <div className="p-6">
             <TabsContent value="texto" className="space-y-6 mt-0">
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-gray-700">Texto para Lettering</label>
+                <div className="flex justify-between items-center">
+                  <label className="text-xs font-semibold text-gray-700">Texto para Lettering</label>
+                  <span className="text-[10px] text-gray-400">Pulsación o Escribe</span>
+                </div>
                 <textarea 
                   value={store.text}
                   onChange={e => store.updateState({ text: e.target.value })}
-                  className="w-full border border-gray-200 rounded-lg p-3 min-h-[100px] text-sm resize-none focus:ring-1 focus:ring-[#5A4AD2] focus:border-[#5A4AD2] outline-none"
-                  placeholder="Tu texto aquí"
+                  className="w-full border border-gray-200 rounded-lg p-3 min-h-[90px] text-sm resize-none focus:ring-1 focus:ring-[#5A4AD2] focus:border-[#5A4AD2] outline-none"
+                  placeholder="Tu texto aquí..."
                 />
+                
+                {/* Quick Emoji / Symbol inserter */}
+                <div className="pt-1">
+                  <span className="text-[10px] font-semibold text-gray-500 block mb-1.5">Símbolos Decorativos Rápidos:</span>
+                  <div className="flex flex-wrap gap-1">
+                    {['✨', '🌸', '🌿', '⚡', '💖', '👑', '✦', '🖤', '🦋', '🌟', '🌺', '🎈', '🎨', '🔥', '☕', '🚀'].map((symbol) => (
+                      <button
+                        key={symbol}
+                        type="button"
+                        onClick={() => store.updateState({ text: store.text + ' ' + symbol })}
+                        className="w-7 h-7 bg-gray-50 hover:bg-purple-100 hover:text-[#5A4AD2] border border-gray-200 rounded-md text-xs flex items-center justify-center transition"
+                        title={`Añadir ${symbol}`}
+                      >
+                        {symbol}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quick Phrases */}
+                <div className="pt-2 border-t border-gray-100">
+                  <span className="text-[10px] font-semibold text-gray-500 block mb-1.5">Frases de Ejemplo:</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[
+                      'Buenos Días ✨',
+                      'Love Yourself 💖',
+                      'Dream Big 🚀',
+                      'Good Vibes 🌿',
+                      '¡Feliz Cumpleaños! 🎉',
+                      'Hazlo con Pasión 🔥'
+                    ].map((phrase) => (
+                      <button
+                        key={phrase}
+                        type="button"
+                        onClick={() => store.updateState({ text: phrase })}
+                        className="text-[11px] px-2.5 py-1 bg-purple-50 hover:bg-[#5A4AD2] text-[#5A4AD2] hover:text-white rounded-md font-medium transition"
+                      >
+                        {phrase}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               <div className="space-y-2 relative" ref={dropdownRef}>

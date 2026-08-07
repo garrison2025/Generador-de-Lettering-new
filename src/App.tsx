@@ -31,6 +31,7 @@ const LetrasTikTok = lazy(() => import('./pages/LetrasTikTok'));
 const ConversorLetrasBonitas = lazy(() => import('./pages/ConversorLetrasBonitas'));
 const GeneradorNombresInstagram = lazy(() => import('./pages/GeneradorNombresInstagram'));
 const GeneradorNombresFreeFire = lazy(() => import('./pages/GeneradorNombresFreeFire'));
+const CreadorLettering = lazy(() => import('./pages/CreadorLettering'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -59,6 +60,8 @@ export default function App() {
             <Route path="herramientas/conversor-letras-bonitas" element={<ConversorLetrasBonitas />} />
             <Route path="herramientas/generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />
             <Route path="herramientas/generador-de-nombres-para-free-fire" element={<GeneradorNombresFreeFire />} />
+            <Route path="herramientas/creador-de-lettering" element={<CreadorLettering />} />
+            <Route path="creador-de-lettering" element={<CreadorLettering />} />
             <Route path="generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />
             <Route path="generador-de-nombres-para-free-fire" element={<GeneradorNombresFreeFire />} />
 

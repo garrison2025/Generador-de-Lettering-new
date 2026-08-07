@@ -39,6 +39,7 @@ export default function Layout() {
                 <Link to="/herramientas/plantillas-practica" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Plantillas de Práctica</Link>
                 <Link to="/herramientas/conversor-texto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Conversor de Texto</Link>
                 <div className="mx-3 my-1 border-t border-gray-100"></div>
+                <Link to="/herramientas/creador-de-lettering" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-bold text-[#5A4AD2]">Creador de Lettering</Link>
                 <Link to="/herramientas/conversor-letras-bonitas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-bold">Conv. Letras Bonitas</Link>
                 <Link to="/herramientas/generador-de-nombres-para-instagram" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-medium">Nombres para Instagram</Link>
                 <Link to="/herramientas/generador-de-nombres-para-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-medium">Nombres para Free Fire</Link>
@@ -75,6 +76,7 @@ export default function Layout() {
               <div className="px-3 pt-4 pb-2 border-t border-gray-100 mt-2">
                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Herramientas Populares</span>
               </div>
+              <Link to="/herramientas/creador-de-lettering" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-bold text-[#5A4AD2] hover:bg-gray-50">Creador de Lettering</Link>
               <Link to="/herramientas/conversor-letras-bonitas" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Conv. Letras Bonitas</Link>
               <Link to="/herramientas/generador-de-nombres-para-instagram" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Nombres para Instagram</Link>
               <Link to="/herramientas/generador-de-nombres-para-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Nombres para Free Fire</Link>
@@ -113,6 +115,7 @@ export default function Layout() {
               <div>
                 <h3 className="font-bold text-gray-900 mb-4 whitespace-nowrap">Herramientas</h3>
                 <ul className="space-y-3 text-sm text-gray-600">
+                  <li><Link to="/herramientas/creador-de-lettering" className="hover:text-[#4F46E5] font-bold text-[#5A4AD2]">Creador de Lettering</Link></li>
                   <li><Link to="/herramientas/generador-de-nombres-para-instagram" className="hover:text-[#4F46E5] font-medium">Nombres para Instagram</Link></li>
                   <li><Link to="/herramientas/generador-de-nombres-para-free-fire" className="hover:text-[#4F46E5] font-medium">Nombres para Free Fire</Link></li>
                   <li><Link to="/herramientas/conversor-letras-bonitas" className="hover:text-[#4F46E5]">Letras Bonitas</Link></li>

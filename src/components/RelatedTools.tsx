@@ -9,6 +9,13 @@ interface RelatedToolsProps {
 export function RelatedTools({ currentPath }: RelatedToolsProps) {
   const tools = [
     {
+      title: 'Creador de Lettering',
+      desc: 'Diseña arte tipográfico personalizado, caligrafía, luces neón y letras 3D.',
+      path: '/herramientas/creador-de-lettering',
+      icon: <PenTool className="w-5 h-5 text-[#5A4AD2]" />,
+      badge: 'Estudio de Diseño'
+    },
+    {
       title: 'Generador de Nombres para Free Fire',
       desc: 'Crea nicks insanos con letras bonitas, alas, coronas y espacio invisible.',
       path: '/herramientas/generador-de-nombres-para-free-fire',
