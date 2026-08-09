@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm';
 import { ChevronLeft, Calendar } from 'lucide-react';
 import { BLOG_POSTS } from '../data/blogPosts';
 import { SEO } from '../components/SEO';
+import { RelatedTools } from '../components/RelatedTools';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -130,6 +131,8 @@ export default function BlogPost() {
             </Link>
           </div>
         </div>
+
+        <RelatedTools currentPath={`/blog/${post.slug}`} />
       </div>
     </>
   );

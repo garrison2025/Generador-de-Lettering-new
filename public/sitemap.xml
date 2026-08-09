@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://generadordelettering.org/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://generadordelettering.org/og-image.jpg</image:loc>
+      <image:title>Generador de Lettering y Estudio Tipográfico</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/creador-de-lettering</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://generadordelettering.org/og-image.jpg</image:loc>
+      <image:title>Creador de Lettering Digital Online</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/herramientas/creador-de-lettering</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/herramientas/conversor-letras-bonitas</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://generadordelettering.org/editor</loc>
@@ -33,7 +67,7 @@
   <url>
     <loc>https://generadordelettering.org/herramientas/conversor-texto</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://generadordelettering.org/herramientas/letras-azules</loc>
@@ -43,61 +77,81 @@
   <url>
     <loc>https://generadordelettering.org/herramientas/letras-free-fire</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://generadordelettering.org/herramientas/letras-tiktok</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://generadordelettering.org/creador-de-lettering</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://generadordelettering.org/herramientas/creador-de-lettering</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://generadordelettering.org/herramientas/conversor-letras-bonitas</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://generadordelettering.org/blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://generadordelettering.org/generador-de-letras-goticas</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://generadordelettering.org/generador-de-letras-cursivas</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://generadordelettering.org/letras-para-instagram</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://generadordelettering.org/letras-para-tatuajes</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/blog/mejores-nombres-insanos-free-fire</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/blog/biografia-tiktok-aesthetic-dark</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/blog/letras-invisibles-espacios-guia-redes-sociales</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/blog/diferencias-lettering-caligrafia-tipografia</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/blog/fuentes-aesthetic-para-copiar-y-pegar-instagram</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/sobre-nosotros</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/contacto</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/privacidad</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://generadordelettering.org/terminos-y-condiciones</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

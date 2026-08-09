@@ -73,6 +73,16 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
     }
   ];
 
+  const quickLinks = [
+    { label: 'Generador de Letras Góticas', path: '/generador-de-letras-goticas' },
+    { label: 'Generador de Letras Cursivas', path: '/generador-de-letras-cursivas' },
+    { label: 'Letras para Instagram Aesthetic', path: '/letras-para-instagram' },
+    { label: 'Letras para Tatuajes Online', path: '/letras-para-tatuajes' },
+    { label: 'Guía Nombres Insanos Free Fire', path: '/blog/mejores-nombres-insanos-free-fire' },
+    { label: 'Bio TikTok Aesthetic Dark', path: '/blog/biografia-tiktok-aesthetic-dark' },
+    { label: 'Espacio Invisible Unicode', path: '/blog/letras-invisibles-espacios-guia-redes-sociales' },
+  ];
+
   const filteredTools = tools.filter(tool => tool.path !== currentPath);
 
   return (
@@ -87,7 +97,7 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
         Descubre nuestros generadores de texto, conversores de fuentes y creadores de apodos más populares:
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {filteredTools.map((tool, idx) => (
           <Link
             key={idx}
@@ -115,6 +125,22 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
             </span>
           </Link>
         ))}
+      </div>
+
+      {/* Internal Links Cluster for SEO Indexation */}
+      <div className="pt-6 border-t border-gray-100">
+        <span className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-3">Enlaces Populares de Búsqueda:</span>
+        <div className="flex flex-wrap gap-2">
+          {quickLinks.map((link, lIdx) => (
+            <Link
+              key={lIdx}
+              to={link.path}
+              className="text-xs bg-gray-100 hover:bg-[#5A4AD2] text-gray-700 hover:text-white px-3 py-1.5 rounded-xl transition font-medium"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

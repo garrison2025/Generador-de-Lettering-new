@@ -1,6 +1,19 @@
 User-agent: *
 Allow: /
+Allow: /public/
+Allow: /*.jpg
+Allow: /*.png
+Allow: /*.webp
+Allow: /*.svg
 
+# Sitemaps
 Sitemap: https://generadordelettering.org/sitemap.xml
-# LLMs.txt for AI crawlers & agents
+
+# LLMs Specification
 # https://llmstxt.org/
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /

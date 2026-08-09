@@ -114,13 +114,16 @@ export default function Layout() {
 
               <div>
                 <h3 className="font-bold text-gray-900 mb-4 whitespace-nowrap">Herramientas</h3>
-                <ul className="space-y-3 text-sm text-gray-600">
+                <ul className="space-y-2 text-sm text-gray-600">
                   <li><Link to="/herramientas/creador-de-lettering" className="hover:text-[#4F46E5] font-bold text-[#5A4AD2]">Creador de Lettering</Link></li>
                   <li><Link to="/herramientas/generador-de-nombres-para-instagram" className="hover:text-[#4F46E5] font-medium">Nombres para Instagram</Link></li>
                   <li><Link to="/herramientas/generador-de-nombres-para-free-fire" className="hover:text-[#4F46E5] font-medium">Nombres para Free Fire</Link></li>
                   <li><Link to="/herramientas/conversor-letras-bonitas" className="hover:text-[#4F46E5]">Letras Bonitas</Link></li>
-                  <li><Link to="/herramientas/letras-free-fire" className="hover:text-[#4F46E5]">Letras Free Fire</Link></li>
-                  <li><Link to="/herramientas/letras-tiktok" className="hover:text-[#4F46E5]">Letras para TikTok</Link></li>
+                  <li><Link to="/generador-de-letras-goticas" className="hover:text-[#4F46E5]">Letras Góticas</Link></li>
+                  <li><Link to="/generador-de-letras-cursivas" className="hover:text-[#4F46E5]">Letras Cursivas</Link></li>
+                  <li><Link to="/letras-para-instagram" className="hover:text-[#4F46E5]">Letras para Instagram</Link></li>
+                  <li><Link to="/letras-para-tatuajes" className="hover:text-[#4F46E5]">Letras para Tatuajes</Link></li>
+                  <li><Link to="/herramientas/letras-azules" className="hover:text-[#4F46E5]">Letras Azules</Link></li>
                   <li><Link to="/editor" className="hover:text-[#4F46E5]">Editor Avanzado</Link></li>
                 </ul>
               </div>

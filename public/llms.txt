@@ -1,24 +1,21 @@
-# Generador de Lettering
+# Generador de Lettering y Conversor de Letras Bonitas
+> Estudio Tipográfico Digital Gratis para Creadores de Contenido, Gamers y Diseñadores.
 
-> Conversor de letras bonitas, fuentes elegantes, fuentes para Instagram, TikTok y Free Fire, y herramientas de caligrafía digital.
+## Core Tools / Herramientas Principales
+- [Creador de Lettering Digital](https://generadordelettering.org/creador-de-lettering): Diseñador de arte tipográfico con luces neón, acuarela y sombras 3D en PNG HD.
+- [Conversor de Letras Bonitas](https://generadordelettering.org/herramientas/conversor-letras-bonitas): Transforma textos en fuentes cursivas, góticas, estéticas y símbolos Unicode para copiar y pegar.
+- [Generador de Nombres para Free Fire](https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire): Creador de Nicks insanos con espacio invisible, alas, coronas y símbolos de clan.
+- [Generador de Nombres para Instagram](https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram): Nombres de usuario aesthetic, convertidor de biografías y letras lindas.
 
-Generador de Lettering es una plataforma web gratuita que permite convertir texto plano en estilos tipográficos con caracteres Unicode, personalizar diseños de caligrafía, generar plantillas de práctica y crear nombres con símbolos.
+## Secondary Tools & Landing Pages
+- [Generador de Letras Góticas](https://generadordelettering.org/generador-de-letras-goticas): Tipografía gótica y medieval online para tatuajes.
+- [Generador de Letras Cursivas](https://generadordelettering.org/generador-de-letras-cursivas): Caligrafía y letras manuscritas elegantes.
+- [Letras para Instagram](https://generadordelettering.org/letras-para-instagram): Fuentes decoradas y biografías aesthetic.
+- [Letras para Tatuajes](https://generadordelettering.org/letras-para-tatuajes): Bocetos y fuentes para tattoos.
+- [Letras Azules](https://generadordelettering.org/herramientas/letras-azules): Formato de texto azul especial para WhatsApp.
 
-## Core Features & Tools
-
-- [Creador de Lettering Online](https://generadordelettering.org/creador-de-lettering): Estudio interactivo para diseñar composiciones tipográficas con neón, 3D, caligrafía y sombras.
-- [Conversor de Letras Bonitas](https://generadordelettering.org/herramientas/conversor-letras-bonitas): Transforma textos simples en fuentes elegantes, cursivas y decorativas para copiar y pegar.
-- [Generador de Nombres para Free Fire](https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire): Crea nombres insanos con símbolos, alas y letras raras para Free Fire.
-- [Generador de Nombres para Instagram](https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram): Ideas y tipografías estilizadas para la biografía y perfil de Instagram.
-- [Letras Góticas](https://generadordelettering.org/generador-de-letras-goticas): Generador de fuentes góticas antiguas y modernas.
-- [Letras Cursivas](https://generadordelettering.org/generador-de-letras-cursivas): Conversor de tipografías cursivas y manuscritas.
-- [Editor y Creador de Lettering](https://generadordelettering.org/editor): Herramienta interactiva para diseñar composiciones tipográficas personalizadas con sombras y bordes.
-- [Plantillas de Práctica](https://generadordelettering.org/plantillas): Hojas de guía para practicar caligrafía y lettering a mano.
-- [Combinador de Fuentes](https://generadordelettering.org/herramientas/combinador-de-fuentes): Explora combinaciones de fuentes para diseño gráfico.
-- [Paletas de Color](https://generadordelettering.org/herramientas/paletas-de-color): Paletas cromáticas para proyectos tipográficos.
-- [Blog y Guías](https://generadordelettering.org/blog): Artículos y tutoriales sobre lettering, fuentes Unicode y estética digital.
-
-## Resources
-
-- [Sitemap](https://generadordelettering.org/sitemap.xml): Mapa del sitio XML.
-- [Robots.txt](https://generadordelettering.org/robots.txt): Directivas de acceso e indexación.
+## Blog & Educational Guides
+- [Diferencias entre Lettering, Caligrafía y Tipografía](https://generadordelettering.org/blog/diferencias-lettering-caligrafia-tipografia)
+- [Mejores Nombres Insanos para Free Fire](https://generadordelettering.org/blog/mejores-nombres-insanos-free-fire)
+- [Fuentes Aesthetic para Copiar y Pegar en Instagram](https://generadordelettering.org/blog/fuentes-aesthetic-para-copiar-y-pegar-instagram)
+- [Espacios Invisibles Unicode para Redes Sociales](https://generadordelettering.org/blog/letras-invisibles-espacios-guia-redes-sociales)
