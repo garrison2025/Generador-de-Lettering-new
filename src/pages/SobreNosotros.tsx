@@ -111,6 +111,46 @@ export default function SobreNosotros() {
 
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                <Users className="w-6 h-6 text-[#5A4AD2]" />
+                Nuestro Equipo Editorial y Creadores
+              </h2>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                Detrás de Generador de Lettering existe un equipo multidisciplinario con pasión por las letras, el código abierto y la enseñanza visual:
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 flex gap-4 items-start">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-[#5A4AD2] to-[#FF6B6B] flex items-center justify-center text-white font-black text-lg shrink-0">
+                    SV
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-base">Sofía Valenzuela</h3>
+                    <span className="text-xs font-bold text-[#5A4AD2] block mb-2">Directora Editorial & Diseñadora Tipográfica</span>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Especialista en caligrafía tradicional y branding con más de 7 años de experiencia. Encargada de supervisar el contenido educativo y las plantillas descargables.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 flex gap-4 items-start">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-emerald-500 to-indigo-600 flex items-center justify-center text-white font-black text-lg shrink-0">
+                    MR
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-base">Mateo Rivas</h3>
+                    <span className="text-xs font-bold text-indigo-600 block mb-2">Desarrollador Web & Especialista Unicode</span>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Ingeniero de software centrado en renderizado de canvas, optimización de velocidad de carga y cumplimiento del estándar Unicode internacional.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr className="border-gray-100" />
+
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
                 <BookOpen className="w-6 h-6 text-[#5A4AD2]" />
                 Compromiso Editorial y Calidad Técnica
               </h2>

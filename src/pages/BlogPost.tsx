@@ -37,9 +37,14 @@ export default function BlogPost() {
             "datePublished": post.date,
             "dateModified": post.date,
             "author": {
-              "@type": "Organization",
-              "name": "LetrasPro",
-              "url": "https://generadordelettering.org/"
+              "@type": "Person",
+              "name": "Sofía Valenzuela",
+              "jobTitle": "Especialista en Tipografía & Caligrafía Digital",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Generador de Lettering"
+              },
+              "url": "https://generadordelettering.org/sobre-nosotros"
             },
             "publisher": {
               "@type": "Organization",
@@ -110,6 +115,23 @@ export default function BlogPost() {
             <Markdown remarkPlugins={[remarkGfm]}>
               {post.content}
             </Markdown>
+          </div>
+
+          {/* Author Bio Box for E-E-A-T */}
+          <div className="mt-12 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-4 bg-purple-50/50 p-6 rounded-2xl">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#5A4AD2] to-[#FF6B6B] flex items-center justify-center text-white font-black text-xl shrink-0 shadow-sm">
+              SV
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#5A4AD2] bg-purple-100 px-2 py-0.5 rounded-full">Autora Editorial</span>
+                <span className="text-xs text-gray-500">• Revisión Técnica Verificada</span>
+              </div>
+              <h4 className="font-bold text-gray-900 text-base">Sofía Valenzuela</h4>
+              <p className="text-xs text-gray-600 mt-1 leading-relaxed">
+                Diseñadora tipográfica con más de 7 años de experiencia en caligrafía tradicional y branding digital. Especialista en estándares Unicode, fuentes web y expresión artística en redes sociales.
+              </p>
+            </div>
           </div>
         </article>
 
