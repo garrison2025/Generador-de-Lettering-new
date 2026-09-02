@@ -131,6 +131,16 @@ export default function Layout() {
               <div>
                 <h3 className="font-bold text-gray-900 mb-4 whitespace-nowrap">Recursos y Guías</h3>
                 <ul className="space-y-3 text-sm text-gray-600">
+                  <li>
+                    <a 
+                      href="https://conversordeletrasbonitas.net/" 
+                      target="_blank" 
+                      rel="noopener" 
+                      className="hover:text-[#4F46E5] font-medium text-gray-700 transition"
+                    >
+                      Conversor de Letras Bonitas
+                    </a>
+                  </li>
                   <li><Link to="/blog/biografia-tiktok-aesthetic-dark" className="hover:text-[#4F46E5]">Bio Aesthetic TikTok</Link></li>
                   <li><Link to="/blog/mejores-nombres-insanos-free-fire" className="hover:text-[#4F46E5]">Nombres Insanos</Link></li>
                   <li><Link to="/blog/letras-invisibles-espacios-guia-redes-sociales" className="hover:text-[#4F46E5]">Letras Invisibles</Link></li>
