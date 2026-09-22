@@ -141,6 +141,16 @@ export default function Layout() {
                       Conversor de Letras Bonitas
                     </a>
                   </li>
+                  <li>
+                    <a 
+                      href="https://cuadranomina.com/" 
+                      target="_blank" 
+                      rel="noopener" 
+                      className="hover:text-[#4F46E5] font-medium text-gray-700 transition"
+                    >
+                      Cuadra Nómina
+                    </a>
+                  </li>
                   <li><Link to="/blog/biografia-tiktok-aesthetic-dark" className="hover:text-[#4F46E5]">Bio Aesthetic TikTok</Link></li>
                   <li><Link to="/blog/mejores-nombres-insanos-free-fire" className="hover:text-[#4F46E5]">Nombres Insanos</Link></li>
                   <li><Link to="/blog/letras-invisibles-espacios-guia-redes-sociales" className="hover:text-[#4F46E5]">Letras Invisibles</Link></li>
