@@ -22,11 +22,9 @@ export function SEO({
   image = 'https://generadordelettering.org/og-image.jpg',
   noindex = false
 }: SEOProps) {
-  const currentUrl = canonical || (
-    typeof window !== 'undefined'
-      ? `${window.location.origin}${window.location.pathname}`
-      : 'https://generadordelettering.org'
-  );
+  const siteUrl = 'https://generadordelettering.org';
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
+  const currentUrl = canonical || `${siteUrl}${pathname}`;
 
   const schemasToRender = Array.isArray(jsonSchema) 
     ? jsonSchema 
