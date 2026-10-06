@@ -50,7 +50,7 @@ const FONTS_DATA: Record<string, { label: string; category: string; mapping: str
   burbujas: {
     label: 'Círculos Blancos',
     category: 'Símbolos',
-    mapping: 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶ⒒ⒸⒹⒺⒻⒼⒽⒾⒿⓀⒷⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ⓪①②③④⑤⑥⑦⑧⑨'
+    mapping: 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ⓪①②③④⑤⑥⑦⑧⑨'
   },
   burbujas_negra: {
     label: 'Círculos Negros',
@@ -65,7 +65,7 @@ const FONTS_DATA: Record<string, { label: string; category: string; mapping: str
   monospaced: {
     label: 'Código Máquina',
     category: 'Destacadas',
-    mapping: '𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚀0123456789'
+    mapping: '𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉0123456789'
   }
 };
 
@@ -149,7 +149,7 @@ function convertText(text: string, fontKey: string) {
   if (!text) return 'TuNombre';
   const map = FONT_MAPS[fontKey];
   if (!map) return text;
-  return text.split('').map(char => map[char] || char).join('');
+  return Array.from(text).map(char => map[char] || char).join('');
 }
 
 const faqSchema = {
@@ -177,7 +177,7 @@ const faqSchema = {
       "name": "¿Es compatible con iPhone (iOS) y Android?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sí, el 100% de las fuentes y símbolos generados cumplen con el estándar Unicode oficial, garantizando que se muestren correctamente en cualquier smartphone, tablet o computadora."
+        "text": "Las letras y símbolos se basan en caracteres Unicode estándar y suelen mostrarse correctamente en dispositivos modernos. La apariencia exacta puede variar según la fuente disponible, el sistema operativo y la versión de Instagram."
       }
     }
   ]
@@ -268,10 +268,10 @@ export default function GeneradorNombresInstagram() {
 
   const formatWithSpacing = (text: string) => {
     if (spacingMode === 'dots') {
-      return text.split('').join(' · ');
+      return Array.from(text).join(' · ');
     }
     if (spacingMode === 'spaced') {
-      return text.split('').join(' ');
+      return Array.from(text).join(' ');
     }
     return text;
   };
