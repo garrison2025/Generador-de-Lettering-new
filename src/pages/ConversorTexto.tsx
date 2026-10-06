@@ -298,7 +298,7 @@ const faqSchema = {
       "name": "¿En qué se diferencian estas letras raras y copy paste de otras?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nuestro conversor de texto reúne más de 50 estilos y transformaciones Unicode en una sola herramienta. Te permite cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas en un solo clic. Otras herramientas limitan el número de estilos \"aesthetic\", nosotros te presentamos todo junto para que tengas infinitas opciones."
+        "text": "Nuestro conversor de texto reúne más de 50 estilos y transformaciones Unicode en una sola herramienta. Te permite cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas en un solo clic. Reunimos los estilos en una sola lista para que puedas comparar muchas opciones sin cambiar de herramienta."
       }
     },
     {
@@ -322,7 +322,7 @@ const faqSchema = {
       "name": "¿Necesito descargar fuentes (TTF u OTF)?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Las letras y estilos de este conversor de letras se basan enteramente en caracteres y símbolos Unicode, no en archivos TTF (fuentes del sistema). Es por eso que puedes copiarlas y quienes visiten tu perfil podrán leerlas sin necesidad de instalar ellos ninguna fuente."
+        "text": "No necesitas instalar archivos TTF u OTF para generar o copiar estos estilos: se basan en caracteres Unicode. Muchos dispositivos modernos pueden mostrarlos directamente, aunque algunos símbolos pueden verse distintos o aparecer como cuadros si la aplicación, el sistema o la fuente disponible no incluye ese carácter."
       }
     }
   ]
@@ -454,7 +454,7 @@ export default function ConversorTexto() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿En qué se diferencian estas letras raras y copy paste de otras?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Nuestro conversor de texto reúne más de 50 estilos y transformaciones Unicode en una sola herramienta. Te permite <strong>cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas</strong> en un solo clic. Otras herramientas limitan el número de estilos "aesthetic", nosotros te presentamos todo junto para que tengas infinitas opciones.
+              Nuestro conversor de texto reúne más de 50 estilos y transformaciones Unicode en una sola herramienta. Te permite <strong>cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas</strong> en un solo clic. Reunimos más de 50 estilos en una sola lista para que puedas comparar muchas opciones sin cambiar de herramienta.
             </p>
           </div>
 
@@ -475,7 +475,7 @@ export default function ConversorTexto() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Necesito descargar fuentes (TTF u OTF)?</h3>
             <p className="text-gray-600 leading-relaxed">
-              No. Las letras y estilos de este conversor de letras se basan enteramente en caracteres y símbolos Unicode, no en archivos TTF (fuentes del sistema). Es por eso que puedes copiarlas y quienes visiten tu perfil podrán leerlas sin necesidad de instalar ellos ninguna fuente.
+              No necesitas instalar archivos TTF u OTF para generar o copiar estos estilos: se basan en caracteres Unicode. Muchos dispositivos modernos pueden mostrarlos directamente, aunque algunos símbolos pueden verse distintos o aparecer como cuadros si la aplicación, el sistema o la fuente disponible no incluye ese carácter.
             </p>
           </div>
         </div>
