@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
@@ -39,6 +39,15 @@ export function SEO({
     : jsonSchema 
       ? [jsonSchema] 
       : [];
+
+  useEffect(() => {
+    // Static route shells provide crawlable metadata before React loads.
+    // Once Helmet has mounted its live metadata, remove only those static
+    // shell tags so the hydrated document contains a single canonical set.
+    document.head
+      .querySelectorAll('[data-rh="true"]')
+      .forEach((node) => node.remove());
+  }, [title, description, canonical, keywords, type, image, noindex]);
 
   return (
     <Helmet>
