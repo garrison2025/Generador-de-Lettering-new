@@ -4,6 +4,7 @@ import { Copy, Check, Dices } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
+import { FONT_MAPS as SHARED_FONT_MAPS } from '../data/unicodeStyles';
 
 const DECORATORS = [
   { prefix: '꧁ ༒ ', suffix: ' ༒ ꧂', name: 'Alas Divinas' },
@@ -38,19 +39,14 @@ function limitCodePoints(value: string, max = FREE_FIRE_GUIDE_LIMIT) {
   return Array.from(value).slice(0, max).join('');
 }
 
-const FONT_MAPS: Record<string, Record<string, string>> = {
-  smallCaps: {
-    'a': 'ᴀ', 'b': 'ʙ', 'c': 'ᴄ', 'd': 'ᴅ', 'e': 'ᴇ', 'f': 'ꜰ', 'g': 'ɢ', 'h': 'ʜ', 'i': 'ɪ', 'j': 'ᴊ', 'k': 'ᴋ', 'l': 'ʟ', 'm': 'ᴍ', 'n': 'ɴ', 'o': 'ᴏ', 'p': 'ᴘ', 'q': 'ǫ', 'r': 'ʀ', 's': 's', 't': 'ᴛ', 'u': 'ᴜ', 'v': 'ᴠ', 'w': 'ᴡ', 'x': 'x', 'y': 'ʏ', 'z': 'ᴢ'
-  },
-  gothic: {
-    'a': '𝔞', 'b': '𝔟', 'c': '𝔠', 'd': '𝔡', 'e': '𝔢', 'f': '𝔣', 'g': '𝔤', 'h': '𝔥', 'i': '𝔦', 'j': '𝔧', 'k': '𝔨', 'l': '𝔩', 'm': '𝔪', 'n': '𝔫', 'o': '𝔬', 'p': '𝔭', 'q': '𝔮', 'r': '𝔯', 's': '𝔰', 't': '𝔱', 'u': '𝔲', 'v': '𝔳', 'w': '𝔴', 'x': '𝔵', 'y': '𝔶', 'z': '𝔷',
-    'A': '𝔄', 'B': '𝔅', 'C': 'ℭ', 'D': '𝔇', 'E': '𝔈', 'F': '𝔉', 'G': '𝔊', 'H': 'ℌ', 'I': 'ℑ', 'J': '𝔍', 'K': '𝔎', 'L': '𝔏', 'M': '𝔐', 'N': '𝔑', 'O': '𝔒', 'P': '𝔓', 'Q': '𝔔', 'R': 'ℜ', 'S': '𝔖', 'T': '𝔗', 'U': '𝔘', 'V': '𝔙', 'W': '𝔚', 'X': '𝔛', 'Y': '𝔜', 'Z': 'ℨ'
-  }
+const FREE_FIRE_FONT_MAPS: Record<string, Record<string, string>> = {
+  smallCaps: SHARED_FONT_MAPS.small_caps,
+  gothic: SHARED_FONT_MAPS.gotica,
 };
 
 function applyFont(text: string, fontType: string) {
   if (fontType === 'normal') return text;
-  const map = FONT_MAPS[fontType];
+  const map = FREE_FIRE_FONT_MAPS[fontType];
   if (!map) return text;
   return Array.from(text).map(char => map[char] || map[char.toLowerCase()] || char).join('');
 }
