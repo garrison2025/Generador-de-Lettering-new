@@ -120,7 +120,9 @@ export default function LetrasTikTok() {
   };
 
   const addSymbolToInput = (symbol: string) => {
-    setInputText(prev => prev + ' ' + symbol);
+    setInputText((previous) =>
+      Array.from(`${previous} ${symbol}`).slice(0, 500).join('')
+    );
   };
 
   const allCombinations = useMemo(() => {
