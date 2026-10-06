@@ -374,8 +374,8 @@ export default function Home() {
           <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
             Comienza a diseñar textos únicos, letras decoradas y tipografías creativas para tus proyectos, redes sociales o cualquier ocasión especial.
           </p>
-          <Link to="/editor" className="inline-flex bg-[#FF6B6B] text-white font-bold px-8 py-4 rounded-lg shadow-lg hover:-translate-y-1 hover:bg-[#ff5757] hover:shadow-xl transition-all items-center gap-2">
-            <PenTool className="w-5 h-5"/> Ir al Editor de Lettering
+          <Link to="/herramientas/creador-de-lettering" className="inline-flex bg-[#FF6B6B] text-white font-bold px-8 py-4 rounded-lg shadow-lg hover:-translate-y-1 hover:bg-[#ff5757] hover:shadow-xl transition-all items-center gap-2">
+            <PenTool className="w-5 h-5"/> Crear Lettering Ahora
           </Link>
         </div>
       </section>
