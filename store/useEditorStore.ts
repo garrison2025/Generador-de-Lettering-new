@@ -174,15 +174,16 @@ export const useEditorStore = create<EditorStore>()(
     }),
     {
       name: 'lettering-editor-storage',
-      version: 1,
+      version: 2,
       // Keep lightweight editor preferences, but never serialize uploaded image data URLs.
       partialize: (state) => ({
         ...extractState(state),
         backgroundImage: null,
       }),
-      // Older versions may already contain a large base64 background image in localStorage.
+      // Version 2 forces existing v1 browser data through migration so any
+      // previously persisted base64 background image is discarded on hydration.
       migrate: (persistedState) => ({
-        ...(persistedState as EditorState),
+        ...(persistedState as Partial<EditorState>),
         backgroundImage: null,
       }),
     }
