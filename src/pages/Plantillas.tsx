@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { EDITOR_DEFAULT_STATE, useEditorStore, type EditorState } from '@/store/useEditorStore';
 import { loadFont } from '@/lib/fonts';
 import { SEO } from '../components/SEO';
+import { RelatedTools } from '../components/RelatedTools';
 
 const TEMPLATES: { id: number; title: string; state: Partial<EditorState> }[] = [
   {
@@ -37,6 +38,23 @@ const TEMPLATES: { id: number; title: string; state: Partial<EditorState> }[] = 
   }
 ];
 
+const templatesSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Plantillas de Lettering Digital",
+  "url": "https://generadordelettering.org/plantillas",
+  "description": "Colección de plantillas de lettering preconfiguradas para abrir y personalizar en el editor online."
+};
+
+const templatesBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://generadordelettering.org/" },
+    { "@type": "ListItem", "position": 2, "name": "Plantillas", "item": "https://generadordelettering.org/plantillas" }
+  ]
+};
+
 export default function Plantillas() {
   const updateState = useEditorStore((state) => state.updateState);
   const navigate = useNavigate();
@@ -59,8 +77,16 @@ export default function Plantillas() {
         title="Plantillas de Lettering Digital | Letras Personalizadas"
         description="Plantillas gratuitas de lettering y caligrafía digital para editar online. Úsalas para invitaciones de cumpleaños, bodas, y frases para tatuajes."
         keywords="plantillas de lettering, plantillas de caligrafia, diseños de letras gratis"
+        canonical="https://generadordelettering.org/plantillas"
+        jsonSchema={[templatesSchema, templatesBreadcrumbSchema]}
       />
     <div className="py-16 px-4 max-w-7xl mx-auto w-full flex-1">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
+        <Link to="/" className="hover:text-[#5A4AD2] transition-colors">Inicio</Link>
+        <span>/</span>
+        <span className="text-gray-900">Plantillas</span>
+      </nav>
+
       <div className="text-center max-w-2xl mx-auto mb-16">
         <h1 className="text-4xl font-bold mb-4">Plantillas de Lettering</h1>
         <p className="text-gray-600">Comienza tu diseño rápidamente seleccionando una de las plantillas preconfiguradas.</p>
@@ -86,6 +112,8 @@ export default function Plantillas() {
            </div>
         ))}
       </div>
+
+      <RelatedTools currentPath="/plantillas" />
     </div>
     </>
   );
