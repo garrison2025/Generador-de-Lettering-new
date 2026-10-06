@@ -297,7 +297,7 @@ export default function LetrasTikTok() {
                   ? 'bg-amber-50 text-amber-700 border border-amber-200' 
                   : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
               }`}>
-                {inputCharacterCount} caracteres · 80 base segura
+                {inputCharacterCount}/500 caracteres · 80 base segura
               </span>
             </div>
           </div>
@@ -308,7 +308,7 @@ export default function LetrasTikTok() {
               id="tiktok-input"
               type="text"
               value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
+              onChange={(e) => setInputText(Array.from(e.target.value).slice(0, 500).join(''))}
               placeholder="Ej: Aesthetic Girl / Sígueme para más..."
               className="w-full px-5 py-4 text-lg md:text-xl font-medium rounded-2xl border-2 border-gray-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 transition shadow-inner text-gray-900 pr-12"
             />
