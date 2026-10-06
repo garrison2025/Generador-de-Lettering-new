@@ -232,6 +232,73 @@ function validateRoutesAndSitemap() {
   );
 }
 
+function validateInternalRouteLinks() {
+  const app = read('src/App.tsx');
+  const blog = read('src/data/blogPosts.ts');
+
+  const routePaths = [...app.matchAll(/<Route\s+path="([^"]+)"/g)]
+    .map((match) => match[1])
+    .filter((route) => route !== '*' && route !== 'blog/:slug')
+    .map((route) => '/' + route.replace(/^\/+/, ''));
+
+  routePaths.push('/');
+
+  const blogPaths = [...blog.matchAll(/slug:\s*['"`]([^'"`]+)['"`]/g)]
+    .map((match) => `/blog/${match[1]}`);
+
+  const validPaths = new Set([...routePaths, ...blogPaths, '/404']);
+  const legacyPaths = new Set([
+    '/creador-de-lettering',
+    '/generador-de-nombres-para-instagram',
+    '/generador-de-nombres-para-free-fire'
+  ]);
+
+  const sourceFiles = [];
+
+  function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = `${dir}/${entry.name}`;
+
+      if (entry.isDirectory()) {
+        walk(fullPath);
+      } else if (/\.(?:tsx|ts)$/.test(entry.name)) {
+        sourceFiles.push(fullPath);
+      }
+    }
+  }
+
+  walk('src');
+
+  const failures = [];
+
+  for (const path of sourceFiles) {
+    const source = read(path);
+    const literalTargets = [
+      ...source.matchAll(/<(?:Link|Navigate)\b[^>]*\bto="([^"]+)"/g)
+    ].map((match) => match[1]);
+
+    for (const target of literalTargets) {
+      if (!target.startsWith('/')) continue;
+
+      const normalized = target.split(/[?#]/, 1)[0] || '/';
+
+      if (legacyPaths.has(normalized)) {
+        failures.push(`${path}: legacy internal route ${target}`);
+        continue;
+      }
+
+      if (!validPaths.has(normalized)) {
+        failures.push(`${path}: unresolved internal route ${target}`);
+      }
+    }
+  }
+
+  assert(
+    failures.length === 0,
+    `Internal route link validation failed:\n- ${failures.join('\n- ')}`
+  );
+}
+
 function validateBlogLastmod() {
   const blog = read('src/data/blogPosts.ts');
   const sitemap = read('public/sitemap.xml');
@@ -682,6 +749,7 @@ validateFreeFireFontMaps();
 validateUnicodeStyleReferences();
 validateUnicodeSafeTransforms();
 validateRoutesAndSitemap();
+validateInternalRouteLinks();
 validateBlogLastmod();
 validateInternalLinks();
 validateLlmsLinks();
