@@ -34,56 +34,100 @@ export const PRESET_COLORS = [
 ];
 
 const fontLoadPromises = new Map<string, Promise<void>>();
-export const loadFont = async (fontFamily: string) => {
-  const fontDef = FONTS.find(f => f.family === fontFamily);
-  if (!fontDef || typeof document === 'undefined') return;
 
-  const existing = fontLoadPromises.get(fontFamily);
-  if (existing) return existing;
+function fontLinkId(fontFamilies: string[]) {
+  return `gdl-font-batch-${fontFamilies
+    .map((family) => family.toLowerCase().replace(/[^a-z0-9]+/g, '-'))
+    .join('-')}`;
+}
 
-  const linkId = `gdl-font-${fontFamily.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+async function waitForStylesheet(link: HTMLLinkElement, label: string) {
+  await new Promise<void>((resolve, reject) => {
+    const timeoutId = window.setTimeout(() => {
+      reject(new Error(`Timed out loading stylesheet for ${label}`));
+    }, 4000);
 
-  const promise = (async () => {
-    let link = document.getElementById(linkId) as HTMLLinkElement | null;
+    const settle = (callback: () => void) => {
+      window.clearTimeout(timeoutId);
+      callback();
+    };
 
-    try {
-      if (!link) {
-        link = document.createElement('link');
-        link.id = linkId;
-        link.rel = 'stylesheet';
-        link.href = `https://fonts.googleapis.com/css2?family=${fontDef.href}&display=swap`;
+    link.addEventListener('load', () => settle(resolve), { once: true });
+    link.addEventListener(
+      'error',
+      () => settle(() => reject(new Error(`Failed to load stylesheet for ${label}`))),
+      { once: true }
+    );
+  });
+}
 
-        const stylesheetReady = new Promise<void>((resolve, reject) => {
-          const timeoutId = window.setTimeout(() => {
-            reject(new Error(`Timed out loading stylesheet for ${fontFamily}`));
-          }, 4000);
+export const loadFonts = async (fontFamilies: string[]) => {
+  if (typeof document === 'undefined') return;
 
-          const settle = (callback: () => void) => {
-            window.clearTimeout(timeoutId);
-            callback();
-          };
+  const uniqueFamilies = [...new Set(fontFamilies)];
+  const existingPromises: Promise<void>[] = [];
+  const pendingDefs = [];
 
-          link!.addEventListener('load', () => settle(resolve), { once: true });
-          link!.addEventListener(
-            'error',
-            () => settle(() => reject(new Error(`Failed to load stylesheet for ${fontFamily}`))),
-            { once: true }
-          );
-        });
+  for (const family of uniqueFamilies) {
+    const fontDef = FONTS.find((font) => font.family === family);
+    if (!fontDef) continue;
 
-        document.head.appendChild(link);
-        await stylesheetReady;
-      }
-
-      await document.fonts.load(`16px "${fontFamily}"`);
-      await document.fonts.ready;
-    } catch (error) {
-      fontLoadPromises.delete(fontFamily);
-      link?.remove();
-      console.error('Failed to load font', fontFamily, error);
+    const existing = fontLoadPromises.get(family);
+    if (existing) {
+      existingPromises.push(existing);
+    } else {
+      pendingDefs.push(fontDef);
     }
-  })();
+  }
 
-  fontLoadPromises.set(fontFamily, promise);
-  return promise;
+  let batchPromise: Promise<void> | null = null;
+
+  if (pendingDefs.length > 0) {
+    const families = pendingDefs.map((font) => font.family);
+    const linkId = fontLinkId(families);
+
+    batchPromise = (async () => {
+      let stylesheet = document.getElementById(linkId) as HTMLLinkElement | null;
+
+      try {
+        if (!stylesheet) {
+          stylesheet = document.createElement('link');
+          stylesheet.id = linkId;
+          stylesheet.rel = 'stylesheet';
+          stylesheet.href =
+            `https://fonts.googleapis.com/css2?${pendingDefs
+              .map((font) => `family=${font.href}`)
+              .join('&')}&display=swap`;
+
+          const stylesheetReady = waitForStylesheet(stylesheet, families.join(', '));
+          document.head.appendChild(stylesheet);
+          await stylesheetReady;
+        }
+
+        await Promise.all(
+          families.map((family) => document.fonts.load(`16px "${family}"`))
+        );
+        await document.fonts.ready;
+      } catch (error) {
+        for (const family of families) {
+          fontLoadPromises.delete(family);
+        }
+        stylesheet?.remove();
+        console.error('Failed to load fonts', families, error);
+      }
+    })();
+
+    for (const family of families) {
+      fontLoadPromises.set(family, batchPromise);
+    }
+  }
+
+  await Promise.all([
+    ...existingPromises,
+    ...(batchPromise ? [batchPromise] : []),
+  ]);
+};
+
+export const loadFont = async (fontFamily: string) => {
+  await loadFonts([fontFamily]);
 };
