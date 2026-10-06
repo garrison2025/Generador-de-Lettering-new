@@ -101,8 +101,8 @@ export default function Home() {
     <>
     <SEO 
       title="Generador de Lettering Online | Letras Personalizadas"
-      description="Diseña textos artísticos, caligrafía digital y letras decoradas para tus proyectos. Creador de lettering online fácil y gratis."
-      keywords="generador de lettering, letras bonitas, caligrafía online, creador de tipografias"
+      description="Generador de lettering online gratis para crear textos artísticos, caligrafía digital y letras personalizadas. Empieza con estilos rápidos y ajusta tu diseño sin registro."
+      keywords="generador de lettering, lettering online, crear lettering, letras personalizadas, caligrafía digital"
       jsonSchema={[faqSchema, softwareSchema, websiteSchema]}
     />
     <div className="flex flex-col flex-1 w-full bg-[#F8F9FC]">
@@ -117,13 +117,19 @@ export default function Home() {
             Diseña textos artísticos, caligrafía digital y letras decoradas para tus proyectos con nuestro generador de lettering online. Fácil de usar, gratis y sin registro.
           </p>
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/editor" className="min-w-[200px] bg-[#5A4AD2] text-white font-medium px-8 py-3.5 rounded-lg shadow-md hover:bg-[#4F46E5] transition-all flex items-center justify-center gap-2">
+            <Link to="/herramientas/creador-de-lettering" className="min-w-[200px] bg-[#5A4AD2] text-white font-medium px-8 py-3.5 rounded-lg shadow-md hover:bg-[#4F46E5] transition-all flex items-center justify-center gap-2">
               <PenTool className="w-5 h-5" />
               Crear Lettering
             </Link>
             <Link to="/plantillas" className="min-w-[200px] bg-white text-gray-700 border border-gray-300 font-medium px-8 py-3.5 rounded-lg hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
               <LayoutTemplate className="w-5 h-5" />
               Ver Plantillas
+            </Link>
+          </div>
+          <div className="text-sm text-gray-500">
+            ¿Necesitas ajustar cada detalle del lienzo?{' '}
+            <Link to="/editor" className="font-semibold text-[#5A4AD2] hover:underline">
+              Abrir Editor de Lettering Avanzado
             </Link>
           </div>
         </div>
