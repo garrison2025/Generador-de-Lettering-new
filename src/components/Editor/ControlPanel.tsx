@@ -317,6 +317,13 @@ export function ControlPanel() {
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (file) {
+                          const maxBytes = 10 * 1024 * 1024;
+                          if (file.size > maxBytes) {
+                            window.alert('La imagen supera 10 MB. Elige una imagen más ligera para mantener el editor fluido.');
+                            e.currentTarget.value = '';
+                            return;
+                          }
+
                           const reader = new FileReader();
                           reader.onload = (ev) => store.updateState({ backgroundImage: ev.target?.result as string });
                           reader.readAsDataURL(file);
@@ -324,7 +331,13 @@ export function ControlPanel() {
                       }} 
                     />
                   </label>
-                  <input type="color" value={store.backgroundColor} onChange={e => store.updateState({ backgroundColor: e.target.value, backgroundImage: null })} className="w-8 h-8 rounded-full cursor-pointer p-0 border-0 overflow-hidden" />
+                  <input
+                    type="color"
+                    aria-label="Color de fondo"
+                    value={store.backgroundColor === 'transparent' ? '#ffffff' : store.backgroundColor}
+                    onChange={e => store.updateState({ backgroundColor: e.target.value, backgroundImage: null })}
+                    className="w-8 h-8 rounded-full cursor-pointer p-0 border-0 overflow-hidden"
+                  />
                   {PRESET_COLORS.filter(c => c !== 'transparent').map(color => (
                     <button 
                       key={color}
