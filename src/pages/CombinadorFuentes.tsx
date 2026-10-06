@@ -81,7 +81,8 @@ export default function CombinadorFuentes() {
         <div className="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row items-center gap-6">
           <div className="w-full md:flex-1 relative">
             <input 
-              type="text" 
+              type="text"
+              aria-label="Texto de prueba para combinar fuentes"
               placeholder="Escribe tu texto de prueba..."
               value={customText}
               onChange={(e) => setCustomText(e.target.value)}
