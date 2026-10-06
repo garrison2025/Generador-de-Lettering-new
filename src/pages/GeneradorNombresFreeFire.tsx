@@ -123,7 +123,7 @@ const softwareSchema = {
   "@type": "WebApplication",
   "name": "Generador de Nombres para Free Fire",
   "url": "https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire",
-  "description": "Generador de nombres para Free Fire. Crea nicks con letras bonitas, góticas, cursivas, alas, coronas y símbolos para copiar y pegar.",
+  "description": "Generador avanzado de nombres para Free Fire con prefijo de clan, dúos, espacio invisible, favoritos, letras y símbolos para construir un nick completo.",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "All",
   "offers": {
@@ -255,9 +255,9 @@ export default function GeneradorNombresFreeFire() {
   return (
     <>
       <SEO 
-        title="Generador de Nombres para Free Fire | Clan, Dúos y Espacio Invisible"
-        description="Generador de nombres para Free Fire con prefijos de clan, dúos, favoritos y espacio invisible. Crea nicks con letras bonitas, símbolos y estilos para copiar y pegar."
-        keywords="generador de nombres para free fire, nicks para free fire, letras bonitas free fire, simbolos para free fire, espacio invisible free fire, creador de nombres ff"
+        title="Generador de Nombres para Free Fire | Nicks, Clan y Dúos"
+        description="Crea un nombre para Free Fire con prefijo de clan, dúos, espacio invisible, favoritos, letras y símbolos. Generador avanzado de nicks listo para copiar."
+        keywords="generador de nombres para free fire, creador de nombres free fire, nicks para free fire, nombres de clan free fire, nombres para duos free fire, espacio invisible free fire"
         canonical="https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire"
         jsonSchema={[
           faqSchema,
@@ -299,7 +299,7 @@ export default function GeneradorNombresFreeFire() {
           <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-2 text-xs md:text-sm text-gray-600 bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3">
             <span>Esta versión avanzada añade prefijo de clan, dúos, favoritos y espacio invisible.</span>
             <Link to="/herramientas/letras-free-fire" className="font-bold text-amber-700 hover:underline">
-              Para letras y símbolos rápidos, usa Letras para Free Fire →
+              ¿Solo quieres transformar un nick? Usa Letras y Símbolos para Free Fire →
             </Link>
           </div>
         </div>

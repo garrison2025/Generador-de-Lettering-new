@@ -175,9 +175,9 @@ export default function CreadorLettering() {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Creador de Lettering Online",
+    "name": "Creador de Lettering con Plantillas",
     "url": "https://generadordelettering.org/herramientas/creador-de-lettering",
-    "description": "Herramienta online para crear diseños de lettering digital, fuentes manuscritas, efectos neón, 3D y caligrafía. Gratis y sin registro.",
+    "description": "Creador rápido de lettering con estilos predefinidos y plantillas visuales para aplicar caligrafía, neón, 3D, gótico y efectos en un clic.",
     "applicationCategory": "DesignApplication",
     "operatingSystem": "All",
     "offers": {
@@ -250,9 +250,9 @@ export default function CreadorLettering() {
   return (
     <>
       <SEO 
-        title="Creador de Lettering Online Gratis | Diseñador de Letras y Tipografía"
-        description="Creador de lettering digital gratis en español. Escribe tu frase, aplica estilos neón, caligrafía, 3D y acuarela. Descarga imágenes en PNG HD para Instagram, TikTok o cuadernos."
-        keywords="creador de lettering, diseñador de letras, letras bonitas creador, creador de tipografía online, hacer lettering digital gratis"
+        title="Creador de Lettering con Plantillas | Diseños Online Gratis"
+        description="Crea lettering rápido con plantillas y estilos de un clic: caligrafía, neón, 3D, gótico y aesthetic. Personaliza el resultado y expórtalo como imagen."
+        keywords="creador de lettering, lettering con plantillas, estilos de lettering, diseños de letras online, lettering digital gratis"
         canonical="https://generadordelettering.org/herramientas/creador-de-lettering"
         jsonSchema={[webAppSchema, faqSchema, howToSchema]}
       />
@@ -282,11 +282,14 @@ export default function CreadorLettering() {
             Estudio de Diseño Tipográfico
           </div>
           <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
-            Creador de <span className="text-amber-300">Lettering</span> Digital Online
+            Creador de <span className="text-amber-300">Lettering</span> con Plantillas
           </h1>
           <p className="text-purple-100 max-w-3xl text-sm md:text-base leading-relaxed">
-            Convierte cualquier texto o frase en un diseño tipográfico profesional. Elige un estilo predefinido o personaliza cada detalle: fuentes caligráficas, degradados, sombras 3D, contornos brillantes y luces de neón.
+            Empieza con un estilo predefinido y crea lettering en pocos clics: caligrafía, neón, 3D, gótico, acuarela y aesthetic. Después puedes personalizar el resultado y exportarlo como imagen.
           </p>
+          <Link to="/editor" className="inline-flex text-sm font-bold text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">
+            ¿Quieres control manual de cada ajuste? Abrir el Editor de Lettering Avanzado →
+          </Link>
         </div>
 
         {/* Quick Presets Bar */}

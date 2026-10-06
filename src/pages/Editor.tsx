@@ -33,9 +33,9 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
     <>
       {!embedded && (
         <SEO 
-          title="Editor de Lettering Online | App Creador de Letras Gratis"
-          description="Editor de lettering digital gratis. Escribe texto, cambia el color, añade contornos y efectos en un lienzo online. Exporta imágenes en alta calidad."
-          keywords="editor de lettering, creador de tipografia, herramientas de diseño de texto, añadir sombra a letras"
+          title="Editor de Lettering Avanzado | Lienzo, Colores y Efectos"
+          description="Editor avanzado de lettering en lienzo: ajusta tipografía, tamaño, color, contorno, sombras y fondo con control manual. Exporta en PNG, JPG o WEBP."
+          keywords="editor de lettering, editor de letras online, lienzo de lettering, efectos de texto, sombras y contornos"
         />
       )}
     <div className="max-w-7xl mx-auto px-4 py-8 w-full flex-1">
@@ -49,11 +49,13 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
           </div>
           
           <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Editor de Lettering Profesional</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Editor de Lettering Avanzado</h1>
             <p className="text-gray-500 max-w-3xl text-sm md:text-base">
-              Crea diseños de texto únicos y personalizados con nuestra herramienta intuitiva. Ajusta fuentes,
-              colores, tamaños y efectos para lograr el lettering perfecto.
+              Controla manualmente tipografías, colores, tamaños, contornos, sombras y fondo sobre el lienzo. Este editor está pensado para ajustar cada detalle del diseño.
             </p>
+            <Link to="/herramientas/creador-de-lettering" className="inline-flex mt-3 text-sm font-semibold text-[#5A4AD2] hover:underline">
+              ¿Prefieres empezar con estilos y plantillas? Abrir el Creador de Lettering →
+            </Link>
           </div>
         </>
       )}
