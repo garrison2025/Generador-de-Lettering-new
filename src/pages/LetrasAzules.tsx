@@ -1,5 +1,5 @@
 import { copyText } from '../utils/copyText';
-import { useState, useEffect, useDeferredValue } from 'react';
+import { useState, useDeferredValue, useMemo } from 'react';
 import { Copy, Check, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
@@ -248,10 +248,6 @@ export default function LetrasAzules() {
   const deferredInput = useDeferredValue(inputText);
   const [copiedResult, setCopiedResult] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Removed document.title 
-  }, []);
-
   const convertText = (text: string, styleId: string) => {
     if (!text) return 'Escribe aquí';
     
@@ -306,6 +302,14 @@ export default function LetrasAzules() {
 
     return result;
   };
+
+  const convertedStyles = useMemo(
+    () => STYLES.map((style) => ({
+      ...style,
+      resultText: convertText(deferredInput, style.id),
+    })),
+    [deferredInput]
+  );
 
   const handleCopy = async (text: string, id: string) => {
     if (!(await copyText(text))) {
@@ -413,8 +417,8 @@ export default function LetrasAzules() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-        {STYLES.map((style) => {
-          const resultText = convertText(deferredInput, style.id);
+        {convertedStyles.map((style) => {
+          const resultText = style.resultText;
           const isCopied = copiedResult === style.id;
           
           return (
