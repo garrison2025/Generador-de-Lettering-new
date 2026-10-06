@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EDITOR_DEFAULT_STATE, useEditorStore, type EditorState } from '@/store/useEditorStore';
-import { loadFont } from '@/lib/fonts';
+import { loadFonts } from '@/lib/fonts';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 
@@ -60,7 +60,11 @@ export default function Plantillas() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    TEMPLATES.forEach(t => loadFont(t.state.fontFamily));
+    void loadFonts(
+      TEMPLATES
+        .map((template) => template.state.fontFamily)
+        .filter((family): family is string => Boolean(family))
+    );
   }, []);
 
   const handleUseTemplate = (state: Partial<EditorState>) => {
