@@ -223,11 +223,11 @@ try:
     open_path("/blog", "Aprende y Descubre")
     driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight)")
     wait.until(lambda d: d.execute_script("return window.scrollY") > 300)
-    route_link = driver.find_elements(By.CSS_SELECTOR, 'footer a[href="/herramientas/conversor-texto"]')
+    route_link = driver.find_elements(By.CSS_SELECTOR, 'footer a[href="/herramientas/creador-de-lettering"]')
     if not route_link:
         fail("Could not find footer route link for SPA scroll-reset test")
     driver.execute_script("arguments[0].click()", route_link[-1])
-    wait.until(lambda d: urlparse(d.current_url).path == "/herramientas/conversor-texto")
+    wait.until(lambda d: urlparse(d.current_url).path == "/herramientas/creador-de-lettering")
     wait.until(lambda d: d.execute_script("return window.scrollY") <= 2)
     assert_no_runtime_errors("SPA route scroll reset")
 
