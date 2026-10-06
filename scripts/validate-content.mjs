@@ -236,15 +236,26 @@ function validateLegacyCanonicalUrls() {
     'Mateo Rivas'
   ];
 
+  const violations = [];
+
   for (const path of files) {
     const source = read(path);
     for (const url of legacyAbsoluteUrls) {
-      assert(!source.includes(url), `Legacy absolute canonical URL found in ${path}: ${url}`);
+      if (source.includes(url)) {
+        violations.push(`Legacy absolute canonical URL found in ${path}: ${url}`);
+      }
     }
     for (const term of staleBrandTerms) {
-      assert(!source.includes(term), `Stale brand or identity found in ${path}: ${term}`);
+      if (source.includes(term)) {
+        violations.push(`Stale brand or identity found in ${path}: ${term}`);
+      }
     }
   }
+
+  assert(
+    violations.length === 0,
+    `Legacy URL/brand validation failed:\n- ${violations.join('\n- ')}`
+  );
 }
 
 function validateTrustAndBreadcrumbs() {
