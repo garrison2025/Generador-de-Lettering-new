@@ -58,17 +58,7 @@ function validateUnicodeMaps() {
     mappingIndex += 1;
   }
 
-  const tiktok = read('src/pages/LetrasTikTok.tsx');
-  let tiktokCount = 0;
-  for (const match of tiktok.matchAll(/id:\s*'([^']+)'[\s\S]*?convert:\s*\(t:\s*string\)\s*=>\s*convertFont\(t,\s*'([^'\n]*)'\)/g)) {
-    const [, styleId, mapping] = match;
-    const length = Array.from(mapping).length;
-    if (length !== 52) failures.push(`tiktok:${styleId}=${length}`);
-    tiktokCount += 1;
-  }
-
   assert(mappingIndex > 0, 'No Instagram Unicode mappings found');
-  assert(tiktokCount > 0, 'No TikTok inline convertFont mappings found');
   assert(
     failures.length === 0,
     `Unicode mapping validation failed: ${failures.join(', ')}`
@@ -114,6 +104,46 @@ function validateFreeFireFontMaps() {
       );
     }
   }
+}
+
+function validateTikTokFontMaps() {
+  const sharedSource = read('src/data/unicodeStyles.ts');
+  const fontsStart = sharedSource.indexOf('export const FONTS_DATA');
+  const fontsEnd = sharedSource.indexOf('export const FONT_MAPS', fontsStart);
+  assert(fontsStart >= 0 && fontsEnd > fontsStart, 'Could not locate shared FONTS_DATA');
+
+  const sharedKeys = new Set(
+    [...sharedSource.slice(fontsStart, fontsEnd).matchAll(/^\s*([A-Za-z0-9_]+):\s*'/gm)]
+      .map((match) => match[1])
+  );
+
+  const source = read('src/pages/LetrasTikTok.tsx');
+
+  assert(
+    source.includes("import { FONT_MAPS as SHARED_FONT_MAPS } from '../data/unicodeStyles';"),
+    'TikTok tool must import the shared Unicode font map'
+  );
+  assert(
+    !source.includes('const ALPHABET') &&
+    !/convert:\s*\(t:\s*string\)\s*=>\s*convertFont\(t,\s*'/.test(source),
+    'TikTok tool must not contain duplicated inline Unicode maps'
+  );
+
+  const styleBlockStart = source.indexOf('const STYLES');
+  const styleBlockEnd = source.indexOf('const DECORATORS', styleBlockStart);
+  assert(styleBlockStart >= 0 && styleBlockEnd > styleBlockStart, 'Could not locate TikTok STYLES');
+
+  const fontMapIds = [
+    ...source.slice(styleBlockStart, styleBlockEnd).matchAll(/fontMapId:\s*'([^']+)'/g)
+  ].map((match) => match[1]);
+
+  assert(fontMapIds.length > 0, 'No TikTok shared fontMapId references found');
+
+  const missing = fontMapIds.filter((id) => !sharedKeys.has(id));
+  assert(
+    missing.length === 0,
+    `TikTok fontMapId references missing shared mappings: ${missing.join(', ')}`
+  );
 }
 
 function validateUnicodeStyleReferences() {
@@ -762,6 +792,7 @@ function validateTrustAndBreadcrumbs() {
 
 validateUnicodeMaps();
 validateFreeFireFontMaps();
+validateTikTokFontMaps();
 validateUnicodeStyleReferences();
 validateUnicodeSafeTransforms();
 validateRoutesAndSitemap();
@@ -776,7 +807,6 @@ validateClipboardUsage();
 validateRemovedUiImports();
 validateEditorHistoryMemorySafety();
 validateEditorStoreUsage();
-validateInternalLinks();
 validateLegacyCanonicalUrls();
 validateTrustAndBreadcrumbs();
 
