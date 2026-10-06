@@ -281,9 +281,9 @@ export default function ConversorTexto() {
       </div>
 
       <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-6 md:p-8 mb-8">
-        <div className="flex justify-between items-end mb-3">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 mb-3">
           <label htmlFor="text-input" className="block text-sm font-bold text-gray-700 uppercase tracking-wider">Escribe tu texto aquí:</label>
-          <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{inputCharacterCount}/500 caracteres · {inputText.split(/\s+/).filter(w => w.length > 0).length} palabras</span>
+          <span className="self-start sm:self-auto text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{inputCharacterCount}/500 caracteres · {inputText.split(/\s+/).filter(w => w.length > 0).length} palabras</span>
         </div>
         <div className="relative">
           <textarea
@@ -311,12 +311,12 @@ export default function ConversorTexto() {
           const converted = style.converted;
 
           return (
-            <div key={style.id} className="bg-white border text-center md:text-left border-gray-200 rounded-xl p-4 flex flex-col md:flex-row items-center gap-4 hover:border-[#5A4AD2]/50 transition-colors">
+            <div key={style.id} className="min-w-0 bg-white border text-center md:text-left border-gray-200 rounded-xl p-4 flex flex-col md:flex-row items-stretch md:items-center gap-4 hover:border-[#5A4AD2]/50 transition-colors">
               <div className="w-full md:w-48 shrink-0">
                 <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">{style.name}</span>
               </div>
-              <div className="flex-1 overflow-hidden">
-                <p className="text-xl md:text-2xl text-gray-900 truncate px-4 py-2 border-b md:border-b-0 border-gray-100 w-full" title={converted}>
+              <div className="min-w-0 flex-1 overflow-hidden">
+                <p className="text-xl md:text-2xl text-gray-900 break-all md:truncate px-2 sm:px-4 py-2 border-b md:border-b-0 border-gray-100 w-full leading-relaxed" title={converted}>
                   {converted}
                 </p>
               </div>
