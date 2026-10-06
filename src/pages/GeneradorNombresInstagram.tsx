@@ -241,17 +241,24 @@ export default function GeneradorNombresInstagram() {
   const [savedNames, setSavedNames] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('ig_saved_names');
-      return saved ? JSON.parse(saved) : [];
+      if (!saved) return [];
+
+      const parsed: unknown = JSON.parse(saved);
+      if (!Array.isArray(parsed)) return [];
+
+      return [...new Set(parsed.filter((value): value is string => typeof value === 'string'))].slice(0, 50);
     } catch {
       return [];
     }
   });
+  const [storagePersistent, setStoragePersistent] = useState(true);
 
   useEffect(() => {
     try {
       localStorage.setItem('ig_saved_names', JSON.stringify(savedNames));
-    } catch (e) {
-      console.error(e);
+      setStoragePersistent(true);
+    } catch {
+      setStoragePersistent(false);
     }
   }, [savedNames]);
 
@@ -521,6 +528,11 @@ export default function GeneradorNombresInstagram() {
                     Vaciar lista
                   </button>
                 </div>
+                {!storagePersistent && (
+                  <p role="status" className="mb-3 text-xs font-medium text-amber-700">
+                    Tu navegador no permite guardar esta lista de forma persistente. Los nombres seguirán disponibles durante esta sesión, pero pueden perderse al cerrar o recargar la página.
+                  </p>
+                )}
                 <div className="flex flex-wrap gap-2.5">
                   {savedNames.map((saved, idx) => (
                     <div 
