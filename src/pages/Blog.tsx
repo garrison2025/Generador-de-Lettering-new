@@ -3,6 +3,32 @@ import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { BLOG_POSTS } from '../data/blogPosts';
 
+const blogCollectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Blog de Lettering y Tipografía",
+  "url": "https://generadordelettering.org/blog",
+  "description": "Guías y recursos sobre lettering, tipografía, Unicode, redes sociales y nombres para videojuegos.",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": BLOG_POSTS.map((post, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": post.title,
+      "url": `https://generadordelettering.org/blog/${post.slug}`
+    }))
+  }
+};
+
+const blogBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://generadordelettering.org/" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://generadordelettering.org/blog" }
+  ]
+};
+
 export default function Blog() {
   return (
     <>
@@ -10,8 +36,16 @@ export default function Blog() {
         title="Blog de Lettering y Tipografía | Guías, Tutoriales y Novedades"
         description="Lee nuestras guías sobre cómo aprender lettering digital, elegir fuentes para tatuajes y personalizar textos aesthetic en redes sociales."
         keywords="blog de lettering, tutoriales de tipografía, guias lettering online, diseño de letras"
+        canonical="https://generadordelettering.org/blog"
+        jsonSchema={[blogCollectionSchema, blogBreadcrumbSchema]}
       />
     <div className="max-w-5xl mx-auto py-16 px-4 w-full flex-1">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
+        <Link to="/" className="hover:text-[#5A4AD2] transition-colors">Inicio</Link>
+        <span>/</span>
+        <span className="text-gray-900">Blog</span>
+      </nav>
+
       <div className="text-center mb-16">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Aprende y Descubre</h1>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto">Tutoriales, ideas y recursos para dominar el arte de las letras, la tipografía y el diseño digital.</p>
