@@ -335,6 +335,52 @@ function validateMonetizationConfig() {
   );
 }
 
+function validateConfiguredFonts() {
+  const fontsSource = read('lib/fonts.ts');
+  const registered = new Set(
+    [...fontsSource.matchAll(/family:\s*['"]([^'"]+)['"]/g)]
+      .map((match) => match[1])
+  );
+
+  const builtInOrGlobal = new Set([
+    'Inter',
+    'Arial',
+    'Helvetica',
+    'sans-serif',
+    'serif',
+    'monospace'
+  ]);
+
+  const files = [
+    'src/pages/CombinadorFuentes.tsx',
+    'src/pages/Plantillas.tsx',
+    'src/pages/SeoPage.tsx',
+    'src/pages/CreadorLettering.tsx',
+    'store/useEditorStore.ts'
+  ];
+
+  const violations = [];
+
+  for (const path of files) {
+    const source = read(path);
+
+    const families = [
+      ...source.matchAll(/(?:fontFamily|primaryFont|secondaryFont):\s*['"]([^'"]+)['"]/g)
+    ].map((match) => match[1]);
+
+    for (const family of families) {
+      if (!registered.has(family) && !builtInOrGlobal.has(family)) {
+        violations.push(`${path}: ${family}`);
+      }
+    }
+  }
+
+  assert(
+    violations.length === 0,
+    `Configured fonts missing from font registry:\n- ${violations.join('\n- ')}`
+  );
+}
+
 function validatePaletteUniqueness() {
   const source = read('src/pages/PaletasColor.tsx');
   const entries = [
