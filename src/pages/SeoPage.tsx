@@ -200,7 +200,7 @@ export default function SeoPage() {
     defaultState: {},
     h1Title: 'Estudio de Lettering y Caligrafía Digital',
     introText: 'Diseña arte tipográfico personalizado con herramientas profesionales en línea.',
-    features: ['Diseño vectorial', 'Sombras 3D', 'Descarga HD gratuita'],
+    features: ['Edición tipográfica', 'Sombras y contornos', 'Exportación de imagen'],
     steps: ['Escribe tu texto', 'Elige tu fuente', 'Descarga'],
     faqs: [
       {
