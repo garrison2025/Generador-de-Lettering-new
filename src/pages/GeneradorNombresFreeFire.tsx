@@ -273,7 +273,9 @@ export default function GeneradorNombresFreeFire() {
                   placeholder="Ejemplo: Slayer..."
                 />
                 {inputText && (
-                  <button 
+                  <button
+                    type="button"
+                    aria-label="Borrar nombre base"
                     onClick={() => setInputText('')}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition"
                     title="Borrar texto"
