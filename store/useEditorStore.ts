@@ -107,6 +107,21 @@ export const useEditorStore = create<EditorStore>()(
 
         if (!changed) return state;
 
+        const changesBackgroundImage =
+          Object.prototype.hasOwnProperty.call(updates, 'backgroundImage') &&
+          state.backgroundImage !== updates.backgroundImage;
+
+        if (changesBackgroundImage) {
+          return {
+            ...state,
+            ...updates,
+            // Uploaded images can be large data URLs. Start a fresh undo segment
+            // whenever the image changes so old uploads are released promptly.
+            past: [],
+            future: [],
+          };
+        }
+
         const currentState = extractState(state);
         return {
           ...state,
@@ -125,6 +140,18 @@ export const useEditorStore = create<EditorStore>()(
 
         if (!changed) return state;
 
+        const changedBackgroundImage =
+          Object.prototype.hasOwnProperty.call(previousValues, 'backgroundImage') &&
+          state.backgroundImage !== previousValues.backgroundImage;
+
+        if (changedBackgroundImage) {
+          return {
+            ...state,
+            past: [],
+            future: [],
+          };
+        }
+
         return {
           ...state,
           past: [
@@ -134,10 +161,12 @@ export const useEditorStore = create<EditorStore>()(
           future: [],
         };
       }),
-      resetState: () => set((state) => ({ 
-        ...DEFAULT_STATE, 
-        past: [...state.past, extractState(state)].slice(-20), 
-        future: [] 
+      resetState: () => set((state) => ({
+        ...DEFAULT_STATE,
+        past: state.backgroundImage
+          ? []
+          : [...state.past, extractState(state)].slice(-20),
+        future: []
       })),
       randomizeState: () => set((state) => ({
         text: RANDOM_TEXTS[Math.floor(Math.random() * RANDOM_TEXTS.length)],
