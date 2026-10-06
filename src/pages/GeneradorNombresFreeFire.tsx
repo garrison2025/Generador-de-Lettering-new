@@ -529,7 +529,8 @@ export default function GeneradorNombresFreeFire() {
                 const fullName = `${clanPrefix ? `${clanPrefix} ` : ''}${dec.prefix}${appliedText}${dec.suffix}`;
                 const isCopied = copiedId === fullName;
                 const isSaved = savedNicks.includes(fullName);
-                const isOverLimit = fullName.length > 12;
+                const fullNameCharacterCount = Array.from(fullName).length;
+                const isOverLimit = fullNameCharacterCount > 12;
 
                 return (
                   <div 
@@ -543,11 +544,11 @@ export default function GeneradorNombresFreeFire() {
                         </span>
                         {isOverLimit ? (
                           <span className="text-[10px] font-bold text-red-500 bg-red-50 px-1.5 py-0.5 rounded border border-red-100">
-                            &gt;12 car.
+                            {fullNameCharacterCount} car. guía
                           </span>
                         ) : (
                           <span className="text-[10px] font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded border border-green-100">
-                            Apto FF ✓
+                            ≤12 guía
                           </span>
                         )}
                       </div>
@@ -558,6 +559,8 @@ export default function GeneradorNombresFreeFire() {
 
                     <div className="shrink-0 flex items-center gap-1.5">
                       <button
+                        type="button"
+                        aria-label={isSaved ? `Quitar ${fullName} de guardados` : `Guardar ${fullName} en favoritos`}
                         onClick={() => toggleSaveNick(fullName)}
                         title={isSaved ? 'Quitar de guardados' : 'Guardar en favoritos'}
                         className={`p-2.5 rounded-xl border transition ${
