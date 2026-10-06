@@ -1,5 +1,5 @@
 import { copyText } from '../utils/copyText';
-import { useState, useDeferredValue } from 'react';
+import { useState, useDeferredValue, useMemo } from 'react';
 import { Copy, Check, Dices } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
@@ -131,33 +131,36 @@ export default function LetrasFreeFire() {
 
   const inputCharacterCount = countCodePoints(inputText);
 
-  const generatedNames = DECORATORS
-    .flatMap((decorator) => [
-      { ...decorator, font: 'normal' },
-      { ...decorator, font: 'smallCaps' },
-      { ...decorator, font: 'gothic' }
-    ])
-    .map((option, index) => {
-      const appliedText = applyFont(deferredInput || 'Hero', option.font);
-      // Keep decorative symbols but remove padding spaces next to the nick.
-      // This produces genuinely shorter variants before falling back to longer styles.
-      const compactPrefix = option.prefix.trimEnd();
-      const compactSuffix = option.suffix.trimStart();
-      const fullName = `${compactPrefix}${appliedText}${compactSuffix}`;
-      const characterCount = countCodePoints(fullName);
+  const generatedNames = useMemo(
+    () => DECORATORS
+      .flatMap((decorator) => [
+        { ...decorator, font: 'normal' },
+        { ...decorator, font: 'smallCaps' },
+        { ...decorator, font: 'gothic' }
+      ])
+      .map((option, index) => {
+        const appliedText = applyFont(deferredInput || 'Hero', option.font);
+        // Keep decorative symbols but remove padding spaces next to the nick.
+        // This produces genuinely shorter variants before falling back to longer styles.
+        const compactPrefix = option.prefix.trimEnd();
+        const compactSuffix = option.suffix.trimStart();
+        const fullName = `${compactPrefix}${appliedText}${compactSuffix}`;
+        const characterCount = countCodePoints(fullName);
 
-      return {
-        ...option,
-        key: `${option.name}-${option.font}-${index}`,
-        fullName,
-        characterCount,
-        withinGuide: characterCount <= FREE_FIRE_GUIDE_LIMIT
-      };
-    })
-    .sort((a, b) => {
-      if (a.withinGuide !== b.withinGuide) return a.withinGuide ? -1 : 1;
-      return a.characterCount - b.characterCount;
-    });
+        return {
+          ...option,
+          key: `${option.name}-${option.font}-${index}`,
+          fullName,
+          characterCount,
+          withinGuide: characterCount <= FREE_FIRE_GUIDE_LIMIT
+        };
+      })
+      .sort((a, b) => {
+        if (a.withinGuide !== b.withinGuide) return a.withinGuide ? -1 : 1;
+        return a.characterCount - b.characterCount;
+      }),
+    [deferredInput]
+  );
 
   return (
     <>
