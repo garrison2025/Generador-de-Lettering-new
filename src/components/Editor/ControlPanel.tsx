@@ -87,6 +87,7 @@ export function ControlPanel() {
   const [activeTab, setActiveTab] = useState<'texto' | 'estilo' | 'efectos'>('texto');
   const [isFontSelectOpen, setIsFontSelectOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const textEditStartRef = useRef<string | null>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -137,7 +138,18 @@ export function ControlPanel() {
                 </div>
                 <textarea 
                   value={store.text}
-                  onChange={e => store.updateState({ text: e.target.value })}
+                  onFocus={() => {
+                    if (textEditStartRef.current === null) {
+                      textEditStartRef.current = store.text;
+                    }
+                  }}
+                  onChange={(e) => store.previewState({ text: e.target.value })}
+                  onBlur={() => {
+                    if (textEditStartRef.current === null) return;
+                    const initialText = textEditStartRef.current;
+                    textEditStartRef.current = null;
+                    store.commitPreview({ text: initialText });
+                  }}
                   className="w-full border border-gray-200 rounded-lg p-3 min-h-[90px] text-sm resize-none focus:ring-1 focus:ring-[#5A4AD2] focus:border-[#5A4AD2] outline-none"
                   placeholder="Tu texto aquí..."
                 />
