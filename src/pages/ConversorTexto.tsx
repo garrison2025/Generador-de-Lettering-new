@@ -242,7 +242,7 @@ function convertText(text: string, styleId: string) {
     }
     
     if (dec.reverse) {
-      result = result.split('').reverse().join('');
+      result = Array.from(result).reverse().join('');
     }
   }
 
