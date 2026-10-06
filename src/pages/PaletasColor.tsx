@@ -1,7 +1,7 @@
 import { copyText } from '../utils/copyText';
 import { Link } from 'react-router-dom';
-import { PenTool, Palette, Download, Copy, Check, ChevronLeft, Droplet } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { PenTool, Palette, Copy, Check, ChevronLeft, Droplet } from 'lucide-react';
+import { useState } from 'react';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 
