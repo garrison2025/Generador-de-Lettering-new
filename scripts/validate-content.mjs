@@ -205,6 +205,39 @@ function validateEditorStoreUsage() {
   }
 }
 
+function validateLegacyCanonicalUrls() {
+  const roots = ['src', 'public'];
+  const extensions = /\.(?:ts|tsx|js|mjs|html|xml|txt)$/;
+  const files = [];
+
+  function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const path = `${dir}/${entry.name}`;
+      if (entry.isDirectory()) {
+        walk(path);
+      } else if (extensions.test(entry.name)) {
+        files.push(path);
+      }
+    }
+  }
+
+  for (const root of roots) walk(root);
+  files.push('index.html', 'vite.config.ts');
+
+  const legacyAbsoluteUrls = [
+    'https://generadordelettering.org/creador-de-lettering',
+    'https://generadordelettering.org/generador-de-nombres-para-instagram',
+    'https://generadordelettering.org/generador-de-nombres-para-free-fire'
+  ];
+
+  for (const path of files) {
+    const source = read(path);
+    for (const url of legacyAbsoluteUrls) {
+      assert(!source.includes(url), `Legacy absolute canonical URL found in ${path}: ${url}`);
+    }
+  }
+}
+
 function validateTrustAndBreadcrumbs() {
   const files = [
     'src/pages/Home.tsx',
@@ -246,6 +279,7 @@ validateLlmsLinks();
 validatePublicAssets();
 validateRemovedUiImports();
 validateEditorStoreUsage();
+validateLegacyCanonicalUrls();
 validateTrustAndBreadcrumbs();
 
 console.log('Content validation passed.');
