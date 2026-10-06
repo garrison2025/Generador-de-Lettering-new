@@ -304,7 +304,7 @@ Cuando abres Microsoft Word o Photoshop y seleccionas *Helvetica*, *Times New Ro
 | Criterio | Caligrafía | Lettering | Tipografía |
 | :--- | :--- | :--- | :--- |
 | **Acción principal** | Escribir con un gesto caligráfico | Dibujar y ajustar formas | Diseñar y componer sistemas de caracteres |
-| **Trazo** | Único, dinámico e irrepetible | Múltiples trazos e ilustración | Predefinido digital o mecánicamente |
+| **Trazo** | Guiado por el gesto, ritmo y herramienta | Construido y retocado en varios pasos | Formas reproducibles dentro de un sistema |
 | **Resultado** | Pieza hecha a mano rápida | Ilustración tipográfica detallada | Archivo de fuente (.ttf / .otf) |
 | **Herramientas** | Pincel, plumilla, pluma | Lápiz, iPad, Vectores, Creadores Web | Software de diseño de fuentes |
 
