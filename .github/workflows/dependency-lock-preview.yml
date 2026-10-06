@@ -1,0 +1,96 @@
+name: Dependency Lock Preview
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Prepare pruned package manifest
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+
+          const removeDependencies = [
+            '@base-ui/react',
+            '@google/genai',
+            'class-variance-authority',
+            'clsx',
+            'dotenv',
+            'express',
+            'motion',
+            'shadcn',
+            'tailwind-merge',
+            'tw-animate-css',
+            'zundo'
+          ];
+
+          const removeDevDependencies = [
+            '@types/express',
+            'autoprefixer',
+            'esbuild',
+            'tsx'
+          ];
+
+          for (const name of removeDependencies) {
+            delete pkg.dependencies?.[name];
+          }
+          for (const name of removeDevDependencies) {
+            delete pkg.devDependencies?.[name];
+          }
+
+          fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          NODE
+
+      - name: Recalculate lockfile with npm
+        run: npm install --package-lock-only --ignore-scripts
+
+      - name: Clean install candidate lock
+        run: npm ci
+
+      - name: Content validation
+        run: npm run validate
+
+      - name: TypeScript check
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Runtime dependency audit
+        if: always()
+        run: npm audit --omit=dev --json > dependency-audit-runtime.json || true
+
+      - name: Full dependency audit
+        if: always()
+        run: npm audit --json > dependency-audit-all.json || true
+
+      - name: Upload candidate dependency files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-lock-preview
+          path: |
+            package.json
+            package-lock.json
+            dependency-audit-runtime.json
+            dependency-audit-all.json
+          if-no-files-found: error
+          retention-days: 1
