@@ -1,6 +1,6 @@
 import { copyText } from '../utils/copyText';
 import { useState, useDeferredValue, useMemo } from 'react';
-import { Copy, Check, ChevronLeft } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
@@ -262,6 +262,10 @@ export default function LetrasAzules() {
         <ol className="flex items-center space-x-2 text-sm text-gray-500 font-medium">
           <li>
             <Link to="/" className="hover:text-[#5A4AD2] transition-colors">Inicio</Link>
+          </li>
+          <li className="flex items-center space-x-2">
+            <span className="text-gray-500">/</span>
+            <Link to="/herramientas" className="hover:text-[#5A4AD2] transition-colors">Herramientas</Link>
           </li>
           <li className="flex items-center space-x-2">
             <span className="text-gray-500">/</span>
