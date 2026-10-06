@@ -182,10 +182,10 @@ export default function LetrasTikTok() {
       },
       {
         "@type": "Question",
-        "name": "▲ ¿Cuál es el límite de caracteres para la Biografía de TikTok?",
+        "name": "▲ ¿Cuántos caracteres admite la Biografía de TikTok?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "80 caracteres sigue siendo una referencia segura para redactar una bio de TikTok, pero algunos usuarios pueden ver límites diferentes según su cuenta, región o versión de la app. Usa el contador de este conversor como guía y confirma el límite real en Editar perfil antes de guardar."
+          "text": "TikTok puede cambiar los límites según la versión de la app, la cuenta o la región. Este conversor usa un máximo técnico de 500 caracteres para evitar entradas extremas; antes de guardar, confirma el límite que muestra TikTok en Editar perfil."
         }
       }
     ]
@@ -259,7 +259,7 @@ export default function LetrasTikTok() {
             <div className="space-y-3 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-pink-500/20 to-cyan-500/20 border border-pink-500/30 text-pink-300 text-xs font-semibold">
                 <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                TikTok Aesthetic Font Generator 2026
+                TikTok Aesthetic Font Generator
               </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
                 Conversor de <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400">Letras Bonitas para TikTok</span>
@@ -276,7 +276,7 @@ export default function LetrasTikTok() {
                 Unicode compatible con TikTok
               </div>
               <div className="text-gray-400">+50 Estilos Cursivos & Aesthetic</div>
-              <div className="text-gray-400">Bio: 80 caracteres como base segura</div>
+              <div className="text-gray-400">Bio: confirma el límite actual en TikTok</div>
             </div>
           </div>
         </div>
