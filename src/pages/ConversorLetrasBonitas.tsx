@@ -112,9 +112,6 @@ const DECORATORS: Record<string, { pre?: string; post?: string; join?: string; m
   flechas_wrapper: { pre: '« ', post: ' »' },
   corazones_wrapper: { pre: '♥ ', post: ' ♥' },
   fuego_wrapper: { pre: '🔥 ', post: ' 🔥' },
-  
-  // Custom Reversals
-  espejo_invertido: { reverse: true },
 };
 
 const STYLES = [
