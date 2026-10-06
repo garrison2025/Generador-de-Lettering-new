@@ -52,7 +52,9 @@ export default defineConfig(() => {
         output: {
           manualChunks: {
             'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-            'icons': ['lucide-react']
+            'icons': ['lucide-react'],
+            'canvas-vendor': ['konva', 'react-konva', 'use-image'],
+            'markdown-vendor': ['react-markdown', 'remark-gfm']
           }
         }
       },
