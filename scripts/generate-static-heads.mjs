@@ -3,24 +3,6 @@ import path from 'node:path';
 
 const SITE = 'https://generadordelettering.org';
 
-const PRERENDER_ROUTES = new Set([
-  '/',
-  '/editor',
-  '/plantillas',
-  '/herramientas',
-  '/herramientas/paletas-de-color',
-  '/herramientas/combinador-de-fuentes',
-  '/herramientas/plantillas-practica',
-  '/herramientas/conversor-texto',
-  '/herramientas/letras-azules',
-  '/herramientas/letras-free-fire',
-  '/herramientas/letras-tiktok',
-  '/herramientas/conversor-letras-bonitas',
-  '/herramientas/generador-de-nombres-para-instagram',
-  '/herramientas/generador-de-nombres-para-free-fire',
-  '/herramientas/creador-de-lettering'
-]);
-
 const { render: renderPrerenderedRoute } = await import('../dist-ssr/entry-server.js');
 
 const staticPages = [
@@ -208,8 +190,6 @@ function makeHead(baseHtml, route, title, description, keywords, publishedTime, 
 }
 
 async function injectPrerenderedBody(html, route) {
-  if (!PRERENDER_ROUTES.has(route)) return html;
-
   const rootShell = '<div id="root"></div>';
   if (!html.includes(rootShell)) {
     throw new Error(`Could not locate the empty root shell for prerender route: ${route}`);
@@ -413,11 +393,12 @@ for (const page of pages) {
   fs.writeFileSync(output, html);
 }
 
-const notFoundHtml = make404Html(baseHtml);
+let notFoundHtml = make404Html(baseHtml);
+notFoundHtml = await injectPrerenderedBody(notFoundHtml, '/404');
 fs.writeFileSync('dist/404.html', notFoundHtml);
 
 if (!fs.existsSync('dist/404.html')) {
   throw new Error('Failed to generate top-level dist/404.html');
 }
 
-console.log(`Generated and verified static SEO head shells for ${pages.length} routes, prerendered ${PRERENDER_ROUTES.size} core route bodies, plus 404.html.`);
+console.log(`Generated and verified full prerendered HTML for ${pages.length} sitemap routes plus 404.html.`);
