@@ -61,12 +61,13 @@ function extractStaticSeo(sourceFile) {
   const title = extractQuotedProp(seoTag, 'title');
   const description = extractQuotedProp(seoTag, 'description');
   const keywords = extractQuotedProp(seoTag, 'keywords');
+  const image = extractQuotedProp(seoTag, 'image');
 
   if (!title || !description) {
     throw new Error(`Could not extract static SEO metadata from <SEO /> in ${sourceFile}`);
   }
 
-  return { title, description, keywords };
+  return { title, description, keywords, image };
 }
 
 function extractSeoLanding(route) {
@@ -84,13 +85,13 @@ function extractSeoLanding(route) {
   if (!title || !description) {
     throw new Error(`Could not extract SEO landing metadata for ${route}`);
   }
-  return { title, description, keywords };
+  return { title, description, keywords, image: null };
 }
 
 function extractBlogPosts() {
   const source = read('src/data/blogPosts.ts');
   const posts = [];
-  const regex = /slug:\s*'([^']+)',\s*title:\s*'([^']+)',\s*(?:seoTitle:\s*'([^']+)',\s*)?excerpt:\s*'([^']+)',[\s\S]*?date:\s*'([^']+)'(?:,[\s\S]*?updated:\s*'([^']+)')?,[\s\S]*?keywords:\s*'([^']+)'/g;
+  const regex = /slug:\s*'([^']+)',\s*title:\s*'([^']+)',\s*(?:seoTitle:\s*'([^']+)',\s*)?excerpt:\s*'([^']+)',[\s\S]*?date:\s*'([^']+)'(?:,[\s\S]*?updated:\s*'([^']+)')?,[\s\S]*?keywords:\s*'([^']+)'(?:,\s*\n\s*image:\s*'([^']+)')?/g;
   let match;
   while ((match = regex.exec(source))) {
     posts.push({
@@ -99,7 +100,8 @@ function extractBlogPosts() {
       description: match[4],
       publishedTime: match[5],
       modifiedTime: match[6] || match[5],
-      keywords: match[7]
+      keywords: match[7],
+      image: match[8] || null
     });
   }
   return posts;
@@ -114,8 +116,11 @@ function routeOutputFile(route) {
   return path.join('dist', `${route.replace(/^\//, '')}.html`);
 }
 
-function makeHead(baseHtml, route, title, description, keywords, publishedTime, modifiedTime) {
+function makeHead(baseHtml, route, title, description, keywords, publishedTime, modifiedTime, image) {
   const canonical = `${SITE}${route === '/' ? '/' : route}`;
+  const absoluteImage = image
+    ? (image.startsWith('http') ? image : `${SITE}${image.startsWith('/') ? image : `/${image}`}`)
+    : null;
   let html = baseHtml;
 
   html = html.replace(
@@ -136,6 +141,15 @@ function makeHead(baseHtml, route, title, description, keywords, publishedTime, 
     );
   }
 
+  if (absoluteImage) {
+    html = html
+      .replace(/\s*<meta\s+data-rh="true"\s+property="og:image"[^>]*>/gi, '')
+      .replace(/\s*<meta\s+data-rh="true"\s+property="og:image:width"[^>]*>/gi, '')
+      .replace(/\s*<meta\s+data-rh="true"\s+property="og:image:height"[^>]*>/gi, '')
+      .replace(/\s*<meta\s+data-rh="true"\s+property="og:image:type"[^>]*>/gi, '')
+      .replace(/\s*<meta\s+data-rh="true"\s+name="twitter:image"[^>]*>/gi, '');
+  }
+
   html = html
     .replace(/\s*<link\s+data-rh="true"\s+rel="canonical"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+property="og:title"[^>]*>/gi, '')
@@ -153,6 +167,9 @@ function makeHead(baseHtml, route, title, description, keywords, publishedTime, 
     `    <meta data-rh="true" property="og:description" content="${escapeHtml(description)}" />`,
     `    <meta data-rh="true" property="og:url" content="${canonical}" />`,
     `    <meta data-rh="true" property="og:type" content="${publishedTime ? 'article' : 'website'}" />`,
+    ...(absoluteImage
+      ? [`    <meta data-rh="true" property="og:image" content="${escapeHtml(absoluteImage)}" />`]
+      : []),
     ...(publishedTime
       ? [`    <meta data-rh="true" property="article:published_time" content="${escapeHtml(publishedTime)}" />`]
       : []),
@@ -160,7 +177,10 @@ function makeHead(baseHtml, route, title, description, keywords, publishedTime, 
       ? [`    <meta data-rh="true" property="article:modified_time" content="${escapeHtml(modifiedTime)}" />`]
       : []),
     `    <meta data-rh="true" name="twitter:title" content="${escapeHtml(title)}" />`,
-    `    <meta data-rh="true" name="twitter:description" content="${escapeHtml(description)}" />`
+    `    <meta data-rh="true" name="twitter:description" content="${escapeHtml(description)}" />`,
+    ...(absoluteImage
+      ? [`    <meta data-rh="true" name="twitter:image" content="${escapeHtml(absoluteImage)}" />`]
+      : [])
   ].join('\n');
 
   html = html.replace('</head>', `${routeTags}\n  </head>`);
@@ -269,7 +289,7 @@ for (const page of pages) {
   const output = routeOutputFile(page.route);
   fs.mkdirSync(path.dirname(output), { recursive: true });
 
-  const html = makeHead(baseHtml, page.route, page.title, page.description, page.keywords, page.publishedTime, page.modifiedTime);
+  const html = makeHead(baseHtml, page.route, page.title, page.description, page.keywords, page.publishedTime, page.modifiedTime, page.image);
   const canonical = `${SITE}${page.route === '/' ? '/' : page.route}`;
   const expectedTitle = `<title data-rh="true">${escapeHtml(page.title)}</title>`;
   const expectedDescription = `<meta data-rh="true" name="description" content="${escapeHtml(page.description)}" />`;
@@ -282,6 +302,9 @@ for (const page of pages) {
     : null;
   const expectedModifiedTime = page.modifiedTime
     ? `<meta data-rh="true" property="article:modified_time" content="${escapeHtml(page.modifiedTime)}" />`
+    : null;
+  const expectedImage = page.image
+    ? (page.image.startsWith('http') ? page.image : `${SITE}${page.image.startsWith('/') ? page.image : `/${page.image}`}`)
     : null;
 
   if (!html.includes(expectedTitle)) {
@@ -310,6 +333,21 @@ for (const page of pages) {
   }
   if (!expectedModifiedTime && /property="article:modified_time"/i.test(html)) {
     throw new Error(`Non-article route contains article:modified_time: ${page.route}`);
+  }
+  if (expectedImage) {
+    const expectedOgImage = `<meta data-rh="true" property="og:image" content="${escapeHtml(expectedImage)}" />`;
+    const expectedTwitterImage = `<meta data-rh="true" name="twitter:image" content="${escapeHtml(expectedImage)}" />`;
+
+    if (!html.includes(expectedOgImage) || !html.includes(expectedTwitterImage)) {
+      throw new Error(`Generated head is missing the expected social image for ${page.route}`);
+    }
+
+    const ogImageCount = (html.match(/<meta\b[^>]*\bproperty="og:image"[^>]*>/gi) || []).length;
+    const twitterImageCount = (html.match(/<meta\b[^>]*\bname="twitter:image"[^>]*>/gi) || []).length;
+
+    if (ogImageCount !== 1 || twitterImageCount !== 1) {
+      throw new Error(`Expected one social image tag per platform for ${page.route}`);
+    }
   }
 
   const descriptionCount = (html.match(/<meta\b[^>]*\bname="description"[^>]*>/gi) || []).length;
