@@ -422,10 +422,10 @@ export default function CreadorLettering() {
         </div>
 
         {/* Main Interactive Studio (Canvas + Control Panel) */}
-        <div id="lettering-canvas-section" className="flex flex-col lg:flex-row gap-8 items-start">
+        <div id="lettering-canvas-section" className="scroll-mt-20 flex flex-col lg:flex-row gap-8 items-start">
           {/* Canvas Side */}
           <div className="flex-1 flex flex-col gap-6 w-full order-1 lg:order-2">
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm flex flex-col sticky lg:relative top-0 z-20">
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm flex flex-col sticky lg:relative top-16 lg:top-0 z-20">
               <div className="p-3 lg:p-4 border-b border-gray-100 flex justify-between items-center bg-white rounded-t-2xl z-10">
                 <div className="flex items-center gap-2">
                   <Type className="w-5 h-5 text-[#5A4AD2]" />
