@@ -7,6 +7,8 @@ import { useEditorStore } from '@/store/useEditorStore';
 import { SEO } from '../components/SEO';
 
 export default function Editor({ embedded = false }: { embedded?: boolean }) {
+  const canUndo = useEditorStore((state) => state.past.length > 0);
+  const canRedo = useEditorStore((state) => state.future.length > 0);
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Check if Ctrl or Cmd is pressed
@@ -100,7 +102,7 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
                 <button 
                   className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
                   onClick={() => useEditorStore.getState().undo()}
-                  disabled={useEditorStore((state: any) => !state.past || state.past.length === 0)}
+                  disabled={!canUndo}
                   aria-label="Deshacer"
                 >
                   <span className="flex items-center justify-center gap-1 lg:gap-2">
@@ -111,7 +113,7 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
                 <button 
                   className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
                   onClick={() => useEditorStore.getState().redo()}
-                  disabled={useEditorStore((state: any) => !state.future || state.future.length === 0)}
+                  disabled={!canRedo}
                   aria-label="Rehacer"
                 >
                   <span className="flex items-center justify-center gap-1 lg:gap-2">
