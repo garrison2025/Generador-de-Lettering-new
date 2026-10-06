@@ -7,7 +7,7 @@ import { useEditorStore } from '@/store/useEditorStore';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { SEO } from '../components/SEO';
 
-export default function Editor() {
+export default function Editor({ embedded = false }: { embedded?: boolean }) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Check if Ctrl or Cmd is pressed
@@ -28,26 +28,32 @@ export default function Editor() {
 
   return (
     <>
-      <SEO 
-        title="Editor de Lettering Online | App Creador de Letras Gratis"
-        description="El mejor editor de lettering digital gratis. Escribe texto, cambia el color, añade contornos y luces de neón en un lienzo online. Exporta imágenes en alta calidad."
-        keywords="editor de lettering, creador de tipografia, herramientas de diseño de texto, añadir sombra a letras"
-      />
+      {!embedded && (
+        <SEO 
+          title="Editor de Lettering Online | App Creador de Letras Gratis"
+          description="El mejor editor de lettering digital gratis. Escribe texto, cambia el color, añade contornos y luces de neón en un lienzo online. Exporta imágenes en alta calidad."
+          keywords="editor de lettering, creador de tipografia, herramientas de diseño de texto, añadir sombra a letras"
+        />
+      )}
     <div className="max-w-7xl mx-auto px-4 py-8 w-full flex-1">
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-sm text-gray-500 mb-6 font-medium">
-        <Link to="/" className="flex items-center gap-1 hover:text-[#5A4AD2] transition"><Home className="w-4 h-4" /> Inicio</Link>
-        <span className="text-gray-500">&gt;</span>
-        <span className="text-[#5A4AD2]">Editor de Lettering</span>
-      </div>
-      
-      <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Editor de Lettering Profesional</h1>
-        <p className="text-gray-500 max-w-3xl text-sm md:text-base">
-          Crea diseños de texto únicos y personalizados con nuestra herramienta intuitiva. Ajusta fuentes,
-          colores, tamaños y efectos para lograr el lettering perfecto.
-        </p>
-      </div>
+      {!embedded && (
+        <>
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-sm text-gray-500 mb-6 font-medium">
+            <Link to="/" className="flex items-center gap-1 hover:text-[#5A4AD2] transition"><Home className="w-4 h-4" /> Inicio</Link>
+            <span className="text-gray-500">&gt;</span>
+            <span className="text-[#5A4AD2]">Editor de Lettering</span>
+          </div>
+          
+          <div className="mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Editor de Lettering Profesional</h1>
+            <p className="text-gray-500 max-w-3xl text-sm md:text-base">
+              Crea diseños de texto únicos y personalizados con nuestra herramienta intuitiva. Ajusta fuentes,
+              colores, tamaños y efectos para lograr el lettering perfecto.
+            </p>
+          </div>
+        </>
+      )}
 
       <div className="flex flex-col lg:flex-row gap-8 items-start">
         {/* On mobile, canvas is at top and sticky, on desktop canvas takes remaining space */}
@@ -90,7 +96,7 @@ export default function Editor() {
                 <button 
                   className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
                   onClick={() => useEditorStore.getState().undo()}
-                  disabled={useEditorStore((state: any) => state.historyIndex === 0)}
+                  disabled={useEditorStore((state: any) => !state.past || state.past.length === 0)}
                   aria-label="Deshacer"
                 >
                   <span className="flex items-center justify-center gap-1 lg:gap-2">
@@ -101,7 +107,7 @@ export default function Editor() {
                 <button 
                   className="flex-1 min-w-[30%] lg:min-w-[120px] py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
                   onClick={() => useEditorStore.getState().redo()}
-                  disabled={useEditorStore((state: any) => !state.history || state.historyIndex >= state.history.length - 1)}
+                  disabled={useEditorStore((state: any) => !state.future || state.future.length === 0)}
                   aria-label="Rehacer"
                 >
                   <span className="flex items-center justify-center gap-1 lg:gap-2">
