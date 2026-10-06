@@ -6,7 +6,6 @@ export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if user has already accepted/declined cookies
     try {
       const consent = localStorage.getItem('cookie_consent');
       if (consent) return;
@@ -14,28 +13,7 @@ export default function CookieConsent() {
       // Storage may be unavailable in restricted browsing contexts.
     }
 
-    // Show banner on first user interaction or after an 8-second fallback
-    const showBanner = () => setIsVisible(true);
-
-    const timer = setTimeout(showBanner, 8000);
-
-    const handleInteraction = () => {
-      showBanner();
-      cleanup();
-    };
-
-    const cleanup = () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', handleInteraction);
-      window.removeEventListener('click', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
-    };
-
-    window.addEventListener('scroll', handleInteraction, { passive: true });
-    window.addEventListener('click', handleInteraction, { passive: true });
-    window.addEventListener('touchstart', handleInteraction, { passive: true });
-
-    return cleanup;
+    setIsVisible(true);
   }, []);
 
   const handleAccept = () => {
