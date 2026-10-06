@@ -541,13 +541,17 @@ export default function GeneradorNombresInstagram() {
                     >
                       <span className="text-sm font-medium text-gray-900">{saved}</span>
                       <button 
+                        type="button"
                         onClick={() => copyToClipboard(saved, `saved-${idx}`)}
+                        aria-label={`Copiar nombre guardado ${saved}`}
                         className="text-xs font-bold text-purple-600 hover:text-purple-800 transition"
                       >
                         {copiedId === `saved-${idx}` ? '✓' : <Copy className="w-3.5 h-3.5" />}
                       </button>
                       <button 
+                        type="button"
                         onClick={() => toggleSaveName(saved)}
+                        aria-label={`Eliminar nombre guardado ${saved}`}
                         className="text-xs text-gray-300 hover:text-red-500 transition ml-1"
                       >
                         ✕
