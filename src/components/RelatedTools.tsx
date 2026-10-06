@@ -30,10 +30,17 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
       badge: 'Instagram'
     },
     {
-      title: 'Conversor de Letras Bonitas',
-      desc: 'Transforma tu texto con fuentes cursivas, góticas y símbolos para copiar y pegar.',
+      title: 'Conversor de Letras Online',
+      desc: 'Cambia texto normal a más de 50 estilos Unicode listos para copiar y pegar.',
+      path: '/herramientas/conversor-texto',
+      icon: <Type className="w-5 h-5 text-[#4F46E5]" />,
+      badge: 'Copy & Paste'
+    },
+    {
+      title: 'Letras Bonitas Aesthetic',
+      desc: 'Transforma tu texto con estilos cursivos, góticos y adornos para perfiles sociales.',
       path: '/herramientas/conversor-letras-bonitas',
-      icon: <Type className="w-5 h-5 text-indigo-500" />,
+      icon: <Sparkles className="w-5 h-5 text-indigo-500" />,
       badge: 'Aesthetic'
     },
     {
@@ -83,7 +90,66 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
     { label: 'Espacio Invisible Unicode', path: '/blog/letras-invisibles-espacios-guia-redes-sociales' },
   ];
 
-  const filteredTools = tools.filter(tool => tool.path !== currentPath);
+  const clusterPriority = (() => {
+    if (currentPath?.includes('free-fire')) {
+      return [
+        '/herramientas/letras-free-fire',
+        '/herramientas/generador-de-nombres-para-free-fire',
+        '/herramientas/letras-azules',
+        '/herramientas/conversor-texto',
+        '/herramientas/letras-tiktok',
+        '/herramientas/generador-de-nombres-para-instagram'
+      ];
+    }
+
+    if (currentPath?.includes('tiktok')) {
+      return [
+        '/herramientas/letras-tiktok',
+        '/herramientas/generador-de-nombres-para-instagram',
+        '/herramientas/conversor-texto',
+        '/herramientas/conversor-letras-bonitas',
+        '/herramientas/letras-azules',
+        '/herramientas/creador-de-lettering'
+      ];
+    }
+
+    if (currentPath?.includes('instagram')) {
+      return [
+        '/herramientas/generador-de-nombres-para-instagram',
+        '/herramientas/letras-tiktok',
+        '/herramientas/conversor-texto',
+        '/herramientas/conversor-letras-bonitas',
+        '/herramientas/letras-azules',
+        '/herramientas/creador-de-lettering'
+      ];
+    }
+
+    if (currentPath?.includes('conversor') || currentPath?.includes('letras-azules')) {
+      return [
+        '/herramientas/conversor-texto',
+        '/herramientas/conversor-letras-bonitas',
+        '/herramientas/letras-azules',
+        '/herramientas/letras-tiktok',
+        '/herramientas/generador-de-nombres-para-instagram',
+        '/herramientas/letras-free-fire'
+      ];
+    }
+
+    return [
+      '/herramientas/creador-de-lettering',
+      '/herramientas/conversor-texto',
+      '/herramientas/generador-de-nombres-para-instagram',
+      '/herramientas/letras-free-fire',
+      '/herramientas/letras-tiktok',
+      '/herramientas/letras-azules'
+    ];
+  })();
+
+  const priorityIndex = new Map(clusterPriority.map((path, index) => [path, index]));
+  const filteredTools = tools
+    .filter(tool => tool.path !== currentPath)
+    .sort((a, b) => (priorityIndex.get(a.path) ?? 99) - (priorityIndex.get(b.path) ?? 99))
+    .slice(0, 6);
 
   return (
     <section className="my-12 bg-white rounded-3xl p-6 md:p-8 border border-gray-200 shadow-sm">
@@ -94,7 +160,7 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
         </h2>
       </div>
       <p className="text-gray-600 text-sm mb-6">
-        Descubre nuestros generadores de texto, conversores de fuentes y creadores de apodos más populares:
+        Accede a las herramientas más relacionadas con esta búsqueda y continúa creando sin salir del mismo tema:
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
