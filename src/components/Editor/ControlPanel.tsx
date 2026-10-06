@@ -155,8 +155,10 @@ export function ControlPanel() {
   })));
   const [activeTab, setActiveTab] = useState<'texto' | 'estilo' | 'efectos'>('texto');
   const [isFontSelectOpen, setIsFontSelectOpen] = useState(false);
+  const [fontSizeDraft, setFontSizeDraft] = useState(String(store.fontSize));
   const dropdownRef = useRef<HTMLDivElement>(null);
   const textEditStartRef = useRef<string | null>(null);
+  const fontSizeEditStartRef = useRef<number | null>(null);
   const colorEditStartRef = useRef<Partial<Record<ColorField, string>>>({});
   const backgroundEditStartRef = useRef<Pick<EditorState, 'backgroundColor' | 'backgroundImage'> | null>(null);
 
@@ -198,6 +200,12 @@ export function ControlPanel() {
     backgroundEditStartRef.current = null;
     store.commitPreview(initialState);
   };
+
+  useEffect(() => {
+    if (fontSizeEditStartRef.current === null) {
+      setFontSizeDraft(String(store.fontSize));
+    }
+  }, [store.fontSize]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -350,8 +358,48 @@ export function ControlPanel() {
                   />
                   <input 
                     type="number"
-                    value={store.fontSize}
-                    onChange={(e) => store.updateState({ fontSize: Number(e.target.value) })}
+                    min={10}
+                    max={200}
+                    step={1}
+                    inputMode="numeric"
+                    value={fontSizeDraft}
+                    onFocus={() => {
+                      if (fontSizeEditStartRef.current === null) {
+                        fontSizeEditStartRef.current = store.fontSize;
+                        setFontSizeDraft(String(store.fontSize));
+                      }
+                    }}
+                    onChange={(e) => {
+                      const rawValue = e.target.value;
+                      setFontSizeDraft(rawValue);
+
+                      if (rawValue.trim() === '') return;
+                      const nextValue = Number(rawValue);
+                      if (Number.isFinite(nextValue) && nextValue >= 10 && nextValue <= 200) {
+                        store.previewState({ fontSize: nextValue });
+                      }
+                    }}
+                    onBlur={() => {
+                      const initialValue = fontSizeEditStartRef.current;
+                      fontSizeEditStartRef.current = null;
+
+                      if (initialValue === null) {
+                        setFontSizeDraft(String(store.fontSize));
+                        return;
+                      }
+
+                      const parsedValue = Number(fontSizeDraft);
+                      if (!Number.isFinite(parsedValue) || parsedValue < 10 || parsedValue > 200) {
+                        store.previewState({ fontSize: initialValue });
+                        setFontSizeDraft(String(initialValue));
+                        return;
+                      }
+
+                      const finalValue = Math.round(parsedValue);
+                      store.previewState({ fontSize: finalValue });
+                      store.commitPreview({ fontSize: initialValue });
+                      setFontSizeDraft(String(finalValue));
+                    }}
                     className="w-14 border border-gray-200 rounded p-1 text-center text-sm outline-none focus:border-[#5A4AD2]"
                   />
                 </div>
