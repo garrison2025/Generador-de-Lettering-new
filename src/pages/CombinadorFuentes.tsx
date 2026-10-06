@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { PenTool, ArrowRight, Type } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
-import { loadFont } from '@/lib/fonts';
 import { EDITOR_DEFAULT_STATE, useEditorStore } from '@/store/useEditorStore';
+import { useVisibleFonts } from '../hooks/useVisibleFonts';
 
 const PAIRINGS = [
   {
@@ -57,6 +57,10 @@ const PAIRINGS = [
   }
 ];
 
+const PAIRING_FONT_FAMILIES = [
+  ...new Set(PAIRINGS.flatMap((pairing) => [pairing.primaryFont, pairing.secondaryFont]))
+];
+
 const pairingSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -87,13 +91,7 @@ export default function CombinadorFuentes() {
   const [fontSize, setFontSize] = useState(36);
   const updateState = useEditorStore((state) => state.updateState);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const families = new Set(PAIRINGS.flatMap((pairing) => [pairing.primaryFont, pairing.secondaryFont]));
-    families.forEach((family) => {
-      if (family !== 'Inter') void loadFont(family);
-    });
-  }, []);
+  const pairingGridRef = useVisibleFonts<HTMLDivElement>(PAIRING_FONT_FAMILIES);
 
   const tryPrimaryFont = (pairing: (typeof PAIRINGS)[number]) => {
     updateState({
@@ -160,7 +158,7 @@ export default function CombinadorFuentes() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div ref={pairingGridRef} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {PAIRINGS.map((pairing) => (
           <div key={pairing.title} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 p-8 flex flex-col gap-6 group">
             <div className="flex justify-between items-center pb-4 border-b border-gray-50">
