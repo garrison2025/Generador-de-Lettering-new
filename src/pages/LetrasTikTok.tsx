@@ -294,7 +294,7 @@ export default function LetrasTikTok() {
 
       <div className="w-full min-w-0 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
         {/* Main Interactive Input Container */}
-        <div className="bg-white rounded-3xl p-6 md:p-8 border border-gray-200 shadow-xl space-y-6">
+        <div className="min-w-0 max-w-full overflow-hidden bg-white rounded-3xl p-4 sm:p-6 md:p-8 border border-gray-200 shadow-xl space-y-6">
           
           {/* Input Label + Character Counter */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -356,30 +356,30 @@ export default function LetrasTikTok() {
             <span className="text-xs font-bold text-gray-600 uppercase tracking-wider block mb-2">
               Plantillas de Biografía para TikTok (Haz clic para usar):
             </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+            <div className="min-w-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
               {BIO_TEMPLATES.map((tmpl, idx) => (
                 <button
                   key={idx}
                   onClick={() => setInputText(tmpl.text)}
-                  className="p-2.5 rounded-xl border border-gray-200 bg-gray-50/70 hover:bg-white hover:border-pink-400 hover:shadow-sm text-left transition group"
+                  className="min-w-0 max-w-full p-2.5 rounded-xl border border-gray-200 bg-gray-50/70 hover:bg-white hover:border-pink-400 hover:shadow-sm text-left transition group"
                 >
                   <div className="text-[11px] font-bold text-pink-600 mb-0.5">{tmpl.label}</div>
-                  <div className="text-xs text-gray-700 truncate font-medium">{tmpl.text}</div>
+                  <div className="min-w-0 text-xs text-gray-700 truncate font-medium">{tmpl.text}</div>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Live TikTok Mobile Mockup Preview Box */}
-          <div className="mt-6 p-4 md:p-6 bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-gray-800 text-white">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-800">
+          <div className="min-w-0 max-w-full mt-6 p-4 md:p-6 bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-gray-800 text-white overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 pb-3 border-b border-gray-800">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-pink-500 animate-pulse" />
                 <span className="text-xs font-bold tracking-wider text-gray-300 uppercase">
                   Vista Previa en Vivo de TikTok
                 </span>
               </div>
-              <div className="flex items-center bg-gray-800 p-1 rounded-xl text-xs font-medium">
+              <div className="grid grid-cols-2 sm:flex sm:items-center bg-gray-800 p-1 rounded-xl text-xs font-medium w-full sm:w-auto">
                 <button
                   onClick={() => setPreviewMode('bio')}
                   className={`px-3 py-1 rounded-lg transition ${previewMode === 'bio' ? 'bg-pink-600 text-white font-bold' : 'text-gray-400 hover:text-white'}`}
@@ -412,7 +412,7 @@ export default function LetrasTikTok() {
                   </div>
                 </div>
                 {/* Live Bio Text */}
-                <div className="bg-black/60 p-3 rounded-xl border border-gray-800 text-sm text-gray-100 font-normal leading-snug break-words">
+                <div className="min-w-0 max-w-full bg-black/60 p-3 rounded-xl border border-gray-800 text-sm text-gray-100 font-normal leading-snug break-all sm:break-words">
                   {inputText || 'Tu biografía de TikTok aparecerá aquí con tus letras bonitas.'}
                 </div>
               </div>
@@ -426,7 +426,7 @@ export default function LetrasTikTok() {
                     <div className="flex items-center gap-1 text-xs font-bold text-gray-300">
                       @aesthetic_fan <span className="text-[10px] text-gray-500">· hace 2m</span>
                     </div>
-                    <div className="text-sm text-white mt-1 break-words">
+                    <div className="min-w-0 text-sm text-white mt-1 break-all sm:break-words">
                       {inputText || '¡Increíble video! ✨'}
                     </div>
                     <div className="flex items-center gap-4 text-xs text-gray-500 mt-2">
@@ -440,7 +440,7 @@ export default function LetrasTikTok() {
           </div>
 
           {/* Filter Categories Bar */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none pt-2 border-t border-gray-100">
+          <div className="w-full min-w-0 max-w-full flex items-center gap-2 overflow-x-auto overscroll-x-contain pb-2 scrollbar-none pt-2 border-t border-gray-100">
             <span className="text-xs font-bold text-gray-500 uppercase mr-1">Filtrar:</span>
             {[
               { id: 'todas', label: 'Todas las Fuentes' },
@@ -482,7 +482,7 @@ export default function LetrasTikTok() {
                         {item.name}
                       </span>
                     </div>
-                    <div className="text-base sm:text-lg text-gray-900 font-medium break-words leading-relaxed select-all">
+                    <div className="min-w-0 max-w-full text-base sm:text-lg text-gray-900 font-medium break-all sm:break-words leading-relaxed select-all">
                       {item.text}
                     </div>
                   </div>
@@ -526,7 +526,7 @@ export default function LetrasTikTok() {
 
           {/* Saved Favorites Section */}
           {favorites.length > 0 && (
-            <div className="mt-8 p-6 bg-pink-50/60 rounded-2xl border border-pink-200 space-y-3">
+            <div className="min-w-0 max-w-full mt-8 p-4 sm:p-6 bg-pink-50/60 rounded-2xl border border-pink-200 space-y-3 overflow-hidden">
               <div className="flex items-center justify-between">
                 <h3 className="font-bold text-pink-900 text-sm flex items-center gap-2">
                   <Heart className="w-4 h-4 text-pink-600 fill-current" />
