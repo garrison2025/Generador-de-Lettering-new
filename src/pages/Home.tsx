@@ -249,8 +249,8 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/editor" className="inline-flex bg-[#5A4AD2] text-white text-sm font-medium px-8 py-3 rounded-lg shadow-sm hover:bg-[#4F46E5] transition-colors">
-              <PenTool className="w-4 h-4 mr-2" /> Comenzar ahora
+            <Link to="/herramientas/creador-de-lettering" className="inline-flex bg-[#5A4AD2] text-white text-sm font-medium px-8 py-3 rounded-lg shadow-sm hover:bg-[#4F46E5] transition-colors">
+              <PenTool className="w-4 h-4 mr-2" /> Comenzar a crear
             </Link>
           </div>
         </div>
@@ -272,7 +272,7 @@ export default function Home() {
                <div className="p-5 border-t border-gray-100 bg-white">
                  <h3 className="font-bold text-sm mb-1 text-gray-900">Invitación de Boda</h3>
                  <p className="text-xs text-gray-500 mb-4">Con sombra</p>
-                 <Link to="/editor" className="block text-center w-full bg-[#5A4AD2] text-white font-medium py-2 rounded text-sm hover:bg-[#4F46E5] transition">Usar Plantilla &rarr;</Link>
+                 <Link to="/herramientas/creador-de-lettering" className="block text-center w-full bg-[#5A4AD2] text-white font-medium py-2 rounded text-sm hover:bg-[#4F46E5] transition">Usar estilo en el creador &rarr;</Link>
                </div>
              </div>
 
@@ -283,7 +283,7 @@ export default function Home() {
                <div className="p-5 border-t border-gray-100 bg-white">
                  <h3 className="font-bold text-sm mb-1 text-gray-900">Feliz Cumpleaños</h3>
                  <p className="text-xs text-gray-500 mb-4">Con sombra</p>
-                 <Link to="/editor" className="block text-center w-full bg-[#5A4AD2] text-white font-medium py-2 rounded text-sm hover:bg-[#4F46E5] transition">Usar Plantilla &rarr;</Link>
+                 <Link to="/herramientas/creador-de-lettering" className="block text-center w-full bg-[#5A4AD2] text-white font-medium py-2 rounded text-sm hover:bg-[#4F46E5] transition">Usar estilo en el creador &rarr;</Link>
                </div>
              </div>
 
@@ -294,7 +294,7 @@ export default function Home() {
                <div className="p-5 border-t border-gray-100 bg-white">
                  <h3 className="font-bold text-sm mb-1 text-gray-900">Navidad</h3>
                  <p className="text-xs text-gray-500 mb-4">Con sombra</p>
-                 <Link to="/editor" className="block text-center w-full bg-[#5A4AD2] text-white font-medium py-2 rounded text-sm hover:bg-[#4F46E5] transition">Usar Plantilla &rarr;</Link>
+                 <Link to="/herramientas/creador-de-lettering" className="block text-center w-full bg-[#5A4AD2] text-white font-medium py-2 rounded text-sm hover:bg-[#4F46E5] transition">Usar estilo en el creador &rarr;</Link>
                </div>
              </div>
            </div>
@@ -374,8 +374,8 @@ export default function Home() {
           <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
             Comienza a diseñar textos únicos, letras decoradas y tipografías creativas para tus proyectos, redes sociales o cualquier ocasión especial.
           </p>
-          <Link to="/editor" className="inline-flex bg-[#FF6B6B] text-white font-bold px-8 py-4 rounded-lg shadow-lg hover:-translate-y-1 hover:bg-[#ff5757] hover:shadow-xl transition-all items-center gap-2">
-            <PenTool className="w-5 h-5"/> Ir al Editor de Lettering
+          <Link to="/herramientas/creador-de-lettering" className="inline-flex bg-[#FF6B6B] text-white font-bold px-8 py-4 rounded-lg shadow-lg hover:-translate-y-1 hover:bg-[#ff5757] hover:shadow-xl transition-all items-center gap-2">
+            <PenTool className="w-5 h-5"/> Crear Lettering Ahora
           </Link>
         </div>
       </section>
