@@ -10,6 +10,15 @@ function assert(condition, message) {
   }
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\function assert(condition, message) {
+  if (!condition) {
+    throw new Error(message);
+  }
+}
+');
+}
+
 function validateUnicodeMaps() {
   const configs = [
     {
@@ -141,7 +150,7 @@ function validateBlogLastmod() {
   for (const post of posts) {
     const route = `https://generadordelettering.org/blog/${post.slug}`;
     const entryPattern = new RegExp(
-      `<loc>${route.replace(/[.*+?^$\{\}()|[\\]\\]/g, '\\\\function validateLlmsLinks() {')}<\\/loc>\\s*<lastmod>([^<]+)<\\/lastmod>`
+      `<loc>${escapeRegExp(route)}<\\/loc>\\s*<lastmod>([^<]+)<\\/lastmod>`
     );
     const sitemapLastmod = sitemap.match(entryPattern)?.[1];
 
@@ -150,6 +159,80 @@ function validateBlogLastmod() {
       `Blog lastmod mismatch for ${post.slug}: expected ${post.lastmod}, found ${sitemapLastmod || 'missing'}`
     );
   }
+}
+
+function validateInternalLinks() {
+  const app = read('src/App.tsx');
+  const blog = read('src/data/blogPosts.ts');
+
+  const routePaths = [...app.matchAll(/<Route\s+path="([^"]+)"/g)]
+    .map((match) => match[1]);
+
+  const validRoutes = new Set(['/','/404']);
+  for (const route of routePaths) {
+    if (route === '*' || route.includes(':')) continue;
+    validRoutes.add('/' + route.replace(/^\/+/, ''));
+  }
+
+  for (const match of blog.matchAll(/slug:\s*['"`]([^'"`]+)['"`]/g)) {
+    validRoutes.add(`/blog/${match[1]}`);
+  }
+
+  const legacyRoutes = new Set([
+    '/creador-de-lettering',
+    '/generador-de-nombres-para-instagram',
+    '/generador-de-nombres-para-free-fire'
+  ]);
+
+  const sourceFiles = [];
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = `${dir}/${entry.name}`;
+      if (entry.isDirectory()) {
+        walk(fullPath);
+      } else if (/\.(?:ts|tsx)$/.test(entry.name)) {
+        sourceFiles.push(fullPath);
+      }
+    }
+  };
+  walk('src');
+
+  const violations = [];
+  const inspectTarget = (file, rawTarget) => {
+    if (!rawTarget || rawTarget.startsWith('//')) return;
+
+    const target = rawTarget.split(/[?#]/, 1)[0] || '/';
+    const normalized = target === '/' ? '/' : target.replace(/\/+$/, '');
+
+    if (legacyRoutes.has(normalized)) {
+      violations.push(`${file}: internal link uses legacy redirect route ${normalized}`);
+      return;
+    }
+
+    if (validRoutes.has(normalized)) return;
+
+    const publicPath = `public/${normalized.replace(/^\/+/, '')}`;
+    if (fs.existsSync(publicPath)) return;
+
+    violations.push(`${file}: internal link target does not exist: ${normalized}`);
+  };
+
+  for (const file of sourceFiles) {
+    const source = read(file);
+
+    for (const match of source.matchAll(/\b(?:to|href)=["'](\/[^"'<>]*)["']/g)) {
+      inspectTarget(file, match[1]);
+    }
+
+    for (const match of source.matchAll(/\]\((\/[^)\s]+)\)/g)) {
+      inspectTarget(file, match[1]);
+    }
+  }
+
+  assert(
+    violations.length === 0,
+    `Internal link validation failed:\n- ${violations.join('\n- ')}`
+  );
 }
 
 function validateLlmsLinks() {
@@ -361,6 +444,7 @@ function validateTrustAndBreadcrumbs() {
 validateUnicodeMaps();
 validateRoutesAndSitemap();
 validateBlogLastmod();
+validateInternalLinks();
 validateLlmsLinks();
 validateMonetizationConfig();
 validatePublicAssets();
