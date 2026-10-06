@@ -1,5 +1,5 @@
 import { copyText } from '../utils/copyText';
-import { useState, useDeferredValue } from 'react';
+import { useState, useDeferredValue, useMemo } from 'react';
 import { Copy, Check, ExternalLink, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
@@ -333,6 +333,14 @@ export default function ConversorTexto() {
   const deferredInput = useDeferredValue(inputText);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
+  const convertedStyles = useMemo(
+    () => STYLES.map((style) => ({
+      ...style,
+      converted: convertText(deferredInput || 'Escribe algo', style.id),
+    })),
+    [deferredInput]
+  );
+
   const copyToClipboard = async (text: string, id: string) => {
     if (!(await copyText(text))) {
       window.alert('No se pudo copiar automáticamente. Selecciona el texto y cópialo manualmente.');
@@ -391,9 +399,9 @@ export default function ConversorTexto() {
       </div>
 
       <div className="space-y-4">
-        {STYLES.map((style) => {
-          const converted = convertText(deferredInput || 'Escribe algo', style.id);
-          
+        {convertedStyles.map((style) => {
+          const converted = style.converted;
+
           return (
             <div key={style.id} className="bg-white border text-center md:text-left border-gray-200 rounded-xl p-4 flex flex-col md:flex-row items-center gap-4 hover:border-[#5A4AD2]/50 transition-colors">
               <div className="w-full md:w-48 shrink-0">
