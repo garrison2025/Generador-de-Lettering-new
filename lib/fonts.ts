@@ -67,7 +67,8 @@ export const loadFont = async (fontFamily: string) => {
   const existing = fontLoadPromises.get(fontFamily);
   if (existing) return existing;
 
-  if (document.fonts.check(`16px "${fontFamily}"`)) {
+  const previewStylesheet = document.getElementById('gdl-font-previews');
+  if (previewStylesheet && document.fonts.check(`16px "${fontFamily}"`)) {
     return;
   }
 
