@@ -331,6 +331,7 @@ const breadcrumbSchema = {
 export default function ConversorLetrasBonitas() {
   const [inputText, setInputText] = useState('Letras hermosas');
   const deferredInput = useDeferredValue(inputText);
+  const inputCharacterCount = Array.from(inputText).length;
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const convertedStyles = useMemo(
@@ -414,7 +415,7 @@ export default function ConversorLetrasBonitas() {
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-12">
         <div className="bg-gray-50 border-b border-gray-100 px-6 py-4 flex justify-between items-center">
           <label htmlFor="text-input" className="block text-sm font-bold text-gray-800 uppercase tracking-wider">Tu Frase o Nombre:</label>
-          <span className="text-xs font-medium text-gray-500 bg-white px-2 py-1 rounded border border-gray-200">{inputText.length} caracteres</span>
+          <span className="text-xs font-medium text-gray-500 bg-white px-2 py-1 rounded border border-gray-200">{inputCharacterCount} caracteres</span>
         </div>
         <div className="p-6 md:p-8">
           <div className="relative">
