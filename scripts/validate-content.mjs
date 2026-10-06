@@ -150,6 +150,23 @@ function validateLlmsLinks() {
   }
 }
 
+function validateEditorStoreUsage() {
+  const files = [
+    'src/pages/Editor.tsx',
+    'src/pages/CreadorLettering.tsx',
+    'src/components/Editor/ControlPanel.tsx',
+    'src/components/Editor/CanvasArea.tsx'
+  ];
+
+  const stalePatterns = ['historyIndex', 'state.history', 'src/store/useEditorStore'];
+  for (const path of files) {
+    const source = read(path);
+    for (const pattern of stalePatterns) {
+      assert(!source.includes(pattern), `Stale editor store API "${pattern}" found in ${path}`);
+    }
+  }
+}
+
 function validateTrustAndBreadcrumbs() {
   const files = [
     'src/pages/Home.tsx',
@@ -188,6 +205,7 @@ function validateTrustAndBreadcrumbs() {
 validateUnicodeMaps();
 validateRoutesAndSitemap();
 validateLlmsLinks();
+validateEditorStoreUsage();
 validateTrustAndBreadcrumbs();
 
 console.log('Content validation passed.');
