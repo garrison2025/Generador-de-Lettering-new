@@ -79,7 +79,7 @@ export default function Plantillas() {
     <>
       <SEO 
         title="Plantillas de Lettering Digital | Letras Personalizadas"
-        description="Plantillas gratuitas de lettering y caligrafía digital para editar online. Úsalas para invitaciones de cumpleaños, bodas, y frases para tatuajes."
+        description="Plantillas gratuitas de lettering digital para editar online. Empieza con estilos de cumpleaños, bodas, neón, gótico, vintage y firma elegante."
         keywords="plantillas de lettering, plantillas de caligrafia, diseños de letras gratis"
         canonical="https://generadordelettering.org/plantillas"
         jsonSchema={[templatesSchema, templatesBreadcrumbSchema]}
@@ -100,11 +100,13 @@ export default function Plantillas() {
         {TEMPLATES.map(tpl => (
            <div key={tpl.id} className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all text-center flex flex-col items-center">
              <div className="w-full h-48 bg-gray-50 rounded-2xl mb-6 flex items-center justify-center border" style={{ backgroundColor: tpl.state.backgroundColor || 'transparent' }}>
-               <h3 className="text-3xl text-center leading-tight" style={{ 
-                 fontFamily: tpl.state.fontFamily, 
+               <h3 className="text-3xl text-center leading-tight" style={{
+                 fontFamily: tpl.state.fontFamily,
                  color: tpl.state.textColor,
                  textShadow: tpl.state.shadowBlur ? `${tpl.state.shadowOffsetX}px ${tpl.state.shadowOffsetY}px ${tpl.state.shadowBlur}px ${tpl.state.shadowColor}` : 'none',
-                 WebkitTextStroke: tpl.state.strokeWidth ? `${tpl.state.strokeWidth}px ${tpl.state.strokeColor}` : 'none'
+                 WebkitTextStroke: tpl.state.strokeWidth ? `${tpl.state.strokeWidth}px ${tpl.state.strokeColor}` : 'none',
+                 transform: tpl.state.rotation ? `rotate(${tpl.state.rotation}deg)` : undefined,
+                 letterSpacing: tpl.state.letterSpacing != null ? `${tpl.state.letterSpacing}px` : undefined,
                }}>
                  {tpl.state.text.split('\n').map((line, i) => <div key={i}>{line}</div>)}
                </h3>
