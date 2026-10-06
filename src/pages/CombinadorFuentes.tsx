@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PenTool, ArrowRight, ChevronLeft, Type } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
+import { loadFont } from '@/lib/fonts';
+import { useEditorStore } from '@/store/useEditorStore';
 
 const PAIRINGS = [
   {
@@ -27,7 +29,7 @@ const PAIRINGS = [
     primaryClass: 'font-sans text-4xl font-black',
     secondaryFont: 'JetBrains Mono',
     secondaryClass: 'font-mono text-xs text-gray-500',
-    preview: 'Arte Vectorial'
+    preview: 'Diseño Digital'
   },
   {
     title: 'Suave & Amigable',
@@ -58,6 +60,24 @@ const PAIRINGS = [
 export default function CombinadorFuentes() {
   const [customText, setCustomText] = useState('');
   const [fontSize, setFontSize] = useState(36);
+  const updateState = useEditorStore((state) => state.updateState);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const families = new Set(PAIRINGS.flatMap((pairing) => [pairing.primaryFont, pairing.secondaryFont]));
+    families.forEach((family) => {
+      if (family !== 'Inter') void loadFont(family);
+    });
+  }, []);
+
+  const tryPrimaryFont = (pairing: (typeof PAIRINGS)[number]) => {
+    updateState({
+      fontFamily: pairing.primaryFont,
+      fontSize,
+      text: customText.trim() || pairing.preview,
+    });
+    navigate('/editor');
+  };
 
   return (
     <>
@@ -141,10 +161,14 @@ export default function CombinadorFuentes() {
               </p>
             </div>
 
-            <Link to="/editor" className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#5A4AD2] transition w-fit group-hover:translate-x-1">
-              Probar en el Editor
+            <button
+              type="button"
+              onClick={() => tryPrimaryFont(pairing)}
+              className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#5A4AD2] transition w-fit group-hover:translate-x-1"
+            >
+              Probar {pairing.primaryFont} en el Editor
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </button>
           </div>
         ))}
       </div>
