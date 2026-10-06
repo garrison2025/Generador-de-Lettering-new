@@ -272,8 +272,10 @@ export default function GeneradorNombresInstagram() {
   };
 
   const toggleSaveName = (text: string) => {
-    setSavedNames(prev => 
-      prev.includes(text) ? prev.filter(item => item !== text) : [...prev, text]
+    setSavedNames((prev) =>
+      prev.includes(text)
+        ? prev.filter((item) => item !== text)
+        : [...prev, text].slice(-50)
     );
   };
 
