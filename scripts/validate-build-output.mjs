@@ -57,7 +57,9 @@ assertGzipLimit(canvasVendor, 120, 'Canvas vendor');
 assertGzipLimit(markdownVendor, 60, 'Markdown vendor');
 assertGzipLimit(stateVendor, 3, 'State vendor');
 
-for (const htmlFile of walkHtml('dist')) {
+const htmlFiles = walkHtml('dist');
+
+for (const htmlFile of htmlFiles) {
   const html = fs.readFileSync(htmlFile, 'utf8');
   const preloadTags = [...html.matchAll(/<link\b[^>]*rel=["']modulepreload["'][^>]*>/gi)].map((m) => m[0]);
 
@@ -69,4 +71,59 @@ for (const htmlFile of walkHtml('dist')) {
   }
 }
 
-console.log('Build output performance validation passed.');
+const sitemap = fs.readFileSync('public/sitemap.xml', 'utf8');
+const sitemapUrls = new Set(
+  [...sitemap.matchAll(/<loc>(https:\/\/generadordelettering\.org[^<]*)<\/loc>/g)]
+    .map((match) => match[1])
+);
+
+const generatedCanonicals = new Map();
+const titleOwners = new Map();
+const descriptionOwners = new Map();
+
+for (const htmlFile of htmlFiles) {
+  const html = fs.readFileSync(htmlFile, 'utf8');
+
+  if (path.basename(htmlFile) === '404.html') {
+    assert(
+      /<meta\b[^>]*name=["']robots["'][^>]*content=["']noindex,\s*follow["'][^>]*>/i.test(html),
+      '404.html must keep noindex, follow'
+    );
+    continue;
+  }
+
+  const title = html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1]?.trim();
+  const description = html.match(/<meta\b[^>]*name=["']description["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1]?.trim();
+  const canonical = html.match(/<link\b[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["'][^>]*>/i)?.[1]?.trim();
+
+  assert(title, `Missing title in ${htmlFile}`);
+  assert(description, `Missing meta description in ${htmlFile}`);
+  assert(canonical, `Missing canonical in ${htmlFile}`);
+  assert(sitemapUrls.has(canonical), `Canonical is not present in sitemap (${htmlFile}): ${canonical}`);
+
+  if (generatedCanonicals.has(canonical)) {
+    throw new Error(`Duplicate canonical in build output: ${canonical} in ${generatedCanonicals.get(canonical)} and ${htmlFile}`);
+  }
+  generatedCanonicals.set(canonical, htmlFile);
+
+  if (titleOwners.has(title)) {
+    throw new Error(`Duplicate page title: "${title}" in ${titleOwners.get(title)} and ${htmlFile}`);
+  }
+  titleOwners.set(title, htmlFile);
+
+  if (descriptionOwners.has(description)) {
+    throw new Error(`Duplicate meta description in ${descriptionOwners.get(description)} and ${htmlFile}: "${description}"`);
+  }
+  descriptionOwners.set(description, htmlFile);
+}
+
+assert(
+  generatedCanonicals.size === sitemapUrls.size,
+  `Static HTML/canonical coverage mismatch: generated ${generatedCanonicals.size}, sitemap ${sitemapUrls.size}`
+);
+
+for (const sitemapUrl of sitemapUrls) {
+  assert(generatedCanonicals.has(sitemapUrl), `Sitemap URL is missing a generated HTML head: ${sitemapUrl}`);
+}
+
+console.log('Build output performance and SEO metadata validation passed.');
