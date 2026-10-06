@@ -28,6 +28,15 @@ const DECORATORS = [
 const SYMBOLS = ['꧁', '꧂', '༒', '★', '彡', '☠', '๖ۣۜ', 'ꪶ', 'ꫂ', '【', '】', '『', '』', '⚡', '╰‿╯', '亗', '✿', '❀', '❖', 'ツ', 'ッ', 'シ', '☂', '☁', '☃', '☄', '✦', '✧', '✩', '✪', '✫', 'メ', '×͜×', '۞', 'ॐ', '༂', '༃', '™', '®', '©', 'ᴮᴼˢˢ', 'ᴳᵒᵈ', '♛', '♚'];
 
 const BASES = ['Slayer', 'Ninja', 'Ghost', 'Demon', 'King', 'Queen', 'Shadow', 'Viper', 'Titan', 'Hunter', 'Sniper', 'Pro', 'God', 'Legend', 'Beast'];
+const FREE_FIRE_GUIDE_LIMIT = 12;
+
+function countCodePoints(value: string) {
+  return Array.from(value).length;
+}
+
+function limitCodePoints(value: string, max = FREE_FIRE_GUIDE_LIMIT) {
+  return Array.from(value).slice(0, max).join('');
+}
 
 const FONT_MAPS: Record<string, Record<string, string>> = {
   smallCaps: {
@@ -43,7 +52,7 @@ function applyFont(text: string, fontType: string) {
   if (fontType === 'normal') return text;
   const map = FONT_MAPS[fontType];
   if (!map) return text;
-  return text.split('').map(char => map[char] || map[char.toLowerCase()] || char).join('');
+  return Array.from(text).map(char => map[char] || map[char.toLowerCase()] || char).join('');
 }
 
 const faqSchema = {
@@ -115,14 +124,16 @@ export default function LetrasFreeFire() {
   };
 
   const handleSymbolClick = (symbol: string) => {
-    setInputText(prev => (prev + symbol).slice(0, 12));
+    setInputText(prev => limitCodePoints(prev + symbol));
   };
 
   const generateRandomBase = () => {
     const randomBase = BASES[Math.floor(Math.random() * BASES.length)];
     const randomNumber = Math.floor(Math.random() * 999);
-    setInputText(`${randomBase}${randomNumber}`.slice(0, 12));
+    setInputText(limitCodePoints(`${randomBase}${randomNumber}`));
   };
+
+  const inputCharacterCount = countCodePoints(inputText);
 
   return (
     <>
@@ -188,7 +199,7 @@ export default function LetrasFreeFire() {
         <div className="flex justify-between items-center mb-3">
           <label htmlFor="nickname" className="block text-sm font-bold text-gray-300 uppercase tracking-wider">Tu Nickname Base:</label>
           <div className="flex items-center gap-3">
-            <span className="text-xs font-medium text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded hidden sm:block">{inputText.length} caracteres</span>
+            <span className="text-xs font-medium text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded hidden sm:block">{inputCharacterCount} caracteres</span>
             <button 
               onClick={generateRandomBase}
               className="flex items-center gap-1.5 text-xs font-bold text-[#FACC15] hover:text-yellow-300 transition"
@@ -205,14 +216,13 @@ export default function LetrasFreeFire() {
             id="nickname"
             type="text"
             value={inputText}
-            maxLength={12}
-            onChange={(e) => setInputText(e.target.value)}
+            onChange={(e) => setInputText(limitCodePoints(e.target.value))}
             className="w-full px-4 py-4 bg-gray-800 border-2 border-gray-700 rounded-xl focus:ring-0 focus:border-[#FACC15] outline-none text-xl md:text-2xl font-bold text-white pr-16 transition-colors placeholder:text-gray-600"
             placeholder="Ejemplo: Slayer..."
           />
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
-            <span className={`text-xs font-bold ${inputText.length >= 12 ? 'text-red-400' : 'text-gray-500'}`}>
-              {inputText.length}/12
+            <span className={`text-xs font-bold ${inputCharacterCount >= FREE_FIRE_GUIDE_LIMIT ? 'text-red-400' : 'text-gray-500'}`}>
+              {inputCharacterCount}/{FREE_FIRE_GUIDE_LIMIT} guía
             </span>
             {inputText && (
               <button 
