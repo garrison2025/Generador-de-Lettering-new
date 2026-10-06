@@ -335,6 +335,9 @@ export const useEditorStore = create<EditorStore>()(
           backgroundImage: null,
         };
       },
+      // Keep the server HTML and the browser's first render identical.
+      // src/main.tsx explicitly rehydrates this store after React has attached.
+      skipHydration: true,
     }
   )
 );

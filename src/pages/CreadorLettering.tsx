@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Home, Sparkles, Download, RotateCcw, Shuffle, Wand2, Type, Layers, HelpCircle, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ControlPanel } from '../components/Editor/ControlPanel';
@@ -29,7 +29,12 @@ export default function CreadorLettering() {
   const updateState = useEditorStore((state) => state.updateState);
   const canUndo = useEditorStore((state) => state.past.length > 0);
   const canRedo = useEditorStore((state) => state.future.length > 0);
+  const [canvasReady, setCanvasReady] = useState(false);
   useEditorShortcuts();
+
+  useEffect(() => {
+    setCanvasReady(true);
+  }, []);
 
   const presets = [
     {
@@ -474,9 +479,13 @@ export default function CreadorLettering() {
               </div>
 
               <div className="h-[280px] md:h-[420px] w-full relative bg-[#F8F9FC]">
-                <Suspense fallback={<CanvasLoadingFallback />}>
-                 <CanvasArea />
-               </Suspense>
+                {canvasReady ? (
+                  <Suspense fallback={<CanvasLoadingFallback />}>
+                    <CanvasArea />
+                  </Suspense>
+                ) : (
+                  <CanvasLoadingFallback />
+                )}
               </div>
 
               <div className="p-3 lg:p-4 border-t border-gray-100 flex flex-wrap gap-2 lg:gap-4 bg-white rounded-b-2xl">

@@ -758,6 +758,44 @@ function validateLegacyCanonicalUrls() {
   );
 }
 
+function validateEditorPrerenderSafety() {
+  const store = read('store/useEditorStore.ts');
+  const main = read('src/main.tsx');
+  const editor = read('src/pages/Editor.tsx');
+  const creator = read('src/pages/CreadorLettering.tsx');
+
+  assert(
+    store.includes('skipHydration: true'),
+    'Editor persistence must skip automatic hydration so server HTML matches the first client render'
+  );
+  assert(
+    main.includes('useEditorStore.persist.rehydrate()'),
+    'Editor persistence must explicitly rehydrate after React attaches'
+  );
+  assert(
+    main.includes('EditorPersistenceHydrator'),
+    'The editor persistence hydrator must remain mounted at the app root'
+  );
+
+  for (const [path, source] of [
+    ['src/pages/Editor.tsx', editor],
+    ['src/pages/CreadorLettering.tsx', creator]
+  ]) {
+    assert(
+      source.includes('const [canvasReady, setCanvasReady] = useState(false);'),
+      `Canvas must start in a server-safe fallback state in ${path}`
+    );
+    assert(
+      source.includes('setCanvasReady(true);'),
+      `Canvas must activate after mount in ${path}`
+    );
+    assert(
+      source.includes('canvasReady ? ('),
+      `Canvas render must be gated until after hydration in ${path}`
+    );
+  }
+}
+
 function validatePrerenderStorageSafety() {
   const pages = [
     {
@@ -926,6 +964,7 @@ validateRemovedUiImports();
 validateEditorHistoryMemorySafety();
 validateEditorStoreUsage();
 validateLegacyCanonicalUrls();
+validateEditorPrerenderSafety();
 validatePrerenderStorageSafety();
 validateSearchIntentOwnership();
 validateTrustAndBreadcrumbs();

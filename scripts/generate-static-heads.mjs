@@ -5,6 +5,7 @@ const SITE = 'https://generadordelettering.org';
 
 const PRERENDER_ROUTES = new Set([
   '/',
+  '/editor',
   '/plantillas',
   '/herramientas',
   '/herramientas/paletas-de-color',
@@ -16,7 +17,8 @@ const PRERENDER_ROUTES = new Set([
   '/herramientas/letras-tiktok',
   '/herramientas/conversor-letras-bonitas',
   '/herramientas/generador-de-nombres-para-instagram',
-  '/herramientas/generador-de-nombres-para-free-fire'
+  '/herramientas/generador-de-nombres-para-free-fire',
+  '/herramientas/creador-de-lettering'
 ]);
 
 const { render: renderPrerenderedRoute } = await import('../dist-ssr/entry-server.js');
