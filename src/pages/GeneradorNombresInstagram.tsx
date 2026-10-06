@@ -115,6 +115,12 @@ const BIO_TEMPLATES = [
 ];
 
 const USERNAME_PREFIXES = ['iam', 'the', 'real', 'soyofficial', 'by', 'hello'];
+const INSTAGRAM_INPUT_LIMIT = 150;
+
+function limitCodePoints(value: string, max = INSTAGRAM_INPUT_LIMIT) {
+  return Array.from(value).slice(0, max).join('');
+}
+
 const USERNAME_SUFFIXES = ['official', 'studio', 'vibes', 'creative', 'xo', 'es', 'co'];
 
 const QUICK_SYMBOLS = [
@@ -226,6 +232,7 @@ const breadcrumbSchema = {
 
 export default function GeneradorNombresInstagram() {
   const [inputText, setInputText] = useState('AestheticGirl');
+  const inputCharacterCount = Array.from(inputText).length;
   const deferredInput = useDeferredValue(inputText);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>('Todas');
@@ -280,7 +287,7 @@ export default function GeneradorNombresInstagram() {
   };
 
   const handleAddSymbol = (symbol: string) => {
-    setInputText(prev => prev + symbol);
+    setInputText((previous) => limitCodePoints(previous + symbol));
   };
 
   const handleRandomSample = () => {
@@ -473,7 +480,7 @@ export default function GeneradorNombresInstagram() {
                 </label>
                 <div className="flex items-center gap-3">
                   <span className="text-xs font-semibold bg-white/10 px-3 py-1 rounded-full text-pink-200">
-                    {inputText.length} / 150 caracteres
+                    {inputCharacterCount} / {INSTAGRAM_INPUT_LIMIT} caracteres
                   </span>
                   <button 
                     onClick={handleRandomSample}
@@ -490,8 +497,7 @@ export default function GeneradorNombresInstagram() {
                   id="insta-input"
                   type="text"
                   value={inputText}
-                  maxLength={150}
-                  onChange={(e) => setInputText(e.target.value)}
+                  onChange={(e) => setInputText(limitCodePoints(e.target.value))}
                   className="w-full px-5 py-4 bg-slate-900/80 border-2 border-purple-500/50 rounded-2xl focus:border-pink-400 focus:outline-none text-xl md:text-2xl font-bold text-white placeholder-gray-500 transition-colors shadow-inner"
                   placeholder="Ejemplo: AestheticGirl..."
                 />
