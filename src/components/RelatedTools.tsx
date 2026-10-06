@@ -45,7 +45,7 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
     },
     {
       title: 'Letras Azules para Copiar',
-      desc: 'Generador de letras con formato azul especial para WhatsApp y juegos.',
+      desc: 'Regional Indicator Symbols y variantes Unicode para copiar y pegar en redes y juegos.',
       path: '/herramientas/letras-azules',
       icon: <Sparkles className="w-5 h-5 text-blue-500" />,
       badge: 'WhatsApp & Juegos'
@@ -195,7 +195,12 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
 
       {/* Internal Links Cluster for SEO Indexation */}
       <div className="pt-6 border-t border-gray-100">
-        <span className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-3">Enlaces Populares de Búsqueda:</span>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Enlaces Populares de Búsqueda:</span>
+          <Link to="/herramientas" className="text-xs font-bold text-[#4F46E5] hover:underline">
+            Ver todas las herramientas →
+          </Link>
+        </div>
         <div className="flex flex-wrap gap-2">
           {quickLinks.map((link, lIdx) => (
             <Link
