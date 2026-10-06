@@ -1,9 +1,10 @@
 import { copyText } from '../utils/copyText';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PenTool, Palette, Copy, Check, ChevronLeft, Droplet } from 'lucide-react';
 import { useState } from 'react';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
+import { useEditorStore } from '@/store/useEditorStore';
 
 const PALETTES = [
   { name: 'Ocaso Cálido', colors: ['#FF6B6B', '#FF8E53', '#FFAF3B', '#FFD166', '#FFF0A8'] },
@@ -22,6 +23,8 @@ const PALETTES = [
 export default function PaletasColor() {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const [copiedPalette, setCopiedPalette] = useState<string | null>(null);
+  const updateState = useEditorStore((state) => state.updateState);
+  const navigate = useNavigate();
 
   const copyToClipboard = async (text: string, type: 'color' | 'palette') => {
     const copied = await copyText(text);
@@ -42,6 +45,18 @@ export default function PaletasColor() {
   const copyGradient = (colors: string[]) => {
     const gradient = `linear-gradient(135deg, ${colors.join(', ')})`;
     copyToClipboard(gradient, 'palette');
+  };
+
+  const openPaletteInEditor = (colors: string[]) => {
+    updateState({
+      isGradient: true,
+      gradientStartColor: colors[0],
+      gradientEndColor: colors[colors.length - 1],
+      textColor: colors[0],
+      backgroundColor: 'transparent',
+      backgroundImage: null,
+    });
+    navigate('/editor');
   };
 
   return (
@@ -116,14 +131,15 @@ export default function PaletasColor() {
                     >
                       {copiedPalette === JSON.stringify(palette.colors) ? <Check className="w-4 h-4 text-green-600" /> : <Droplet className="w-4 h-4" />}
                     </button>
-                    <Link
-                      to="/editor"
-                      aria-label={`Abrir el editor con la paleta ${palette.name}`}
+                    <button
+                      type="button"
+                      onClick={() => openPaletteInEditor(palette.colors)}
+                      aria-label={`Aplicar la paleta ${palette.name} como gradiente de texto en el editor`}
                       className="text-[#5A4AD2] hover:bg-[#5A4AD2]/10 p-2 rounded-lg transition"
-                      title="Llevar al Editor"
+                      title="Aplicar gradiente en el editor"
                     >
                       <Palette className="w-4 h-4" />
-                    </Link>
+                    </button>
                   </div>
                 </div>
                 
