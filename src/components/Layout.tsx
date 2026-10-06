@@ -34,6 +34,8 @@ export default function Layout() {
                 <svg className="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
               <div className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+                <Link to="/herramientas" className="block px-4 py-2 text-sm font-bold text-[#4F46E5] hover:bg-[#4F46E5]/10 transition">Todas las herramientas</Link>
+                <div className="mx-3 my-1 border-t border-gray-100"></div>
                 <Link to="/herramientas/letras-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Letras para Free Fire</Link>
                 <Link to="/herramientas/letras-tiktok" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Letras para TikTok</Link>
                 <Link to="/herramientas/letras-azules" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Letras Azules</Link>
@@ -74,7 +76,10 @@ export default function Layout() {
               <Link to="/plantillas" onClick={() => setMobileMenuOpen(false)} className={`block px-3 py-3 rounded-md text-base font-medium ${location.pathname === '/plantillas' ? 'text-[#4F46E5] bg-indigo-50' : 'text-gray-900 hover:bg-gray-50'}`}>Plantillas</Link>
               <Link to="/blog" onClick={() => setMobileMenuOpen(false)} className={`block px-3 py-3 rounded-md text-base font-medium ${location.pathname.startsWith('/blog') ? 'text-[#4F46E5] bg-indigo-50' : 'text-gray-900 hover:bg-gray-50'}`}>Blog</Link>
               <div className="px-3 pt-4 pb-2 border-t border-gray-100 mt-2">
-                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Herramientas Populares</span>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Herramientas Populares</span>
+                  <Link to="/herramientas" onClick={() => setMobileMenuOpen(false)} className="text-xs font-bold text-[#4F46E5] hover:underline">Ver todas</Link>
+                </div>
               </div>
               <Link to="/herramientas/creador-de-lettering" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-bold text-[#5A4AD2] hover:bg-gray-50">Creador de Lettering</Link>
               <Link to="/herramientas/conversor-letras-bonitas" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Conv. Letras Bonitas</Link>
@@ -117,6 +122,7 @@ export default function Layout() {
               <div>
                 <h3 className="font-bold text-gray-900 mb-4 whitespace-nowrap">Herramientas</h3>
                 <ul className="space-y-2 text-sm text-gray-600">
+                  <li><Link to="/herramientas" className="hover:text-[#4F46E5] font-bold">Todas las Herramientas</Link></li>
                   <li><Link to="/herramientas/creador-de-lettering" className="hover:text-[#4F46E5] font-bold text-[#5A4AD2]">Creador de Lettering</Link></li>
                   <li><Link to="/herramientas/generador-de-nombres-para-instagram" className="hover:text-[#4F46E5] font-medium">Nombres para Instagram</Link></li>
                   <li><Link to="/herramientas/generador-de-nombres-para-free-fire" className="hover:text-[#4F46E5] font-medium">Nombres para Free Fire</Link></li>
