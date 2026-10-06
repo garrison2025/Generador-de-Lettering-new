@@ -220,6 +220,24 @@ for (const route of seoLandingRoutes) {
 
 pages.push(...extractBlogPosts());
 
+const titleOwners = new Map();
+const duplicateTitles = [];
+
+for (const page of pages) {
+  const normalizedTitle = page.title.trim().toLocaleLowerCase('es');
+  const existingRoute = titleOwners.get(normalizedTitle);
+
+  if (existingRoute) {
+    duplicateTitles.push(`"${page.title}" -> ${existingRoute}, ${page.route}`);
+  } else {
+    titleOwners.set(normalizedTitle, page.route);
+  }
+}
+
+if (duplicateTitles.length > 0) {
+  throw new Error(`Duplicate SEO titles found:\n- ${duplicateTitles.join('\n- ')}`);
+}
+
 const sitemap = read('public/sitemap.xml');
 const sitemapRoutes = [...sitemap.matchAll(/<loc>https:\/\/generadordelettering\.org([^<]*)<\/loc>/g)]
   .map((match) => match[1] || '/');
