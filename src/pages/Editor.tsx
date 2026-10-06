@@ -32,7 +32,7 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
       {!embedded && (
         <SEO 
           title="Editor de Lettering Online | App Creador de Letras Gratis"
-          description="El mejor editor de lettering digital gratis. Escribe texto, cambia el color, añade contornos y luces de neón en un lienzo online. Exporta imágenes en alta calidad."
+          description="Editor de lettering digital gratis. Escribe texto, cambia el color, añade contornos y efectos en un lienzo online. Exporta imágenes en alta calidad."
           keywords="editor de lettering, creador de tipografia, herramientas de diseño de texto, añadir sombra a letras"
         />
       )}
