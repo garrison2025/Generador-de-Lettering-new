@@ -46,7 +46,8 @@ export default function Layout() {
                 <Link to="/herramientas/paletas-de-color" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Paletas de Color</Link>
                 <Link to="/herramientas/combinador-de-fuentes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Combinador de Fuentes</Link>
                 <Link to="/herramientas/plantillas-practica" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Plantillas de Práctica</Link>
-              </div>/div>
+              </div>
+            </div>
             </div>
           </nav>
 
