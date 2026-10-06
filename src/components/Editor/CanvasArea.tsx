@@ -264,10 +264,14 @@ export function CanvasArea() {
                  )}
                  <Group
                    ref={groupRef}
-                   x={stageWidth / 2 + textOffsetX}
-                   y={stageHeight / 2 + textOffsetY}
+                   x={stageWidth / 2 + textOffsetX * stageWidth}
+                   y={stageHeight / 2 + textOffsetY * stageHeight}
                  rotation={rotation}
                  draggable
+                 dragBoundFunc={(position) => ({
+                   x: Math.min(stageWidth, Math.max(0, position.x)),
+                   y: Math.min(stageHeight, Math.max(0, position.y)),
+                 })}
                  onClick={() => {
                    setIsSelected(true);
                    if (groupRef.current && trRef.current) {
@@ -282,8 +286,8 @@ export function CanvasArea() {
                  }}
                  onDragEnd={(event) => {
                    useEditorStore.getState().updateState({
-                     textOffsetX: Math.round(event.target.x() - stageWidth / 2),
-                     textOffsetY: Math.round(event.target.y() - stageHeight / 2),
+                     textOffsetX: stageWidth > 0 ? (event.target.x() - stageWidth / 2) / stageWidth : 0,
+                     textOffsetY: stageHeight > 0 ? (event.target.y() - stageHeight / 2) / stageHeight : 0,
                    });
                  }}
                  onTransformEnd={(e) => {
