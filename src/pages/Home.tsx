@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { PenTool, Download, Type, LayoutTemplate, Palette, Globe, CheckCircle2, ChevronDown, Flame, Instagram, Sparkles, Hash } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SEO } from '../components/SEO';
+import { loadFont } from '@/lib/fonts';
 
 const FAQ_DATA = [
   {
@@ -55,6 +56,12 @@ function FaqItem({ q, a }: { q: string, a: string }) {
 }
 
 export default function Home() {
+  useEffect(() => {
+    ['Parisienne', 'Dancing Script', 'Lobster'].forEach((font) => {
+      void loadFont(font);
+    });
+  }, []);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
