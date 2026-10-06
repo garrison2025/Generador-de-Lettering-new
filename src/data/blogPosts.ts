@@ -116,7 +116,7 @@ La biografía es uno de los primeros elementos que ve una persona al entrar en e
 
 Cuando la aplicación de TikTok renderiza tu perfil, utiliza una fuente 'Sans-serif' genérica (normalmente Proxima Nova o San Francisco en iOS). Es funcional, legible, pero increíblemente aburrida para un creador de contenido que aspira a destacar visualmente.
 
-Entrar al reino del 'Aesthetic Dark' significa rechazar ese aburrimiento. Una biografía gótica aprovecha los generadores de tipografía que reemplazan el texto estándar con variables Unicode de alfabetos matemáticos y de lenguas antiguas, engañando a TikTok para que muestre algo completamente diferente.
+Entrar al reino del 'Aesthetic Dark' significa rechazar ese aburrimiento. Una biografía gótica puede aprovechar caracteres Unicode de alfabetos matemáticos y otros bloques compatibles para mostrar variantes visuales distintas al texto latino básico. TikTok recibe esos caracteres como texto Unicode; la apariencia final depende del sistema, la fuente y la versión de la aplicación.
 
 **La elección de tu Fuente:**
 Para la vibra 'dark', hay tres estilos principales que debes usar a través de nuestro sitio web:
@@ -209,13 +209,13 @@ En esta guía extensa y profunda, te revelaremos el misterio detrás de las famo
 
 ## 1. ¿Qué es exactamente el Espacio Invisible?
 
-No hay magia oscura, solo matemáticas e informática aplicadas. Todos los dispositivos del mundo se rigen por un sistema universal de codificación de texto llamado **Unicode**. Este sistema le asigna un número identificador único a cada letra, número, emoji y tilde de cada idioma humano (incluyendo el Chino, el Árabe, etc.).
+No hay magia oscura, solo matemáticas e informática aplicadas. La mayoría de sistemas y aplicaciones modernas utilizan **Unicode** para representar texto de muchos idiomas, símbolos y emoji. Unicode asigna puntos de código a caracteres definidos por el estándar, aunque la forma visual y la cobertura disponible dependen de las fuentes y del software de cada dispositivo.
 
 Unicode incluye distintos caracteres cuyo aspecto puede ser vacío o casi invisible. Uno de los más utilizados para este efecto es **Hangul Filler (U+3164)**, un carácter definido en Unicode que algunas interfaces muestran sin una forma visible. Que una aplicación lo acepte o conserve depende de sus propias reglas.
 
 ## 2. Aplicaciones Prácticas: Los Saltos de Línea en Instagram
 
-Instagram es infame por arruinar el formato de las descripciones (captions) de las fotos si dejas líneas en blanco de forma 'normal'. Durante años, las personas tenían que colocar puntos (.) o guiones (-) solos en una línea para engañar al sistema y separar los párrafos. Eso resolvía el problema, pero estéticamente arruinaba la lectura limpia y profesional.
+El tratamiento de líneas en blanco y caracteres invisibles puede cambiar entre versiones de Instagram. Históricamente algunos usuarios han recurrido a puntos, guiones o caracteres de apariencia vacía para conservar separaciones visuales, pero conviene comprobar el resultado en la versión actual de la aplicación antes de publicar.
 
 **La Solución:**
 1. Escribes tu primer párrafo.
@@ -254,7 +254,7 @@ Usar un carácter Unicode no equivale a ejecutar código ni a modificar la aplic
 
 Resumen y Próximos Pasos
 
-El diseño y la personalización digital siempre han tenido un componente de creatividad 'hacker-ética'. Encontrar la manera de engañar al sistema para tener ese salto de línea elegante o ese nickname amenazante con espacios separados es parte de la cultura de internet moderna. Te recomendamos guardar nuestros generadores en tus favoritos para tenerlos siempre a mano.`
+La personalización digital suele explorar las posibilidades que ofrecen Unicode y las reglas de formato de cada plataforma. Un salto de línea o un nickname con separaciones puede comportarse de forma distinta según la aplicación, por lo que conviene probar el resultado antes de guardar cambios.`
   },
   {
     slug: 'diferencias-lettering-caligrafia-tipografia',
@@ -290,7 +290,7 @@ A diferencia de la caligrafía, el **Lettering** es el arte de **dibujar letras*
 
 Aquí no estás "escribiendo" de una sola pasada. En el lettering, cada letra es tratada como una **ilustración independiente**. Dibujas el contorno de la letra, puedes retocar sus esquinas, añadir sombras 3D, texturas, luces de neón, degradados y adornos decorativos alrededor.
 
-> *"En la caligrafía escribes una letra de un solo movimiento; in el lettering dibujas y retocas esa letra varias veces hasta lograr la forma perfecta."*
+> *"En la caligrafía escribes una letra con un gesto de escritura; en el lettering dibujas y retocas esa letra hasta construir la forma buscada."*
 
 ### Tipos Populares de Lettering:
 1. **Brush Lettering:** Simula el trazo caligráfico pero dibujado y perfeccionado con efectos digitales o marcadores.
