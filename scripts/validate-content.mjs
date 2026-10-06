@@ -758,6 +758,55 @@ function validateLegacyCanonicalUrls() {
   );
 }
 
+function validateSearchIntentOwnership() {
+  const home = read('src/pages/Home.tsx');
+  const editor = read('src/pages/Editor.tsx');
+  const creator = read('src/pages/CreadorLettering.tsx');
+  const conversor = read('src/pages/ConversorTexto.tsx');
+  const ffLetters = read('src/pages/LetrasFreeFire.tsx');
+  const ffGenerator = read('src/pages/GeneradorNombresFreeFire.tsx');
+
+  assert(
+    home.includes('title="Generador de Lettering Online | Letras Personalizadas"'),
+    'Home must remain the primary Generador de Lettering landing page'
+  );
+  assert(
+    editor.includes('title="Editor de Lettering Avanzado | Lienzo, Colores y Efectos"'),
+    'Editor must own the advanced-editor intent'
+  );
+  assert(
+    creator.includes('title="Creador de Lettering con Plantillas | Diseños Online Gratis"'),
+    'Creador de Lettering must own the presets/templates intent'
+  );
+  assert(
+    conversor.includes('title="Conversor de Letras y Tipografías | +50 Estilos para Copiar y Pegar"'),
+    'Conversor must own the broad Unicode conversion intent'
+  );
+  assert(
+    ffLetters.includes('title="Letras para Free Fire con Símbolos | Copiar y Pegar"'),
+    'Free Fire letters page must own letters/symbols intent'
+  );
+  assert(
+    ffGenerator.includes('title="Generador de Nombres para Free Fire | Nicks, Clan y Dúos"'),
+    'Advanced Free Fire page must own name-generator intent'
+  );
+
+  assert(
+    home.includes('to="/herramientas/creador-de-lettering"') && home.includes('to="/editor"'),
+    'Home must link separately to creator and advanced editor'
+  );
+  assert(
+    editor.includes('to="/herramientas/creador-de-lettering"') &&
+    creator.includes('to="/editor"'),
+    'Editor and creator must cross-link with distinct intent anchors'
+  );
+  assert(
+    ffLetters.includes('to="/herramientas/generador-de-nombres-para-free-fire"') &&
+    ffGenerator.includes('to="/herramientas/letras-free-fire"'),
+    'Free Fire letters and advanced generator pages must cross-link'
+  );
+}
+
 function validateTrustAndBreadcrumbs() {
   const files = [
     'src/pages/Home.tsx',
@@ -830,6 +879,7 @@ validateRemovedUiImports();
 validateEditorHistoryMemorySafety();
 validateEditorStoreUsage();
 validateLegacyCanonicalUrls();
+validateSearchIntentOwnership();
 validateTrustAndBreadcrumbs();
 
 console.log('Content validation passed.');
