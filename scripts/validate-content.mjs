@@ -150,6 +150,26 @@ function validateLlmsLinks() {
   }
 }
 
+function validateMonetizationConfig() {
+  const html = read('index.html');
+  const ads = read('public/ads.txt');
+
+  const adsPublisher = ads.match(/^google\.com,\s*(pub-\d+),\s*DIRECT,\s*f08c47fec0942fa0\s*$/m)?.[1];
+  const scriptPublisher = html.match(/adsbygoogle\.js\?client=ca-(pub-\d+)/)?.[1];
+
+  assert(adsPublisher, 'Could not find a valid Google DIRECT publisher entry in public/ads.txt');
+  assert(scriptPublisher, 'Could not find the AdSense publisher ID in index.html');
+  assert(
+    adsPublisher === scriptPublisher,
+    `AdSense publisher mismatch: ads.txt=${adsPublisher}, script=${scriptPublisher}`
+  );
+
+  assert(
+    html.includes("localStorage.getItem('cookie_consent') === 'accepted'"),
+    'Monetization loader is missing the explicit accepted-consent gate'
+  );
+}
+
 function validatePublicAssets() {
   const required = [
     'public/favicon-32x32.png',
@@ -314,6 +334,7 @@ function validateTrustAndBreadcrumbs() {
 validateUnicodeMaps();
 validateRoutesAndSitemap();
 validateLlmsLinks();
+validateMonetizationConfig();
 validatePublicAssets();
 validateRemovedUiImports();
 validateEditorStoreUsage();
