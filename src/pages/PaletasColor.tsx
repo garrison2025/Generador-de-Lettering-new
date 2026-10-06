@@ -83,11 +83,17 @@ export default function PaletasColor() {
                   </div>
                 ))}
               </div>
-              <div className="h-6 w-full opacity-90 cursor-pointer group relative" style={gradientStyle} onClick={() => copyGradient(palette.colors)}>
-                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/40 backdrop-blur-[1px]">
-                   <span className="text-xs text-white font-bold tracking-wide">Copiar Gradiente CSS</span>
-                 </div>
-              </div>
+              <button
+                type="button"
+                aria-label={`Copiar gradiente CSS de ${palette.name}`}
+                className="h-6 w-full opacity-90 cursor-pointer group relative focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5A4AD2] focus-visible:ring-offset-2"
+                style={gradientStyle}
+                onClick={() => copyGradient(palette.colors)}
+              >
+                <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition bg-black/40 backdrop-blur-[1px]">
+                  <span className="text-xs text-white font-bold tracking-wide">Copiar Gradiente CSS</span>
+                </span>
+              </button>
               
               <div className="p-5">
                 <div className="flex items-start justify-between mb-3">
@@ -96,13 +102,20 @@ export default function PaletasColor() {
                   </div>
                   <div className="flex gap-1 shrink-0">
                     <button 
+                      type="button"
+                      aria-label={`Copiar colores de la paleta ${palette.name}`}
                       onClick={() => copyToClipboard(JSON.stringify(palette.colors), 'palette')}
                       className="text-gray-500 hover:bg-gray-100 hover:text-gray-900 p-2 rounded-lg transition"
                       title="Copiar arreglo de colores"
                     >
                       {copiedPalette === JSON.stringify(palette.colors) ? <Check className="w-4 h-4 text-green-600" /> : <Droplet className="w-4 h-4" />}
                     </button>
-                    <Link to="/editor" className="text-[#5A4AD2] hover:bg-[#5A4AD2]/10 p-2 rounded-lg transition" title="Llevar al Editor">
+                    <Link
+                      to="/editor"
+                      aria-label={`Abrir el editor con la paleta ${palette.name}`}
+                      className="text-[#5A4AD2] hover:bg-[#5A4AD2]/10 p-2 rounded-lg transition"
+                      title="Llevar al Editor"
+                    >
                       <Palette className="w-4 h-4" />
                     </Link>
                   </div>
