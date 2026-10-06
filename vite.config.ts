@@ -1,12 +1,11 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig, loadEnv} from 'vite';
+import {defineConfig} from 'vite';
 
 import { VitePWA } from 'vite-plugin-pwa';
 
-export default defineConfig(({mode}) => {
-  const env = loadEnv(mode, '.', '');
+export default defineConfig(() => {
   return {
     plugins: [
       react(), 
@@ -16,8 +15,8 @@ export default defineConfig(({mode}) => {
         injectRegister: 'script-defer',
         includeAssets: ['favicon-32x32.png', 'icon.svg', 'apple-touch-icon.png', 'og-image.jpg', 'og-image.webp', 'llms.txt', 'llms-full.txt'],
         manifest: {
-          name: 'LetrasPro - Generador de Letras',
-          short_name: 'LetrasPro',
+          name: 'Generador de Lettering',
+          short_name: 'Lettering',
           description: 'Conversor y generador de letras bonitas y tipografías para copiar y pegar.',
           theme_color: '#5A4AD2',
           background_color: '#ffffff',
@@ -43,9 +42,6 @@ export default defineConfig(({mode}) => {
         }
       })
     ],
-    define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
