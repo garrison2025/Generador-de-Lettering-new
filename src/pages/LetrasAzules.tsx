@@ -284,7 +284,7 @@ export default function LetrasAzules() {
       const dec = DECORATORS[styleId];
       
       if (dec.modifier) {
-        result = Array.from(result).map(char => char !== ' ' ? char + dec.modifier : char).join('');
+        result = Array.from(result).map((char) => /\s/u.test(char) ? char : char + dec.modifier).join('');
       }
       
       if (dec.join) {
