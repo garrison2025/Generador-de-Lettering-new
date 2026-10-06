@@ -156,12 +156,18 @@ export function CanvasArea() {
         try {
           if (!stageRef.current) return;
 
+          const needsOpaqueComposite =
+            (format === 'jpeg' || format === 'webp') &&
+            backgroundColor === 'transparent' &&
+            !backgroundImage;
+
           const dataUrl = stageRef.current.toDataURL({
-            mimeType: `image/${format}`,
+            // Preserve alpha until we explicitly composite onto white.
+            mimeType: needsOpaqueComposite ? 'image/png' : `image/${format}`,
             pixelRatio,
           });
 
-          if ((format === 'jpeg' || format === 'webp') && backgroundColor === 'transparent' && !backgroundImage) {
+          if (needsOpaqueComposite) {
             const canvas = document.createElement('canvas');
             const img = new Image();
 
