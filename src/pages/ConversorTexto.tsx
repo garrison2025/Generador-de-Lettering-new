@@ -241,9 +241,9 @@ export default function ConversorTexto() {
   return (
     <>
       <SEO 
-        title="Conversor de Letras Online | +50 Fuentes para Copiar y Pegar"
-        description="Cambia tu texto a más de 50 estilos Unicode: cursivas, góticas, negritas y letras raras listas para copiar y pegar. Gratis y sin registro."
-        keywords="conversor de letras, cambiar tipo de letra, conversor texto online, letras raras copy paste"
+        title="Conversor de Letras y Tipografías | +50 Estilos para Copiar y Pegar"
+        description="Escribe una vez y compara más de 50 letras bonitas, cursivas, góticas, negritas y estilos Unicode. Copia y pega en Instagram, TikTok, WhatsApp y juegos."
+        keywords="conversor de letras, conversor de tipografias, letras para copiar y pegar, letras bonitas, letras raras unicode"
         canonical="https://generadordelettering.org/herramientas/conversor-texto"
         jsonSchema={[faqSchema, softwareSchema, breadcrumbSchema]}
       />
@@ -257,19 +257,25 @@ export default function ConversorTexto() {
       </nav>
 
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Conversor de Letras Online</h1>
+        <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Conversor de Letras y Tipografías</h1>
         <p className="text-lg text-gray-600">
-          Cambia el tipo de letra de tu texto con más de 50 estilos Unicode: cursivas, góticas, negritas, letras raras y otras variantes listas para copiar y pegar.
+          Escribe tu texto una sola vez y compara más de 50 estilos Unicode: letras bonitas, cursivas, góticas, negritas, raras y decoradas listas para copiar y pegar.
         </p>
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm text-gray-600">
-          <span className="rounded-full bg-gray-100 px-3 py-1.5">
-            Ideal para comparar rápidamente muchas variantes Unicode
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-sm">
+          <span className="rounded-full bg-gray-100 px-3 py-1.5 text-gray-700 font-medium">
+            +50 estilos en una sola lista
           </span>
-          <Link
-            to="/herramientas/conversor-letras-bonitas"
-            className="font-semibold text-[#5A4AD2] hover:underline"
-          >
-            ¿Buscas estilos aesthetic y decoraciones para redes? Ver Letras Bonitas →
+          <Link to="/herramientas/conversor-letras-bonitas" className="rounded-full bg-indigo-50 px-3 py-1.5 font-semibold text-[#5A4AD2] hover:bg-indigo-100">
+            Letras bonitas aesthetic
+          </Link>
+          <Link to="/herramientas/letras-tiktok" className="rounded-full bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 hover:bg-gray-200">
+            Letras para TikTok
+          </Link>
+          <Link to="/herramientas/generador-de-nombres-para-instagram" className="rounded-full bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 hover:bg-gray-200">
+            Nombres para Instagram
+          </Link>
+          <Link to="/herramientas/letras-free-fire" className="rounded-full bg-gray-100 px-3 py-1.5 font-semibold text-gray-700 hover:bg-gray-200">
+            Letras para Free Fire
           </Link>
         </div>
       </div>
