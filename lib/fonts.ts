@@ -35,16 +35,12 @@ export const loadFont = async (fontFamily: string) => {
   const existing = fontLoadPromises.get(fontFamily);
   if (existing) return existing;
 
-  const previewStylesheet = document.getElementById('gdl-font-previews');
-  if (previewStylesheet && document.fonts.check(`16px "${fontFamily}"`)) {
-    return;
-  }
+  const linkId = `gdl-font-${fontFamily.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 
   const promise = (async () => {
-    try {
-      const linkId = `gdl-font-${fontFamily.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
-      let link = document.getElementById(linkId) as HTMLLinkElement | null;
+    let link = document.getElementById(linkId) as HTMLLinkElement | null;
 
+    try {
       if (!link) {
         link = document.createElement('link');
         link.id = linkId;
@@ -64,6 +60,7 @@ export const loadFont = async (fontFamily: string) => {
       await document.fonts.ready;
     } catch (error) {
       fontLoadPromises.delete(fontFamily);
+      link?.remove();
       console.error('Failed to load font', fontFamily, error);
     }
   })();
