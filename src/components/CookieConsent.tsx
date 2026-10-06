@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'motion/react';
 import { ShieldCheck, X } from 'lucide-react';
 
 export default function CookieConsent() {
@@ -46,16 +45,14 @@ export default function CookieConsent() {
     setIsVisible(false);
   };
 
+  if (!isVisible) return null;
+
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6"
-        >
+    <div
+      role="dialog"
+      aria-label="Preferencias de privacidad"
+      className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6"
+    >
           <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-100 p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="flex items-start gap-4">
               <div className="bg-indigo-50 text-[#4F46E5] p-2.5 rounded-xl shrink-0 mt-0.5 md:mt-0">
@@ -88,8 +85,6 @@ export default function CookieConsent() {
               </button>
             </div>
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    </div>
   );
 }
