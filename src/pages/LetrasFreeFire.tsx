@@ -148,7 +148,7 @@ export default function LetrasFreeFire() {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Herramientas",
-                "item": "https://generadordelettering.org/"
+                "item": "https://generadordelettering.org/herramientas"
               },
               {
                 "@type": "ListItem",
