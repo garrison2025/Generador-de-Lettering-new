@@ -1,6 +1,8 @@
 import os
 import sys
 import time
+import xml.etree.ElementTree as ET
+from urllib.parse import urlparse
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
@@ -95,6 +97,39 @@ def replace_value(element, value: str) -> None:
     element.send_keys(value)
 
 
+def sitemap_paths() -> list[str]:
+    root = ET.parse("public/sitemap.xml").getroot()
+    namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    paths: list[str] = []
+    for loc in root.findall("sm:url/sm:loc", namespace):
+        if not loc.text:
+            continue
+        parsed = urlparse(loc.text.strip())
+        path = parsed.path or "/"
+        paths.append(path)
+    return paths
+
+
+def assert_document_basics(path: str) -> None:
+    title = driver.title.strip()
+    if not title:
+        fail(f"{path}: document title is empty")
+
+    h1s = driver.find_elements(By.CSS_SELECTOR, "#main-content h1")
+    if len(h1s) != 1:
+        fail(f"{path}: expected exactly one H1, found {len(h1s)}")
+
+    canonical = driver.execute_script(
+        """
+        const node = document.querySelector('link[rel="canonical"]');
+        return node ? node.getAttribute('href') : null;
+        """
+    )
+    expected = "https://generadordelettering.org/" if path == "/" else f"https://generadordelettering.org{path}"
+    if canonical != expected:
+        fail(f"{path}: canonical mismatch, expected {expected!r}, got {canonical!r}")
+
+
 try:
     # First visit: consent must be usable on a phone and must not shift the page horizontally.
     driver.get(BASE_URL + "/")
@@ -169,7 +204,21 @@ try:
     open_path("/herramientas/generador-de-nombres-para-free-fire", "Free Fire")
     assert_no_horizontal_overflow("Free Fire at 320px")
 
-    print("Browser smoke validation passed.")
+    # Full mobile route audit: every sitemap URL must hydrate without runtime errors,
+    # retain one H1/canonical/title, and fit inside a 390px viewport.
+    driver.set_window_size(390, 844)
+    audited = 0
+    for path in sitemap_paths():
+        open_path(path)
+        assert_document_basics(path)
+        assert_no_horizontal_overflow(f"full route audit {path}")
+        assert_no_runtime_errors(f"full route audit {path}")
+        audited += 1
+
+    if audited < 20:
+        fail(f"Full route audit discovered too few sitemap routes: {audited}")
+
+    print(f"Browser smoke validation passed across {audited} sitemap routes.")
 except (AssertionError, TimeoutException) as error:
     print(f"Browser smoke validation failed: {error}", file=sys.stderr)
     sys.exit(1)
