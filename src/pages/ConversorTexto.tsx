@@ -247,7 +247,7 @@ export default function ConversorTexto() {
         canonical="https://generadordelettering.org/herramientas/conversor-texto"
         jsonSchema={[faqSchema, softwareSchema, breadcrumbSchema]}
       />
-      <div className="max-w-4xl mx-auto px-4 py-12 w-full">
+      <div className="max-w-4xl mx-auto px-4 py-12 w-full min-w-0">
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
         <Link to="/" className="hover:text-[#5A4AD2] transition-colors">Inicio</Link>
         <span>/</span>
