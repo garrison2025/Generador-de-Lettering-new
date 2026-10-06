@@ -79,6 +79,12 @@
 
         function loadMonetizationScripts() {
           if (monetizationStarted || !hasAcceptedConsent()) return;
+
+          if (!document.body) {
+            document.addEventListener('DOMContentLoaded', loadMonetizationScripts, { once: true });
+            return;
+          }
+
           monetizationStarted = true;
 
           appendScript(
@@ -91,7 +97,7 @@
           appendScript(
             'adsterra-social-bar',
             'https://pl26707745.profitableratecpmnetwork.com/aa/3e/7c/aa3e7c6a9214fa224ddd32eef045cb13.js',
-            document.body || document.documentElement
+            document.body
           );
 
           ['scroll', 'click', 'touchstart', 'mousemove'].forEach(function(eventName) {
