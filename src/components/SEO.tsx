@@ -9,6 +9,8 @@ interface SEOProps {
   type?: 'website' | 'article' | 'webapp';
   jsonSchema?: Record<string, any> | Record<string, any>[];
   image?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
   noindex?: boolean;
 }
 
@@ -20,6 +22,8 @@ export function SEO({
   type = 'website', 
   jsonSchema, 
   image = 'https://generadordelettering.org/og-image.jpg',
+  publishedTime,
+  modifiedTime,
   noindex = false
 }: SEOProps) {
   const siteUrl = 'https://generadordelettering.org';
@@ -47,7 +51,7 @@ export function SEO({
     document.head
       .querySelectorAll('[data-rh="true"]')
       .forEach((node) => node.remove());
-  }, [title, description, canonical, keywords, type, image, noindex]);
+  }, [title, description, canonical, keywords, type, image, publishedTime, modifiedTime, noindex]);
 
   return (
     <Helmet>
@@ -75,6 +79,12 @@ export function SEO({
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       {imageMimeType && <meta property="og:image:type" content={imageMimeType} />}
+      {openGraphType === 'article' && publishedTime && (
+        <meta property="article:published_time" content={publishedTime} />
+      )}
+      {openGraphType === 'article' && modifiedTime && (
+        <meta property="article:modified_time" content={modifiedTime} />
+      )}
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
