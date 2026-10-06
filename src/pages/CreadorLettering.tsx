@@ -1,10 +1,28 @@
+import { lazy, Suspense } from 'react';
 import { Home, Sparkles, Download, RotateCcw, Shuffle, Wand2, Type, Layers, HelpCircle, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { CanvasArea } from '../components/Editor/CanvasArea';
 import { ControlPanel } from '../components/Editor/ControlPanel';
 import { useEditorStore } from '@/store/useEditorStore';
 import { useEditorShortcuts } from '../hooks/useEditorShortcuts';
 import { SEO } from '../components/SEO';
+
+const CanvasArea = lazy(() =>
+  import('../components/Editor/CanvasArea').then((module) => ({
+    default: module.CanvasArea,
+  }))
+);
+
+function CanvasLoadingFallback() {
+  return (
+    <div
+      className="h-full w-full flex items-center justify-center bg-[#F8F9FC] text-sm text-gray-500"
+      role="status"
+      aria-live="polite"
+    >
+      Cargando vista previa…
+    </div>
+  );
+}
 import { RelatedTools } from '../components/RelatedTools';
 
 export default function CreadorLettering() {
@@ -456,7 +474,9 @@ export default function CreadorLettering() {
               </div>
 
               <div className="h-[280px] md:h-[420px] w-full relative bg-[#F8F9FC]">
-                <CanvasArea />
+                <Suspense fallback={<CanvasLoadingFallback />}>
+                 <CanvasArea />
+               </Suspense>
               </div>
 
               <div className="p-3 lg:p-4 border-t border-gray-100 flex flex-wrap gap-2 lg:gap-4 bg-white rounded-b-2xl">
