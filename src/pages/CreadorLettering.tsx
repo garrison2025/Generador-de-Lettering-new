@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Home, Sparkles, Download, RotateCcw, Shuffle, Wand2, Type, Layers, HelpCircle, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ControlPanel } from '../components/Editor/ControlPanel';
-import { useEditorStore } from '@/store/useEditorStore';
+import { EDITOR_DEFAULT_STATE, useEditorStore } from '@/store/useEditorStore';
 import { useEditorShortcuts } from '../hooks/useEditorShortcuts';
 import { SEO } from '../components/SEO';
 
@@ -303,13 +303,8 @@ export default function CreadorLettering() {
               <button
                 key={idx}
                 onClick={() => updateState({
+                  ...EDITOR_DEFAULT_STATE,
                   ...p.style,
-                  backgroundImage: null,
-                  overlayOpacity: 0,
-                  rotation: 0,
-                  textOffsetX: 0,
-                  textOffsetY: 0,
-                  textOpacity: 1,
                 })}
                 className="p-3 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:border-[#5A4AD2] hover:shadow-md transition text-left flex flex-col justify-between h-20 group"
               >
