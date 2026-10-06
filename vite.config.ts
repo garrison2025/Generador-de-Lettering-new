@@ -14,6 +14,11 @@ export default defineConfig(() => {
         registerType: 'autoUpdate',
         injectRegister: 'script-defer',
         includeAssets: ['favicon-32x32.png', 'icon.svg', 'apple-touch-icon.png', 'og-image.jpg', 'og-image.webp', 'llms.txt', 'llms-full.txt'],
+        workbox: {
+          cleanupOutdatedCaches: true,
+          navigateFallback: null,
+          globPatterns: ['**/*.{js,css,ico,png,jpg,jpeg,svg,webp,webmanifest,txt}']
+        },
         manifest: {
           name: 'Generador de Lettering',
           short_name: 'Lettering',
