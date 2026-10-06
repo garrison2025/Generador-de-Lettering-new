@@ -209,7 +209,7 @@ export default function CreadorLettering() {
         "name": "¿Es necesario registrarse para usar el Creador de Lettering?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No, todas las herramientas de LetrasPro son 100% gratuitas y de acceso inmediato sin necesidad de crear cuenta ni instalar aplicaciones."
+          "text": "No, todas las herramientas de Generador de Lettering son 100% gratuitas y de acceso inmediato sin necesidad de crear cuenta ni instalar aplicaciones."
         }
       }
     ]
@@ -250,6 +250,7 @@ export default function CreadorLettering() {
         title="Creador de Lettering Online Gratis | Diseñador de Letras y Tipografía"
         description="Creador de lettering digital gratis en español. Escribe tu frase, aplica estilos neón, caligrafía, 3D y acuarela. Descarga imágenes en PNG HD para Instagram, TikTok o cuadernos."
         keywords="creador de lettering, diseñador de letras, letras bonitas creador, creador de tipografía online, hacer lettering digital gratis"
+        canonical="https://generadordelettering.org/herramientas/creador-de-lettering"
         jsonSchema={[webAppSchema, faqSchema, howToSchema]}
       />
 
