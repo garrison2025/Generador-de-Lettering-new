@@ -167,29 +167,39 @@ export default function GeneradorNombresFreeFire() {
   const deferredInput = useDeferredValue(inputText);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const [savedNicks, setSavedNicks] = useState<string[]>(() => {
-    try {
-      const saved = localStorage.getItem('ff_saved_nicks');
-      if (!saved) return [];
-
-      const parsed: unknown = JSON.parse(saved);
-      if (!Array.isArray(parsed)) return [];
-
-      return [...new Set(parsed.filter((value): value is string => typeof value === 'string'))].slice(0, 50);
-    } catch {
-      return [];
-    }
-  });
+  const [savedNicks, setSavedNicks] = useState<string[]>([]);
+  const [savedNicksHydrated, setSavedNicksHydrated] = useState(false);
   const [storagePersistent, setStoragePersistent] = useState(true);
 
   useEffect(() => {
+    try {
+      const saved = localStorage.getItem('ff_saved_nicks');
+      if (saved) {
+        const parsed: unknown = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setSavedNicks(
+            [...new Set(parsed.filter((value): value is string => typeof value === 'string'))].slice(0, 50)
+          );
+        }
+      }
+      setStoragePersistent(true);
+    } catch {
+      setStoragePersistent(false);
+    } finally {
+      setSavedNicksHydrated(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!savedNicksHydrated) return;
+
     try {
       localStorage.setItem('ff_saved_nicks', JSON.stringify(savedNicks));
       setStoragePersistent(true);
     } catch {
       setStoragePersistent(false);
     }
-  }, [savedNicks]);
+  }, [savedNicks, savedNicksHydrated]);
 
   const copyToClipboard = async (text: string, id?: string) => {
     if (!(await copyText(text))) {
