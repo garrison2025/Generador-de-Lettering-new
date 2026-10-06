@@ -107,7 +107,7 @@ function makeHead(baseHtml, route, title, description) {
   );
 
   html = html.replace(
-    /<meta\s+name="description"[^>]*>/i,
+    /<meta\b[^>]*\bname="description"[^>]*>/i,
     `<meta data-rh="true" name="description" content="${escapeHtml(description)}" />`
   );
 
@@ -167,7 +167,33 @@ for (const page of pages) {
 
   const output = routeOutputFile(page.route);
   fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, makeHead(baseHtml, page.route, page.title, page.description));
+
+  const html = makeHead(baseHtml, page.route, page.title, page.description);
+  const canonical = `${SITE}${page.route === '/' ? '/' : page.route}`;
+  const expectedTitle = `<title data-rh="true">${escapeHtml(page.title)}</title>`;
+  const expectedDescription = `<meta data-rh="true" name="description" content="${escapeHtml(page.description)}" />`;
+  const expectedCanonical = `<link data-rh="true" rel="canonical" href="${canonical}" />`;
+
+  if (!html.includes(expectedTitle)) {
+    throw new Error(`Generated head is missing the expected title for ${page.route}`);
+  }
+  if (!html.includes(expectedDescription)) {
+    throw new Error(`Generated head is missing the expected description for ${page.route}`);
+  }
+  if (!html.includes(expectedCanonical)) {
+    throw new Error(`Generated head is missing the expected canonical for ${page.route}`);
+  }
+
+  const descriptionCount = (html.match(/<meta\b[^>]*\bname="description"[^>]*>/gi) || []).length;
+  const canonicalCount = (html.match(/<link\b[^>]*\brel="canonical"[^>]*>/gi) || []).length;
+  if (descriptionCount !== 1) {
+    throw new Error(`Expected exactly one meta description for ${page.route}, found ${descriptionCount}`);
+  }
+  if (canonicalCount !== 1) {
+    throw new Error(`Expected exactly one canonical for ${page.route}, found ${canonicalCount}`);
+  }
+
+  fs.writeFileSync(output, html);
 }
 
-console.log(`Generated static SEO head shells for ${pages.length} routes.`);
+console.log(`Generated and verified static SEO head shells for ${pages.length} routes.`);
