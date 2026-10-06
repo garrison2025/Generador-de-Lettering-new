@@ -20,7 +20,13 @@ export const FONTS = [
   { group: "Escritura Casual", family: "Handlee", href: "Handlee:wght@400" },
   { group: "Gótica Medieval", family: "Pirata One", href: "Pirata+One:wght@400" },
   { group: "Gótica Moderna", family: "UnifrakturMaguntia", href: "UnifrakturMaguntia:wght@400" },
-  { group: "Pincel Dinámico", family: "Merienda", href: "Merienda:wght@400;700" }
+  { group: "Pincel Dinámico", family: "Merienda", href: "Merienda:wght@400;700" },
+  { group: "Serif Editorial", family: "Playfair Display", href: "Playfair+Display:wght@400;700" },
+  { group: "Sans Condensada", family: "Oswald", href: "Oswald:wght@400;700" },
+  { group: "Serif Literaria", family: "Lora", href: "Lora:wght@400;700" },
+  { group: "Sans Geométrica", family: "Space Grotesk", href: "Space+Grotesk:wght@400;700" },
+  { group: "Sans Moderna", family: "Outfit", href: "Outfit:wght@300;400;700" },
+  { group: "Monoespaciada", family: "JetBrains Mono", href: "JetBrains+Mono:wght@400;700" }
 ];
 
 export const PRESET_COLORS = [
