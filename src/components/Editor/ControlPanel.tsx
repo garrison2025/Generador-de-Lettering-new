@@ -27,6 +27,7 @@ type LocalSliderProps = {
   max?: number;
   step?: number;
   className?: string;
+  ariaLabel?: string;
 };
 
 function Slider({
@@ -36,7 +37,8 @@ function Slider({
   min = 0,
   max = 100,
   step = 1,
-  className = ''
+  className = '',
+  ariaLabel = 'Ajuste'
 }: LocalSliderProps) {
   const initialValueRef = useRef<number | null>(null);
 
@@ -56,6 +58,7 @@ function Slider({
   return (
     <input
       type="range"
+      aria-label={ariaLabel}
       value={value[0] ?? min}
       min={min}
       max={max}
@@ -332,7 +335,16 @@ export function ControlPanel() {
                 </div>
               </div>
 
-              <div className="space-y-2 relative" ref={dropdownRef}>
+              <div
+                className="space-y-2 relative"
+                ref={dropdownRef}
+                onKeyDown={(event) => {
+                  if (event.key !== 'Escape' || !isFontSelectOpen) return;
+                  event.preventDefault();
+                  setIsFontSelectOpen(false);
+                  (dropdownRef.current?.querySelector('[aria-haspopup="listbox"]') as HTMLButtonElement | null)?.focus();
+                }}
+              >
                 <label className="text-xs font-semibold text-gray-700">Estilo de Letra</label>
                 <button 
                   type="button"
@@ -379,6 +391,7 @@ export function ControlPanel() {
                     onValueChange={(value) => store.previewState({ fontSize: value[0] })}
                      onValueCommit={(initial) => store.commitPreview({ fontSize: initial })}
                     min={10} max={200} step={1}
+                    ariaLabel="Tamaño de letra"
                     className="flex-1"
                   />
                   <input 
@@ -457,6 +470,7 @@ export function ControlPanel() {
                   onValueChange={(value) => store.previewState({ letterSpacing: value[0] })}
                    onValueCommit={(initial) => store.commitPreview({ letterSpacing: initial })}
                   min={-20} max={50} step={1}
+                  ariaLabel="Interletraje"
                 />
               </div>
 
@@ -470,6 +484,7 @@ export function ControlPanel() {
                   onValueChange={(value) => store.previewState({ lineHeight: value[0] })}
                    onValueCommit={(initial) => store.commitPreview({ lineHeight: initial })}
                   min={0.5} max={3} step={0.1}
+                  ariaLabel="Interlineado"
                 />
               </div>
 
@@ -483,6 +498,7 @@ export function ControlPanel() {
                   onValueChange={(value) => store.previewState({ rotation: value[0] })}
                    onValueCommit={(initial) => store.commitPreview({ rotation: initial })}
                   min={-180} max={180} step={1}
+                  ariaLabel="Rotación del texto"
                 />
               </div>
 
@@ -576,6 +592,7 @@ export function ControlPanel() {
                    onValueChange={(value) => store.previewState({ textOpacity: value[0] / 100 })}
                     onValueCommit={(initial) => store.commitPreview({ textOpacity: initial / 100 })}
                    min={0} max={100} step={1}
+                   ariaLabel="Opacidad del texto"
                  />
                </div>
 
@@ -726,6 +743,7 @@ export function ControlPanel() {
                     onValueChange={(value) => store.previewState({ overlayOpacity: value[0] / 100 })}
                      onValueCommit={(initial) => store.commitPreview({ overlayOpacity: initial / 100 })}
                     min={0} max={100} step={1}
+                    ariaLabel="Opacidad del filtro de fondo"
                   />
                 </div>
               )}
@@ -762,7 +780,7 @@ export function ControlPanel() {
                     <label className="text-xs font-medium text-gray-700">Desenfoque</label>
                     <span className="text-xs text-gray-500">{store.shadowBlur}px</span>
                   </div>
-                  <Slider value={[store.shadowBlur]} onValueChange={(value) => store.previewState({ shadowBlur: value[0] })} onValueCommit={(initial) => store.commitPreview({ shadowBlur: initial })} min={0} max={50} step={1} />
+                  <Slider value={[store.shadowBlur]} onValueChange={(value) => store.previewState({ shadowBlur: value[0] })} onValueCommit={(initial) => store.commitPreview({ shadowBlur: initial })} min={0} max={50} step={1} ariaLabel="Desenfoque de sombra" />
                 </div>
 
                 <div className="space-y-4">
@@ -771,8 +789,8 @@ export function ControlPanel() {
                     <span className="text-xs text-gray-500">{store.shadowOffsetX}, {store.shadowOffsetY}</span>
                   </div>
                   <div className="flex gap-4">
-                    <Slider value={[store.shadowOffsetX]} onValueChange={(value) => store.previewState({ shadowOffsetX: value[0] })} onValueCommit={(initial) => store.commitPreview({ shadowOffsetX: initial })} min={-50} max={50} step={1} className="flex-1" />
-                    <Slider value={[store.shadowOffsetY]} onValueChange={(value) => store.previewState({ shadowOffsetY: value[0] })} onValueCommit={(initial) => store.commitPreview({ shadowOffsetY: initial })} min={-50} max={50} step={1} className="flex-1" />
+                    <Slider value={[store.shadowOffsetX]} onValueChange={(value) => store.previewState({ shadowOffsetX: value[0] })} onValueCommit={(initial) => store.commitPreview({ shadowOffsetX: initial })} min={-50} max={50} step={1} ariaLabel="Desplazamiento horizontal de sombra" className="flex-1" />
+                    <Slider value={[store.shadowOffsetY]} onValueChange={(value) => store.previewState({ shadowOffsetY: value[0] })} onValueCommit={(initial) => store.commitPreview({ shadowOffsetY: initial })} min={-50} max={50} step={1} ariaLabel="Desplazamiento vertical de sombra" className="flex-1" />
                   </div>
                 </div>
 
@@ -798,7 +816,7 @@ export function ControlPanel() {
                     <label className="text-xs font-medium text-gray-700">Grosor</label>
                     <span className="text-xs text-gray-500">{store.strokeWidth}px</span>
                   </div>
-                  <Slider value={[store.strokeWidth]} onValueChange={(value) => store.previewState({ strokeWidth: value[0] })} onValueCommit={(initial) => store.commitPreview({ strokeWidth: initial })} min={0} max={20} step={1} />
+                  <Slider value={[store.strokeWidth]} onValueChange={(value) => store.previewState({ strokeWidth: value[0] })} onValueCommit={(initial) => store.commitPreview({ strokeWidth: initial })} min={0} max={20} step={1} ariaLabel="Grosor del contorno" />
                 </div>
                 <div className="space-y-2 items-center flex justify-between">
                   <label className="text-xs font-medium text-gray-700">Color</label>
