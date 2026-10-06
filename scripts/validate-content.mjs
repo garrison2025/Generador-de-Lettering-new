@@ -372,6 +372,19 @@ function validateBulkUnicodeInputCaps() {
       `Bulk Unicode input is missing the 500-code-point cap in ${path}`
     );
   }
+
+  const tiktok = read('src/pages/LetrasTikTok.tsx');
+  assert(
+    /addSymbolToInput[\s\S]{0,220}slice\(0, 500\)/.test(tiktok),
+    'TikTok symbol shortcuts must respect the 500-code-point input cap'
+  );
+
+  for (const stale of ['80 caracteres', 'base segura', 'TikTok Aesthetic Font Generator 2026', '**']) {
+    assert(
+      !tiktok.includes(stale),
+      `Stale TikTok guidance or markdown marker found: ${stale}`
+    );
+  }
 }
 
 function validateClipboardUsage() {
