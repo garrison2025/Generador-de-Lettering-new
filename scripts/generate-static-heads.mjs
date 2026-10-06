@@ -54,10 +54,11 @@ function extractStaticSeo(sourceFile) {
   const source = read(sourceFile);
   const title = extractQuotedProp(source, 'title');
   const description = extractQuotedProp(source, 'description');
+  const keywords = extractQuotedProp(source, 'keywords');
   if (!title || !description) {
     throw new Error(`Could not extract static SEO metadata from ${sourceFile}`);
   }
-  return { title, description };
+  return { title, description, keywords };
 }
 
 function extractSeoLanding(route) {
@@ -71,22 +72,24 @@ function extractSeoLanding(route) {
 
   const title = block.match(/title:\s*'([^']+)'/)?.[1];
   const description = block.match(/description:\s*'([^']+)'/)?.[1];
+  const keywords = block.match(/keywords:\s*'([^']+)'/)?.[1] || null;
   if (!title || !description) {
     throw new Error(`Could not extract SEO landing metadata for ${route}`);
   }
-  return { title, description };
+  return { title, description, keywords };
 }
 
 function extractBlogPosts() {
   const source = read('src/data/blogPosts.ts');
   const posts = [];
-  const regex = /slug:\s*'([^']+)',\s*\n\s*title:\s*'([^']+)',\s*\n\s*excerpt:\s*'([^']+)'/g;
+  const regex = /slug:\s*'([^']+)',[\s\S]*?title:\s*'([^']+)',[\s\S]*?excerpt:\s*'([^']+)',[\s\S]*?keywords:\s*'([^']+)'/g;
   let match;
   while ((match = regex.exec(source))) {
     posts.push({
       route: `/blog/${match[1]}`,
       title: `${match[2]} | Generador de Lettering Blog`,
-      description: match[3]
+      description: match[3],
+      keywords: match[4]
     });
   }
   return posts;
@@ -97,7 +100,7 @@ function routeOutputFile(route) {
   return path.join('dist', route.replace(/^\//, ''), 'index.html');
 }
 
-function makeHead(baseHtml, route, title, description) {
+function makeHead(baseHtml, route, title, description, keywords) {
   const canonical = `${SITE}${route === '/' ? '/' : route}`;
   let html = baseHtml;
 
@@ -110,6 +113,14 @@ function makeHead(baseHtml, route, title, description) {
     /<meta\b[^>]*\bname="description"[^>]*>/i,
     `<meta data-rh="true" name="description" content="${escapeHtml(description)}" />`
   );
+
+  html = html.replace(/\s*<meta\b[^>]*\bname="keywords"[^>]*>/gi, '');
+  if (keywords) {
+    html = html.replace(
+      '</head>',
+      `    <meta data-rh="true" name="keywords" content="${escapeHtml(keywords)}" />\n  </head>`
+    );
+  }
 
   html = html
     .replace(/\s*<link\s+data-rh="true"\s+rel="canonical"[^>]*>/gi, '')
@@ -196,10 +207,13 @@ for (const page of pages) {
   const output = routeOutputFile(page.route);
   fs.mkdirSync(path.dirname(output), { recursive: true });
 
-  const html = makeHead(baseHtml, page.route, page.title, page.description);
+  const html = makeHead(baseHtml, page.route, page.title, page.description, page.keywords);
   const canonical = `${SITE}${page.route === '/' ? '/' : page.route}`;
   const expectedTitle = `<title data-rh="true">${escapeHtml(page.title)}</title>`;
   const expectedDescription = `<meta data-rh="true" name="description" content="${escapeHtml(page.description)}" />`;
+  const expectedKeywords = page.keywords
+    ? `<meta data-rh="true" name="keywords" content="${escapeHtml(page.keywords)}" />`
+    : null;
   const expectedCanonical = `<link data-rh="true" rel="canonical" href="${canonical}" />`;
 
   if (!html.includes(expectedTitle)) {
@@ -207,6 +221,12 @@ for (const page of pages) {
   }
   if (!html.includes(expectedDescription)) {
     throw new Error(`Generated head is missing the expected description for ${page.route}`);
+  }
+  if (expectedKeywords && !html.includes(expectedKeywords)) {
+    throw new Error(`Generated head is missing the expected keywords for ${page.route}`);
+  }
+  if (!expectedKeywords && /<meta\b[^>]*\bname="keywords"[^>]*>/i.test(html)) {
+    throw new Error(`Generated head should not contain fallback keywords for ${page.route}`);
   }
   if (!html.includes(expectedCanonical)) {
     throw new Error(`Generated head is missing the expected canonical for ${page.route}`);
