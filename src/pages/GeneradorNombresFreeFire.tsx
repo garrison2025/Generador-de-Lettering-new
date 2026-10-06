@@ -715,7 +715,7 @@ export default function GeneradorNombresFreeFire() {
             Consejos para elegir tu nombre de Free Fire
           </h3>
           <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm leading-relaxed">
-            <li><strong>Límite de 12 caracteres:</strong> Free Fire permite hasta 12 letras/símbolos. Si eliges un nick con alas grandes, usa una palabra base corta.</li>
+            <li><strong>12 caracteres como referencia:</strong> usa el contador como guía y confirma el resultado dentro de Free Fire, porque la validación de símbolos Unicode puede variar según el cliente.</li>
             <li><strong>Insano y Miedo:</strong> Combina letras góticas o pequeñas (versalitas) con símbolos como ☠, ╰‿╯ o ︻╦╤─ para dar un aspecto intimidante en las partidas.</li>
             <li><strong>Para Clanes y Dúos:</strong> Puedes añadir las iniciales de tu clan al principio como prefijo (ej. 亗, ᴮᴼˢˢ, ⚔️).</li>
           </ul>
@@ -748,7 +748,7 @@ export default function GeneradorNombresFreeFire() {
 
             <div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">
-                ¿Cómo cambio de nombre gratis en Free Fire?
+                ¿Cómo cambio mi nombre en Free Fire?
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
                 Puedes comprar una Tarjeta de Cambio de Nombre en la tienda de canje con diamantes o fichas de clan, abrir tu perfil, tocar el ícono de edición junto a tu apodo actual y pagar o canjear tu nuevo nick.
