@@ -48,8 +48,21 @@ export const loadFont = async (fontFamily: string) => {
         link.href = `https://fonts.googleapis.com/css2?family=${fontDef.href}&display=swap`;
 
         const stylesheetReady = new Promise<void>((resolve, reject) => {
-          link!.addEventListener('load', () => resolve(), { once: true });
-          link!.addEventListener('error', () => reject(new Error(`Failed to load stylesheet for ${fontFamily}`)), { once: true });
+          const timeoutId = window.setTimeout(() => {
+            reject(new Error(`Timed out loading stylesheet for ${fontFamily}`));
+          }, 4000);
+
+          const settle = (callback: () => void) => {
+            window.clearTimeout(timeoutId);
+            callback();
+          };
+
+          link!.addEventListener('load', () => settle(resolve), { once: true });
+          link!.addEventListener(
+            'error',
+            () => settle(() => reject(new Error(`Failed to load stylesheet for ${fontFamily}`))),
+            { once: true }
+          );
         });
 
         document.head.appendChild(link);
