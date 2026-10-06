@@ -1,12 +1,37 @@
-import { useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { PenTool, Menu, X } from 'lucide-react';
-import CookieConsent from './CookieConsent';
+
+const CookieConsent = lazy(() => import('./CookieConsent'));
+
 
 export default function Layout() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loadCookieConsent, setLoadCookieConsent] = useState(false);
   const isEditor = location.pathname === '/editor';
+
+  useEffect(() => {
+    if (loadCookieConsent) return;
+
+    const activate = () => {
+      setLoadCookieConsent(true);
+      cleanup();
+    };
+    const timer = window.setTimeout(activate, 8000);
+    const cleanup = () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('scroll', activate);
+      window.removeEventListener('click', activate);
+      window.removeEventListener('touchstart', activate);
+    };
+
+    window.addEventListener('scroll', activate, { passive: true });
+    window.addEventListener('click', activate, { passive: true });
+    window.addEventListener('touchstart', activate, { passive: true });
+
+    return cleanup;
+  }, [loadCookieConsent]);
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#F8F9FC]">
@@ -181,7 +206,11 @@ export default function Layout() {
           </div>
         </footer>
       )}
-      <CookieConsent />
+      {loadCookieConsent && (
+        <Suspense fallback={null}>
+          <CookieConsent />
+        </Suspense>
+      )}
     </div>
   );
 }
