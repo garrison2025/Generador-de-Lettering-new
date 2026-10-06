@@ -433,19 +433,80 @@ export function ControlPanel() {
                       type="file" 
                       accept="image/*" 
                       className="hidden" 
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          const maxBytes = 10 * 1024 * 1024;
-                          if (file.size > maxBytes) {
-                            window.alert('La imagen supera 10 MB. Elige una imagen más ligera para mantener el editor fluido.');
-                            e.currentTarget.value = '';
+                      onChange={async (e) => {
+                        const input = e.currentTarget;
+                        const file = input.files?.[0];
+                        if (!file) return;
+
+                        const maxBytes = 10 * 1024 * 1024;
+                        const maxPixels = 25_000_000;
+
+                        if (!file.type.startsWith('image/')) {
+                          window.alert('Selecciona un archivo de imagen válido.');
+                          input.value = '';
+                          return;
+                        }
+
+                        if (file.size > maxBytes) {
+                          window.alert('La imagen supera 10 MB. Elige una imagen más ligera para mantener el editor fluido.');
+                          input.value = '';
+                          return;
+                        }
+
+                        const readDimensions = async () => {
+                          if ('createImageBitmap' in window) {
+                            const bitmap = await createImageBitmap(file);
+                            const dimensions = { width: bitmap.width, height: bitmap.height };
+                            bitmap.close();
+                            return dimensions;
+                          }
+
+                          return await new Promise<{ width: number; height: number }>((resolve, reject) => {
+                            const objectUrl = URL.createObjectURL(file);
+                            const image = new Image();
+
+                            image.onload = () => {
+                              const dimensions = {
+                                width: image.naturalWidth,
+                                height: image.naturalHeight,
+                              };
+                              URL.revokeObjectURL(objectUrl);
+                              resolve(dimensions);
+                            };
+
+                            image.onerror = () => {
+                              URL.revokeObjectURL(objectUrl);
+                              reject(new Error('image-decode-failed'));
+                            };
+
+                            image.src = objectUrl;
+                          });
+                        };
+
+                        try {
+                          const { width, height } = await readDimensions();
+
+                          if (!width || !height || width * height > maxPixels) {
+                            window.alert('La imagen es demasiado grande para editarla con fluidez. Usa una imagen de hasta 25 megapíxeles.');
+                            input.value = '';
                             return;
                           }
 
                           const reader = new FileReader();
-                          reader.onload = (ev) => store.updateState({ backgroundImage: ev.target?.result as string });
+                          reader.onload = (ev) => {
+                            const result = ev.target?.result;
+                            if (typeof result === 'string') {
+                              store.updateState({ backgroundImage: result });
+                            }
+                          };
+                          reader.onerror = () => {
+                            window.alert('No se pudo leer la imagen. Prueba con otro archivo.');
+                          };
                           reader.readAsDataURL(file);
+                        } catch {
+                          window.alert('No se pudo abrir la imagen seleccionada. Prueba con un archivo PNG, JPG o WEBP válido.');
+                        } finally {
+                          input.value = '';
                         }
                       }} 
                     />
