@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
 import { Home, Sparkles, Download, RotateCcw, Shuffle, Wand2, Type, Layers, HelpCircle, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { CanvasArea } from '../components/Editor/CanvasArea';
 import { ControlPanel } from '../components/Editor/ControlPanel';
 import { useEditorStore } from '@/store/useEditorStore';
+import { useEditorShortcuts } from '@/hooks/useEditorShortcuts';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 
@@ -11,23 +11,7 @@ export default function CreadorLettering() {
   const updateState = useEditorStore((state) => state.updateState);
   const canUndo = useEditorStore((state) => state.past.length > 0);
   const canRedo = useEditorStore((state) => state.future.length > 0);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey || e.metaKey) {
-        if (e.key === 'z') {
-          e.preventDefault();
-          useEditorStore.getState().undo();
-        } else if (e.key === 'y' || (e.shiftKey && e.key === 'z') || e.key === 'Z') {
-          e.preventDefault();
-          useEditorStore.getState().redo();
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  useEditorShortcuts();
 
   const presets = [
     {
