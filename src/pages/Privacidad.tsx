@@ -1,91 +1,129 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+import { SEO } from '../components/SEO';
 
 export default function Privacidad() {
   return (
-    <div className="max-w-4xl mx-auto py-16 px-4 w-full flex-1">
-      <h1 className="text-4xl font-bold mb-8 text-gray-900">Política de Privacidad</h1>
-      <div className="text-base text-gray-700 space-y-6 leading-relaxed">
-        <p className="text-sm bg-gray-100 inline-block px-3 py-1 rounded-full font-medium text-gray-600">
-          Última actualización: {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
-        </p>
-        <p>
-          En <strong>Generador de Lettering</strong> (disponible en generadordelettering.org), accesible desde nuestra web, una de nuestras principales prioridades es la privacidad de nuestros visitantes. Este documento de Política de Privacidad contiene tipos de información que se recopila y registra, y cómo la utilizamos.
-        </p>
-        <p>
-          Si tiene preguntas adicionales o requiere más información sobre nuestra Política de Privacidad, no dude en ponerse en contacto con nosotros a través de nuestro formulario de contacto.
-        </p>
-        
-        <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">1. Procesamiento de Datos del Usuario (Uso Offline / Cliente)</h2>
-        <p>
-          Nuestra aplicación interactiva de diseño de tipografías funciona enteramente dentro de su navegador web (Client-side). 
-          <strong> No guardamos, transmitimos, procesamos ni almacenamos ningún texto introducido, imágenes construidas, colores o configuraciones tipográficas</strong> en nuestros servidores. Todo lo que escribe, edita y genera permanece privado y exclusivo dentro de su sesión local en su dispositivo de manera 100% confidencial.
-        </p>
+    <>
+      <SEO
+        title="Política de Privacidad | Generador de Lettering"
+        description="Consulta cómo Generador de Lettering procesa texto en el navegador, utiliza almacenamiento local y carga servicios publicitarios de terceros según tu consentimiento."
+        canonical="https://generadordelettering.org/politica-de-privacidad"
+      />
 
-        <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">2. Archivos de Registro (Log Files)</h2>
-        <p>
-          Generador de Lettering sigue un procedimiento estándar de uso de archivos de registro. Estos archivos registran a los visitantes cuando visitan sitios web. Todas las empresas de alojamiento web lo hacen y forma parte del análisis de los servicios de alojamiento. 
-          La información recopilada por los archivos de registro incluye direcciones de protocolo de Internet (IP), tipo de navegador, proveedor de servicios de Internet (ISP), marca de fecha y hora, páginas de referencia/salida y, posiblemente, el número de clics. Estos datos no están vinculados a ninguna información que sea personalmente identificable. El propósito de la información es analizar tendencias, administrar el sitio, rastrear el movimiento de los usuarios en el sitio web y recopilar información demográfica.
-        </p>
+      <div className="max-w-4xl mx-auto py-16 px-4 w-full flex-1">
+        <nav aria-label="Breadcrumb" className="text-sm text-gray-500 mb-8">
+          <Link to="/" className="hover:text-[#5A4AD2]">Inicio</Link>
+          <span className="mx-2">/</span>
+          <span className="text-gray-900">Política de Privacidad</span>
+        </nav>
 
-        <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">3. Cookies y balizas web (Cookies and Web Beacons)</h2>
-        <p>
-          Como cualquier otro sitio web, Generador de Lettering utiliza "cookies". Estas cookies se utilizan para almacenar información, incluidas las preferencias de los visitantes y las páginas del sitio web a las que el visitante accedió o visitó. La información se utiliza para optimizar la experiencia de los usuarios al personalizar el contenido de nuestra página web en función del tipo de navegador de los visitantes y/u otra información.
-        </p>
+        <h1 className="text-4xl font-bold mb-8 text-gray-900">Política de Privacidad</h1>
 
-        <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">4. Galleta de Google DoubleClick DART (Google DoubleClick DART Cookie)</h2>
-        <p>
-          Google es uno de los proveedores de terceros en nuestro sitio. También utiliza cookies, conocidas como cookies de DART, para publicar anuncios a los visitantes de nuestro sitio en función de su visita a generadordelettering.org y otros sitios en el Internet. 
-          Sin embargo, los visitantes pueden optar por rechazar el uso de cookies de DART visitando la Política de privacidad de la red de anuncios y contenido de Google en la siguiente dirección: 
-          <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-brand hover:underline font-semibold ml-1">
-            https://policies.google.com/technologies/ads
-          </a>.
-        </p>
+        <div className="text-base text-gray-700 space-y-6 leading-relaxed">
+          <p className="text-sm bg-gray-100 inline-block px-3 py-1 rounded-full font-medium text-gray-600">
+            Última actualización: 6 de octubre de 2026
+          </p>
 
-        <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">5. Nuestros Socios Publicitarios (Google AdSense)</h2>
-        <p>
-          Algunos de los anunciantes en nuestro sitio pueden usar cookies y balizas web. Nuestro socio publicitario principal es:
-        </p>
-        <ul className="list-disc list-inside space-y-2 pl-4 text-gray-700">
-          <li>
-            <strong>Google AdSense:</strong> Puede consultar las políticas de privacidad de Google para sus servicios publicitarios en: 
-            <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-brand hover:underline ml-1">
-              https://policies.google.com/technologies/ads
+          <p>
+            Esta política explica, de forma práctica, cómo funciona la privacidad en <strong>Generador de Lettering</strong>
+            (generadordelettering.org). La versión actual del sitio no requiere crear una cuenta para utilizar sus herramientas.
+          </p>
+
+          <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">
+            1. Texto, diseños y procesamiento en el navegador
+          </h2>
+          <p>
+            Los conversores de texto y las funciones principales del editor procesan la información introducida directamente
+            en el navegador. El sitio no necesita enviar el contenido de tus frases a un servidor propio para generar las
+            variantes Unicode o renderizar el diseño.
+          </p>
+          <p>
+            Algunas funciones guardan preferencias en el almacenamiento local del navegador, por ejemplo ajustes del editor,
+            favoritos de ciertas herramientas y tu elección sobre cookies. Puedes eliminar esos datos desde las opciones de
+            almacenamiento del navegador.
+          </p>
+
+          <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">
+            2. Alojamiento y registros técnicos
+          </h2>
+          <p>
+            El proveedor de alojamiento y la infraestructura de entrega pueden procesar datos técnicos necesarios para servir
+            el sitio, protegerlo frente a abusos y diagnosticar errores. Estos datos pueden incluir dirección IP, agente de
+            usuario, fecha y hora de la solicitud y URL solicitada, de acuerdo con las políticas del proveedor correspondiente.
+          </p>
+
+          <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">
+            3. Cookies, almacenamiento local y consentimiento
+          </h2>
+          <p>
+            Guardamos en el navegador la preferencia <code>cookie_consent</code> para recordar si aceptaste o rechazaste las
+            tecnologías publicitarias no esenciales. En la implementación actual, los scripts publicitarios configurados por
+            el sitio se cargan únicamente después de una aceptación explícita.
+          </p>
+          <p>
+            Rechazar el consentimiento no impide necesariamente todas las solicitudes a servicios externos: por ejemplo,
+            determinados recursos visuales como fuentes web pueden descargarse desde proveedores externos para mostrar la
+            interfaz correctamente.
+          </p>
+
+          <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">
+            4. Publicidad de terceros
+          </h2>
+          <p>
+            Cuando el usuario acepta las tecnologías publicitarias, el sitio puede cargar servicios de terceros actualmente
+            configurados, entre ellos <strong>Google AdSense</strong>, <strong>Monetag</strong> y <strong>Adsterra</strong>.
+            Estos proveedores pueden recibir información técnica del navegador y utilizar cookies u otras tecnologías de
+            acuerdo con sus propias políticas.
+          </p>
+          <p>
+            Puedes consultar información sobre las tecnologías publicitarias de Google en{' '}
+            <a
+              href="https://policies.google.com/technologies/ads"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#5A4AD2] hover:underline font-semibold"
+            >
+              las políticas de publicidad de Google
             </a>.
-          </li>
-        </ul>
-        <p className="mt-4">
-          Estos servidores de anuncios o redes de anuncios de terceros utilizan tecnología en sus respectivos anuncios y enlaces que aparecen en Generador de Lettering, que se envían directamente al navegador de los usuarios. Reciben automáticamente su dirección IP cuando esto ocurre. Estas tecnologías se utilizan para medir la efectividad de sus campañas publicitarias y/o para personalizar el contenido publicitario que ve en los sitios web que visita.
-        </p>
-        <p className="text-sm text-gray-500 italic">
-          Tenga en cuenta que Generador de Lettering no tiene acceso ni control sobre estas cookies que son utilizadas por anunciantes de terceros.
-        </p>
+          </p>
 
-        <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">6. Políticas de Privacidad de Terceros</h2>
-        <p>
-          La Política de Privacidad de Generador de Lettering no se aplica a otros anunciantes o sitios web. Por lo tanto, le aconsejamos que consulte las respectivas Políticas de Privacidad de estos servidores de anuncios de terceros para obtener información más detallada. Puede incluir sus prácticas e instrucciones sobre cómo optar por no participar en ciertas opciones.
-        </p>
-        <p>
-          Puede optar por desactivar las cookies a través de las opciones de su navegador individual. Para obtener información más detallada sobre la gestión de cookies con navegadores web específicos, se puede encontrar en los respectivos sitios web de los navegadores.
-        </p>
+          <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">
+            5. Fuentes y recursos externos
+          </h2>
+          <p>
+            El sitio utiliza recursos externos, incluyendo Google Fonts. Al solicitar un recurso a un proveedor externo,
+            dicho proveedor puede recibir información técnica habitual de una conexión web, como la dirección IP y el agente
+            de usuario. El tratamiento de esos datos se rige por la política del proveedor.
+          </p>
 
-        <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">7. Derechos de Privacidad de GDPR / CCPA (No vender mi información)</h2>
-        <p>
-          Bajo las regulaciones del GDPR (Reglamento General de Protección de Datos de la UE) y la CCPA (Ley de Privacidad del Consumidor de California), entre otros derechos, los usuarios tienen derecho a:
-        </p>
-        <ul className="list-disc list-inside space-y-2 pl-4 text-gray-700">
-          <li><strong>Derecho de acceso:</strong> Solicitar que se le revelen las categorías y datos específicos que recopilamos sobre usted.</li>
-          <li><strong>Derecho de rectificación/supresión:</strong> Solicitar que se eliminen o corrijan los datos personales que hayamos recopilado.</li>
-          <li><strong>Derecho a oponerse:</strong> Solicitar que no vendamos ni compartamos sus datos personales con terceros proveedores de anuncios.</li>
-        </ul>
-        <p className="mt-4">
-          Si realiza una solicitud, tenemos un mes para responderle. Si desea ejercer alguno de estos derechos, póngase en contacto con nosotros.
-        </p>
+          <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">
+            6. Derechos y solicitudes de privacidad
+          </h2>
+          <p>
+            Dependiendo de tu jurisdicción, puedes tener derechos relacionados con el acceso, corrección, eliminación,
+            oposición o limitación del tratamiento de datos personales. Si quieres realizar una solicitud o consultar cómo
+            se aplica esta política a tu caso, puedes escribirnos desde la página de{' '}
+            <Link to="/contacto" className="text-[#5A4AD2] hover:underline font-semibold">Contacto</Link>.
+            Las solicitudes se atenderán de acuerdo con la legislación aplicable.
+          </p>
 
-        <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">8. Consentimiento</h2>
-        <p>
-          Al utilizar nuestro sitio web, usted acepta nuestra Política de privacidad y acepta sus Términos y condiciones. También puede dar o retirar su consentimiento para el uso de cookies no esenciales de terceros haciendo clic en el banner flotante de privacidad de nuestro portal.
-        </p>
+          <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">
+            7. Cambios en esta política
+          </h2>
+          <p>
+            Si cambia de forma relevante el funcionamiento del sitio o los proveedores utilizados, esta política puede
+            actualizarse. La fecha indicada al comienzo de la página refleja la última revisión publicada.
+          </p>
+
+          <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">
+            8. Contacto
+          </h2>
+          <p>
+            Para consultas relacionadas con privacidad, utiliza nuestra página de{' '}
+            <Link to="/contacto" className="text-[#5A4AD2] hover:underline font-semibold">Contacto</Link>.
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
