@@ -95,7 +95,7 @@ const faqSchema = {
       "name": "¿Son permitidos estos símbolos por Garena Free Fire?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La mayoría de los símbolos Unicode habituales funcionan, pero la compatibilidad puede variar según la versión del juego, la región o cambios de Garena. Si un símbolo es rechazado, prueba una variante más corta o diferente."
+        "text": "Free Fire puede aceptar algunos caracteres Unicode y rechazar otros según la versión, región o reglas vigentes del juego. Si un símbolo no funciona, prueba una variante más corta o diferente y confirma siempre el resultado dentro del campo de nickname."
       }
     }
   ]
@@ -746,7 +746,7 @@ export default function GeneradorNombresFreeFire() {
                 ¿Por qué no puedo pegar algunos símbolos en mi perfil?
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                La mayoría de los símbolos Unicode habituales funcionan, pero Garena puede cambiar la compatibilidad según la versión o región. Si un símbolo es rechazado, prueba otro diseño más corto y revisa también que el nick no exceda el límite mostrado por la herramienta.
+                Free Fire puede aceptar algunos caracteres Unicode y rechazar otros según la versión, la región o las reglas vigentes del juego. Si un símbolo no funciona, prueba otro diseño más corto y confirma el resultado directamente en el campo de nickname.
               </p>
             </div>
 
@@ -755,7 +755,7 @@ export default function GeneradorNombresFreeFire() {
                 ¿Cómo cambio mi nombre en Free Fire?
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Puedes comprar una Tarjeta de Cambio de Nombre en la tienda de canje con diamantes o fichas de clan, abrir tu perfil, tocar el ícono de edición junto a tu apodo actual y pagar o canjear tu nuevo nick.
+                Abre tu perfil de Free Fire y utiliza la opción de edición del apodo. El juego puede pedir una tarjeta de cambio de nombre, diamantes u otro recurso según la versión, región o promociones vigentes; revisa el coste y el método que muestra tu cuenta antes de confirmar.
               </p>
             </div>
           </div>
