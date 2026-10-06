@@ -120,7 +120,7 @@ export default function LetrasFreeFire() {
       return;
     }
     setCopiedId(text);
-    setTimeout(() => setCopiedId(null), 2000);
+    setTimeout(() => setCopiedId((current) => current === text ? null : current), 2000);
   };
 
   const handleSymbolClick = (symbol: string) => {
