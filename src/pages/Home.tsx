@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { PenTool, Download, Type, LayoutTemplate, Palette, Globe, CheckCircle2, ChevronDown, Flame, Instagram, Sparkles, Hash } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { SEO } from '../components/SEO';
-import { loadFont } from '@/lib/fonts';
+import { useVisibleFonts } from '../hooks/useVisibleFonts';
+
+const HOME_TEMPLATE_FONTS = ['Parisienne', 'Dancing Script', 'Lobster'] as const;
 
 const FAQ_DATA = [
   {
@@ -56,11 +58,7 @@ function FaqItem({ q, a }: { q: string, a: string }) {
 }
 
 export default function Home() {
-  useEffect(() => {
-    ['Parisienne', 'Dancing Script', 'Lobster'].forEach((font) => {
-      void loadFont(font);
-    });
-  }, []);
+  const templatePreviewRef = useVisibleFonts<HTMLElement>(HOME_TEMPLATE_FONTS);
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -257,7 +255,7 @@ export default function Home() {
       </section>
 
       {/* Templates */}
-      <section className="py-24 px-4 bg-white">
+      <section ref={templatePreviewRef} className="py-24 px-4 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Plantillas de Lettering Prediseñadas</h2>

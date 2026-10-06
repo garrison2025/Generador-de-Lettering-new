@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EDITOR_DEFAULT_STATE, useEditorStore, type EditorState } from '@/store/useEditorStore';
-import { loadFonts } from '@/lib/fonts';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
+import { useVisibleFonts } from '../hooks/useVisibleFonts';
 
 const TEMPLATES: { id: number; title: string; state: Partial<EditorState> }[] = [
   {
@@ -38,6 +37,14 @@ const TEMPLATES: { id: number; title: string; state: Partial<EditorState> }[] = 
   }
 ];
 
+const TEMPLATE_FONT_FAMILIES = [
+  ...new Set(
+    TEMPLATES
+      .map((template) => template.state.fontFamily)
+      .filter((family): family is string => Boolean(family))
+  )
+];
+
 const templatesSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -58,14 +65,7 @@ const templatesBreadcrumbSchema = {
 export default function Plantillas() {
   const updateState = useEditorStore((state) => state.updateState);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    void loadFonts(
-      TEMPLATES
-        .map((template) => template.state.fontFamily)
-        .filter((family): family is string => Boolean(family))
-    );
-  }, []);
+  const templateGridRef = useVisibleFonts<HTMLDivElement>(TEMPLATE_FONT_FAMILIES);
 
   const handleUseTemplate = (state: Partial<EditorState>) => {
     updateState({
@@ -96,7 +96,7 @@ export default function Plantillas() {
         <p className="text-gray-600">Comienza tu diseño rápidamente seleccionando una de las plantillas preconfiguradas.</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div ref={templateGridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {TEMPLATES.map(tpl => (
            <div key={tpl.id} className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all text-center flex flex-col items-center">
              <div className="w-full h-48 bg-gray-50 rounded-2xl mb-6 flex items-center justify-center border" style={{ backgroundColor: tpl.state.backgroundColor || 'transparent' }}>

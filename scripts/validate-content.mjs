@@ -491,6 +491,36 @@ function validateMonetizationConfig() {
   );
 }
 
+function validateDeferredPreviewFontLoading() {
+  const home = read('src/pages/Home.tsx');
+  const templates = read('src/pages/Plantillas.tsx');
+  const pairings = read('src/pages/CombinadorFuentes.tsx');
+  const hook = read('src/hooks/useVisibleFonts.ts');
+
+  assert(
+    hook.includes('IntersectionObserver') && hook.includes('loadFonts(families)'),
+    'Visibility-triggered font loader must use IntersectionObserver and the shared batch loader'
+  );
+
+  for (const [path, source] of [
+    ['src/pages/Home.tsx', home],
+    ['src/pages/Plantillas.tsx', templates],
+    ['src/pages/CombinadorFuentes.tsx', pairings]
+  ]) {
+    assert(
+      source.includes('useVisibleFonts'),
+      `Preview-heavy page must defer non-critical web fonts until visible: ${path}`
+    );
+  }
+
+  assert(
+    !home.includes("void loadFont(font)") &&
+    !templates.includes('void loadFonts(') &&
+    !pairings.includes('void loadFont(family)'),
+    'Preview pages must not eagerly fetch decorative font batches during initial mount'
+  );
+}
+
 function validateConfiguredFonts() {
   const fontsSource = read('lib/fonts.ts');
   const registered = new Set(
@@ -983,6 +1013,7 @@ validateBlogLastmod();
 validateInternalLinks();
 validateLlmsLinks();
 validateMonetizationConfig();
+validateDeferredPreviewFontLoading();
 validatePublicAssets();
 validateBulkUnicodeInputCaps();
 validateInstagramInputCap();
