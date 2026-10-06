@@ -1008,7 +1008,7 @@ export default function GeneradorNombresInstagram() {
                 ¿Es compatible con dispositivos Android y iPhone (iOS)?
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                ¡Sí! Todas las fuentes generadas en esta página forman parte del estándar Unicode oficial compatible con iOS (iPhone/iPad), Android, Windows y macOS.
+                Las letras y símbolos se basan en caracteres Unicode estándar y suelen mostrarse correctamente en dispositivos modernos. La apariencia exacta puede variar según la fuente disponible, el sistema operativo y la versión de Instagram.
               </p>
             </div>
           </div>
