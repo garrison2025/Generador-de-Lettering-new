@@ -102,6 +102,11 @@ export const useEditorStore = create<EditorStore>()(
       past: [],
       future: [],
       updateState: (updates) => set((state) => {
+        const changed = (Object.keys(updates) as (keyof EditorState)[])
+          .some((key) => state[key] !== updates[key]);
+
+        if (!changed) return state;
+
         const currentState = extractState(state);
         return {
           ...state,
