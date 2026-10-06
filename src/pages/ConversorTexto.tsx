@@ -1,6 +1,6 @@
 import { copyText } from '../utils/copyText';
 import { useState, useDeferredValue, useMemo } from 'react';
-import { Copy, Check, ExternalLink, ChevronLeft } from 'lucide-react';
+import { Copy, Check, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
@@ -248,10 +248,13 @@ export default function ConversorTexto() {
         jsonSchema={[faqSchema, softwareSchema, breadcrumbSchema]}
       />
       <div className="max-w-4xl mx-auto px-4 py-12 w-full">
-      <Link to="/" className="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-[#5A4AD2] mb-8 transition-colors">
-        <ChevronLeft className="w-4 h-4 mr-1" />
-        Volver a inicio
-      </Link>
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
+        <Link to="/" className="hover:text-[#5A4AD2] transition-colors">Inicio</Link>
+        <span>/</span>
+        <Link to="/herramientas" className="hover:text-[#5A4AD2] transition-colors">Herramientas</Link>
+        <span>/</span>
+        <span className="text-gray-900" aria-current="page">Conversor de Letras</span>
+      </nav>
 
       <div className="text-center mb-10">
         <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Conversor de Letras Bonitas</h1>
