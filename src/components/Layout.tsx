@@ -33,20 +33,20 @@ export default function Layout() {
                 Herramientas
                 <svg className="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
-              <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+              <div className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+                <Link to="/herramientas/letras-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Letras para Free Fire</Link>
+                <Link to="/herramientas/letras-tiktok" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Letras para TikTok</Link>
+                <Link to="/herramientas/letras-azules" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Letras Azules</Link>
+                <Link to="/herramientas/generador-de-nombres-para-instagram" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Nombres para Instagram</Link>
+                <Link to="/herramientas/conversor-texto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Conversor de Letras</Link>
+                <Link to="/herramientas/generador-de-nombres-para-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Nombres para Free Fire</Link>
+                <div className="mx-3 my-1 border-t border-gray-100"></div>
+                <Link to="/herramientas/creador-de-lettering" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Creador de Lettering</Link>
+                <Link to="/herramientas/conversor-letras-bonitas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Letras Bonitas Aesthetic</Link>
                 <Link to="/herramientas/paletas-de-color" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Paletas de Color</Link>
                 <Link to="/herramientas/combinador-de-fuentes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Combinador de Fuentes</Link>
                 <Link to="/herramientas/plantillas-practica" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Plantillas de Práctica</Link>
-                <Link to="/herramientas/conversor-texto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Conversor de Texto</Link>
-                <div className="mx-3 my-1 border-t border-gray-100"></div>
-                <Link to="/herramientas/creador-de-lettering" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-bold text-[#5A4AD2]">Creador de Lettering</Link>
-                <Link to="/herramientas/conversor-letras-bonitas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-bold">Conv. Letras Bonitas</Link>
-                <Link to="/herramientas/generador-de-nombres-para-instagram" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-medium">Nombres para Instagram</Link>
-                <Link to="/herramientas/generador-de-nombres-para-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-medium">Nombres para Free Fire</Link>
-                <Link to="/herramientas/letras-azules" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Letras Azules</Link>
-                <Link to="/herramientas/letras-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Letras Free Fire</Link>
-                <Link to="/herramientas/letras-tiktok" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Letras TikTok Aesthetic</Link>
-              </div>
+              </div>/div>
             </div>
           </nav>
 
@@ -79,9 +79,11 @@ export default function Layout() {
               <Link to="/herramientas/creador-de-lettering" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-bold text-[#5A4AD2] hover:bg-gray-50">Creador de Lettering</Link>
               <Link to="/herramientas/conversor-letras-bonitas" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Conv. Letras Bonitas</Link>
               <Link to="/herramientas/generador-de-nombres-para-instagram" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Nombres para Instagram</Link>
+              <Link to="/herramientas/letras-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50">Letras para Free Fire</Link>
+              <Link to="/herramientas/letras-tiktok" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50">Letras para TikTok</Link>
+              <Link to="/herramientas/letras-azules" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50">Letras Azules</Link>
+              <Link to="/herramientas/conversor-texto" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50">Conversor de Letras</Link>
               <Link to="/herramientas/generador-de-nombres-para-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Nombres para Free Fire</Link>
-              <Link to="/herramientas/letras-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Letras Free Fire</Link>
-              <Link to="/herramientas/letras-tiktok" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Letras TikTok Aesthetic</Link>
               <div className="mt-4 pt-4 px-3 w-full border-t border-gray-50">
                 <Link to="/editor" onClick={() => setMobileMenuOpen(false)} className="flex w-full items-center justify-center bg-[#4F46E5] text-white text-base font-semibold px-6 py-3 rounded hover:bg-[#4338CA] transition shadow-sm">
                   Comenzar Ahora
@@ -141,16 +143,6 @@ export default function Layout() {
                       Conversor de Letras Bonitas
                     </a>
                   </li>
-                  <li>
-                    <a 
-                      href="https://cuadranomina.com/" 
-                      target="_blank" 
-                      rel="noopener" 
-                      className="hover:text-[#4F46E5] font-medium text-gray-700 transition"
-                    >
-                      Cuadra Nómina
-                    </a>
-                  </li>
                   <li><Link to="/blog/biografia-tiktok-aesthetic-dark" className="hover:text-[#4F46E5]">Bio Aesthetic TikTok</Link></li>
                   <li><Link to="/blog/mejores-nombres-insanos-free-fire" className="hover:text-[#4F46E5]">Nombres Insanos</Link></li>
                   <li><Link to="/blog/letras-invisibles-espacios-guia-redes-sociales" className="hover:text-[#4F46E5]">Letras Invisibles</Link></li>
@@ -172,7 +164,7 @@ export default function Layout() {
 
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
               <div className="text-center md:text-left">
-                © {new Date().getFullYear()} LetrasPro - Generador de Lettering. Todos los derechos reservados.
+                © {new Date().getFullYear()} Generador de Lettering. Todos los derechos reservados.
               </div>
               <div className="flex items-center space-x-4">
                 <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:underline">Mapa del Sitio (XML)</a>
