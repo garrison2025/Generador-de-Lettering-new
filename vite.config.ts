@@ -66,11 +66,48 @@ export default defineConfig(() => {
       },
       rollupOptions: {
         output: {
-          manualChunks: {
-            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-            'icons': ['lucide-react'],
-            'canvas-vendor': ['konva', 'react-konva', 'use-image'],
-            'markdown-vendor': ['react-markdown', 'remark-gfm']
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return undefined;
+
+            if (
+              id.includes('/konva/') ||
+              id.includes('/react-konva/') ||
+              id.includes('/use-image/')
+            ) {
+              return 'canvas-vendor';
+            }
+
+            if (
+              id.includes('/react-markdown/') ||
+              id.includes('/remark-gfm/') ||
+              id.includes('/remark-parse/') ||
+              id.includes('/remark-rehype/') ||
+              id.includes('/unified/') ||
+              id.includes('/micromark/') ||
+              id.includes('/mdast-util-') ||
+              id.includes('/hast-util-')
+            ) {
+              return 'markdown-vendor';
+            }
+
+            if (id.includes('/zustand/')) {
+              return 'state-vendor';
+            }
+
+            if (
+              id.includes('/react/') ||
+              id.includes('/react-dom/') ||
+              id.includes('/react-router/') ||
+              id.includes('/react-router-dom/')
+            ) {
+              return 'react-vendor';
+            }
+
+            if (id.includes('/lucide-react/')) {
+              return 'icons';
+            }
+
+            return undefined;
           }
         }
       },
