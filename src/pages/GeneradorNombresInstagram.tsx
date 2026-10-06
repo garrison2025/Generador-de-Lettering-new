@@ -784,8 +784,10 @@ export default function GeneradorNombresInstagram() {
                 <div className="lg:col-span-7 space-y-4">
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-bold text-pink-300 uppercase">Línea 1: Nombre (Fuente Aesthetic)</label>
-                      <select 
+                      <label htmlFor="instagram-bio-name" className="text-xs font-bold text-pink-300 uppercase">Línea 1: Nombre (Fuente Aesthetic)</label>
+                      <select
+                        id="instagram-bio-font"
+                        aria-label="Fuente aesthetic para la línea 1"
                         value={bioFont} 
                         onChange={(e) => setBioFont(e.target.value)}
                         className="bg-purple-950 text-xs font-bold text-pink-200 border border-purple-500/40 rounded-lg px-2.5 py-1 focus:outline-none"
@@ -798,8 +800,9 @@ export default function GeneradorNombresInstagram() {
                         <option value="sans_bold">Sans Imprenta</option>
                       </select>
                     </div>
-                    <input 
-                      type="text" 
+                    <input
+                      id="instagram-bio-name"
+                      type="text"
                       value={bioName}
                       onChange={(e) => setBioName(e.target.value)}
                       maxLength={30}
@@ -809,9 +812,10 @@ export default function GeneradorNombresInstagram() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-pink-300 uppercase mb-1.5">Línea 2: Profesión o Categoría</label>
-                    <input 
-                      type="text" 
+                    <label htmlFor="instagram-bio-role" className="block text-xs font-bold text-pink-300 uppercase mb-1.5">Línea 2: Profesión o Categoría</label>
+                    <input
+                      id="instagram-bio-role"
+                      type="text"
                       value={bioRole}
                       onChange={(e) => setBioRole(e.target.value)}
                       className="w-full px-4 py-2.5 bg-slate-900/80 border border-purple-500/40 rounded-xl text-white font-medium focus:border-pink-400 focus:outline-none"
@@ -820,9 +824,10 @@ export default function GeneradorNombresInstagram() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-pink-300 uppercase mb-1.5">Línea 3: Frase o Estilo de Vida</label>
-                    <input 
-                      type="text" 
+                    <label htmlFor="instagram-bio-vibe" className="block text-xs font-bold text-pink-300 uppercase mb-1.5">Línea 3: Frase o Estilo de Vida</label>
+                    <input
+                      id="instagram-bio-vibe"
+                      type="text"
                       value={bioVibe}
                       onChange={(e) => setBioVibe(e.target.value)}
                       className="w-full px-4 py-2.5 bg-slate-900/80 border border-purple-500/40 rounded-xl text-white font-medium focus:border-pink-400 focus:outline-none"
@@ -831,9 +836,10 @@ export default function GeneradorNombresInstagram() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-pink-300 uppercase mb-1.5">Línea 4: Enlace o Llamado a la Acción</label>
-                    <input 
-                      type="text" 
+                    <label htmlFor="instagram-bio-link" className="block text-xs font-bold text-pink-300 uppercase mb-1.5">Línea 4: Enlace o Llamado a la Acción</label>
+                    <input
+                      id="instagram-bio-link"
+                      type="text"
                       value={bioLink}
                       onChange={(e) => setBioLink(e.target.value)}
                       className="w-full px-4 py-2.5 bg-slate-900/80 border border-purple-500/40 rounded-xl text-white font-medium focus:border-pink-400 focus:outline-none"
