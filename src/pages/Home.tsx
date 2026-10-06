@@ -14,19 +14,19 @@ const FAQ_DATA = [
   },
   {
     q: "¿Puedo usar los diseños creados para fines comerciales?",
-    a: "Sí, todos los diseños que exportes son tuyos y puedes usarlos tanto para proyectos personales como comerciales."
+    a: "Puedes usar los archivos que generes para proyectos personales o comerciales, pero debes respetar las licencias, marcas y derechos de cualquier contenido externo que incorpores a tu diseño."
   },
   {
     q: "¿Cómo puedo guardar mis diseños para editarlos más tarde?",
-    a: "Actualmente garantizamos la máxima privacidad procesando todo en tu navegador (sin servidores). Te sugerimos descargar tu diseño o anotar la configuración usada."
+    a: "El editor guarda localmente en tu navegador parte de la configuración para facilitar que continúes en el mismo dispositivo. Las imágenes de fondo que subes no se guardan en ese almacenamiento; exporta el resultado si necesitas conservar una copia final."
   },
   {
     q: "¿Qué navegadores son compatibles con el generador?",
-    a: "Funciona perfectamente en Chrome, Firefox, Safari y Edge en sus versiones recientes tanto de escritorio como de móvil."
+    a: "Está diseñado para navegadores modernos como Chrome, Firefox, Safari y Edge. Algunas funciones de exportación o tipografías pueden variar según la versión del navegador y el dispositivo."
   },
   {
     q: "¿Puedo usar el generador en dispositivos móviles?",
-    a: "Sí, nuestra interfaz está optimizada para que puedas diseñar fluidamente desde tu smartphone o tablet."
+    a: "Sí, la interfaz es responsive y puede usarse desde smartphones y tablets. El rendimiento depende del dispositivo, del navegador y de la complejidad del diseño."
   },
   {
     q: "¿Cómo puedo reportar un error o sugerir una nueva función?",
@@ -87,15 +87,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Generador de Lettering",
-    "url": "https://generadordelettering.org/",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://generadordelettering.org/herramientas/conversor-letras-bonitas?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
-    }
+    "url": "https://generadordelettering.org/"
   };
 
   return (
@@ -115,7 +107,7 @@ export default function Home() {
             Generador de <span className="text-[#5A4AD2]">Lettering</span> y <span className="text-[#FF6B6B]">Letras Personalizadas</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto font-medium">
-            Diseña textos artísticos, caligrafía digital y letras decoradas para tus proyectos con nuestro generador de lettering online. Fácil, rápido y totalmente gratuito.
+            Diseña textos artísticos, caligrafía digital y letras decoradas para tus proyectos con nuestro generador de lettering online. Fácil de usar, gratis y sin registro.
           </p>
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/editor" className="min-w-[200px] bg-[#5A4AD2] text-white font-medium px-8 py-3.5 rounded-lg shadow-md hover:bg-[#4F46E5] transition-all flex items-center justify-center gap-2">
