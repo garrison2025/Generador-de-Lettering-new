@@ -249,21 +249,34 @@ for (const route of seoLandingRoutes) {
 pages.push(...extractBlogPosts());
 
 const titleOwners = new Map();
+const descriptionOwners = new Map();
 const duplicateTitles = [];
+const duplicateDescriptions = [];
 
 for (const page of pages) {
   const normalizedTitle = page.title.trim().toLocaleLowerCase('es');
-  const existingRoute = titleOwners.get(normalizedTitle);
+  const normalizedDescription = page.description.trim().toLocaleLowerCase('es');
 
-  if (existingRoute) {
-    duplicateTitles.push(`"${page.title}" -> ${existingRoute}, ${page.route}`);
+  const existingTitleRoute = titleOwners.get(normalizedTitle);
+  if (existingTitleRoute) {
+    duplicateTitles.push(`"${page.title}" -> ${existingTitleRoute}, ${page.route}`);
   } else {
     titleOwners.set(normalizedTitle, page.route);
+  }
+
+  const existingDescriptionRoute = descriptionOwners.get(normalizedDescription);
+  if (existingDescriptionRoute) {
+    duplicateDescriptions.push(`"${page.description}" -> ${existingDescriptionRoute}, ${page.route}`);
+  } else {
+    descriptionOwners.set(normalizedDescription, page.route);
   }
 }
 
 if (duplicateTitles.length > 0) {
   throw new Error(`Duplicate SEO titles found:\n- ${duplicateTitles.join('\n- ')}`);
+}
+if (duplicateDescriptions.length > 0) {
+  throw new Error(`Duplicate SEO descriptions found:\n- ${duplicateDescriptions.join('\n- ')}`);
 }
 
 const sitemap = read('public/sitemap.xml');
@@ -282,23 +295,8 @@ if (extraHeadShells.length > 0) {
 }
 
 const seen = new Set();
-const titleOwners = new Map();
-const descriptionOwners = new Map();
 
 for (const page of pages) {
-  const previousTitleRoute = titleOwners.get(page.title);
-  if (previousTitleRoute) {
-    throw new Error(`Duplicate static SEO title: "${page.title}" on ${previousTitleRoute} and ${page.route}`);
-  }
-  titleOwners.set(page.title, page.route);
-
-  const previousDescriptionRoute = descriptionOwners.get(page.description);
-  if (previousDescriptionRoute) {
-    throw new Error(
-      `Duplicate static SEO description on ${previousDescriptionRoute} and ${page.route}: "${page.description}"`
-    );
-  }
-  descriptionOwners.set(page.description, page.route);
   if (seen.has(page.route)) throw new Error(`Duplicate static head route: ${page.route}`);
   seen.add(page.route);
 
