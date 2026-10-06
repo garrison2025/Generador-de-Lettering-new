@@ -65,6 +65,11 @@ export default function Privacidad() {
             determinados recursos visuales como fuentes web pueden descargarse desde proveedores externos para mostrar la
             interfaz correctamente.
           </p>
+          <p>
+            Puedes cambiar tu elección en cualquier momento mediante <strong>“Preferencias de cookies”</strong> en el pie de
+            página. Esa opción elimina la preferencia guardada y recarga el sitio para que puedas aceptar o rechazar de nuevo;
+            la recarga también evita que continúen activos en esa página scripts publicitarios cargados con una aceptación anterior.
+          </p>
 
           <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">
             4. Publicidad de terceros
