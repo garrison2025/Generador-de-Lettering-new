@@ -299,8 +299,19 @@ export default function ConversorLetrasBonitas() {
         </div>
         <h1 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tight mb-6">Conversor de Letras Bonitas</h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-          Generador y convertidor de textos. Personaliza tus redes sociales con las <strong>letras más bonitas</strong> y elegantes para copiar y pegar donde quieras.
+          Generador y convertidor de textos orientado a <strong>bios, nombres y perfiles aesthetic</strong>. Combina letras bonitas, estilos decorativos y adornos Unicode para copiar y pegar en redes sociales.
         </p>
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm text-gray-600">
+          <span className="rounded-full bg-purple-50 px-3 py-1.5 text-[#5A4AD2]">
+            Enfoque aesthetic y social
+          </span>
+          <Link
+            to="/herramientas/conversor-texto"
+            className="font-semibold text-[#5A4AD2] hover:underline"
+          >
+            ¿Quieres comparar 50+ estilos Unicode sin adornos? Abrir Conversor de Letras Online →
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-12">
