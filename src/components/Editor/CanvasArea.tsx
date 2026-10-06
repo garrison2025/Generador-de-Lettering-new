@@ -296,18 +296,24 @@ export function CanvasArea() {
                      textOffsetY: stageHeight > 0 ? (event.target.y() - stageHeight / 2) / stageHeight : 0,
                    });
                  }}
-                 onTransformEnd={(e) => {
+                 onTransformEnd={() => {
                    const node = groupRef.current;
-                   if (node) {
-                     const scaleX = node.scaleX();
-                     const newFontSize = Math.max(12, fontSize * scaleX);
-                     node.scaleX(1);
-                     node.scaleY(1);
-                     useEditorStore.getState().updateState({
-                       rotation: Math.round(node.rotation()),
-                       fontSize: Math.round(newFontSize)
-                     });
-                   }
+                   if (!node) return;
+
+                   const scaleX = Math.abs(node.scaleX());
+                   const newFontSize = Math.max(12, fontSize * scaleX);
+                   const nextOffsetX = stageWidth > 0 ? (node.x() - stageWidth / 2) / stageWidth : 0;
+                   const nextOffsetY = stageHeight > 0 ? (node.y() - stageHeight / 2) / stageHeight : 0;
+
+                   node.scaleX(1);
+                   node.scaleY(1);
+
+                   useEditorStore.getState().updateState({
+                     rotation: Math.round(node.rotation()),
+                     fontSize: Math.round(newFontSize),
+                     textOffsetX: nextOffsetX,
+                     textOffsetY: nextOffsetY,
+                   });
                  }}
                >
                  <KonvaText
@@ -335,8 +341,9 @@ export function CanvasArea() {
                  />
                </Group>
                {isSelected && (
-                 <Transformer 
-                   ref={trRef} 
+                 <Transformer
+                   ref={trRef}
+                   flipEnabled={false}
                    boundBoxFunc={(oldBox, newBox) => {
                      // Limit minimum size
                      if (Math.abs(newBox.width) < 50 || Math.abs(newBox.height) < 50) {
