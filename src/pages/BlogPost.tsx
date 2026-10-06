@@ -110,7 +110,7 @@ export default function BlogPost() {
               "name": "Generador de Lettering",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://generadordelettering.org/icon.svg"
+                "url": "https://generadordelettering.org/pwa-512x512.png"
               }
             }
           },
