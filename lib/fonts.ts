@@ -28,38 +28,6 @@ export const PRESET_COLORS = [
 ];
 
 const fontLoadPromises = new Map<string, Promise<void>>();
-let previewFontsPromise: Promise<void> | null = null;
-
-export const loadFontPreviews = async () => {
-  if (typeof document === 'undefined') return;
-  if (previewFontsPromise) return previewFontsPromise;
-
-  previewFontsPromise = new Promise<void>((resolve) => {
-    const linkId = 'gdl-font-previews';
-    const existing = document.getElementById(linkId) as HTMLLinkElement | null;
-
-    if (existing) {
-      resolve();
-      return;
-    }
-
-    const link = document.createElement('link');
-    link.id = linkId;
-    link.rel = 'stylesheet';
-    link.href = `https://fonts.googleapis.com/css2?${FONTS
-      .map((font) => `family=${font.href}`)
-      .join('&')}&display=swap`;
-    link.addEventListener('load', () => resolve(), { once: true });
-    link.addEventListener('error', () => {
-      previewFontsPromise = null;
-      resolve();
-    }, { once: true });
-    document.head.appendChild(link);
-  });
-
-  return previewFontsPromise;
-};
-
 export const loadFont = async (fontFamily: string) => {
   const fontDef = FONTS.find(f => f.family === fontFamily);
   if (!fontDef || typeof document === 'undefined') return;
