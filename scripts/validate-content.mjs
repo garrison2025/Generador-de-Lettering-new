@@ -335,6 +335,30 @@ function validateMonetizationConfig() {
   );
 }
 
+function validatePaletteUniqueness() {
+  const source = read('src/pages/PaletasColor.tsx');
+  const entries = [
+    ...source.matchAll(/\{ name: '([^']+)', colors: \[([^\]]+)\] \}/g)
+  ].map((match) => ({
+    name: match[1],
+    colors: match[2]
+      .split(',')
+      .map((value) => value.trim().replace(/'/g, '').toUpperCase())
+  }));
+
+  const seen = new Map();
+
+  for (const entry of entries) {
+    const key = [...entry.colors].sort().join('|');
+    const previous = seen.get(key);
+    assert(
+      !previous,
+      `Duplicate palette color set found: "${previous}" and "${entry.name}"`
+    );
+    seen.set(key, entry.name);
+  }
+}
+
 function validatePublicAssets() {
   const required = [
     'public/favicon-32x32.png',
