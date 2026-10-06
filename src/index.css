@@ -8,8 +8,6 @@
   --color-accent-yellow: #FBBF24;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
