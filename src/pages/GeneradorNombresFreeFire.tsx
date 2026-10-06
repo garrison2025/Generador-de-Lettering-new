@@ -230,6 +230,10 @@ export default function GeneradorNombresFreeFire() {
             </li>
             <li className="flex items-center space-x-2">
               <span className="text-gray-400">/</span>
+              <Link to="/herramientas" className="hover:text-amber-500 transition-colors">Herramientas</Link>
+            </li>
+            <li className="flex items-center space-x-2">
+              <span className="text-gray-400">/</span>
               <span className="text-gray-900" aria-current="page">Nombres para Free Fire</span>
             </li>
           </ol>
