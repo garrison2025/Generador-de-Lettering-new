@@ -217,6 +217,11 @@ export default function BlogPost() {
                   const label = React.Children.toArray(children).join('');
                   return <h3 id={slugifyHeading(label)} {...props}>{children}</h3>;
                 },
+                table: ({ children, ...props }) => (
+                  <div className="max-w-full overflow-x-auto overscroll-x-contain my-8 rounded-xl border border-gray-200">
+                    <table className="min-w-[42rem] !my-0" {...props}>{children}</table>
+                  </div>
+                ),
               }}
             >
               {post.content}
