@@ -15,7 +15,7 @@ interface SeoRouteConfig {
   title: string;
   description: string;
   keywords: string;
-  defaultState: Record<string, any>;
+  defaultState: Partial<EditorState>;
   breadcrumbName: string;
   h1Title: string;
   introText: string;
@@ -180,17 +180,17 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
 
 export default function SeoPage() {
   const location = useLocation();
-  const store = useEditorStore();
+  const updateState = useEditorStore((state) => state.updateState);
   const config = SEO_CONFIG[location.pathname];
 
   useEffect(() => {
     if (config) {
-      store.updateState({
+      updateState({
         ...SEO_LANDING_BASE_STATE,
         ...config.defaultState,
       });
     }
-  }, [location.pathname]);
+  }, [config, updateState]);
 
   const currentConfig = config || {
     title: 'Generador de Lettering Online | Estudio Tipográfico',
@@ -288,7 +288,7 @@ export default function SeoPage() {
           <section className="bg-white rounded-3xl p-8 md:p-12 border border-gray-100 shadow-sm space-y-6">
             <h2 className="text-xl md:text-2xl font-bold text-gray-900 flex items-center gap-2">
               <PenTool className="w-5 h-5 text-[#5A4AD2]" />
-              ¿Cómo usar este generador en 4 pasos sencillos?
+              ¿Cómo usar este generador en {currentConfig.steps.length} pasos sencillos?
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
