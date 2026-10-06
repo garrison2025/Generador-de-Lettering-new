@@ -52,7 +52,7 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
     },
     {
       title: 'Letras para Free Fire (Nick Insano)',
-      desc: 'Letras y fuentes compatibles para Free Fire y clanes competitivos.',
+      desc: 'Letras y variantes Unicode para probar en nicks de Free Fire y clanes.',
       path: '/herramientas/letras-free-fire',
       icon: <Shield className="w-5 h-5 text-amber-600" />,
       badge: 'FF Nicks'
