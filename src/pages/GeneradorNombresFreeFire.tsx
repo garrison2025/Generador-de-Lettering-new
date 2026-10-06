@@ -184,19 +184,21 @@ export default function GeneradorNombresFreeFire() {
   };
 
   const toggleSaveNick = (text: string) => {
-    setSavedNicks(prev => 
-      prev.includes(text) ? prev.filter(item => item !== text) : [...prev, text]
+    setSavedNicks((prev) =>
+      prev.includes(text)
+        ? prev.filter((item) => item !== text)
+        : [...prev, text].slice(-50)
     );
   };
 
   const handleSymbolClick = (symbol: string) => {
-    setInputText(prev => (prev + symbol).slice(0, 12));
+    setInputText((prev) => limitCodePoints(prev + symbol, 12));
   };
 
   const generateRandomGamerNick = () => {
     const randomBase = GAMER_BASES[Math.floor(Math.random() * GAMER_BASES.length)];
     const num = Math.floor(Math.random() * 99);
-    setInputText(`${randomBase}${num}`.slice(0, 12));
+    setInputText(limitCodePoints(`${randomBase}${num}`, 12));
   };
 
   const categories = ['Todas', 'Insanos 🔥', 'Alas & Coronas ꧁꧂', 'Para Clanes 亗', 'Dúos & Parejas 💕', 'Chicas FF 🌸'];
