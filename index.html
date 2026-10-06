@@ -42,7 +42,9 @@
     <script>
       (function() {
         var monetizationScheduled = false;
+        var monetizationEngagementArmed = false;
         var monetizationStarted = false;
+        var monetizationFallbackTimer = null;
         var adsenseLoaded = false;
 
         function hasAcceptedConsent() {
@@ -77,9 +79,21 @@
           });
         }
 
+        function clearMonetizationEngagementListeners() {
+          ['pointerdown', 'scroll', 'touchstart'].forEach(function(eventName) {
+            window.removeEventListener(eventName, startMonetizationFromEngagement);
+          });
+          window.removeEventListener('keydown', startMonetizationFromEngagement);
+          if (monetizationFallbackTimer) {
+            clearTimeout(monetizationFallbackTimer);
+            monetizationFallbackTimer = null;
+          }
+        }
+
         function loadMonetizationScripts() {
           if (monetizationStarted || !hasAcceptedConsent() || !document.body) return;
           monetizationStarted = true;
+          clearMonetizationEngagementListeners();
 
           appendScript(
             'monetag-vignette',
@@ -102,15 +116,34 @@
           setTimeout(loadAdSense, 5000);
         }
 
+        function startMonetizationFromEngagement() {
+          if (!hasAcceptedConsent()) return;
+          loadMonetizationScripts();
+        }
+
+        function armMonetizationAfterEngagement() {
+          if (monetizationEngagementArmed || monetizationStarted || !hasAcceptedConsent()) return;
+          monetizationEngagementArmed = true;
+
+          ['pointerdown', 'scroll', 'touchstart'].forEach(function(eventName) {
+            window.addEventListener(eventName, startMonetizationFromEngagement, { passive: true, once: true });
+          });
+          window.addEventListener('keydown', startMonetizationFromEngagement, { once: true });
+
+          // Do not let third-party ad code compete with the first render/LCP.
+          // Users who do not interact still get monetization after a conservative delay.
+          monetizationFallbackTimer = setTimeout(startMonetizationFromEngagement, 8000);
+        }
+
         function scheduleMonetizationScripts() {
           if (monetizationScheduled || !hasAcceptedConsent()) return;
           monetizationScheduled = true;
 
           var scheduleIdle = function() {
             if ('requestIdleCallback' in window) {
-              requestIdleCallback(loadMonetizationScripts, { timeout: 3000 });
+              requestIdleCallback(armMonetizationAfterEngagement, { timeout: 3000 });
             } else {
-              setTimeout(loadMonetizationScripts, 1500);
+              setTimeout(armMonetizationAfterEngagement, 1500);
             }
           };
 
