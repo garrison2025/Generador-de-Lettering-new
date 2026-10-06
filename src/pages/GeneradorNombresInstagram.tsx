@@ -986,7 +986,7 @@ export default function GeneradorNombresInstagram() {
         {activeTab === 'ideas' && (
           <div className="bg-white rounded-3xl p-6 md:p-8 border border-gray-200 shadow-sm mb-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Generador de Ideas de Nombres de Usuario (@username)</h2>
-            <p className="text-gray-600 text-sm mb-6">Ideas con prefijos y sufijos originales para crear un ID disponible en Instagram.</p>
+            <p className="text-gray-600 text-sm mb-6">Ideas con prefijos y sufijos en un formato compatible con Instagram. La disponibilidad real debes comprobarla en Instagram antes de elegir el usuario.</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {usernameIdeas.map((username, idx) => {
@@ -999,6 +999,7 @@ export default function GeneradorNombresInstagram() {
                         href={`https://www.instagram.com/${username}`}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`Comprobar @${username} en Instagram`}
                         title="Verificar disponibilidad en Instagram"
                         className="p-1.5 bg-gray-200 hover:bg-pink-100 hover:text-pink-600 rounded-lg text-gray-600 transition"
                       >
