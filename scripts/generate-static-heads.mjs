@@ -97,7 +97,11 @@ function extractBlogPosts() {
 
 function routeOutputFile(route) {
   if (route === '/') return 'dist/index.html';
-  return path.join('dist', route.replace(/^\//, ''), 'index.html');
+
+  // Cloudflare Pages canonicalizes nested /route/index.html files to /route/.
+  // Emit flat .html route files instead so Pages serves the extensionless,
+  // no-trailing-slash URL used by our canonical tags, sitemap and internal links.
+  return path.join('dist', `${route.replace(/^\//, '')}.html`);
 }
 
 function makeHead(baseHtml, route, title, description, keywords) {
