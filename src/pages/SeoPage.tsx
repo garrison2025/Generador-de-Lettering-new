@@ -41,6 +41,8 @@ const SEO_LANDING_BASE_STATE: Partial<EditorState> = {
   strokeWidth: 0,
   strokeColor: '#000000',
   rotation: 0,
+  textOffsetX: 0,
+  textOffsetY: 0,
   backgroundImage: null,
   canvasRatio: 'free',
   overlayColor: '#000000',
