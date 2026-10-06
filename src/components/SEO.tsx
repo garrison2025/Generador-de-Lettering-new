@@ -9,6 +9,7 @@ interface SEOProps {
   type?: 'website' | 'article' | 'webapp';
   jsonSchema?: Record<string, any> | Record<string, any>[];
   image?: string;
+  noindex?: boolean;
 }
 
 export function SEO({ 
@@ -18,9 +19,14 @@ export function SEO({
   keywords, 
   type = 'website', 
   jsonSchema, 
-  image = 'https://generadordelettering.org/og-image.jpg' 
+  image = 'https://generadordelettering.org/og-image.jpg',
+  noindex = false
 }: SEOProps) {
-  const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://generadordelettering.org');
+  const currentUrl = canonical || (
+    typeof window !== 'undefined'
+      ? `${window.location.origin}${window.location.pathname}`
+      : 'https://generadordelettering.org'
+  );
 
   const schemasToRender = Array.isArray(jsonSchema) 
     ? jsonSchema 
@@ -33,7 +39,12 @@ export function SEO({
       <title>{title}</title>
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
-      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta
+        name="robots"
+        content={noindex
+          ? 'noindex, follow'
+          : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+      />
       
       {/* Canonical URL */}
       <link rel="canonical" href={currentUrl} />
