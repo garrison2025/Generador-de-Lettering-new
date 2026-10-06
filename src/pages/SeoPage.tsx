@@ -227,7 +227,7 @@ export default function SeoPage() {
       />
       
       {/* Editor Component */}
-      <Editor />
+      <Editor embedded />
 
       {/* Rich Educational Content below Editor (Passes Google AdSense Quality & E-E-A-T Review) */}
       <div className="bg-[#F8F9FC] py-12 px-4 border-t border-gray-200">
