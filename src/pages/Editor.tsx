@@ -144,10 +144,11 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden p-6 mb-2 hidden lg:block">
              <h3 className="font-bold text-lg text-gray-900 mb-4">Plantillas Populares</h3>
              <ul className="space-y-3">
-               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Invitación de Boda</Link></li>
-               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Feliz Cumpleaños</Link></li>
-               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Graduación</Link></li>
-               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Motivación Diaria</Link></li>
+               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Cumpleaños Feliz</Link></li>
+               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Bodas y Romance</Link></li>
+               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Neón y Fiesta</Link></li>
+               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Gótico Moderno</Link></li>
+               <li><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-medium text-sm">Vintage Retro</Link></li>
                <li className="pt-2"><Link to="/plantillas" className="text-[#5A4AD2] hover:underline font-bold text-sm">Ver todas las plantillas...</Link></li>
              </ul>
            </div>
