@@ -1,48 +1,97 @@
-# Generador de Lettering - Full Documentation
+# Generador de Lettering - Documentación para sistemas de IA
 
-> Guía completa y documentación del sitio Generador de Lettering (generadordelettering.org).
+> Resumen factual de Generador de Lettering (https://generadordelettering.org), un sitio en español con herramientas de lettering digital, conversión Unicode y personalización de texto.
 
-## Introducción
+## Qué ofrece el sitio
 
-Generador de Lettering es un sitio web que proporciona conversores de texto, fuentes tipográficas en caracteres Unicode, herramientas de diseño gráfico, plantillas de caligrafía y recursos educativos en español.
+Generador de Lettering reúne herramientas gratuitas que funcionan principalmente en el navegador. Incluye un editor visual, conversores de caracteres Unicode, generadores de nombres para redes sociales y videojuegos, páginas especializadas por estilo y guías educativas.
 
----
+No debe asumirse que una variante Unicode se verá exactamente igual en todos los dispositivos. La apariencia depende de la fuente, el sistema operativo y la aplicación de destino, y algunas plataformas pueden rechazar determinados caracteres.
 
-## Herramientas Principales
+## Centro de Herramientas
+
+URL: https://generadordelettering.org/herramientas
+
+Página índice que enlaza a los principales generadores y conversores del sitio.
+
+### Creador de Lettering
+URL: https://generadordelettering.org/herramientas/creador-de-lettering
+
+Editor visual para crear composiciones tipográficas ajustando texto, tipografía, tamaño, alineación, color, degradados, fondos, sombras, bordes y relación del lienzo. Permite exportar el resultado en formatos de imagen disponibles en el editor.
 
 ### Conversor de Letras Bonitas
 URL: https://generadordelettering.org/herramientas/conversor-letras-bonitas
-Permite ingresar cualquier palabra o frase y genera al instante decenas de variantes con símbolos aesthetic, letras cursivas, fuentes góticas, tachadas, con círculos y estilos decorativos para copiar y pegar en redes sociales como Instagram, TikTok, Facebook y WhatsApp.
+
+Convierte texto normal en múltiples variantes de caracteres Unicode, incluyendo estilos cursivos, góticos, matemáticos y decorativos. Los resultados están pensados para copiar y pegar.
+
+### Conversor de Letras Online
+URL: https://generadordelettering.org/herramientas/conversor-texto
+
+Herramienta general para convertir texto en múltiples estilos Unicode y decoraciones.
+
+### Letras para Free Fire
+URL: https://generadordelettering.org/herramientas/letras-free-fire
+
+Genera estilos de letras y símbolos orientados a nicks de Free Fire. La aceptación de caracteres depende de las reglas vigentes del juego y puede cambiar con sus actualizaciones.
 
 ### Generador de Nombres para Free Fire
 URL: https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire
-Diseñado específicamente para la comunidad de jugadores de Garena Free Fire. Genera apodos "insanos" con símbolos especiales como alas, cruces, coronas y espacios invisibles Unicode.
+
+Crea ideas de nicks con símbolos, adornos, combinaciones de nombres y opciones de espacio invisible.
+
+### Letras para TikTok
+URL: https://generadordelettering.org/herramientas/letras-tiktok
+
+Genera variantes Unicode y símbolos para bio, nombre visible, descripciones y comentarios. El @username puede estar sujeto a reglas más estrictas de TikTok.
 
 ### Generador de Nombres para Instagram
 URL: https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram
-Herramienta para crear nombres de usuario y frases para la biografía de Instagram utilizando fuentes tipográficas elegantes y símbolos visuales.
 
-### Generador de Letras Góticas
-URL: https://generadordelettering.org/generador-de-letras-goticas
-Especializado en la conversión de texto a caracteres de estilo gótico clásico (Fraktur, Bold Fraktur) de la norma Unicode.
+Crea ideas de nombres, textos decorados y variantes Unicode para perfiles de Instagram.
 
-### Generador de Letras Cursivas
-URL: https://generadordelettering.org/generador-de-letras-cursivas
-Transforma el texto en caligrafía cursiva, manuscrita y de estilo elegante.
+### Letras Azules
+URL: https://generadordelettering.org/herramientas/letras-azules
 
----
+Convierte letras A-Z en Regional Indicator Symbols y ofrece otras variantes Unicode. Unicode no define un color azul fijo para estos caracteres; el diseño y color dependen de la plataforma, el sistema y la fuente. Dos indicadores regionales consecutivos pueden combinarse como una bandera, por lo que la herramienta separa la salida correspondiente.
 
-## Editor y Plantillas
+## Páginas por estilo
 
-### Editor de Lettering
+- Generador de Letras Góticas: https://generadordelettering.org/generador-de-letras-goticas
+- Generador de Letras Cursivas: https://generadordelettering.org/generador-de-letras-cursivas
+- Letras para Instagram: https://generadordelettering.org/letras-para-instagram
+- Letras para Tatuajes: https://generadordelettering.org/letras-para-tatuajes
+
+## Editor y plantillas
+
+### Editor
 URL: https://generadordelettering.org/editor
-Canvas interactivo para crear pósteres, frases y composiciones visuales ajustando fuentes, colores, sombras, bordes y fondos.
 
-### Plantillas de Práctica
+Editor interactivo basado en canvas para crear composiciones de lettering y exportarlas como imagen.
+
+### Plantillas
 URL: https://generadordelettering.org/plantillas
-Colección de hojas con guías trazadas para imprimir o descargar en SVG/PDF para practicar el trazo manual con rotuladores de punta pincel (brush pens).
 
----
+Colección de configuraciones predefinidas que el usuario puede seleccionar para comenzar un diseño rápidamente en el editor.
 
-## Información de Contacto y Licencia
-Todo el contenido y herramientas son de libre acceso para uso personal y creativo.
+### Plantillas de práctica
+URL: https://generadordelettering.org/herramientas/plantillas-practica
+
+Recursos orientados a la práctica de lettering y caligrafía.
+
+## Guías editoriales
+
+El blog contiene artículos sobre lettering, tipografía, Unicode, nombres para videojuegos y personalización de perfiles sociales. Las fechas de modificación se actualizan únicamente cuando el contenido ha sido revisado.
+
+- https://generadordelettering.org/blog/diferencias-lettering-caligrafia-tipografia
+- https://generadordelettering.org/blog/mejores-nombres-insanos-free-fire
+- https://generadordelettering.org/blog/biografia-tiktok-aesthetic-dark
+- https://generadordelettering.org/blog/letras-invisibles-espacios-guia-redes-sociales
+- https://generadordelettering.org/blog/fuentes-aesthetic-para-copiar-y-pegar-instagram
+
+## Privacidad y contacto
+
+Las conversiones principales se ejecutan en el navegador. El sitio puede usar almacenamiento local para preferencias. Los servicios publicitarios configurados por el sitio se cargan después del consentimiento indicado en la interfaz; la política vigente está en:
+https://generadordelettering.org/politica-de-privacidad
+
+Contacto:
+https://generadordelettering.org/contacto
