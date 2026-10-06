@@ -244,12 +244,12 @@ export default function LetrasTikTok() {
       <div className="bg-gradient-to-b from-black via-gray-900 to-gray-900 text-white pt-8 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           {/* Breadcrumb Links */}
-          <nav className="flex items-center gap-2 text-xs text-gray-400 mb-6">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-gray-400 mb-6">
             <Link to="/" className="hover:text-white transition flex items-center gap-1">
               <ChevronLeft className="w-3.5 h-3.5" /> Inicio
             </Link>
             <span>/</span>
-            <span className="text-gray-300">Herramientas</span>
+            <Link to="/herramientas" className="text-gray-300 hover:text-white transition">Herramientas</Link>
             <span>/</span>
             <span className="text-pink-400 font-medium">Letras para TikTok</span>
           </nav>
