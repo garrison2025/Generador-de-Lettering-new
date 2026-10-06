@@ -84,6 +84,8 @@ export default function BlogPost() {
         keywords={post.keywords}
         type="article"
         image={post.image}
+        publishedTime={post.date}
+        modifiedTime={post.updated || post.date}
         jsonSchema={[
           {
             "@context": "https://schema.org",
