@@ -82,16 +82,16 @@ function extractSeoLanding(route) {
 function extractBlogPosts() {
   const source = read('src/data/blogPosts.ts');
   const posts = [];
-  const regex = /slug:\s*'([^']+)',[\s\S]*?title:\s*'([^']+)',[\s\S]*?excerpt:\s*'([^']+)',[\s\S]*?date:\s*'([^']+)'(?:,[\s\S]*?updated:\s*'([^']+)')?,[\s\S]*?keywords:\s*'([^']+)'/g;
+  const regex = /slug:\s*'([^']+)',\s*title:\s*'([^']+)',\s*(?:seoTitle:\s*'([^']+)',\s*)?excerpt:\s*'([^']+)',[\s\S]*?date:\s*'([^']+)'(?:,[\s\S]*?updated:\s*'([^']+)')?,[\s\S]*?keywords:\s*'([^']+)'/g;
   let match;
   while ((match = regex.exec(source))) {
     posts.push({
       route: `/blog/${match[1]}`,
-      title: `${match[2]} | Generador de Lettering Blog`,
-      description: match[3],
-      publishedTime: match[4],
-      modifiedTime: match[5] || match[4],
-      keywords: match[6]
+      title: match[3] || match[2],
+      description: match[4],
+      publishedTime: match[5],
+      modifiedTime: match[6] || match[5],
+      keywords: match[7]
     });
   }
   return posts;
@@ -133,6 +133,7 @@ function makeHead(baseHtml, route, title, description, keywords, publishedTime, 
     .replace(/\s*<meta\s+data-rh="true"\s+property="og:title"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+property="og:description"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+property="og:url"[^>]*>/gi, '')
+    .replace(/\s*<meta\s+data-rh="true"\s+property="og:type"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+property="article:published_time"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+property="article:modified_time"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+name="twitter:title"[^>]*>/gi, '')
@@ -143,6 +144,7 @@ function makeHead(baseHtml, route, title, description, keywords, publishedTime, 
     `    <meta data-rh="true" property="og:title" content="${escapeHtml(title)}" />`,
     `    <meta data-rh="true" property="og:description" content="${escapeHtml(description)}" />`,
     `    <meta data-rh="true" property="og:url" content="${canonical}" />`,
+    `    <meta data-rh="true" property="og:type" content="${publishedTime ? 'article' : 'website'}" />`,
     ...(publishedTime
       ? [`    <meta data-rh="true" property="article:published_time" content="${escapeHtml(publishedTime)}" />`]
       : []),
