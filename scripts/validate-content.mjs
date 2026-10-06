@@ -613,6 +613,27 @@ function validateBulkUnicodeInputCaps() {
   }
 }
 
+function validateInstagramInputCap() {
+  const source = read('src/pages/GeneradorNombresInstagram.tsx');
+
+  assert(
+    source.includes('const INSTAGRAM_INPUT_LIMIT = 150;'),
+    'Instagram generator must declare the 150-code-point input limit'
+  );
+  assert(
+    source.includes('const inputCharacterCount = Array.from(inputText).length;'),
+    'Instagram character counter must use Unicode code points'
+  );
+  assert(
+    source.includes('setInputText((previous) => limitCodePoints(previous + symbol));'),
+    'Instagram symbol shortcuts must respect the shared input cap'
+  );
+  assert(
+    source.includes('onChange={(e) => setInputText(limitCodePoints(e.target.value))}'),
+    'Instagram manual input must respect the shared input cap'
+  );
+}
+
 function validateClipboardUsage() {
   const helperPath = 'src/utils/copyText.ts';
   assert(fs.existsSync(helperPath), `Shared clipboard helper is missing: ${helperPath}`);
@@ -803,6 +824,7 @@ validateLlmsLinks();
 validateMonetizationConfig();
 validatePublicAssets();
 validateBulkUnicodeInputCaps();
+validateInstagramInputCap();
 validateClipboardUsage();
 validateRemovedUiImports();
 validateEditorHistoryMemorySafety();
