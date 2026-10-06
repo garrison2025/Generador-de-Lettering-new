@@ -1,5 +1,5 @@
 import { copyText } from '../utils/copyText';
-import { useState, useEffect, useDeferredValue } from 'react';
+import { useState, useDeferredValue } from 'react';
 import { Copy, Check, ChevronLeft, Dices } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
@@ -104,10 +104,6 @@ export default function LetrasFreeFire() {
   const [inputText, setInputText] = useState('ProPlayer');
   const deferredInput = useDeferredValue(inputText);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Removed document.title
-  }, []);
 
   const copyToClipboard = async (text: string) => {
     if (!(await copyText(text))) {
