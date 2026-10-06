@@ -25,6 +25,14 @@ export function SEO({
   const siteUrl = 'https://generadordelettering.org';
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
   const currentUrl = canonical || `${siteUrl}${pathname}`;
+  const openGraphType = type === 'article' ? 'article' : 'website';
+  const imagePath = image.split(/[?#]/, 1)[0].toLowerCase();
+  const imageMimeType =
+    imagePath.endsWith('.png') ? 'image/png' :
+    imagePath.endsWith('.webp') ? 'image/webp' :
+    imagePath.endsWith('.gif') ? 'image/gif' :
+    imagePath.endsWith('.jpg') || imagePath.endsWith('.jpeg') ? 'image/jpeg' :
+    null;
 
   const schemasToRender = Array.isArray(jsonSchema) 
     ? jsonSchema 
@@ -48,7 +56,7 @@ export function SEO({
       <link rel="canonical" href={currentUrl} />
 
       {/* Open Graph / Facebook */}
-      <meta property="og:type" content={type} />
+      <meta property="og:type" content={openGraphType} />
       <meta property="og:site_name" content="Generador de Lettering" />
       <meta property="og:locale" content="es_ES" />
       <meta property="og:url" content={currentUrl} />
@@ -57,7 +65,7 @@ export function SEO({
       <meta property="og:image" content={image} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:type" content="image/jpeg" />
+      {imageMimeType && <meta property="og:image:type" content={imageMimeType} />}
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
