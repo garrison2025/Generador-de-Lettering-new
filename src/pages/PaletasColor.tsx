@@ -1,3 +1,4 @@
+import { copyText } from '../utils/copyText';
 import { Link } from 'react-router-dom';
 import { PenTool, Palette, Download, Copy, Check, ChevronLeft, Droplet } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -22,8 +23,13 @@ export default function PaletasColor() {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const [copiedPalette, setCopiedPalette] = useState<string | null>(null);
 
-  const copyToClipboard = (text: string, type: 'color' | 'palette') => {
-    navigator.clipboard.writeText(text);
+  const copyToClipboard = async (text: string, type: 'color' | 'palette') => {
+    const copied = await copyText(text);
+    if (!copied) {
+      window.alert('No se pudo copiar al portapapeles. Selecciona el texto manualmente o inténtalo de nuevo.');
+      return;
+    }
+
     if (type === 'color') {
       setCopiedColor(text);
       setTimeout(() => setCopiedColor(null), 2000);
