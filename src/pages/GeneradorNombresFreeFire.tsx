@@ -276,7 +276,7 @@ export default function GeneradorNombresFreeFire() {
         ]}
       />
 
-      <div className="max-w-5xl mx-auto px-4 py-12 w-full">
+      <div className="max-w-5xl mx-auto px-4 py-12 w-full min-w-0">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="mb-8">
           <ol className="flex items-center space-x-2 text-sm text-gray-500 font-medium">
