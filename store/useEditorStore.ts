@@ -136,10 +136,17 @@ export const useEditorStore = create<EditorStore>()(
           future: [],
         };
       }),
-      previewState: (updates) => set((state) => ({
-        ...state,
-        ...updates,
-      })),
+      previewState: (updates) => set((state) => {
+        const changed = (Object.keys(updates) as (keyof EditorState)[])
+          .some((key) => state[key] !== updates[key]);
+
+        if (!changed) return state;
+
+        return {
+          ...state,
+          ...updates,
+        };
+      }),
       commitPreview: (previousValues) => set((state) => {
         const changed = (Object.keys(previousValues) as (keyof EditorState)[])
           .some((key) => state[key] !== previousValues[key]);
@@ -167,13 +174,20 @@ export const useEditorStore = create<EditorStore>()(
           future: [],
         };
       }),
-      resetState: () => set((state) => ({
-        ...EDITOR_DEFAULT_STATE,
-        past: state.backgroundImage
-          ? []
-          : [...state.past, extractState(state)].slice(-20),
-        future: []
-      })),
+      resetState: () => set((state) => {
+        const changed = (Object.keys(EDITOR_DEFAULT_STATE) as (keyof EditorState)[])
+          .some((key) => state[key] !== EDITOR_DEFAULT_STATE[key]);
+
+        if (!changed) return state;
+
+        return {
+          ...EDITOR_DEFAULT_STATE,
+          past: state.backgroundImage
+            ? []
+            : [...state.past, extractState(state)].slice(-20),
+          future: []
+        };
+      }),
       randomizeState: () => set((state) => ({
         text: RANDOM_TEXTS[Math.floor(Math.random() * RANDOM_TEXTS.length)],
         fontFamily: RANDOM_FONTS[Math.floor(Math.random() * RANDOM_FONTS.length)],
