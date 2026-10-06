@@ -250,7 +250,7 @@ export default function CreadorLettering() {
             </li>
             <li><span>/</span></li>
             <li>
-              <Link to="/editor" className="hover:text-[#5A4AD2] transition">Herramientas</Link>
+              <Link to="/herramientas" className="hover:text-[#5A4AD2] transition">Herramientas</Link>
             </li>
             <li><span>/</span></li>
             <li className="text-[#5A4AD2] font-semibold" aria-current="page">Creador de Lettering</li>
