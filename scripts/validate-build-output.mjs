@@ -81,6 +81,7 @@ const prerenderedUrls = sitemapUrls;
 
 const schemaRequiredUrls = new Set([
   'https://generadordelettering.org/',
+  'https://generadordelettering.org/editor',
   'https://generadordelettering.org/herramientas/creador-de-lettering',
   'https://generadordelettering.org/herramientas/conversor-texto',
   'https://generadordelettering.org/herramientas/letras-azules',
