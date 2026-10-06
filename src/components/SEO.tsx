@@ -31,12 +31,9 @@ function appendCanonical(href: string) {
   document.head.appendChild(link);
 }
 
-function appendSchema(schema: Record<string, any>) {
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.dataset.seoLive = 'true';
-  script.textContent = JSON.stringify(schema);
-  document.head.appendChild(script);
+function serializeSchema(schema: Record<string, any>) {
+  // Prevent a schema string from accidentally terminating the script element.
+  return JSON.stringify(schema).replace(/</g, '\\u003c');
 }
 
 export function SEO({
@@ -71,8 +68,6 @@ export function SEO({
     : jsonSchema
       ? [jsonSchema]
       : [];
-  const schemaJson = JSON.stringify(schemasToRender);
-
   useEffect(() => {
     // Remove crawlable static-shell metadata and metadata from the previous SPA route.
     document.head.querySelectorAll('[data-rh="true"]').forEach((node) => node.remove());
@@ -115,10 +110,6 @@ export function SEO({
     appendMeta('name', 'twitter:title', title);
     appendMeta('name', 'twitter:description', description);
     appendMeta('name', 'twitter:image', absoluteImage);
-
-    for (const schema of schemasToRender) {
-      appendSchema(schema);
-    }
   }, [
     title,
     description,
@@ -129,9 +120,19 @@ export function SEO({
     imageMimeType,
     publishedTime,
     modifiedTime,
-    noindex,
-    schemaJson
+    noindex
   ]);
 
-  return null;
+  return (
+    <>
+      {schemasToRender.map((schema, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          data-seo-schema="true"
+          dangerouslySetInnerHTML={{ __html: serializeSchema(schema) }}
+        />
+      ))}
+    </>
+  );
 }
