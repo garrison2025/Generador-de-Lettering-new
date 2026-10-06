@@ -661,7 +661,7 @@ export default function GeneradorNombresFreeFire() {
                 Generador de Espacio Invisible para Free Fire (ㅤ)
               </h2>
               <p className="text-gray-300 text-sm leading-relaxed">
-                El carácter transparente de Unicode <code className="bg-slate-900 text-amber-300 px-2 py-0.5 rounded font-mono">U+3164</code> te permite crear un nickname completamente transparente o separar las palabras de tu nick con un espacio ancho que el juego sí detecta.
+                El carácter Unicode <code className="bg-slate-900 text-amber-300 px-2 py-0.5 rounded font-mono">U+3164</code> se usa habitualmente como espacio invisible en nombres de Free Fire. Su aceptación puede cambiar según la versión del juego, así que pruébalo en el campo de nickname antes de confirmar un cambio de nombre.
               </p>
 
               <div className="bg-slate-900 p-6 rounded-2xl border border-amber-500/30 space-y-4">
@@ -691,7 +691,7 @@ export default function GeneradorNombresFreeFire() {
                 <ol className="list-decimal list-inside space-y-1 text-gray-400">
                   <li>Presiona el botón superior para copiar el espacio invisible <code className="text-amber-300">ㅤ</code>.</li>
                   <li>Abre Free Fire y ve a tu perfil para cambiar tu apodo.</li>
-                  <li>Pégalo directamente entre las palabras de tu nick o pégalo varias veces para tener un nombre invisible.</li>
+                  <li>Pégalo entre las palabras de tu nick y comprueba la vista previa del juego. Si el cliente lo rechaza o muestra un cuadro, no confirmes el cambio.</li>
                 </ol>
               </div>
             </div>
