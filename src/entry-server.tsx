@@ -12,7 +12,10 @@ import PlantillasPractica from './pages/PlantillasPractica';
 import ConversorTexto from './pages/ConversorTexto';
 import LetrasAzules from './pages/LetrasAzules';
 import LetrasFreeFire from './pages/LetrasFreeFire';
+import LetrasTikTok from './pages/LetrasTikTok';
 import ConversorLetrasBonitas from './pages/ConversorLetrasBonitas';
+import GeneradorNombresInstagram from './pages/GeneradorNombresInstagram';
+import GeneradorNombresFreeFire from './pages/GeneradorNombresFreeFire';
 
 function PageLoader() {
   return (
@@ -36,7 +39,10 @@ function PrerenderRoutes() {
           <Route path="herramientas/conversor-texto" element={<ConversorTexto />} />
           <Route path="herramientas/letras-azules" element={<LetrasAzules />} />
           <Route path="herramientas/letras-free-fire" element={<LetrasFreeFire />} />
+          <Route path="herramientas/letras-tiktok" element={<LetrasTikTok />} />
           <Route path="herramientas/conversor-letras-bonitas" element={<ConversorLetrasBonitas />} />
+          <Route path="herramientas/generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />
+          <Route path="herramientas/generador-de-nombres-para-free-fire" element={<GeneradorNombresFreeFire />} />
         </Route>
       </Routes>
     </Suspense>

@@ -13,7 +13,10 @@ const PRERENDER_ROUTES = new Set([
   '/herramientas/conversor-texto',
   '/herramientas/letras-azules',
   '/herramientas/letras-free-fire',
-  '/herramientas/conversor-letras-bonitas'
+  '/herramientas/letras-tiktok',
+  '/herramientas/conversor-letras-bonitas',
+  '/herramientas/generador-de-nombres-para-instagram',
+  '/herramientas/generador-de-nombres-para-free-fire'
 ]);
 
 const { render: renderPrerenderedRoute } = await import('../dist-ssr/entry-server.js');
