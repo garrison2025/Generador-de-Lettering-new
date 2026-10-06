@@ -52,12 +52,20 @@ function extractQuotedProp(source, prop) {
 
 function extractStaticSeo(sourceFile) {
   const source = read(sourceFile);
-  const title = extractQuotedProp(source, 'title');
-  const description = extractQuotedProp(source, 'description');
-  const keywords = extractQuotedProp(source, 'keywords');
-  if (!title || !description) {
-    throw new Error(`Could not extract static SEO metadata from ${sourceFile}`);
+  const seoTag = source.match(/<SEO\b[\s\S]*?\/>/)?.[0];
+
+  if (!seoTag) {
+    throw new Error(`Could not locate a self-closing <SEO /> block in ${sourceFile}`);
   }
+
+  const title = extractQuotedProp(seoTag, 'title');
+  const description = extractQuotedProp(seoTag, 'description');
+  const keywords = extractQuotedProp(seoTag, 'keywords');
+
+  if (!title || !description) {
+    throw new Error(`Could not extract static SEO metadata from <SEO /> in ${sourceFile}`);
+  }
+
   return { title, description, keywords };
 }
 
