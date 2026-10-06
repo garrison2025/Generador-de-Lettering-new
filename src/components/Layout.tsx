@@ -108,7 +108,7 @@ export default function Layout() {
           <nav
             id="mobile-main-navigation"
             aria-label="Navegación principal móvil"
-            className="md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full left-0 max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain"
+            className="md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full left-0 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain pb-[env(safe-area-inset-bottom)]"
           >
             <div className="px-4 pt-2 pb-6 space-y-1">
               <Link to="/" onClick={() => setMobileMenuOpen(false)} className={`block px-3 py-3 rounded-md text-base font-medium ${location.pathname === '/' ? 'text-[#4F46E5] bg-indigo-50' : 'text-gray-900 hover:bg-gray-50'}`}>Inicio</Link>
