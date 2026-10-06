@@ -42,6 +42,11 @@ function validateUnicodeMaps() {
       path: 'src/pages/GeneradorNombresInstagram.tsx',
       expected: 62,
       mode: 'mapping'
+    },
+    {
+      path: 'src/pages/LetrasTikTok.tsx',
+      expected: 52,
+      mode: 'inline-convert'
     }
   ];
 
@@ -65,7 +70,7 @@ function validateUnicodeMaps() {
           failures.push(`${key}=${length}`);
         }
       }
-    } else {
+    } else if (config.mode === 'mapping') {
       const regex = /mapping:\s*'([^'\n]*)'/gm;
       let match;
       let index = 0;
@@ -77,6 +82,21 @@ function validateUnicodeMaps() {
         }
         index += 1;
       }
+    } else if (config.mode === 'inline-convert') {
+      const regex = /id:\s*'([^']+)'[\s\S]*?convert:\s*\(t:\s*string\)\s*=>\s*convertFont\(t,\s*'([^'\n]*)'\)/g;
+      let match;
+      let count = 0;
+
+      while ((match = regex.exec(source))) {
+        const [, styleId, mapping] = match;
+        const length = Array.from(mapping).length;
+        if (length !== config.expected) {
+          failures.push(`${styleId}=${length}`);
+        }
+        count += 1;
+      }
+
+      assert(count > 0, `No inline convertFont mappings found in ${config.path}`);
     }
 
     assert(
