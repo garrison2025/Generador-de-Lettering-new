@@ -490,10 +490,12 @@ export function ControlPanel() {
                          onClick={() => store.updateState({ textColor: color })}
                          className={`w-8 h-8 rounded-full border-2 ${store.textColor === color ? 'border-[#5A4AD2] scale-110 shadow-sm' : 'border-gray-200'} transition-all`}
                          style={{ backgroundColor: color }}
+                         aria-label={`Color de texto ${color}`}
                        />
                      ))}
                      <input
                        type="color"
+                       aria-label="Color de texto personalizado"
                        value={store.textColor}
                        onFocus={() => beginColorEdit('textColor', store.textColor)}
                        onPointerDown={() => beginColorEdit('textColor', store.textColor)}
@@ -508,6 +510,7 @@ export function ControlPanel() {
                        <span className="text-[10px] text-gray-500">Inicio</span>
                        <input
                          type="color"
+                         aria-label="Color inicial del degradado"
                          value={store.gradientStartColor}
                          onFocus={() => beginColorEdit('gradientStartColor', store.gradientStartColor)}
                          onPointerDown={() => beginColorEdit('gradientStartColor', store.gradientStartColor)}
@@ -521,6 +524,7 @@ export function ControlPanel() {
                        <span className="text-[10px] text-gray-500">Fin</span>
                        <input
                          type="color"
+                         aria-label="Color final del degradado"
                          value={store.gradientEndColor}
                          onFocus={() => beginColorEdit('gradientEndColor', store.gradientEndColor)}
                          onPointerDown={() => beginColorEdit('gradientEndColor', store.gradientEndColor)}
@@ -678,7 +682,8 @@ export function ControlPanel() {
                   <div className="flex justify-between items-center">
                     <label className="text-xs font-semibold text-gray-700">Filtro de Fondo (Oscurecer)</label>
                     <input 
-                      type="color" 
+                      type="color"
+                      aria-label="Color del filtro de fondo"
                       value={store.overlayColor}
                       onFocus={() => beginColorEdit('overlayColor', store.overlayColor)}
                       onPointerDown={() => beginColorEdit('overlayColor', store.overlayColor)}
@@ -741,6 +746,7 @@ export function ControlPanel() {
                   <label className="text-xs font-medium text-gray-700">Color</label>
                   <input
                     type="color"
+                    aria-label="Color de la sombra"
                     value={store.shadowColor}
                     onFocus={() => beginColorEdit('shadowColor', store.shadowColor)}
                     onPointerDown={() => beginColorEdit('shadowColor', store.shadowColor)}
@@ -764,6 +770,7 @@ export function ControlPanel() {
                   <label className="text-xs font-medium text-gray-700">Color</label>
                   <input
                     type="color"
+                    aria-label="Color del contorno"
                     value={store.strokeColor}
                     onFocus={() => beginColorEdit('strokeColor', store.strokeColor)}
                     onPointerDown={() => beginColorEdit('strokeColor', store.strokeColor)}
