@@ -20,6 +20,17 @@ const blogCollectionSchema = {
   }
 };
 
+const BLOG_DATE_FORMATTER = new Intl.DateTimeFormat('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
+function formatBlogDate(date: string) {
+  return BLOG_DATE_FORMATTER.format(new Date(`${date}T00:00:00Z`));
+}
+
 const blogBreadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -60,7 +71,11 @@ export default function Blog() {
             <h2 className="text-2xl font-bold mb-4 leading-tight text-gray-900 hover:text-[#5A4AD2] transition-colors">
               <Link to={`/blog/${post.slug}`}>{post.title}</Link>
             </h2>
-            <p className="text-sm text-gray-500 font-medium mb-4">{new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            <p className="text-sm text-gray-500 font-medium mb-4">
+              {post.updated && post.updated !== post.date
+                ? <>Actualizado {formatBlogDate(post.updated)}</>
+                : <>Publicado {formatBlogDate(post.date)}</>}
+            </p>
             <p className="text-gray-600 mb-8 flex-1 leading-relaxed">{post.excerpt}</p>
             <Link to={`/blog/${post.slug}`} aria-label={`Leer artículo completo sobre ${post.title}`} className="text-[#5A4AD2] font-bold text-sm hover:underline flex items-center group">
               Leer artículo completo 
