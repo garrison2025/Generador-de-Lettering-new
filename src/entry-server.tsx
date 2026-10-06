@@ -4,6 +4,7 @@ import { renderToPipeableStream } from 'react-dom/server';
 import { Route, Routes, StaticRouter } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
+import Editor from './pages/Editor';
 import Plantillas from './pages/Plantillas';
 import Herramientas from './pages/Herramientas';
 import PaletasColor from './pages/PaletasColor';
@@ -16,6 +17,7 @@ import LetrasTikTok from './pages/LetrasTikTok';
 import ConversorLetrasBonitas from './pages/ConversorLetrasBonitas';
 import GeneradorNombresInstagram from './pages/GeneradorNombresInstagram';
 import GeneradorNombresFreeFire from './pages/GeneradorNombresFreeFire';
+import CreadorLettering from './pages/CreadorLettering';
 
 function PageLoader() {
   return (
@@ -31,6 +33,7 @@ function PrerenderRoutes() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="editor" element={<Editor />} />
           <Route path="plantillas" element={<Plantillas />} />
           <Route path="herramientas" element={<Herramientas />} />
           <Route path="herramientas/paletas-de-color" element={<PaletasColor />} />
@@ -43,6 +46,7 @@ function PrerenderRoutes() {
           <Route path="herramientas/conversor-letras-bonitas" element={<ConversorLetrasBonitas />} />
           <Route path="herramientas/generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />
           <Route path="herramientas/generador-de-nombres-para-free-fire" element={<GeneradorNombresFreeFire />} />
+          <Route path="herramientas/creador-de-lettering" element={<CreadorLettering />} />
         </Route>
       </Routes>
     </Suspense>
