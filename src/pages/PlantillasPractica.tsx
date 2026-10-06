@@ -89,6 +89,40 @@ function generateSVG(title: string) {
   </svg>`;
 }
 
+const practiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Plantillas de Práctica de Lettering",
+  "url": "https://generadordelettering.org/herramientas/plantillas-practica",
+  "description": "Genera y descarga hojas A4 en SVG para practicar trazos, alfabetos y conexiones de lettering.",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+const practiceBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://generadordelettering.org/" },
+    { "@type": "ListItem", "position": 2, "name": "Herramientas", "item": "https://generadordelettering.org/herramientas" },
+    { "@type": "ListItem", "position": 3, "name": "Plantillas de Práctica", "item": "https://generadordelettering.org/herramientas/plantillas-practica" }
+  ]
+};
+
+function slugifyTitle(title: string) {
+  return title
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 export default function PlantillasPractica() {
   const [downloading, setDownloading] = useState<string | null>(null);
 
@@ -101,11 +135,13 @@ export default function PlantillasPractica() {
     
     const a = document.createElement('a');
     a.href = url;
-    a.download = `plantilla-${title.toLowerCase().replace(/\\s+/g, '-')}.svg`;
+    a.download = `plantilla-${slugifyTitle(title)}.svg`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+
+    // Give Safari and other browsers time to consume the Blob URL before release.
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     
     setTimeout(() => {
       setDownloading(null);
@@ -118,12 +154,17 @@ export default function PlantillasPractica() {
         title="Plantillas de Práctica de Lettering | Descargar SVG Gratis"
         description="Descarga guías y plantillas de práctica imprimibles para lettering y caligrafía. Trazos básicos, minúsculas y mayúsculas gratis."
         keywords="plantillas de practica lettering, descargar plantillas caligrafia, guias lettering gratis, hojas de practica lettering"
+        canonical="https://generadordelettering.org/herramientas/plantillas-practica"
+        jsonSchema={[practiceSchema, practiceBreadcrumbSchema]}
       />
     <div className="max-w-7xl mx-auto px-4 py-12 w-full">
-      <Link to="/" className="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-[#5A4AD2] mb-8 transition-colors">
-        <ChevronLeft className="w-4 h-4 mr-1" />
-        Volver a inicio
-      </Link>
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
+        <Link to="/" className="hover:text-[#5A4AD2] transition-colors">Inicio</Link>
+        <span>/</span>
+        <Link to="/herramientas" className="hover:text-[#5A4AD2] transition-colors">Herramientas</Link>
+        <span>/</span>
+        <span className="text-gray-900">Plantillas de Práctica</span>
+      </nav>
 
       <div className="text-center mb-12">
         <span className="inline-block px-3 py-1 bg-[#5A4AD2]/10 text-[#5A4AD2] text-sm font-bold rounded-full mb-4">Recursos Gratuitos</span>
