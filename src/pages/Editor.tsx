@@ -59,7 +59,7 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
       <div className="flex flex-col lg:flex-row gap-8 items-start">
         {/* On mobile, canvas is at top and sticky, on desktop canvas takes remaining space */}
         <div className="flex-1 flex flex-col gap-6 w-full order-1 lg:order-2">
-           <div className="bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col sticky lg:relative top-0 z-20">
+           <div className="bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col sticky lg:relative top-16 lg:top-0 z-20">
              <div className="p-3 lg:p-4 border-b border-gray-100 flex justify-between items-center bg-white rounded-t-xl z-10">
                <h2 className="font-bold text-lg text-gray-900 hidden sm:block">Vista Previa</h2>
                
