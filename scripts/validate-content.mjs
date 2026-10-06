@@ -390,6 +390,27 @@ function validateRemovedUiImports() {
   }
 }
 
+function validateEditorHistoryMemorySafety() {
+  const source = read('store/useEditorStore.ts');
+
+  assert(
+    source.includes("type EditorHistoryState = Omit<EditorState, 'backgroundImage'>;"),
+    'Editor history must exclude backgroundImage payloads'
+  );
+  assert(
+    !/past:\s*EditorState\[\]/.test(source) && !/future:\s*EditorState\[\]/.test(source),
+    'Editor history arrays must not store full EditorState objects'
+  );
+  assert(
+    !/past:\s*\[[^\]]*extractState\(state\)/s.test(source),
+    'Undo history must not snapshot backgroundImage through extractState(state)'
+  );
+  assert(
+    !/future:\s*\[[^\]]*extractState\(state\)/s.test(source),
+    'Redo history must not snapshot backgroundImage through extractState(state)'
+  );
+}
+
 function validateEditorStoreUsage() {
   const files = [
     'src/pages/Editor.tsx',
@@ -524,6 +545,7 @@ validateMonetizationConfig();
 validatePublicAssets();
 validateClipboardUsage();
 validateRemovedUiImports();
+validateEditorHistoryMemorySafety();
 validateEditorStoreUsage();
 validateLegacyCanonicalUrls();
 validateTrustAndBreadcrumbs();
