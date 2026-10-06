@@ -51,11 +51,12 @@ export function render(url: string): Promise<string> {
     let html = '';
     let renderError: unknown = null;
     let settled = false;
+    let timeout: ReturnType<typeof setTimeout> | null = null;
 
     const finish = (error?: unknown) => {
       if (settled) return;
       settled = true;
-      clearTimeout(timeout);
+      if (timeout) clearTimeout(timeout);
 
       if (error) {
         reject(error instanceof Error ? error : new Error(String(error)));
@@ -95,7 +96,7 @@ export function render(url: string): Promise<string> {
       }
     );
 
-    const timeout = setTimeout(() => {
+    timeout = setTimeout(() => {
       abort();
       finish(new Error(`SSR prerender timed out for ${url}`));
     }, 15000);
