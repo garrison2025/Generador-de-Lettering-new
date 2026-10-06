@@ -170,7 +170,7 @@ const faqSchema = {
       "name": "¿Por qué algunas fuentes no funcionan en el usuario (@username)?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Instagram requiere que el ID único de usuario (@username) contenga solo letras estándar, números, puntos y guiones bajos por motivos de búsqueda del sistema. Sin embargo, en el campo de 'Nombre' visible y en la 'Biografía' (Bio) puedes usar todas las letras bonitas y símbolos que desees."
+        "text": "Instagram aplica una validación más estricta al @username y puede rechazar la mayoría de estilos Unicode decorativos. En el campo de Nombre visible y en la Biografía suelen aceptarse más caracteres Unicode, aunque la apariencia y compatibilidad pueden variar según la app y el dispositivo."
       }
     },
     {
@@ -1003,8 +1003,8 @@ export default function GeneradorNombresInstagram() {
                         href={`https://www.instagram.com/${username}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`Comprobar @${username} en Instagram`}
-                        title="Verificar disponibilidad en Instagram"
+                        aria-label={`Abrir @${username} en Instagram`}
+                        title="Abrir este nombre en Instagram"
                         className="p-1.5 bg-gray-200 hover:bg-pink-100 hover:text-pink-600 rounded-lg text-gray-600 transition"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -1062,7 +1062,7 @@ export default function GeneradorNombresInstagram() {
                 ¿Por qué algunas fuentes o símbolos no se ven en el @username?
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Instagram permite la gran mayoría de letras y símbolos Unicode para el campo "Nombre" visible y para la "Biografía". Sin embargo, para la casilla técnica de usuario (@username) Instagram exige caracteres alfanuméricos tradicionales. Por eso te recomendamos usar estas fuentes en tu Nombre visible y Bio.
+                Instagram aplica reglas más estrictas al @username y puede rechazar muchos estilos Unicode decorativos. El campo "Nombre" visible y la "Biografía" suelen admitir más caracteres, aunque la apariencia y compatibilidad pueden variar. Por eso recomendamos usar las letras decoradas principalmente en el Nombre visible y la Bio.
               </p>
             </div>
 
