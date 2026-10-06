@@ -135,6 +135,28 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
       ];
     }
 
+    if (currentPath?.includes('invisibles') || currentPath?.includes('espacio-invisible')) {
+      return [
+        '/herramientas/conversor-texto',
+        '/herramientas/generador-de-nombres-para-free-fire',
+        '/herramientas/letras-free-fire',
+        '/herramientas/letras-azules',
+        '/herramientas/conversor-letras-bonitas',
+        '/herramientas/letras-tiktok'
+      ];
+    }
+
+    if (currentPath?.includes('lettering') || currentPath?.includes('caligrafia') || currentPath?.includes('tipografia')) {
+      return [
+        '/herramientas/creador-de-lettering',
+        '/herramientas/combinador-de-fuentes',
+        '/herramientas/paletas-de-color',
+        '/herramientas/plantillas-practica',
+        '/herramientas/conversor-texto',
+        '/herramientas/conversor-letras-bonitas'
+      ];
+    }
+
     return [
       '/herramientas/creador-de-lettering',
       '/herramientas/conversor-texto',
