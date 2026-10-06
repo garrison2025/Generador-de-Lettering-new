@@ -1,8 +1,37 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useEditorStore } from '@/store/useEditorStore';
-import { Slider } from "@/components/ui/slider";
 import { FONTS, PRESET_COLORS } from '@/lib/fonts';
 import { AlignLeft, AlignCenter, AlignRight, Check, ChevronDown } from 'lucide-react';
+
+type LocalSliderProps = {
+  value: number[];
+  onValueChange: (value: number[]) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  className?: string;
+};
+
+function Slider({
+  value,
+  onValueChange,
+  min = 0,
+  max = 100,
+  step = 1,
+  className = ''
+}: LocalSliderProps) {
+  return (
+    <input
+      type="range"
+      value={value[0] ?? min}
+      min={min}
+      max={max}
+      step={step}
+      onChange={(event) => onValueChange([Number(event.target.value)])}
+      className={`h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-[#5A4AD2] ${className}`}
+    />
+  );
+}
 
 export function ControlPanel() {
   const store = useEditorStore();
