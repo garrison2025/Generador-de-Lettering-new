@@ -145,6 +145,21 @@ for (const route of seoLandingRoutes) {
 
 pages.push(...extractBlogPosts());
 
+const sitemap = read('public/sitemap.xml');
+const sitemapRoutes = [...sitemap.matchAll(/<loc>https:\/\/generadordelettering\.org([^<]*)<\/loc>/g)]
+  .map((match) => match[1] || '/');
+const pageRoutes = pages.map((page) => page.route);
+
+const missingHeadShells = sitemapRoutes.filter((route) => !pageRoutes.includes(route));
+const extraHeadShells = pageRoutes.filter((route) => !sitemapRoutes.includes(route));
+
+if (missingHeadShells.length > 0) {
+  throw new Error(`Sitemap routes missing static head shells: ${missingHeadShells.join(', ')}`);
+}
+if (extraHeadShells.length > 0) {
+  throw new Error(`Static head shells not present in sitemap: ${extraHeadShells.join(', ')}`);
+}
+
 const seen = new Set();
 for (const page of pages) {
   if (seen.has(page.route)) throw new Error(`Duplicate static head route: ${page.route}`);
