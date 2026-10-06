@@ -118,21 +118,23 @@ export default function PaletasColor() {
             <div key={palette.name} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300">
               <div className="flex h-24">
                 {palette.colors.map((color) => (
-                  <div 
-                    key={color} 
-                    className="flex-1 cursor-pointer group relative"
+                  <button
+                    key={color}
+                    type="button"
+                    aria-label={`Copiar color ${color} de la paleta ${palette.name}`}
+                    className="flex-1 cursor-pointer group relative focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-inset"
                     style={{ backgroundColor: color }}
                     onClick={() => copyToClipboard(color, 'color')}
                   >
-                    <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition bg-black/40 backdrop-blur-[2px]">
+                    <span className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition bg-black/40 backdrop-blur-[2px]">
                       {copiedColor === color ? (
                         <Check className="w-5 h-5 text-white mb-1" />
                       ) : (
                         <Copy className="w-5 h-5 text-white mb-1" />
                       )}
                       <span className="text-[10px] text-white font-mono font-bold tracking-wider">{color}</span>
-                    </div>
-                  </div>
+                    </span>
+                  </button>
                 ))}
               </div>
               <button
