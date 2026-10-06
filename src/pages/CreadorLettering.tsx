@@ -307,6 +307,8 @@ export default function CreadorLettering() {
                   backgroundImage: null,
                   overlayOpacity: 0,
                   rotation: 0,
+                  textOffsetX: 0,
+                  textOffsetY: 0,
                   textOpacity: 1,
                 })}
                 className="p-3 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:border-[#5A4AD2] hover:shadow-md transition text-left flex flex-col justify-between h-20 group"
