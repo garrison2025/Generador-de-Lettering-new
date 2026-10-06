@@ -112,11 +112,11 @@ export default function LetrasTikTok() {
   };
 
   const toggleFavorite = (text: string) => {
-    if (favorites.includes(text)) {
-      setFavorites(favorites.filter(f => f !== text));
-    } else {
-      setFavorites([...favorites, text]);
-    }
+    setFavorites((current) =>
+      current.includes(text)
+        ? current.filter((item) => item !== text)
+        : [...current, text].slice(-50)
+    );
   };
 
   const addSymbolToInput = (symbol: string) => {
