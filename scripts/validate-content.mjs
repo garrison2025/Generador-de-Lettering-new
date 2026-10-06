@@ -150,6 +150,28 @@ function validateLlmsLinks() {
   }
 }
 
+function validatePublicAssets() {
+  const required = [
+    'public/favicon-32x32.png',
+    'public/icon.svg',
+    'public/apple-touch-icon.png',
+    'public/og-image.jpg',
+    'public/og-image.webp',
+    'public/llms.txt',
+    'public/llms-full.txt',
+    'public/pwa-192x192.png',
+    'public/pwa-512x512.png',
+    'public/robots.txt',
+    'public/sitemap.xml',
+    'public/_headers',
+    'public/_redirects'
+  ];
+
+  for (const path of required) {
+    assert(fs.existsSync(path), `Required public asset is missing: ${path}`);
+  }
+}
+
 function validateEditorStoreUsage() {
   const files = [
     'src/pages/Editor.tsx',
@@ -205,6 +227,7 @@ function validateTrustAndBreadcrumbs() {
 validateUnicodeMaps();
 validateRoutesAndSitemap();
 validateLlmsLinks();
+validatePublicAssets();
 validateEditorStoreUsage();
 validateTrustAndBreadcrumbs();
 
