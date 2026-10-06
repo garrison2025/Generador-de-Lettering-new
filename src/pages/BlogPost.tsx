@@ -35,7 +35,7 @@ export default function BlogPost() {
             "description": post.excerpt,
             "image": post.image ? [post.image] : [],
             "datePublished": post.date,
-            "dateModified": post.date,
+            "dateModified": post.updated || post.date,
             "author": {
               "@type": "Organization",
               "name": "Generador de Lettering",
@@ -46,7 +46,7 @@ export default function BlogPost() {
               "name": "Generador de Lettering",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://generadordelettering.org/og-image.jpg"
+                "url": "https://generadordelettering.org/icon.svg"
               }
             }
           },
@@ -88,9 +88,16 @@ export default function BlogPost() {
             <h1 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight leading-tight">
               {post.title}
             </h1>
-            <div className="flex items-center justify-center text-sm text-gray-500 font-medium">
-              <Calendar className="w-4 h-4 mr-2" />
-              <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-gray-500 font-medium">
+              <span className="inline-flex items-center">
+                <Calendar className="w-4 h-4 mr-2" />
+                Publicado <time className="ml-1" dateTime={post.date}>{new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+              </span>
+              {post.updated && post.updated !== post.date && (
+                <span>
+                  · Actualizado <time dateTime={post.updated}>{new Date(post.updated).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                </span>
+              )}
             </div>
           </header>
 
