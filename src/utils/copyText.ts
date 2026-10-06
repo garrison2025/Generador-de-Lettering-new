@@ -10,6 +10,10 @@ export async function copyText(text: string): Promise<boolean> {
     }
   }
 
+  const activeElement = document.activeElement instanceof HTMLElement
+    ? document.activeElement
+    : null;
+
   const textarea = document.createElement('textarea');
   textarea.value = text;
   textarea.setAttribute('readonly', '');
@@ -29,5 +33,6 @@ export async function copyText(text: string): Promise<boolean> {
     return false;
   } finally {
     textarea.remove();
+    activeElement?.focus({ preventScroll: true });
   }
 }
