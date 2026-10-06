@@ -266,13 +266,13 @@ export default function ConversorTexto() {
       <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-6 md:p-8 mb-8">
         <div className="flex justify-between items-end mb-3">
           <label htmlFor="text-input" className="block text-sm font-bold text-gray-700 uppercase tracking-wider">Escribe tu texto aquí:</label>
-          <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{inputCharacterCount} caracteres / {inputText.split(/\s+/).filter(w => w.length > 0).length} palabras</span>
+          <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{inputCharacterCount}/500 caracteres · {inputText.split(/\s+/).filter(w => w.length > 0).length} palabras</span>
         </div>
         <div className="relative">
           <textarea
             id="text-input"
             value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
+            onChange={(e) => setInputText(Array.from(e.target.value).slice(0, 500).join(''))}
             className="w-full h-32 p-4 bg-gray-50 border-2 border-gray-100 rounded-xl focus:ring-0 focus:border-[#5A4AD2] outline-none resize-none text-xl font-medium pr-12 transition-all shadow-inner placeholder:text-gray-500"
             placeholder="Escribe algo increíble..."
           />
