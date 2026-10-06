@@ -62,7 +62,7 @@ const faqSchema = {
       "name": "¿Cómo copiar letras y símbolos raros para FF?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Es muy simple. Escribe la base de tu nombre en nuestro Creador de Letras para Free Fire, haz clic en tu diseño favorito para copiarlo automáticamente, abre el juego, ve a tu Perfil y presiona el lápiz de editar nombre, luego mantén presionado y selecciona 'Pegar'. Todos nuestros símbolos son aceptados por Garena."
+        "text": "Es muy simple. Escribe la base de tu nombre en nuestro Creador de Letras para Free Fire, haz clic en tu diseño favorito para copiarlo automáticamente, abre el juego, ve a tu Perfil y presiona el lápiz de editar nombre, luego mantén presionado y selecciona 'Pegar'. La compatibilidad de algunos símbolos puede variar según la versión del juego, la región o futuras actualizaciones de Garena; si uno no funciona, prueba una variante más corta."
       }
     },
     {
@@ -242,7 +242,7 @@ export default function LetrasFreeFire() {
 
       <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
         <span className="bg-[#FACC15] w-2 h-6 inline-block rounded-sm"></span>
-        Nombres Generados Generador de Lettering
+        Nombres y Letras para Free Fire Generados
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -306,6 +306,13 @@ export default function LetrasFreeFire() {
         <Link to="/blog/mejores-nombres-insanos-free-fire" className="inline-flex items-center gap-2 bg-[#FACC15] hover:bg-yellow-500 text-gray-900 font-bold py-2 px-6 rounded-lg transition-colors text-sm">
           Leer la Guía de Nombres Insanos &rarr;
         </Link>
+        <p className="text-xs text-gray-600 mt-4">
+          ¿Necesitas prefijos de clan, nombres para dúos, favoritos y espacio invisible?
+          {' '}
+          <Link to="/herramientas/generador-de-nombres-para-free-fire" className="font-bold text-amber-700 hover:underline">
+            Abrir el generador avanzado de nicks
+          </Link>
+        </p>
       </div>
 
       <section className="mt-16 text-left space-y-8 bg-yellow-50/50 p-8 rounded-3xl border border-yellow-100">
@@ -325,7 +332,7 @@ export default function LetrasFreeFire() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Cómo copiar letras y símbolos raros para FF?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Es muy simple. Escribe la base de tu nombre en nuestro <strong>Creador de Letras para Free Fire</strong>, haz clic en tu diseño favorito para copiarlo automáticamente, abre el juego, ve a tu Perfil y presiona el lápiz de editar nombre, luego mantén presionado y selecciona "Pegar". Todos nuestros símbolos son aceptados por Garena.
+              Es muy simple. Escribe la base de tu nombre en nuestro <strong>Creador de Letras para Free Fire</strong>, haz clic en tu diseño favorito para copiarlo automáticamente, abre el juego, ve a tu Perfil y presiona el lápiz de editar nombre, luego mantén presionado y selecciona "Pegar". La compatibilidad de algunos símbolos puede variar según la versión del juego, la región o futuras actualizaciones de Garena; si uno no funciona, prueba una variante más corta.
             </p>
           </div>
 
