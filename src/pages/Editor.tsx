@@ -1,10 +1,28 @@
+import { lazy, Suspense } from 'react';
 import { Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { CanvasArea } from '../components/Editor/CanvasArea';
 import { ControlPanel } from '../components/Editor/ControlPanel';
 import { useEditorStore } from '@/store/useEditorStore';
 import { useEditorShortcuts } from '../hooks/useEditorShortcuts';
 import { SEO } from '../components/SEO';
+
+const CanvasArea = lazy(() =>
+  import('../components/Editor/CanvasArea').then((module) => ({
+    default: module.CanvasArea,
+  }))
+);
+
+function CanvasLoadingFallback() {
+  return (
+    <div
+      className="h-full w-full flex items-center justify-center bg-[#F8F9FC] text-sm text-gray-500"
+      role="status"
+      aria-live="polite"
+    >
+      Cargando vista previa…
+    </div>
+  );
+}
 
 export default function Editor({ embedded = false }: { embedded?: boolean }) {
   const canUndo = useEditorStore((state) => state.past.length > 0);
@@ -80,7 +98,9 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
                </details>
              </div>
              <div className="h-[250px] md:h-[400px] w-full relative bg-[#F8F9FC]">
-               <CanvasArea />
+               <Suspense fallback={<CanvasLoadingFallback />}>
+                 <CanvasArea />
+               </Suspense>
              </div>
               <div className="p-3 lg:p-4 border-t border-gray-100 flex flex-wrap gap-2 lg:gap-4 bg-white rounded-b-xl">
                 <button 
