@@ -125,6 +125,33 @@ function validateRoutesAndSitemap() {
   );
 }
 
+function validateBlogLastmod() {
+  const blog = read('src/data/blogPosts.ts');
+  const sitemap = read('public/sitemap.xml');
+
+  const posts = [
+    ...blog.matchAll(
+      /slug:\s*'([^']+)'[\s\S]*?date:\s*'([^']+)'(?:,\s*\n\s*updated:\s*'([^']+)')?/g
+    )
+  ].map((match) => ({
+    slug: match[1],
+    lastmod: match[3] || match[2]
+  }));
+
+  for (const post of posts) {
+    const route = `https://generadordelettering.org/blog/${post.slug}`;
+    const entryPattern = new RegExp(
+      `<loc>${route.replace(/[.*+?^$\{\}()|[\\]\\]/g, '\\\\function validateLlmsLinks() {')}<\\/loc>\\s*<lastmod>([^<]+)<\\/lastmod>`
+    );
+    const sitemapLastmod = sitemap.match(entryPattern)?.[1];
+
+    assert(
+      sitemapLastmod === post.lastmod,
+      `Blog lastmod mismatch for ${post.slug}: expected ${post.lastmod}, found ${sitemapLastmod || 'missing'}`
+    );
+  }
+}
+
 function validateLlmsLinks() {
   const sitemap = read('public/sitemap.xml');
   const sitemapRoutes = new Set(
@@ -333,6 +360,7 @@ function validateTrustAndBreadcrumbs() {
 
 validateUnicodeMaps();
 validateRoutesAndSitemap();
+validateBlogLastmod();
 validateLlmsLinks();
 validateMonetizationConfig();
 validatePublicAssets();
