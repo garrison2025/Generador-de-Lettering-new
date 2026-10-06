@@ -87,7 +87,10 @@ const prerenderedUrls = new Set([
   'https://generadordelettering.org/herramientas/conversor-texto',
   'https://generadordelettering.org/herramientas/letras-azules',
   'https://generadordelettering.org/herramientas/letras-free-fire',
-  'https://generadordelettering.org/herramientas/conversor-letras-bonitas'
+  'https://generadordelettering.org/herramientas/letras-tiktok',
+  'https://generadordelettering.org/herramientas/conversor-letras-bonitas',
+  'https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram',
+  'https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire'
 ]);
 
 const generatedCanonicals = new Map();
