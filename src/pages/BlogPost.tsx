@@ -82,6 +82,7 @@ export default function BlogPost() {
         title={post.seoTitle || post.title}
         description={post.excerpt}
         keywords={post.keywords}
+        canonical={`https://generadordelettering.org/blog/${post.slug}`}
         type="article"
         image={post.image}
         publishedTime={post.date}
