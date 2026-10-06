@@ -576,13 +576,13 @@ export default function LetrasTikTok() {
           <section className="space-y-3">
             <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
               <Flame className="w-5 h-5 text-pink-500" />
-              Estilos de Letras Aesthetic más virales en TikTok
+              Estilos de Letras Aesthetic populares en TikTok
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80">
                 <h3 className="font-bold text-gray-900 mb-1 text-sm">✦ Letras Cursivas e Itálicas</h3>
                 <p className="text-xs text-gray-600">
-                  Ideales para un estilo elegante, femenino o suave (soft aesthetic). Perfectas para frases motivacionales y cuentas de moda.
+                  Ideales para un estilo elegante, femenino o suave (soft aesthetic). Funcionan bien en frases breves y perfiles de moda o lifestyle.
                 </p>
               </div>
               <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80">
