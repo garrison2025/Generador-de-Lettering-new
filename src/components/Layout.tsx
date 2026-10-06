@@ -6,7 +6,7 @@ import CookieConsent from './CookieConsent';
 export default function Layout() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const isEditor = location.pathname === '/editor' || location.pathname.startsWith('/generador-') || location.pathname.startsWith('/letras-');
+  const isEditor = location.pathname === '/editor';
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#F8F9FC]">
