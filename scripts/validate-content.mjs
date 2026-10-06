@@ -850,6 +850,8 @@ function validateSearchIntentOwnership() {
   const conversor = read('src/pages/ConversorTexto.tsx');
   const ffLetters = read('src/pages/LetrasFreeFire.tsx');
   const ffGenerator = read('src/pages/GeneradorNombresFreeFire.tsx');
+  const relatedTools = read('src/components/RelatedTools.tsx');
+  const layout = read('src/components/Layout.tsx');
 
   assert(
     home.includes('title="Generador de Lettering Online | Letras Personalizadas"'),
@@ -881,6 +883,15 @@ function validateSearchIntentOwnership() {
     'Home must link separately to creator and advanced editor'
   );
   assert(
+    (home.match(/to="\/editor"/g) || []).length === 1 &&
+    home.includes('Abrir Editor de Lettering Avanzado'),
+    'Home must reserve /editor for the explicit advanced-editor path, not generic create/template CTAs'
+  );
+  assert(
+    (home.match(/to="\/herramientas\/creador-de-lettering"/g) || []).length >= 5,
+    'Home generic create/template CTAs must reinforce the Creador de Lettering landing page'
+  );
+  assert(
     editor.includes('to="/herramientas/creador-de-lettering"') &&
     creator.includes('to="/editor"'),
     'Editor and creator must cross-link with distinct intent anchors'
@@ -890,6 +901,22 @@ function validateSearchIntentOwnership() {
     ffGenerator.includes('to="/herramientas/letras-free-fire"'),
     'Free Fire letters and advanced generator pages must cross-link'
   );
+  assert(
+    relatedTools.includes("title: 'Letras y Símbolos para Free Fire'") &&
+    !relatedTools.includes("title: 'Letras para Free Fire (Nick Insano)'"),
+    'RelatedTools must keep the Free Fire letters/symbols anchor distinct from name-generation intent'
+  );
+  for (const target of [
+    '/herramientas/conversor-texto',
+    '/herramientas/letras-free-fire',
+    '/herramientas/letras-tiktok',
+    '/herramientas/generador-de-nombres-para-instagram'
+  ]) {
+    assert(
+      layout.includes(`to="${target}"`),
+      `Sitewide layout must expose proven search-demand route: ${target}`
+    );
+  }
 }
 
 function validateTrustAndBreadcrumbs() {
