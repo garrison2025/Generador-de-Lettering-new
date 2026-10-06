@@ -467,13 +467,17 @@ export default function GeneradorNombresFreeFire() {
                 >
                   <span className="text-sm font-bold text-gray-900">{saved}</span>
                   <button 
+                    type="button"
                     onClick={() => copyToClipboard(saved, `saved-${idx}`)}
+                    aria-label={`Copiar nick favorito ${saved}`}
                     className="text-xs font-bold text-amber-600 hover:text-amber-800 transition ml-1"
                   >
                     {copiedId === `saved-${idx}` ? '✓' : <Copy className="w-3.5 h-3.5" />}
                   </button>
                   <button 
+                    type="button"
                     onClick={() => toggleSaveNick(saved)}
+                    aria-label={`Eliminar nick favorito ${saved}`}
                     className="text-xs text-gray-300 hover:text-red-500 transition ml-1"
                   >
                     ✕
