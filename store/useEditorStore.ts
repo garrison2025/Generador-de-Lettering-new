@@ -117,6 +117,7 @@ export const useEditorStore = create<EditorStore>()(
         text: RANDOM_TEXTS[Math.floor(Math.random() * RANDOM_TEXTS.length)],
         fontFamily: RANDOM_FONTS[Math.floor(Math.random() * RANDOM_FONTS.length)],
         textColor: RANDOM_COLORS[Math.floor(Math.random() * RANDOM_COLORS.length)],
+        isGradient: false,
         past: [...state.past, extractState(state)].slice(-20),
         future: []
       })),
