@@ -156,7 +156,7 @@ export default function LetrasTikTok() {
         "name": "▲ ¿Las fuentes creadas son compatibles con iPhone y Android en TikTok?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "¡Sí! Todas las letras bonitas y símbolos que genera nuestra herramienta utilizan caracteres Unicode estándar, compatibles al 100% con la aplicación de TikTok tanto en iOS (iPhone/iPad) como en Android y la versión web de TikTok."
+          "text": "Las letras y símbolos se basan en caracteres Unicode estándar y suelen funcionar en TikTok para iOS, Android y web. La apariencia exacta puede variar según el dispositivo, la fuente disponible o futuras actualizaciones de la plataforma."
         }
       },
       {
@@ -164,7 +164,7 @@ export default function LetrasTikTok() {
         "name": "▲ ¿Puedo usar estas letras en los comentarios y nombres de usuario de TikTok?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sí, puedes usar estas tipografías en tu nombre de usuario de TikTok, en la biografía, en las descripciones de tus videos y en los comentarios para llamar la atención de tus seguidores."
+          "text": "Puedes usar estas tipografías en el nombre visible, la biografía, las descripciones y los comentarios. El @username puede tener reglas más estrictas y no aceptar todos los caracteres Unicode."
         }
       },
       {
@@ -252,7 +252,7 @@ export default function LetrasTikTok() {
                 Conversor de <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400">Letras Bonitas para TikTok</span>
               </h1>
               <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-                Transforma tu texto en tipografías únicas, letras cursivas, góticas y símbolos aesthetic para destacar en tu **Bio, nombres de usuario y comentarios de TikTok**. ¡Copia y pega en un clic!
+                Transforma tu texto en tipografías únicas, letras cursivas, góticas y símbolos aesthetic para destacar en tu <strong>Bio, nombre visible y comentarios de TikTok</strong>. ¡Copia y pega en un clic!
               </p>
             </div>
 
@@ -260,7 +260,7 @@ export default function LetrasTikTok() {
             <div className="hidden lg:flex flex-col gap-2 p-4 rounded-2xl bg-gray-800/80 border border-gray-700/80 backdrop-blur text-xs">
               <div className="flex items-center gap-2 text-pink-400 font-bold">
                 <CheckCircle2 className="w-4 h-4 text-cyan-400" />
-                Compatibilidad 100% TikTok
+                Unicode compatible con TikTok
               </div>
               <div className="text-gray-400">+50 Estilos Cursivos & Aesthetic</div>
               <div className="text-gray-400">Límite de Bio TikTok (80 chars)</div>
@@ -555,13 +555,13 @@ export default function LetrasTikTok() {
               ¿Cómo usar el Conversor de Letras Bonitas para TikTok?
             </h2>
             <p>
-              El **Generador de Fuentes para TikTok** te permite personalizar completamente el texto de tu biografía, nombre de usuario y comentarios con estilos tipográficos únicos (cursivas, fuentes góticas, letras encuadradas, letras pequeñas y símbolos aesthetic).
+              El <strong>Generador de Fuentes para TikTok</strong> te permite personalizar el texto de tu biografía, nombre visible y comentarios con estilos tipográficos únicos (cursivas, fuentes góticas, letras encuadradas, letras pequeñas y símbolos aesthetic).
             </p>
             <ol className="list-decimal list-inside space-y-2 font-medium text-gray-800 bg-gray-50 p-4 rounded-2xl border border-gray-100">
               <li>Escribe el texto deseado en el cuadro de entrada de la herramienta arriba.</li>
               <li>Explora la lista de tipografías generadas e inserta símbolos aesthetic si lo deseas.</li>
-              <li>Haz clic en el botón **"Copiar"** al lado del diseño que más te guste.</li>
-              <li>Abre la app de **TikTok**, dirígete a tu perfil, selecciona **Editar Perfil** y pega el texto en tu **Biografía** o **Nombre**.</li>
+              <li>Haz clic en el botón <strong>"Copiar"</strong> al lado del diseño que más te guste.</li>
+              <li>Abre la app de <strong>TikTok</strong>, dirígete a tu perfil, selecciona <strong>Editar Perfil</strong> y pega el texto en tu <strong>Biografía</strong> o <strong>Nombre</strong>.</li>
             </ol>
           </section>
 
