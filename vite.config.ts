@@ -17,7 +17,7 @@ export default defineConfig(() => {
         workbox: {
           cleanupOutdatedCaches: true,
           navigateFallback: null,
-          globPatterns: ['**/*.{js,css,ico,png,jpg,jpeg,svg,webp,webmanifest,txt}']
+          globPatterns: ['assets/*.css', 'manifest.webmanifest']
         },
         manifest: {
           name: 'Generador de Lettering',
