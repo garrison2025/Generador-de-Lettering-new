@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useEditorStore, type EditorState } from '@/store/useEditorStore';
 import { useShallow } from 'zustand/react/shallow';
-import { FONTS, PRESET_COLORS, loadFontPreviews } from '@/lib/fonts';
+import { FONTS, PRESET_COLORS, loadFont } from '@/lib/fonts';
 import { AlignLeft, AlignCenter, AlignRight, Check, ChevronDown } from 'lucide-react';
 
 type ColorField =
@@ -60,6 +60,67 @@ function Slider({
       onBlur={commitValue}
       className={`h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-[#5A4AD2] ${className}`}
     />
+  );
+}
+
+type FontDefinition = (typeof FONTS)[number];
+
+function FontOption({
+  font,
+  isSelected,
+  onSelect,
+}: {
+  font: FontDefinition;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const node = buttonRef.current;
+    if (!node) return;
+
+    const loadPreview = () => {
+      void loadFont(font.family);
+    };
+
+    if (typeof IntersectionObserver === 'undefined') {
+      loadPreview();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        loadPreview();
+        observer.disconnect();
+      },
+      {
+        root: node.parentElement,
+        rootMargin: '80px 0px',
+      }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [font.family]);
+
+  return (
+    <button
+      ref={buttonRef}
+      type="button"
+      className={`w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-[#FCD34D] transition-colors ${isSelected ? 'bg-gray-50' : ''}`}
+      onPointerEnter={() => void loadFont(font.family)}
+      onFocus={() => void loadFont(font.family)}
+      onClick={onSelect}
+    >
+      <div className="w-4 flex justify-center text-[#5A4AD2]">
+        {isSelected && <Check className="w-4 h-4" />}
+      </div>
+      <span className="text-xl px-1 py-1" style={{ fontFamily: font.family }}>
+        {font.group}
+      </span>
+    </button>
   );
 }
 
@@ -250,10 +311,7 @@ export function ControlPanel() {
                 <label className="text-xs font-semibold text-gray-700">Estilo de Letra</label>
                 <button 
                   type="button"
-                  onClick={() => {
-                    if (!isFontSelectOpen) void loadFontPreviews();
-                    setIsFontSelectOpen(!isFontSelectOpen);
-                  }}
+                  onClick={() => setIsFontSelectOpen(!isFontSelectOpen)}
                   className="w-full flex items-center justify-between border border-gray-200 rounded-lg p-3 bg-white hover:bg-gray-50 focus:ring-1 focus:ring-[#5A4AD2] outline-none text-left"
                 >
                   <span className="text-xl" style={{ fontFamily: selectedFont.family }}>{selectedFont.group}</span>
@@ -262,25 +320,17 @@ export function ControlPanel() {
 
                 {isFontSelectOpen && (
                   <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 shadow-lg rounded-lg py-1 z-50 max-h-64 overflow-y-auto">
-                    {FONTS.map(font => {
-                      const isSelected = store.fontFamily === font.family;
-                      return (
-                        <button
-                          key={font.family}
-                          type="button"
-                          className={`w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-[#FCD34D] transition-colors ${isSelected ? 'bg-gray-50' : ''}`}
-                          onClick={() => {
-                            store.updateState({ fontFamily: font.family });
-                            setIsFontSelectOpen(false);
-                          }}
-                        >
-                          <div className="w-4 flex justify-center text-[#5A4AD2]">
-                            {isSelected && <Check className="w-4 h-4" />}
-                          </div>
-                          <span className="text-xl px-1 py-1" style={{ fontFamily: font.family }}>{font.group}</span>
-                        </button>
-                      );
-                    })}
+                    {FONTS.map((font) => (
+                      <FontOption
+                        key={font.family}
+                        font={font}
+                        isSelected={store.fontFamily === font.family}
+                        onSelect={() => {
+                          store.updateState({ fontFamily: font.family });
+                          setIsFontSelectOpen(false);
+                        }}
+                      />
+                    ))}
                   </div>
                 )}
               </div>
