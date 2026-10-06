@@ -1,3 +1,4 @@
+import { copyText } from '../utils/copyText';
 import { useState, useDeferredValue, useEffect } from 'react';
 import { Copy, Check, Dices, Flame, Shield, Swords, Sparkles, Heart, Bookmark, Trash2, Users, Eye, Sliders, Zap, Award, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -161,8 +162,11 @@ export default function GeneradorNombresFreeFire() {
     }
   }, [savedNicks]);
 
-  const copyToClipboard = (text: string, id?: string) => {
-    navigator.clipboard.writeText(text);
+  const copyToClipboard = async (text: string, id?: string) => {
+    if (!(await copyText(text))) {
+      window.alert('No se pudo copiar automáticamente. Selecciona el nick y cópialo manualmente.');
+      return;
+    }
     setCopiedId(id || text);
     setTimeout(() => setCopiedId(null), 2000);
   };
