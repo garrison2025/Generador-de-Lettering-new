@@ -8,34 +8,11 @@ const CookieConsent = lazy(() => import('./CookieConsent'));
 export default function Layout() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [loadCookieConsent, setLoadCookieConsent] = useState(false);
   const isEditor = location.pathname === '/editor';
 
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
-
-  useEffect(() => {
-    if (loadCookieConsent) return;
-
-    const activate = () => {
-      setLoadCookieConsent(true);
-      cleanup();
-    };
-    const timer = window.setTimeout(activate, 8000);
-    const cleanup = () => {
-      window.clearTimeout(timer);
-      window.removeEventListener('scroll', activate);
-      window.removeEventListener('click', activate);
-      window.removeEventListener('touchstart', activate);
-    };
-
-    window.addEventListener('scroll', activate, { passive: true });
-    window.addEventListener('click', activate, { passive: true });
-    window.addEventListener('touchstart', activate, { passive: true });
-
-    return cleanup;
-  }, [loadCookieConsent]);
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#F8F9FC]">
@@ -205,6 +182,22 @@ export default function Layout() {
                   <li><Link to="/contacto" className="hover:text-[#4F46E5]">Contacto</Link></li>
                   <li><Link to="/politica-de-privacidad" className="hover:text-[#4F46E5]">Privacidad</Link></li>
                   <li><Link to="/terminos-y-condiciones" className="hover:text-[#4F46E5]">Términos</Link></li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        try {
+                          localStorage.removeItem('cookie_consent');
+                        } catch {
+                          // Reload still removes any in-memory ad scripts from this page.
+                        }
+                        window.location.reload();
+                      }}
+                      className="hover:text-[#4F46E5] text-left"
+                    >
+                      Preferencias de cookies
+                    </button>
+                  </li>
                   <li><a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="hover:text-[#4F46E5] text-xs text-gray-400">LLMs.txt (AI Spec)</a></li>
                 </ul>
               </div>
@@ -223,11 +216,9 @@ export default function Layout() {
           </div>
         </footer>
       )}
-      {loadCookieConsent && (
-        <Suspense fallback={null}>
-          <CookieConsent />
-        </Suspense>
-      )}
+      <Suspense fallback={null}>
+        <CookieConsent />
+      </Suspense>
     </div>
   );
 }
