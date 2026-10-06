@@ -458,6 +458,59 @@ function validateEditorStoreUsage() {
   }
 }
 
+function validateInternalLinks() {
+  const sitemap = read('public/sitemap.xml');
+  const validRoutes = new Set(
+    [...sitemap.matchAll(/<loc>https:\/\/generadordelettering\.org([^<]*)<\/loc>/g)]
+      .map((match) => match[1] || '/')
+  );
+
+  const sourceFiles = [];
+  function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = `${dir}/${entry.name}`;
+      if (entry.isDirectory()) {
+        walk(full);
+      } else if (/\.(?:tsx|ts)$/.test(entry.name)) {
+        sourceFiles.push(full);
+      }
+    }
+  }
+  walk('src');
+
+  const violations = [];
+
+  for (const path of sourceFiles) {
+    const source = read(path);
+    const links = [
+      ...source.matchAll(/(?:to|href)="(\/[^"#?]*)[^"]*"/g)
+    ].map((match) => match[1]);
+
+    for (const route of links) {
+      if (
+        route.startsWith('/assets/') ||
+        route.startsWith('/icon.') ||
+        route.startsWith('/favicon') ||
+        route.startsWith('/apple-touch-icon') ||
+        route.startsWith('/og-image') ||
+        route.startsWith('/pwa-') ||
+        route.startsWith('/manifest.')
+      ) {
+        continue;
+      }
+
+      if (!validRoutes.has(route)) {
+        violations.push(`${path}: ${route}`);
+      }
+    }
+  }
+
+  assert(
+    violations.length === 0,
+    `Internal route links missing from sitemap:\n- ${violations.join('\n- ')}`
+  );
+}
+
 function validateLegacyCanonicalUrls() {
   const roots = ['src', 'public'];
   const extensions = /\.(?:ts|tsx|js|mjs|html|xml|txt)$/;
@@ -578,6 +631,7 @@ validateClipboardUsage();
 validateRemovedUiImports();
 validateEditorHistoryMemorySafety();
 validateEditorStoreUsage();
+validateInternalLinks();
 validateLegacyCanonicalUrls();
 validateTrustAndBreadcrumbs();
 
