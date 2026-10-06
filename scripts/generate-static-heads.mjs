@@ -177,6 +177,13 @@ function make404Html(baseHtml) {
 
 const baseHtml = read('dist/index.html');
 
+if (fs.existsSync('dist/sw.js')) {
+  const serviceWorker = read('dist/sw.js');
+  if (serviceWorker.includes('index.html')) {
+    throw new Error('PWA service worker must not precache or navigate-fallback to index.html');
+  }
+}
+
 for (const heavyPreload of ['canvas-vendor', 'markdown-vendor']) {
   if (baseHtml.includes(heavyPreload)) {
     throw new Error(`Heavy route vendor leaked into initial HTML preload: ${heavyPreload}`);
