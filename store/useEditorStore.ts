@@ -209,12 +209,23 @@ export const useEditorStore = create<EditorStore>()(
         ...extractState(state),
         backgroundImage: null,
       }),
-      // Version 2 forces existing v1 browser data through migration so any
-      // previously persisted base64 background image is discarded on hydration.
-      migrate: (persistedState) => ({
-        ...(persistedState as Partial<EditorState>),
-        backgroundImage: null,
-      }),
+      // Version 2 forces existing v1 browser data through migration.
+      // Explicitly drop legacy history arrays and uploaded image data, then fill
+      // any fields that older persisted payloads did not contain.
+      migrate: (persistedState) => {
+        const {
+          past: _past,
+          future: _future,
+          backgroundImage: _backgroundImage,
+          ...legacyEditorState
+        } = (persistedState || {}) as Partial<EditorStore>;
+
+        return {
+          ...DEFAULT_STATE,
+          ...legacyEditorState,
+          backgroundImage: null,
+        };
+      },
     }
   )
 );
