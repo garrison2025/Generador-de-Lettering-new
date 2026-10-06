@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import { CanvasArea } from '../components/Editor/CanvasArea';
 import { ControlPanel } from '../components/Editor/ControlPanel';
 import { useEditorStore } from '@/store/useEditorStore';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 
 export default function CreadorLettering() {
   const updateState = useEditorStore((state) => state.updateState);
+  const canUndo = useEditorStore((state) => state.past.length > 0);
+  const canRedo = useEditorStore((state) => state.future.length > 0);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -209,7 +210,7 @@ export default function CreadorLettering() {
         "name": "¿Es necesario registrarse para usar el Creador de Lettering?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No, todas las herramientas de Generador de Lettering son 100% gratuitas y de acceso inmediato sin necesidad de crear cuenta ni instalar aplicaciones."
+          "text": "No necesitas registrarte ni instalar una aplicación. Las funciones disponibles actualmente en el Creador de Lettering se pueden utilizar de forma gratuita desde el navegador."
         }
       }
     ]
@@ -431,32 +432,37 @@ export default function CreadorLettering() {
                   <h2 className="font-bold text-base md:text-lg text-gray-900">Lienzo de Diseño</h2>
                 </div>
                 
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 bg-[#5A4AD2] text-white rounded-xl text-sm font-bold hover:bg-[#4338CA] transition shadow-sm">
+                <details className="relative">
+                  <summary className="list-none cursor-pointer flex items-center gap-2 px-4 py-2 bg-[#5A4AD2] text-white rounded-xl text-sm font-bold hover:bg-[#4338CA] transition shadow-sm">
                     <Download className="w-4 h-4" />
                     <span>Exportar Lettering</span>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'png', pixelRatio: 1 } }))}>
-                      Exportar como PNG (Normal)
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'png', pixelRatio: 3 } }))}>
-                      Exportar como PNG (Alta Res - HD)
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'jpeg', pixelRatio: 1 } }))}>
-                      Exportar como JPG (Normal)
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'jpeg', pixelRatio: 3 } }))}>
-                      Exportar como JPG (Alta Res - HD)
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'webp', pixelRatio: 1 } }))}>
-                      Exportar como WEBP (Web)
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('export-canvas', { detail: { format: 'webp', pixelRatio: 3 } }))}>
-                      Exportar como WEBP (Alta Res)
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                  </summary>
+                  <div className="absolute right-0 top-full mt-2 w-64 rounded-xl border border-gray-200 bg-white p-1.5 shadow-xl z-50">
+                    {[
+                      { label: 'PNG (Normal)', format: 'png', pixelRatio: 1 },
+                      { label: 'PNG (Alta Res - HD)', format: 'png', pixelRatio: 3 },
+                      { label: 'JPG (Normal)', format: 'jpeg', pixelRatio: 1 },
+                      { label: 'JPG (Alta Res - HD)', format: 'jpeg', pixelRatio: 3 },
+                      { label: 'WEBP (Web)', format: 'webp', pixelRatio: 1 },
+                      { label: 'WEBP (Alta Res)', format: 'webp', pixelRatio: 3 }
+                    ].map((option) => (
+                      <button
+                        key={`${option.format}-${option.pixelRatio}`}
+                        type="button"
+                        onClick={(event) => {
+                          window.dispatchEvent(new CustomEvent('export-canvas', {
+                            detail: { format: option.format, pixelRatio: option.pixelRatio }
+                          }));
+                          const details = event.currentTarget.closest('details');
+                          if (details) details.open = false;
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition"
+                      >
+                        Exportar como {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </details>
               </div>
 
               <div className="h-[280px] md:h-[420px] w-full relative bg-[#F8F9FC]">
@@ -467,7 +473,7 @@ export default function CreadorLettering() {
                 <button 
                   className="flex-1 min-w-[30%] lg:min-w-[110px] py-2 bg-white border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
                   onClick={() => useEditorStore.getState().undo()}
-                  disabled={useEditorStore((state: any) => state.historyIndex === 0)}
+                  disabled={!canUndo}
                 >
                   <span className="flex items-center justify-center gap-1">
                     <RotateCcw className="w-3.5 h-3.5" />
@@ -477,7 +483,7 @@ export default function CreadorLettering() {
                 <button 
                   className="flex-1 min-w-[30%] lg:min-w-[110px] py-2 bg-white border border-gray-200 rounded-xl text-xs font-bold hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 transition"
                   onClick={() => useEditorStore.getState().redo()}
-                  disabled={useEditorStore((state: any) => !state.history || state.historyIndex >= state.history.length - 1)}
+                  disabled={!canRedo}
                 >
                   <span className="flex items-center justify-center gap-1">
                     <RotateCcw className="w-3.5 h-3.5 transform scale-x-[-1]" />
@@ -560,7 +566,7 @@ export default function CreadorLettering() {
               </div>
               <h3 className="font-bold text-gray-900 text-base">Descarga en HD</h3>
               <p className="text-xs text-gray-600 leading-relaxed">
-                Haz clic en "Exportar Lettering" para descargar una imagen PNG o JPG transparente lista para usar en redes o imprimir.
+                Haz clic en "Exportar Lettering" para descargar una imagen. Usa PNG si necesitas conservar el fondo transparente; JPG y WEBP se exportan con fondo visible en la implementación actual.
               </p>
             </div>
           </div>
@@ -615,9 +621,9 @@ export default function CreadorLettering() {
 
           <div className="space-y-4">
             <div className="bg-white p-5 rounded-2xl border border-purple-100">
-              <h3 className="font-bold text-gray-900 text-base mb-2">¿El Creador de Lettering es totalmente gratuito?</h3>
+              <h3 className="font-bold text-gray-900 text-base mb-2">¿El Creador de Lettering requiere registro o pago?</h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Sí, todas las funciones de edición, fuentes tipográficas, estilos 3D y descargas en alta definición son 100% gratuitas y sin marcas de agua.
+                Actualmente puedes usar las funciones de edición y exportación del Creador de Lettering sin crear una cuenta ni pagar una suscripción.
               </p>
             </div>
 
@@ -631,7 +637,7 @@ export default function CreadorLettering() {
             <div className="bg-white p-5 rounded-2xl border border-purple-100">
               <h3 className="font-bold text-gray-900 text-base mb-2">¿Funciona en teléfonos móviles y tablets?</h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Totalmente. El creador está adaptado de forma responsive para funcionar con fluidez en dispositivos Android, iOS (iPhone/iPad) y computadoras de escritorio.
+                El creador está diseñado con una interfaz responsive para usarse en móviles, tablets y computadoras. El rendimiento puede variar según el dispositivo y el navegador.
               </p>
             </div>
           </div>
