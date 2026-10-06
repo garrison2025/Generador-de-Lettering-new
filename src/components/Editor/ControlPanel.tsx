@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useEditorStore } from '@/store/useEditorStore';
+import { useShallow } from 'zustand/react/shallow';
 import { FONTS, PRESET_COLORS, loadFontPreviews } from '@/lib/fonts';
 import { AlignLeft, AlignCenter, AlignRight, Check, ChevronDown } from 'lucide-react';
 
@@ -55,7 +56,34 @@ function Slider({
 }
 
 export function ControlPanel() {
-  const store = useEditorStore();
+  const store = useEditorStore(useShallow((state) => ({
+    text: state.text,
+    fontFamily: state.fontFamily,
+    fontSize: state.fontSize,
+    letterSpacing: state.letterSpacing,
+    lineHeight: state.lineHeight,
+    textAlign: state.textAlign,
+    textColor: state.textColor,
+    textOpacity: state.textOpacity,
+    isGradient: state.isGradient,
+    gradientStartColor: state.gradientStartColor,
+    gradientEndColor: state.gradientEndColor,
+    backgroundColor: state.backgroundColor,
+    shadowOffsetX: state.shadowOffsetX,
+    shadowOffsetY: state.shadowOffsetY,
+    shadowBlur: state.shadowBlur,
+    shadowColor: state.shadowColor,
+    strokeWidth: state.strokeWidth,
+    strokeColor: state.strokeColor,
+    rotation: state.rotation,
+    backgroundImage: state.backgroundImage,
+    canvasRatio: state.canvasRatio,
+    overlayColor: state.overlayColor,
+    overlayOpacity: state.overlayOpacity,
+    updateState: state.updateState,
+    previewState: state.previewState,
+    commitPreview: state.commitPreview,
+  })));
   const [activeTab, setActiveTab] = useState<'texto' | 'estilo' | 'efectos'>('texto');
   const [isFontSelectOpen, setIsFontSelectOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
