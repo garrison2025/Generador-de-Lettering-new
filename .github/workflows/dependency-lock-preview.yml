@@ -62,6 +62,9 @@ jobs:
       - name: Recalculate lockfile with npm
         run: npm install --package-lock-only --ignore-scripts
 
+      - name: Update packages within declared semver ranges
+        run: npm update --package-lock-only --ignore-scripts
+
       - name: Clean install candidate lock
         run: npm ci
 
