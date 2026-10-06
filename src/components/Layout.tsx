@@ -12,6 +12,10 @@ export default function Layout() {
   const isEditor = location.pathname === '/editor';
 
   useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
     if (loadCookieConsent) return;
 
     const activate = () => {
@@ -35,6 +39,12 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#F8F9FC]">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:text-[#4F46E5] focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:font-semibold"
+      >
+        Saltar al contenido
+      </a>
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex flex-col text-gray-900 hover:opacity-80 transition group pt-1">
@@ -47,18 +57,18 @@ export default function Layout() {
             <span className="text-[10px] text-gray-500 ml-8 leading-none mt-1 group-hover:text-gray-700 transition">Arte tipográfico personalizado</span>
           </Link>
           
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8" aria-label="Navegación principal">
             <Link to="/" className={`text-sm font-semibold hover:text-[#4F46E5] transition ${location.pathname === '/' ? 'text-[#4F46E5]' : 'text-gray-600'}`}>Inicio</Link>
             <Link to="/editor" className={`text-sm font-semibold hover:text-[#4F46E5] transition ${location.pathname === '/editor' ? 'text-[#4F46E5]' : 'text-gray-600'}`}>Editor</Link>
             <Link to="/plantillas" className={`text-sm font-semibold hover:text-[#4F46E5] transition ${location.pathname === '/plantillas' ? 'text-[#4F46E5]' : 'text-gray-600'}`}>Plantillas</Link>
             <Link to="/blog" className={`text-sm font-semibold hover:text-[#4F46E5] transition ${location.pathname.startsWith('/blog') ? 'text-[#4F46E5]' : 'text-gray-600'}`}>Blog</Link>
             
             <div className="relative group">
-              <button aria-haspopup="menu" className={`flex items-center gap-1 text-sm font-semibold hover:text-[#4F46E5] transition ${location.pathname.startsWith('/herramientas') ? 'text-[#4F46E5]' : 'text-gray-600'}`}>
+              <button type="button" aria-haspopup="true" className={`flex items-center gap-1 text-sm font-semibold hover:text-[#4F46E5] transition ${location.pathname.startsWith('/herramientas') ? 'text-[#4F46E5]' : 'text-gray-600'}`}>
                 Herramientas
                 <svg className="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
-              <div className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+              <div className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 py-2 z-50">
                 <Link to="/herramientas" className="block px-4 py-2 text-sm font-bold text-[#4F46E5] hover:bg-[#4F46E5]/10 transition">Todas las herramientas</Link>
                 <div className="mx-3 my-1 border-t border-gray-100"></div>
                 <Link to="/herramientas/letras-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Letras para Free Fire</Link>
@@ -82,10 +92,13 @@ export default function Layout() {
               Comenzar Ahora
             </Link>
             
-            <button 
-              className="md:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+            <button
+              type="button"
+              className="md:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F46E5] focus-visible:ring-offset-2 rounded"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-main-navigation"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -94,7 +107,11 @@ export default function Layout() {
         
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full left-0">
+          <nav
+            id="mobile-main-navigation"
+            aria-label="Navegación principal móvil"
+            className="md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full left-0 max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain"
+          >
             <div className="px-4 pt-2 pb-6 space-y-1">
               <Link to="/" onClick={() => setMobileMenuOpen(false)} className={`block px-3 py-3 rounded-md text-base font-medium ${location.pathname === '/' ? 'text-[#4F46E5] bg-indigo-50' : 'text-gray-900 hover:bg-gray-50'}`}>Inicio</Link>
               <Link to="/editor" onClick={() => setMobileMenuOpen(false)} className={`block px-3 py-3 rounded-md text-base font-medium ${location.pathname === '/editor' ? 'text-[#4F46E5] bg-indigo-50' : 'text-gray-900 hover:bg-gray-50'}`}>Editor</Link>
@@ -120,11 +137,11 @@ export default function Layout() {
                 </Link>
               </div>
             </div>
-          </div>
+          </nav>
         )}
       </header>
       
-      <main className={`flex-1 flex flex-col relative w-full h-full`}>
+      <main id="main-content" className={`flex-1 flex flex-col relative w-full h-full`} tabIndex={-1}>
         <Outlet />
       </main>
 
