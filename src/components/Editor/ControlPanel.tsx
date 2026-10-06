@@ -97,6 +97,7 @@ export function ControlPanel() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const textEditStartRef = useRef<string | null>(null);
   const colorEditStartRef = useRef<Partial<Record<ColorField, string>>>({});
+  const backgroundEditStartRef = useRef<Pick<EditorState, 'backgroundColor' | 'backgroundImage'> | null>(null);
 
   const beginColorEdit = (field: ColorField, value: string) => {
     if (colorEditStartRef.current[field] === undefined) {
@@ -113,6 +114,28 @@ export function ControlPanel() {
     if (initialValue === undefined) return;
     delete colorEditStartRef.current[field];
     store.commitPreview({ [field]: initialValue } as Partial<EditorState>);
+  };
+
+  const beginBackgroundColorEdit = () => {
+    if (backgroundEditStartRef.current) return;
+    backgroundEditStartRef.current = {
+      backgroundColor: store.backgroundColor,
+      backgroundImage: store.backgroundImage,
+    };
+  };
+
+  const previewBackgroundColor = (value: string) => {
+    store.previewState({
+      backgroundColor: value,
+      backgroundImage: null,
+    });
+  };
+
+  const commitBackgroundColorEdit = () => {
+    const initialState = backgroundEditStartRef.current;
+    if (!initialState) return;
+    backgroundEditStartRef.current = null;
+    store.commitPreview(initialState);
   };
 
   useEffect(() => {
@@ -521,7 +544,10 @@ export function ControlPanel() {
                     type="color"
                     aria-label="Color de fondo"
                     value={store.backgroundColor === 'transparent' ? '#ffffff' : store.backgroundColor}
-                    onChange={e => store.updateState({ backgroundColor: e.target.value, backgroundImage: null })}
+                    onFocus={beginBackgroundColorEdit}
+                    onPointerDown={beginBackgroundColorEdit}
+                    onChange={(event) => previewBackgroundColor(event.target.value)}
+                    onBlur={commitBackgroundColorEdit}
                     className="w-8 h-8 rounded-full cursor-pointer p-0 border-0 overflow-hidden"
                   />
                   {PRESET_COLORS.filter(c => c !== 'transparent').map(color => (
