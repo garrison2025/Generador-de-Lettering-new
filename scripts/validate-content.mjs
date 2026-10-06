@@ -125,7 +125,43 @@ function validateRoutesAndSitemap() {
   );
 }
 
+function validateTrustAndBreadcrumbs() {
+  const files = [
+    'src/pages/Home.tsx',
+    'src/pages/BlogPost.tsx',
+    'src/pages/SobreNosotros.tsx',
+    'src/components/Layout.tsx',
+    'vite.config.ts'
+  ];
+
+  const banned = ['LetrasPro', 'Sofía Valenzuela', 'Mateo Rivas'];
+  for (const path of files) {
+    const source = read(path);
+    for (const term of banned) {
+      assert(!source.includes(term), `Unverified or legacy identity "${term}" found in ${path}`);
+    }
+  }
+
+  const toolPages = [
+    'src/pages/LetrasFreeFire.tsx',
+    'src/pages/LetrasTikTok.tsx',
+    'src/pages/LetrasAzules.tsx',
+    'src/pages/GeneradorNombresInstagram.tsx',
+    'src/pages/GeneradorNombresFreeFire.tsx',
+    'src/pages/CreadorLettering.tsx',
+    'src/pages/ConversorTexto.tsx',
+    'src/pages/ConversorLetrasBonitas.tsx'
+  ];
+
+  for (const path of toolPages) {
+    const source = read(path);
+    const badBreadcrumb = /"name":\s*"Herramientas"[\s\S]{0,120}"item":\s*"https:\/\/generadordelettering\.org\/"/;
+    assert(!badBreadcrumb.test(source), `Tools breadcrumb points to homepage in ${path}`);
+  }
+}
+
 validateUnicodeMaps();
 validateRoutesAndSitemap();
+validateTrustAndBreadcrumbs();
 
 console.log('Content validation passed.');
