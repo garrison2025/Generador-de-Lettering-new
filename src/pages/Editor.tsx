@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CanvasArea } from '../components/Editor/CanvasArea';
 import { ControlPanel } from '../components/Editor/ControlPanel';
 import { useEditorStore } from '@/store/useEditorStore';
-import { useEditorShortcuts } from '@/hooks/useEditorShortcuts';
+import { useEditorShortcuts } from '../hooks/useEditorShortcuts';
 import { SEO } from '../components/SEO';
 
 export default function Editor({ embedded = false }: { embedded?: boolean }) {
