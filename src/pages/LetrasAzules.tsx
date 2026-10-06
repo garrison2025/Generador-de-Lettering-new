@@ -284,14 +284,14 @@ export default function LetrasAzules() {
       <div className="bg-white justify-center items-center rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-6 md:p-8 mb-8">
         <div className="flex justify-between items-end mb-3">
           <label htmlFor="text-input" className="block text-sm font-bold text-gray-700 uppercase tracking-wider">Escribe tu texto:</label>
-          <span className="text-xs font-medium text-[#2980b9] bg-[#3498db]/10 px-2 py-1 rounded">{inputCharacterCount} caracteres</span>
+          <span className="text-xs font-medium text-[#2980b9] bg-[#3498db]/10 px-2 py-1 rounded">{inputCharacterCount}/500 caracteres</span>
         </div>
         <div className="relative">
           <input
             id="text-input"
             type="text"
             value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
+            onChange={(e) => setInputText(Array.from(e.target.value).slice(0, 500).join(''))}
             className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-100 rounded-xl focus:ring-0 focus:border-[#5A4AD2] outline-none text-xl font-medium pr-12 transition-all shadow-inner placeholder:text-gray-500"
             placeholder="Introduce una palabra o frase..."
           />
