@@ -1,10 +1,10 @@
 import { copyText } from '../utils/copyText';
 import { Link, useNavigate } from 'react-router-dom';
-import { PenTool, Palette, Copy, Check, ChevronLeft, Droplet } from 'lucide-react';
+import { PenTool, Palette, Copy, Check, Droplet } from 'lucide-react';
 import { useState } from 'react';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
-import { useEditorStore } from '@/store/useEditorStore';
+import { EDITOR_DEFAULT_STATE, useEditorStore } from '@/store/useEditorStore';
 
 const PALETTES = [
   { name: 'Ocaso Cálido', colors: ['#FF6B6B', '#FF8E53', '#FFAF3B', '#FFD166', '#FFF0A8'] },
@@ -19,6 +19,31 @@ const PALETTES = [
   { name: 'Aurora Boreal', colors: ['#00F2FE', '#4FACFE', '#0072FF', '#00C6FF', '#005BEA'] },
   { name: 'Atardecer', colors: ['#F6D365', '#FDA085', '#FF8C7F', '#FF6B9E', '#FF3E96'] }
 ];
+
+const paletteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Paletas de Color para Lettering",
+  "url": "https://generadordelettering.org/herramientas/paletas-de-color",
+  "description": "Explora paletas de color y copia códigos HEX o gradientes CSS para proyectos de lettering y diseño.",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+const paletteBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://generadordelettering.org/" },
+    { "@type": "ListItem", "position": 2, "name": "Herramientas", "item": "https://generadordelettering.org/herramientas" },
+    { "@type": "ListItem", "position": 3, "name": "Paletas de Color", "item": "https://generadordelettering.org/herramientas/paletas-de-color" }
+  ]
+};
 
 export default function PaletasColor() {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
@@ -49,6 +74,7 @@ export default function PaletasColor() {
 
   const openPaletteInEditor = (colors: string[]) => {
     updateState({
+      ...EDITOR_DEFAULT_STATE,
       isGradient: true,
       gradientStartColor: colors[0],
       gradientEndColor: colors[colors.length - 1],
@@ -65,12 +91,17 @@ export default function PaletasColor() {
         title="Paletas de Color para Lettering | Generador de Letras"
         description="Explora paletas de colores aesthetic para tus proyectos de lettering y diseño. Copia códigos HEX y gradientes CSS al instante."
         keywords="paletas de color, colores para lettering, colores aesthetic, paletas vintage, gradientes"
+        canonical="https://generadordelettering.org/herramientas/paletas-de-color"
+        jsonSchema={[paletteSchema, paletteBreadcrumbSchema]}
       />
     <div className="max-w-7xl mx-auto px-4 py-12 w-full">
-      <Link to="/" className="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-[#5A4AD2] mb-8 transition-colors">
-        <ChevronLeft className="w-4 h-4 mr-1" />
-        Volver a inicio
-      </Link>
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
+        <Link to="/" className="hover:text-[#5A4AD2] transition-colors">Inicio</Link>
+        <span>/</span>
+        <Link to="/herramientas" className="hover:text-[#5A4AD2] transition-colors">Herramientas</Link>
+        <span>/</span>
+        <span className="text-gray-900">Paletas de Color</span>
+      </nav>
 
       <div className="text-center mb-12">
         <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Paletas de Color para Lettering</h1>
