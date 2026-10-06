@@ -193,7 +193,7 @@ export default function Home() {
               { icon: Type, title: 'Múltiples Estilos de Tipografía', desc: 'Más de 10 estilos caligráficos diferentes para personalizar tus textos según la ocasión.' },
               { icon: Palette, title: 'Personalización Total', desc: 'Ajusta tamaño, color, espaciado y añade efectos como sombras y contornos a tu gusto.' },
               { icon: Download, title: 'Exportación Sencilla', desc: 'Descarga tus creaciones en formato PNG o JPG para usarlas donde quieras.' },
-              { icon: Globe, title: 'Totalmente Gratuito', desc: 'Sin costos ocultos ni suscripciones. Crea todos los diseños que necesites sin límites.' },
+              { icon: Globe, title: 'Gratis y Sin Registro', desc: 'Las funciones disponibles actualmente se pueden usar desde el navegador sin crear una cuenta.' },
               { icon: CheckCircle2, title: 'Sin Registro', desc: 'Comienza a crear inmediatamente sin necesidad de registrarte o proporcionar datos personales.' },
             ].map((feature, i) => (
               <div key={i} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 flex flex-col items-start text-left">
