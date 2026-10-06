@@ -172,7 +172,7 @@ export default function LetrasTikTok() {
         "name": "▲ ¿Cuál es el límite de caracteres para la Biografía de TikTok?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "TikTok permite un límite de hasta 80 caracteres en la sección de Biografía de tu perfil. Nuestro conversor incluye un contador en tiempo real para ayudarte a no exceder este límite."
+          "text": "80 caracteres sigue siendo una referencia segura para redactar una bio de TikTok, pero algunos usuarios pueden ver límites diferentes según su cuenta, región o versión de la app. Usa el contador de este conversor como guía y confirma el límite real en Editar perfil antes de guardar."
         }
       }
     ]
@@ -263,7 +263,7 @@ export default function LetrasTikTok() {
                 Unicode compatible con TikTok
               </div>
               <div className="text-gray-400">+50 Estilos Cursivos & Aesthetic</div>
-              <div className="text-gray-400">Límite de Bio TikTok (80 chars)</div>
+              <div className="text-gray-400">Bio: 80 caracteres como base segura</div>
             </div>
           </div>
         </div>
@@ -282,10 +282,10 @@ export default function LetrasTikTok() {
             <div className="flex items-center gap-2">
               <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
                 inputText.length > 80 
-                  ? 'bg-red-100 text-red-700 border border-red-200' 
+                  ? 'bg-amber-50 text-amber-700 border border-amber-200' 
                   : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
               }`}>
-                {inputText.length} / 80 caracteres (Bio TikTok)
+                {inputText.length} caracteres · 80 base segura
               </span>
             </div>
           </div>
@@ -314,7 +314,7 @@ export default function LetrasTikTok() {
           {inputText.length > 80 && (
             <div className="flex items-center gap-2 text-xs text-amber-700 bg-amber-50 p-3 rounded-xl border border-amber-200">
               <AlertCircle className="w-4 h-4 flex-shrink-0 text-amber-600" />
-              Nota: La biografía de TikTok limita el texto a 80 caracteres. Asegúrate de recortar tu texto para que no quede incompleto en tu perfil.
+              Has superado la base segura de 80 caracteres. Algunas cuentas pueden admitir más, pero comprueba el límite que muestra TikTok en Editar perfil antes de guardar.
             </div>
           )}
 
