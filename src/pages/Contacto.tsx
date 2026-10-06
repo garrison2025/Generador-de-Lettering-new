@@ -120,6 +120,7 @@ export default function Contacto() {
                       id="contact-name"
                       type="text"
                       required
+                      autoComplete="name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#5A4AD2] focus:border-transparent outline-none transition"
@@ -133,6 +134,8 @@ export default function Contacto() {
                       id="contact-email"
                       type="email"
                       required
+                      inputMode="email"
+                      autoComplete="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#5A4AD2] focus:border-transparent outline-none transition"
@@ -161,6 +164,7 @@ export default function Contacto() {
                       id="contact-message"
                       required
                       rows={5}
+                      autoComplete="off"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#5A4AD2] focus:border-transparent outline-none transition resize-y"
