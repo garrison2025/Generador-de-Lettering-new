@@ -235,7 +235,7 @@ export default function ConversorTexto() {
       return;
     }
     setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
+    setTimeout(() => setCopiedId((current) => current === id ? null : current), 2000);
   };
 
   return (
