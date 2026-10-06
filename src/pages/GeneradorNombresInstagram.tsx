@@ -1,5 +1,5 @@
 import { copyText } from '../utils/copyText';
-import { useState, useDeferredValue, useEffect } from 'react';
+import { useState, useDeferredValue, useEffect, useMemo } from 'react';
 import { Copy, Check, Instagram, Sparkles, Heart, Wand2, UserCheck, Layout, ExternalLink, Bookmark, Trash2, Sliders, Palette } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
@@ -277,16 +277,6 @@ export default function GeneradorNombresInstagram() {
     );
   };
 
-  const formatWithSpacing = (text: string) => {
-    if (spacingMode === 'dots') {
-      return Array.from(text).join(' · ');
-    }
-    if (spacingMode === 'spaced') {
-      return Array.from(text).join(' ');
-    }
-    return text;
-  };
-
   const handleAddSymbol = (symbol: string) => {
     setInputText(prev => prev + symbol);
   };
@@ -298,10 +288,46 @@ export default function GeneradorNombresInstagram() {
 
   const categories = ['Todas', 'Cursivas', 'Aesthetic', 'Góticas', 'Destacadas', 'Símbolos'];
 
-  const filteredFonts = Object.keys(FONTS_DATA).filter(key => {
-    if (activeCategory === 'Todas') return true;
-    return FONTS_DATA[key].category === activeCategory;
-  });
+  const fontResults = useMemo(() => {
+    const format = (text: string) => {
+      if (spacingMode === 'dots') return Array.from(text).join(' · ');
+      if (spacingMode === 'spaced') return Array.from(text).join(' ');
+      return text;
+    };
+
+    return Object.keys(FONTS_DATA)
+      .filter((key) => activeCategory === 'Todas' || FONTS_DATA[key].category === activeCategory)
+      .map((fontKey) => ({
+        fontKey,
+        converted: format(convertText(deferredInput, fontKey)),
+        fontInfo: FONTS_DATA[fontKey],
+      }));
+  }, [activeCategory, deferredInput, spacingMode]);
+
+  const decoratedResults = useMemo(() => {
+    const format = (text: string) => {
+      if (spacingMode === 'dots') return Array.from(text).join(' · ');
+      if (spacingMode === 'spaced') return Array.from(text).join(' ');
+      return text;
+    };
+
+    return INSTAGRAM_DECORATORS.map((dec, idx) => {
+      const fontChoice = idx % 2 === 0 ? 'cursiva' : 'doble';
+      const spaced = format(convertText(deferredInput, fontChoice));
+      return {
+        ...dec,
+        decId: `dec-${idx}`,
+        fullDecorated: `${dec.pre}${spaced}${dec.post}`,
+      };
+    });
+  }, [deferredInput, spacingMode]);
+
+  const usernameIdeas = useMemo(() => {
+    const base = (deferredInput || 'nombre').toLowerCase().replace(/\s+/g, '');
+    return USERNAME_PREFIXES
+      .flatMap((prefix) => USERNAME_SUFFIXES.map((suffix) => `${prefix}.${base}.${suffix}`))
+      .slice(0, 12);
+  }, [deferredInput]);
 
   return (
     <>
@@ -615,12 +641,9 @@ export default function GeneradorNombresInstagram() {
 
             {/* Mapped Font Results */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-              {filteredFonts.map((fontKey) => {
-                const baseConverted = convertText(deferredInput, fontKey);
-                const converted = formatWithSpacing(baseConverted);
+              {fontResults.map(({ fontKey, converted, fontInfo }) => {
                 const isCopied = copiedId === fontKey;
                 const isSaved = savedNames.includes(converted);
-                const fontInfo = FONTS_DATA[fontKey];
 
                 return (
                   <div 
@@ -640,6 +663,7 @@ export default function GeneradorNombresInstagram() {
                       <button
                         onClick={() => toggleSaveName(converted)}
                         title={isSaved ? 'Quitar de guardados' : 'Guardar en favoritos'}
+                        aria-label={isSaved ? `Quitar ${converted} de guardados` : `Guardar ${converted} en favoritos`}
                         className={`p-2.5 rounded-xl border transition ${
                           isSaved 
                             ? 'bg-pink-50 border-pink-200 text-pink-600' 
@@ -666,12 +690,8 @@ export default function GeneradorNombresInstagram() {
               })}
 
               {/* Aesthetic Decorators */}
-              {INSTAGRAM_DECORATORS.map((dec, idx) => {
-                const fontChoice = idx % 2 === 0 ? 'cursiva' : 'doble';
-                const baseConverted = convertText(deferredInput, fontChoice);
-                const spaced = formatWithSpacing(baseConverted);
-                const fullDecorated = `${dec.pre}${spaced}${dec.post}`;
-                const decId = `dec-${idx}`;
+              {decoratedResults.map((dec) => {
+                const { decId, fullDecorated } = dec;
                 const isCopied = copiedId === decId;
                 const isSaved = savedNames.includes(fullDecorated);
 
@@ -693,6 +713,7 @@ export default function GeneradorNombresInstagram() {
                       <button
                         onClick={() => toggleSaveName(fullDecorated)}
                         title={isSaved ? 'Quitar de guardados' : 'Guardar en favoritos'}
+                        aria-label={isSaved ? `Quitar ${fullDecorated} de guardados` : `Guardar ${fullDecorated} en favoritos`}
                         className={`p-2.5 rounded-xl border transition ${
                           isSaved 
                             ? 'bg-pink-50 border-pink-200 text-pink-600' 
@@ -949,9 +970,7 @@ export default function GeneradorNombresInstagram() {
             <p className="text-gray-600 text-sm mb-6">Ideas con prefijos y sufijos originales para crear un ID disponible en Instagram.</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {USERNAME_PREFIXES.flatMap(pre => 
-                USERNAME_SUFFIXES.map(suf => `${pre}.${(inputText || 'nombre').toLowerCase().replace(/\s+/g, '')}.${suf}`)
-              ).slice(0, 12).map((username, idx) => {
+              {usernameIdeas.map((username, idx) => {
                 const isCopied = copiedId === `user-${idx}`;
                 return (
                   <div key={idx} className="p-4 bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-between gap-2">
