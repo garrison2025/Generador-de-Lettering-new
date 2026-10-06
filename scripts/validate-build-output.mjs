@@ -79,6 +79,19 @@ const sitemapUrls = new Set(
 
 const prerenderedUrls = sitemapUrls;
 
+const schemaRequiredUrls = new Set([
+  'https://generadordelettering.org/',
+  'https://generadordelettering.org/herramientas/creador-de-lettering',
+  'https://generadordelettering.org/herramientas/conversor-texto',
+  'https://generadordelettering.org/herramientas/letras-azules',
+  'https://generadordelettering.org/herramientas/letras-free-fire',
+  'https://generadordelettering.org/herramientas/letras-tiktok',
+  'https://generadordelettering.org/herramientas/conversor-letras-bonitas',
+  'https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram',
+  'https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire',
+  'https://generadordelettering.org/blog'
+]);
+
 const generatedCanonicals = new Map();
 const titleOwners = new Map();
 const descriptionOwners = new Map();
@@ -108,11 +121,32 @@ for (const htmlFile of htmlFiles) {
   const title = html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1]?.trim();
   const description = html.match(/<meta\b[^>]*name=["']description["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1]?.trim();
   const canonical = html.match(/<link\b[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["'][^>]*>/i)?.[1]?.trim();
+  const robots = html.match(/<meta\b[^>]*name=["']robots["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1]?.trim();
+  const twitterUrl = html.match(/<meta\b[^>]*name=["']twitter:url["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1]?.trim();
 
   assert(title, `Missing title in ${htmlFile}`);
   assert(description, `Missing meta description in ${htmlFile}`);
   assert(canonical, `Missing canonical in ${htmlFile}`);
   assert(sitemapUrls.has(canonical), `Canonical is not present in sitemap (${htmlFile}): ${canonical}`);
+  assert(
+    robots === 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    `Indexable route is missing the expected static robots directive (${htmlFile}): ${robots || 'missing'}`
+  );
+  assert(twitterUrl === canonical, `twitter:url must match canonical in ${htmlFile}`);
+
+  const schemaMatches = [
+    ...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*data-seo-schema=["']true["'][^>]*>([\s\S]*?)<\/script>/gi)
+  ];
+  for (const schemaMatch of schemaMatches) {
+    try {
+      JSON.parse(schemaMatch[1]);
+    } catch (error) {
+      throw new Error(`Invalid prerendered JSON-LD in ${htmlFile}: ${error.message}`);
+    }
+  }
+  if (schemaRequiredUrls.has(canonical)) {
+    assert(schemaMatches.length > 0, `Expected prerendered JSON-LD for ${canonical}`);
+  }
 
   if (prerenderedUrls.has(canonical)) {
     assert(
