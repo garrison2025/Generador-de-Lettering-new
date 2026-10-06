@@ -33,12 +33,12 @@ export default function NotFound() {
             <ArrowRight className="w-6 h-6 text-gray-500 group-hover:text-pink-500 ml-4 shrink-0" />
           </Link>
           <Link 
-            to="/herramientas/letras-free-fire"
+            to="/herramientas/generador-de-nombres-para-free-fire"
             className="flex items-center justify-between p-6 bg-white border border-gray-200 rounded-2xl hover:border-yellow-500 hover:shadow-xl transition-all group"
           >
             <div className="text-left">
               <h3 className="font-bold text-xl text-gray-900 group-hover:text-yellow-600 transition-colors">Nombres para Free Fire</h3>
-              <p className="text-sm text-gray-500 mt-2">Crea nicks insanos y épicos con símbolos, espacios invisibles, coronas y alas.</p>
+              <p className="text-sm text-gray-500 mt-2">Crea nicks con símbolos, prefijos de clan, dúos, favoritos y espacio invisible.</p>
             </div>
             <ArrowRight className="w-6 h-6 text-gray-500 group-hover:text-yellow-500 ml-4 shrink-0" />
           </Link>
