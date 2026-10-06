@@ -20,6 +20,10 @@ export default defineConfig(() => {
           globPatterns: ['assets/*.css']
         },
         manifest: {
+          id: '/',
+          start_url: '/',
+          scope: '/',
+          lang: 'es',
           name: 'Generador de Lettering',
           short_name: 'Lettering',
           description: 'Conversor y generador de letras bonitas y tipografías para copiar y pegar.',
