@@ -34,7 +34,7 @@ const FONTS_DATA: Record<string, string> = {
   // 31-40: Estilos Visuales Geométricos y Monospace
   monospace: '𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉',
   vaporwave: 'ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ',
-  mini_sup: 'ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖᑫʳˢᵗᵘᵘᵛʷˣʸᶻᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᑫᴿˢᵀᵁᵁⱽᵂˣʸᶻ',
+  mini_sup: 'ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖᑫʳˢᵗᵘᵛʷˣʸᶻᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᑫᴿˢᵀᵁⱽᵂˣʸᶻ',
   mini_sub: 'ₐbcdₑfgₕᵢⱼₖₗₘₙₒₚqᵣₛₜᵤᵥwₓyzₐBCDₑFGₕᵢⱼₖₗₘₙₒₚQᵣₛₜᵤᵥWₓYZ',
   small_caps: 'ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ',
   
@@ -47,12 +47,10 @@ const FONTS_DATA: Record<string, string> = {
   ruso: 'авсdеfgнijкlмпорqгsтuvwхуzАВСDЕFGНІJКLМПОРQГSТUVWХУZ',
   griego: 'αβcdεfghιjκlmηθpqrsτυvωxyzΑΒCDΕFGHΙJΚLMΝΘPQRSΤΥVΩXYZ',
   arabe: 'ค๒ς๔єfgђเןкl๓ภ๏pqгรtยvwאyzค๒ς๔єfgђเןкl๓ภ๏pqгรtยvwאyz',
-  hebreo: 'אבכדעהגהיזקלמנאפקרסטואוזאבכדעהגהיזקלמנאפקרסטואוז',
+  hebreo: 'אבגדהוזחטיכלמנסעפצקרשתךםןףאבגדהוזחטיכלמנסעפצקרשתךםןף',
   asiatico: '卂乃匚刀乇下Ꮆ卄工丁长乚从𠘨口尸㔿尺丂丅凵リ山乂丫乙卂乃匚刀乇下Ꮆ卄工丁长乚从𠘨口尸㔿尺丂丅凵リ山乂丫乙',
   runas: 'ᚨᛒᚲᛞᛖᚠᚷᚺᛁᛃᚲᛚᛗᚾᛟᛈᛩᚱᛊᛏᚢᚡᚹᛪᚤᛉᚨᛒᚲᛞᛖᚠᚷᚺᛁᛃᚲᛚᛗᚾᛟᛈᛩᚱᛊᛏᚢᚡᚹᛪᚤᛉ',
   hacker: '4bcd3f9h1jklmn0pqrs7uvwxy248CD3F6H1JKLMN0PQR57UVWXY2',
-  armas: '︻╦╤─a︻╦╤─b︻╦╤─c︻╦╤─d︻╦╤─e︻╦╤─f︻╦╤─g︻╦╤─h︻╦╤─i︻╦╤─j︻╦╤─k︻╦╤─l︻╦╤─m︻╦╤─n︻╦╤─o︻╦╤─p︻╦╤─q︻╦╤─r︻╦╤─s︻╦╤─t︻╦╤─u︻╦╤─v︻╦╤─w︻╦╤─x︻╦╤─y︻╦╤─z︻╦╤─A︻╦╤─B︻╦╤─C︻╦╤─D︻╦╤─E︻╦╤─F︻╦╤─G︻╦╤─H︻╦╤─I︻╦╤─J︻╦╤─K︻╦╤─L︻╦╤─M︻╦╤─N︻╦╤─O︻╦╤─P︻╦╤─Q︻╦╤─R︻╦╤─S︻╦╤─T︻╦╤─U︻╦╤─V︻╦╤─W︻╦╤─X︻╦╤─Y︻╦╤─Z', // will just add guns to all char mapped strings
-  demoniaco: 'a̶b̶c̶d̶e̶f̶g̶h̶i̶j̶k̶l̶m̶n̶o̶p̶q̶r̶s̶t̶u̶v̶w̶x̶y̶z̶A̶B̶C̶D̶E̶F̶G̶H̶I̶J̶K̶L̶M̶N̶O̶P̶Q̶R̶S̶T̶U̶V̶W̶X̶Y̶Z̶', // we have decorators but these are direct map tests
 };
 
 const FONT_MAPS: Record<string, Record<string, string>> = {};
