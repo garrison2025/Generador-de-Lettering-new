@@ -29,9 +29,11 @@ export interface EditorState {
   overlayOpacity: number;
 }
 
+type EditorHistoryState = Omit<EditorState, 'backgroundImage'>;
+
 interface EditorStore extends EditorState {
-  past: EditorState[];
-  future: EditorState[];
+  past: EditorHistoryState[];
+  future: EditorHistoryState[];
   updateState: (updates: Partial<EditorState>) => void;
   previewState: (updates: Partial<EditorState>) => void;
   commitPreview: (previousValues: Partial<EditorState>) => void;
@@ -97,6 +99,22 @@ const extractState = (state: EditorStore): EditorState => ({
   overlayOpacity: state.overlayOpacity,
 });
 
+const extractHistoryState = (state: EditorStore): EditorHistoryState => {
+  const { backgroundImage: _backgroundImage, ...historyState } = extractState(state);
+  return historyState;
+};
+
+const mergePreviousHistoryValues = (
+  state: EditorStore,
+  previousValues: Partial<EditorState>
+): EditorHistoryState => {
+  const { backgroundImage: _backgroundImage, ...previousHistoryValues } = previousValues;
+  return {
+    ...extractHistoryState(state),
+    ...previousHistoryValues,
+  };
+};
+
 const RANDOM_TEXTS = ["Hola Mundo", "Vivir es Increíble", "Amor y Paz", "Arte Digital", "Sueña en Grande", "Buenas Vibras"];
 const RANDOM_COLORS = ["#FF6B6B", "#FBBF24", "#34D399", "#3B82F6", "#5A4AD2", "#9333EA", "#000000", "#FFFFFF"];
 const RANDOM_FONTS = ["Dancing Script", "Pacifico", "Parisienne", "Caveat", "Lobster", "Permanent Marker"];
@@ -128,7 +146,7 @@ export const useEditorStore = create<EditorStore>()(
           };
         }
 
-        const currentState = extractState(state);
+        const currentState = extractHistoryState(state);
         return {
           ...state,
           ...updates,
@@ -169,7 +187,7 @@ export const useEditorStore = create<EditorStore>()(
           ...state,
           past: [
             ...state.past,
-            { ...extractState(state), ...previousValues }
+            mergePreviousHistoryValues(state, previousValues)
           ].slice(-20),
           future: [],
         };
@@ -184,7 +202,7 @@ export const useEditorStore = create<EditorStore>()(
           ...EDITOR_DEFAULT_STATE,
           past: state.backgroundImage
             ? []
-            : [...state.past, extractState(state)].slice(-20),
+            : [...state.past, extractHistoryState(state)].slice(-20),
           future: []
         };
       }),
@@ -193,7 +211,7 @@ export const useEditorStore = create<EditorStore>()(
         fontFamily: RANDOM_FONTS[Math.floor(Math.random() * RANDOM_FONTS.length)],
         textColor: RANDOM_COLORS[Math.floor(Math.random() * RANDOM_COLORS.length)],
         isGradient: false,
-        past: [...state.past, extractState(state)].slice(-20),
+        past: [...state.past, extractHistoryState(state)].slice(-20),
         future: []
       })),
       undo: () => set((state) => {
@@ -205,7 +223,7 @@ export const useEditorStore = create<EditorStore>()(
           ...state,
           ...previous,
           past: newPast,
-          future: [extractState(state), ...state.future]
+          future: [extractHistoryState(state), ...state.future]
         };
       }),
       redo: () => set((state) => {
@@ -216,7 +234,7 @@ export const useEditorStore = create<EditorStore>()(
         return {
           ...state,
           ...next,
-          past: [...state.past, extractState(state)],
+          past: [...state.past, extractHistoryState(state)],
           future: newFuture
         };
       })
