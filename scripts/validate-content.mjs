@@ -304,6 +304,23 @@ function validatePublicAssets() {
   }
 }
 
+function validateClipboardUsage() {
+  const helperPath = 'src/utils/copyText.ts';
+  assert(fs.existsSync(helperPath), `Shared clipboard helper is missing: ${helperPath}`);
+
+  const pageFiles = fs.readdirSync('src/pages')
+    .filter((name) => name.endsWith('.tsx'))
+    .map((name) => `src/pages/${name}`);
+
+  for (const path of pageFiles) {
+    const source = read(path);
+    assert(
+      !source.includes('navigator.clipboard.writeText'),
+      `Direct clipboard write found in ${path}; use the shared copyText helper so failures are handled.`
+    );
+  }
+}
+
 function validateRemovedUiImports() {
   const sourceFiles = [
     ...fs.readdirSync('src/pages').filter((name) => name.endsWith('.tsx')).map((name) => `src/pages/${name}`),
@@ -450,6 +467,7 @@ validateInternalLinks();
 validateLlmsLinks();
 validateMonetizationConfig();
 validatePublicAssets();
+validateClipboardUsage();
 validateRemovedUiImports();
 validateEditorStoreUsage();
 validateLegacyCanonicalUrls();
