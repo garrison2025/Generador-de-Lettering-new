@@ -17,7 +17,7 @@ Página índice que enlaza a los principales generadores y conversores del sitio
 ### Creador de Lettering
 URL: https://generadordelettering.org/herramientas/creador-de-lettering
 
-Editor visual para crear composiciones tipográficas ajustando texto, tipografía, tamaño, alineación, color, degradados, fondos, sombras, bordes y relación del lienzo. Permite exportar el resultado en formatos de imagen disponibles en el editor.
+Editor visual para crear composiciones tipográficas ajustando texto, tipografía, tamaño, alineación, color, degradados, fondos, sombras, bordes y relación del lienzo. Permite exportar el resultado en PNG, JPG o WEBP, con opciones de resolución normal o ampliada. PNG puede conservar transparencia cuando el fondo está configurado como transparente.
 
 ### Conversor de Letras Bonitas
 URL: https://generadordelettering.org/herramientas/conversor-letras-bonitas
@@ -54,6 +54,16 @@ URL: https://generadordelettering.org/herramientas/letras-azules
 
 Convierte letras A-Z en Regional Indicator Symbols y ofrece otras variantes Unicode. Unicode no define un color azul fijo para estos caracteres; el diseño y color dependen de la plataforma, el sistema y la fuente. Dos indicadores regionales consecutivos pueden combinarse como una bandera, por lo que la herramienta separa la salida correspondiente.
 
+### Paletas de Color
+URL: https://generadordelettering.org/herramientas/paletas-de-color
+
+Herramienta para explorar combinaciones de color y reutilizarlas como referencia visual en composiciones tipográficas.
+
+### Combinador de Fuentes
+URL: https://generadordelettering.org/herramientas/combinador-de-fuentes
+
+Muestra parejas de tipografías y ejemplos de jerarquía para ayudar a comparar combinaciones de títulos y texto.
+
 ## Páginas por estilo
 
 - Generador de Letras Góticas: https://generadordelettering.org/generador-de-letras-goticas
@@ -76,7 +86,7 @@ Colección de configuraciones predefinidas que el usuario puede seleccionar para
 ### Plantillas de práctica
 URL: https://generadordelettering.org/herramientas/plantillas-practica
 
-Recursos orientados a la práctica de lettering y caligrafía.
+Recursos A4 descargables en SVG con ejercicios diferenciados de trazos básicos, minúsculas, mayúsculas, florituras y conexiones.
 
 ## Guías editoriales
 
