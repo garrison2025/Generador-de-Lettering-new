@@ -15,8 +15,7 @@ import {
   BookOpen, 
   CheckCircle2, 
   Flame, 
-  Sliders,
-  AlertCircle
+  Sliders
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
