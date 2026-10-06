@@ -23,6 +23,11 @@ function validateUnicodeMaps() {
       mode: 'object'
     },
     {
+      path: 'src/pages/ConversorLetrasBonitas.tsx',
+      expected: 52,
+      mode: 'object'
+    },
+    {
       path: 'src/pages/GeneradorNombresInstagram.tsx',
       expected: 62,
       mode: 'mapping'
