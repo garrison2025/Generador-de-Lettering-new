@@ -357,6 +357,23 @@ function validatePublicAssets() {
   }
 }
 
+function validateBulkUnicodeInputCaps() {
+  const files = [
+    'src/pages/ConversorTexto.tsx',
+    'src/pages/ConversorLetrasBonitas.tsx',
+    'src/pages/LetrasAzules.tsx',
+    'src/pages/LetrasTikTok.tsx'
+  ];
+
+  for (const path of files) {
+    const source = read(path);
+    assert(
+      source.includes("Array.from(e.target.value).slice(0, 500).join('')"),
+      `Bulk Unicode input is missing the 500-code-point cap in ${path}`
+    );
+  }
+}
+
 function validateClipboardUsage() {
   const helperPath = 'src/utils/copyText.ts';
   assert(fs.existsSync(helperPath), `Shared clipboard helper is missing: ${helperPath}`);
@@ -543,6 +560,7 @@ validateInternalLinks();
 validateLlmsLinks();
 validateMonetizationConfig();
 validatePublicAssets();
+validateBulkUnicodeInputCaps();
 validateClipboardUsage();
 validateRemovedUiImports();
 validateEditorHistoryMemorySafety();
