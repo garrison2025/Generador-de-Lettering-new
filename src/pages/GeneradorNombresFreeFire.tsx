@@ -148,17 +148,24 @@ export default function GeneradorNombresFreeFire() {
   const [savedNicks, setSavedNicks] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('ff_saved_nicks');
-      return saved ? JSON.parse(saved) : [];
+      if (!saved) return [];
+
+      const parsed: unknown = JSON.parse(saved);
+      if (!Array.isArray(parsed)) return [];
+
+      return [...new Set(parsed.filter((value): value is string => typeof value === 'string'))].slice(0, 50);
     } catch {
       return [];
     }
   });
+  const [storagePersistent, setStoragePersistent] = useState(true);
 
   useEffect(() => {
     try {
       localStorage.setItem('ff_saved_nicks', JSON.stringify(savedNicks));
-    } catch (e) {
-      console.error(e);
+      setStoragePersistent(true);
+    } catch {
+      setStoragePersistent(false);
     }
   }, [savedNicks]);
 
@@ -447,6 +454,11 @@ export default function GeneradorNombresFreeFire() {
                 Vaciar lista
               </button>
             </div>
+            {!storagePersistent && (
+              <p role="status" className="mb-3 text-xs font-medium text-amber-800">
+                Tu navegador no permite guardar esta lista de forma persistente. Los nicks seguirán disponibles durante esta sesión, pero pueden perderse al cerrar o recargar la página.
+              </p>
+            )}
             <div className="flex flex-wrap gap-2.5">
               {savedNicks.map((saved, idx) => (
                 <div 
