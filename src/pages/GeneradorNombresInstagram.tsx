@@ -268,7 +268,7 @@ export default function GeneradorNombresInstagram() {
       return;
     }
     setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
+    setTimeout(() => setCopiedId((current) => current === id ? null : current), 2000);
   };
 
   const toggleSaveName = (text: string) => {
