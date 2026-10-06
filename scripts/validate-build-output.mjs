@@ -77,23 +77,7 @@ const sitemapUrls = new Set(
     .map((match) => match[1])
 );
 
-const prerenderedUrls = new Set([
-  'https://generadordelettering.org/',
-  'https://generadordelettering.org/editor',
-  'https://generadordelettering.org/plantillas',
-  'https://generadordelettering.org/herramientas',
-  'https://generadordelettering.org/herramientas/paletas-de-color',
-  'https://generadordelettering.org/herramientas/combinador-de-fuentes',
-  'https://generadordelettering.org/herramientas/plantillas-practica',
-  'https://generadordelettering.org/herramientas/conversor-texto',
-  'https://generadordelettering.org/herramientas/letras-azules',
-  'https://generadordelettering.org/herramientas/letras-free-fire',
-  'https://generadordelettering.org/herramientas/letras-tiktok',
-  'https://generadordelettering.org/herramientas/conversor-letras-bonitas',
-  'https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram',
-  'https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire',
-  'https://generadordelettering.org/herramientas/creador-de-lettering'
-]);
+const prerenderedUrls = sitemapUrls;
 
 const generatedCanonicals = new Map();
 const titleOwners = new Map();
@@ -108,6 +92,11 @@ for (const htmlFile of htmlFiles) {
     assert(
       /<meta\b[^>]*name=["']robots["'][^>]*content=["']noindex,\s*follow["'][^>]*>/i.test(html),
       '404.html must keep noindex, follow'
+    );
+    assert(
+      !/<div\s+id=["']root["']>\s*<\/div>/i.test(html) &&
+      /<div\s+id=["']root["']>[\s\S]*?<h1\b/i.test(html),
+      '404.html must contain prerendered body content'
     );
     continue;
   }
@@ -128,11 +117,11 @@ for (const htmlFile of htmlFiles) {
   if (prerenderedUrls.has(canonical)) {
     assert(
       !/<div\s+id=["']root["']>\s*<\/div>/i.test(html),
-      `Core prerender route still has an empty root: ${canonical}`
+      `Prerendered sitemap route still has an empty root: ${canonical}`
     );
     assert(
       /<div\s+id=["']root["']>[\s\S]*?<h1\b/i.test(html),
-      `Core prerender route is missing server-rendered H1 content: ${canonical}`
+      `Prerendered sitemap route is missing server-rendered H1 content: ${canonical}`
     );
   }
 

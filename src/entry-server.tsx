@@ -18,6 +18,14 @@ import ConversorLetrasBonitas from './pages/ConversorLetrasBonitas';
 import GeneradorNombresInstagram from './pages/GeneradorNombresInstagram';
 import GeneradorNombresFreeFire from './pages/GeneradorNombresFreeFire';
 import CreadorLettering from './pages/CreadorLettering';
+import SeoPage from './pages/SeoPage';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
+import SobreNosotros from './pages/SobreNosotros';
+import Contacto from './pages/Contacto';
+import Privacidad from './pages/Privacidad';
+import Terminos from './pages/Terminos';
+import NotFound from './pages/NotFound';
 
 function PageLoader() {
   return (
@@ -47,6 +55,19 @@ function PrerenderRoutes() {
           <Route path="herramientas/generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />
           <Route path="herramientas/generador-de-nombres-para-free-fire" element={<GeneradorNombresFreeFire />} />
           <Route path="herramientas/creador-de-lettering" element={<CreadorLettering />} />
+
+          <Route path="generador-de-letras-goticas" element={<SeoPage />} />
+          <Route path="generador-de-letras-cursivas" element={<SeoPage />} />
+          <Route path="letras-para-instagram" element={<SeoPage />} />
+          <Route path="letras-para-tatuajes" element={<SeoPage />} />
+
+          <Route path="blog" element={<Blog />} />
+          <Route path="blog/:slug" element={<BlogPost />} />
+          <Route path="sobre-nosotros" element={<SobreNosotros />} />
+          <Route path="contacto" element={<Contacto />} />
+          <Route path="politica-de-privacidad" element={<Privacidad />} />
+          <Route path="terminos-y-condiciones" element={<Terminos />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </Suspense>
