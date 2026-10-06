@@ -11,6 +11,11 @@
 - [Letras para TikTok](https://generadordelettering.org/herramientas/letras-tiktok): Tipografías Unicode y símbolos para bio, nombre visible y comentarios.
 - [Generador de Nombres para Instagram](https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram): Ideas de nombres, letras bonitas y textos para biografía.
 - [Letras Azules](https://generadordelettering.org/herramientas/letras-azules): Convierte A-Z en Regional Indicator Symbols y ofrece variantes Unicode; el color final depende de la plataforma y del sistema.
+- [Paletas de Color](https://generadordelettering.org/herramientas/paletas-de-color): Explora combinaciones de color para composiciones de lettering y diseño.
+- [Combinador de Fuentes](https://generadordelettering.org/herramientas/combinador-de-fuentes): Compara parejas tipográficas y ejemplos de jerarquía visual.
+- [Plantillas de Práctica](https://generadordelettering.org/herramientas/plantillas-practica): Descarga hojas A4 en SVG para practicar trazos, alfabetos y conexiones.
+- [Editor de Lettering](https://generadordelettering.org/editor): Editor visual basado en canvas con exportación PNG, JPG y WEBP.
+- [Plantillas](https://generadordelettering.org/plantillas): Configuraciones prediseñadas para iniciar composiciones rápidamente.
 
 ## Landing Pages
 - [Generador de Letras Góticas](https://generadordelettering.org/generador-de-letras-goticas)
@@ -29,3 +34,4 @@
 - [Sobre Nosotros](https://generadordelettering.org/sobre-nosotros)
 - [Política de Privacidad](https://generadordelettering.org/politica-de-privacidad)
 - [Contacto](https://generadordelettering.org/contacto)
+- [Términos y Condiciones](https://generadordelettering.org/terminos-y-condiciones)
