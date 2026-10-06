@@ -261,6 +261,17 @@ export default function ConversorTexto() {
         <p className="text-lg text-gray-600">
           Cambia el tipo de letra de tu texto con más de 50 estilos Unicode: cursivas, góticas, negritas, letras raras y otras variantes listas para copiar y pegar.
         </p>
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm text-gray-600">
+          <span className="rounded-full bg-gray-100 px-3 py-1.5">
+            Ideal para comparar rápidamente muchas variantes Unicode
+          </span>
+          <Link
+            to="/herramientas/conversor-letras-bonitas"
+            className="font-semibold text-[#5A4AD2] hover:underline"
+          >
+            ¿Buscas estilos aesthetic y decoraciones para redes? Ver Letras Bonitas →
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-6 md:p-8 mb-8">
