@@ -64,6 +64,7 @@ function Slider({
       onFocus={(event) => captureInitialValue(Number(event.currentTarget.value))}
       onChange={(event) => onValueChange([Number(event.target.value)])}
       onPointerUp={commitValue}
+      onPointerCancel={commitValue}
       onBlur={commitValue}
       className={`h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-[#5A4AD2] ${className}`}
     />
@@ -384,6 +385,12 @@ export function ControlPanel() {
                       const nextValue = Number(rawValue);
                       if (Number.isFinite(nextValue) && nextValue >= 10 && nextValue <= 200) {
                         store.previewState({ fontSize: nextValue });
+                      }
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') {
+                        event.preventDefault();
+                        event.currentTarget.blur();
                       }
                     }}
                     onBlur={() => {
