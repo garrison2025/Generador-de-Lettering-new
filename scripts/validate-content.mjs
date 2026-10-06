@@ -115,6 +115,48 @@ function validateUnicodeMaps() {
   }
 }
 
+function validateUnicodeStyleReferences() {
+  const files = [
+    { path: 'src/pages/ConversorTexto.tsx', extras: [] },
+    { path: 'src/pages/ConversorLetrasBonitas.tsx', extras: [] },
+    { path: 'src/pages/LetrasAzules.tsx', extras: ['blue'] }
+  ];
+
+  for (const config of files) {
+    const source = read(config.path);
+    const fontsStart = source.indexOf('const FONTS_DATA');
+    const fontsEnd = source.indexOf('const FONT_MAPS', fontsStart);
+    const decoratorsStart = source.indexOf('const DECORATORS');
+    const decoratorsEnd = source.indexOf('const STYLES', decoratorsStart);
+    const stylesStart = source.indexOf('const STYLES');
+    const stylesEnd = source.indexOf('export default', stylesStart);
+
+    assert(fontsStart >= 0 && fontsEnd > fontsStart, `Could not locate FONTS_DATA in ${config.path}`);
+    assert(decoratorsStart >= 0 && decoratorsEnd > decoratorsStart, `Could not locate DECORATORS in ${config.path}`);
+    assert(stylesStart >= 0 && stylesEnd > stylesStart, `Could not locate STYLES in ${config.path}`);
+
+    const fontKeys = new Set(
+      [...source.slice(fontsStart, fontsEnd).matchAll(/^\s*([A-Za-z0-9_]+):\s*'/gm)]
+        .map((match) => match[1])
+    );
+    const decoratorKeys = new Set(
+      [...source.slice(decoratorsStart, decoratorsEnd).matchAll(/^\s*([A-Za-z0-9_]+):\s*\{/gm)]
+        .map((match) => match[1])
+    );
+    const styleIds = [
+      ...source.slice(stylesStart, stylesEnd).matchAll(/\{\s*id:\s*'([^']+)'/g)
+    ].map((match) => match[1]);
+
+    const validIds = new Set([...fontKeys, ...decoratorKeys, ...config.extras]);
+    const missing = styleIds.filter((id) => !validIds.has(id));
+
+    assert(
+      missing.length === 0,
+      `Unicode STYLES reference missing mappings in ${config.path}: ${missing.join(', ')}`
+    );
+  }
+}
+
 function validateUnicodeSafeTransforms() {
   const files = [
     'src/pages/ConversorTexto.tsx',
@@ -509,6 +551,7 @@ function validateTrustAndBreadcrumbs() {
 }
 
 validateUnicodeMaps();
+validateUnicodeStyleReferences();
 validateUnicodeSafeTransforms();
 validateRoutesAndSitemap();
 validateBlogLastmod();
