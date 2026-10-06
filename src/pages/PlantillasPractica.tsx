@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Download, FileText, ArrowRight, Check, ChevronLeft } from 'lucide-react';
 import { SEO } from '../components/SEO';
@@ -38,19 +38,54 @@ const SHEETS = [
   }
 ];
 
+const PRACTICE_CONTENT: Record<string, { subtitle: string; samples: string[] }> = {
+  'Trazos Básicos': {
+    subtitle: 'Repite los trazos manteniendo ritmo, altura y separación constantes.',
+    samples: ['||||||||', '////////', 'uuuuuuuu', 'mmmmmmmm', 'oooooooo', 'llllllll']
+  },
+  'Alfabeto Minúsculas': {
+    subtitle: 'Traza las letras grises y continúa la secuencia sobre las guías.',
+    samples: ['a  b  c  d  e', 'f  g  h  i  j', 'k  l  m  n  o', 'p  q  r  s  t', 'u  v  w  x  y', 'z  a  m  o  r']
+  },
+  'Alfabeto Mayúsculas': {
+    subtitle: 'Practica proporción y consistencia antes de añadir florituras.',
+    samples: ['A  B  C  D  E', 'F  G  H  I  J', 'K  L  M  N  O', 'P  Q  R  S  T', 'U  V  W  X  Y', 'Z  A  M  O  R']
+  },
+  'Florituras y Conexiones': {
+    subtitle: 'Practica bucles y enlaces suaves; deja espacio para repetir cada motivo.',
+    samples: ['l  l  l  l  l', 'o  o  o  o  o', 's  s  s  s  s', '∞   ∞   ∞   ∞', '❦    ❧    ❦    ❧', 'love   dream   create']
+  }
+};
+
+function escapeXml(value: string) {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
+}
+
 function generateSVG(title: string) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1131" width="800" height="1131" style="background-color: white;">
-    <text x="400" y="100" font-family="sans-serif" font-size="32" font-weight="bold" fill="#333" text-anchor="middle">Plantilla de Práctica: ${title}</text>
-    <line x1="50" y1="180" x2="750" y2="180" stroke="#ccc" stroke-width="2" />
-    ${Array.from({length: 15}).map((_, i) => {
-        const y = 250 + i * 55;
-        return `
-          <line x1="50" y1="${y}" x2="750" y2="${y}" stroke="#eee" stroke-width="1" />
-          <line x1="50" y1="${y + 15}" x2="750" y2="${y + 15}" stroke="#eee" stroke-dasharray="4" stroke-width="1" />
-          <line x1="50" y1="${y + 35}" x2="750" y2="${y + 35}" stroke="#ddd" stroke-width="1.5" />
-        `;
-    }).join('')}
-    <text x="400" y="1100" font-family="sans-serif" font-size="14" fill="#999" text-anchor="middle">Generado por Generador de Lettering / GeneradorAesthetic.com</text>
+  const content = PRACTICE_CONTENT[title] || PRACTICE_CONTENT['Trazos Básicos'];
+  const rows = content.samples.map((sample, index) => {
+    const y = 250 + index * 125;
+    return `
+      <g>
+        <line x1="55" y1="${y - 38}" x2="745" y2="${y - 38}" stroke="#e5e7eb" stroke-width="1" />
+        <line x1="55" y1="${y}" x2="745" y2="${y}" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5 5" />
+        <line x1="55" y1="${y + 38}" x2="745" y2="${y + 38}" stroke="#94a3b8" stroke-width="1.5" />
+        <text x="70" y="${y + 24}" font-family="cursive" font-size="42" fill="#9ca3af">${escapeXml(sample)}</text>
+      </g>`;
+  }).join('');
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1131" width="210mm" height="297mm">
+    <rect width="800" height="1131" fill="#ffffff" />
+    <text x="400" y="78" font-family="sans-serif" font-size="28" font-weight="700" fill="#111827" text-anchor="middle">Plantilla de Práctica: ${escapeXml(title)}</text>
+    <text x="400" y="118" font-family="sans-serif" font-size="15" fill="#64748b" text-anchor="middle">${escapeXml(content.subtitle)}</text>
+    <line x1="55" y1="155" x2="745" y2="155" stroke="#e2e8f0" stroke-width="2" />
+    ${rows}
+    <text x="400" y="1085" font-family="sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Generador de Lettering · generadordelettering.org</text>
   </svg>`;
 }
 
@@ -80,7 +115,7 @@ export default function PlantillasPractica() {
   return (
     <>
       <SEO 
-        title="Plantillas de Práctica de Lettering | Descargar PDF/SVG Gratis"
+        title="Plantillas de Práctica de Lettering | Descargar SVG Gratis"
         description="Descarga guías y plantillas de práctica imprimibles para lettering y caligrafía. Trazos básicos, minúsculas y mayúsculas gratis."
         keywords="plantillas de practica lettering, descargar plantillas caligrafia, guias lettering gratis, hojas de practica lettering"
       />
@@ -94,7 +129,7 @@ export default function PlantillasPractica() {
         <span className="inline-block px-3 py-1 bg-[#5A4AD2]/10 text-[#5A4AD2] text-sm font-bold rounded-full mb-4">Recursos Gratuitos</span>
         <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Plantillas de Práctica</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Descarga nuestras hojas de práctica en PDF listas para imprimir. Mejora tu pulso, controla la presión y domina diferentes estilos de lettering.
+          Descarga hojas de práctica A4 en SVG listas para imprimir o abrir en un navegador. Practica trazos, alfabetos y conexiones con guías diferenciadas.
         </p>
       </div>
 
