@@ -11,12 +11,14 @@ function assert(condition, message) {
 }
 
 function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\function assert(condition, message) {
-  if (!condition) {
-    throw new Error(message);
-  }
-}
-');
+  const specialCharacters = new Set([
+    '\\', '.', '*', '+', '?', '^', '$', '{', '}', '(', ')', '|', '[', ']'
+  ]);
+
+  return Array.from(
+    value,
+    (char) => specialCharacters.has(char) ? '\\' + char : char
+  ).join('');
 }
 
 function validateUnicodeMaps() {
