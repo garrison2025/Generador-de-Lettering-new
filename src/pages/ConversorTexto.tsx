@@ -1,5 +1,5 @@
 import { copyText } from '../utils/copyText';
-import { useState, useEffect, useDeferredValue } from 'react';
+import { useState, useDeferredValue } from 'react';
 import { Copy, Check, ExternalLink, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
@@ -332,10 +332,6 @@ export default function ConversorTexto() {
   const [inputText, setInputText] = useState('Lettering Mágico');
   const deferredInput = useDeferredValue(inputText);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Removed document.title
-  }, []);
 
   const copyToClipboard = async (text: string, id: string) => {
     if (!(await copyText(text))) {
