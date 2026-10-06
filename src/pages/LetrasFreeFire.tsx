@@ -64,7 +64,7 @@ const faqSchema = {
       "name": "¿Cómo crear un nombre que de miedo en Free Fire?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Para tener un nombre insano o que de miedo en Free Fire, recomendamos usar el estilo 'Letras Góticas' de nuestro conversor y combinarlo con adornos en los costados como cruces, armas (︻╦╤─) o caras japonesas. Ejemplos de nicks populares que usan esta estructura son aquellos que incluyen palabras oscuras como 'Dark', 'Ghost' o 'Muerte', envueltos en alas ꧁ ༒ ꧂."
+        "text": "Para tener un nombre insano o que de miedo en Free Fire, recomendamos usar el estilo 'Letras Góticas' de nuestro conversor y combinarlo con adornos en los costados como cruces, armas (︻╦╤─) o caras japonesas. Puedes combinar palabras oscuras como 'Dark', 'Ghost' o 'Muerte' con alas y marcos como ꧁ ༒ ꧂ para crear ese estilo."
       }
     },
     {
@@ -88,7 +88,7 @@ const faqSchema = {
       "name": "¿Cuáles son las letras para armas Free Fire?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Añadimos figuras como ︻╦╤─, ⌐╦╦═─ o pequeñas escopetas ASCII. Estas figuras, junto con las letras versalitas, dotan de gran estilo a clanes de e-sports o dúos competitivos. Descubre y combina estas opciones para ser el MVP."
+        "text": "Añadimos figuras como ︻╦╤─, ⌐╦╦═─ o pequeñas escopetas ASCII. Estas figuras, junto con las letras versalitas, permiten diferenciar visualmente nombres de clanes o dúos. Combínalas con moderación para mantener el nick legible."
       }
     }
   ]
@@ -219,7 +219,7 @@ export default function LetrasFreeFire() {
       <div className="text-center mb-10">
         <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Generador de Letras para Free Fire</h1>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-          Crea nombres épicos. Encuentra las mejores <strong>letras pro</strong> y <strong>símbolos para Free Fire</strong>, PUBG, Call of Duty o cualquier otro juego.
+          Crea nombres épicos. Encuentra <strong>letras pro</strong> y <strong>símbolos para Free Fire</strong>, PUBG, Call of Duty o cualquier otro juego.
         </p>
       </div>
 
@@ -363,14 +363,14 @@ export default function LetrasFreeFire() {
       <section className="mt-16 text-left space-y-8 bg-yellow-50/50 p-8 rounded-3xl border border-yellow-100">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-black text-gray-900 tracking-tight">Preguntas Frecuentes sobre Nombres para Free Fire</h2>
-          <p className="text-gray-600 mt-3">Resuelve tus dudas sobre cómo crear el mejor nick, letras insanas y clanes.</p>
+          <p className="text-gray-600 mt-3">Resuelve tus dudas sobre cómo crear nicks, letras insanas y nombres de clan.</p>
         </div>
         
         <div className="space-y-6">
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Cómo crear un nombre que de miedo en Free Fire?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Para tener un nombre <strong>insano o que de miedo</strong> en Free Fire, recomendamos usar el estilo "Letras Góticas" de nuestro conversor y combinarlo con adornos en los costados como cruces, armas (︻╦╤─) o caras japonesas. Ejemplos de nicks populares que usan esta estructura son aquellos que incluyen palabras oscuras como "Dark", "Ghost" o "Muerte", envueltos en alas ꧁ ༒ ꧂.
+              Para tener un nombre <strong>insano o que de miedo</strong> en Free Fire, recomendamos usar el estilo "Letras Góticas" de nuestro conversor y combinarlo con adornos en los costados como cruces, armas (︻╦╤─) o caras japonesas. Puedes combinar palabras oscuras como "Dark", "Ghost" o "Muerte" con alas y marcos como ꧁ ༒ ꧂ para crear ese estilo.
             </p>
           </div>
 
@@ -391,7 +391,7 @@ export default function LetrasFreeFire() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Cuáles son las letras para armas Free Fire?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Añadimos figuras como <strong>︻╦╤─</strong>, <strong>⌐╦╦═─</strong> o pequeñas escopetas ASCII. Estas figuras, junto con las letras versalitas, dotan de gran estilo a clanes de e-sports o dúos competitivos. Descubre y combina estas opciones para ser el MVP.
+              Añadimos figuras como <strong>︻╦╤─</strong>, <strong>⌐╦╦═─</strong> o pequeñas escopetas ASCII. Estas figuras, junto con las letras versalitas, permiten diferenciar visualmente nombres de clanes o dúos. Combínalas con moderación para mantener el nick legible.
             </p>
           </div>
         </div>
