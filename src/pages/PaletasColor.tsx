@@ -144,8 +144,16 @@ export default function PaletasColor() {
                 style={gradientStyle}
                 onClick={() => copyGradient(palette.colors)}
               >
-                <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition bg-black/40 backdrop-blur-[1px]">
-                  <span className="text-xs text-white font-bold tracking-wide">Copiar Gradiente CSS</span>
+                <span className={`absolute inset-0 flex items-center justify-center transition backdrop-blur-[1px] ${
+                  copiedPalette === `linear-gradient(135deg, ${palette.colors.join(', ')})`
+                    ? 'opacity-100 bg-black/50'
+                    : 'opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 bg-black/40'
+                }`}>
+                  <span className="text-xs text-white font-bold tracking-wide">
+                    {copiedPalette === `linear-gradient(135deg, ${palette.colors.join(', ')})`
+                      ? '✓ Gradiente copiado'
+                      : 'Copiar Gradiente CSS'}
+                  </span>
                 </span>
               </button>
               
