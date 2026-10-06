@@ -212,7 +212,7 @@ const faqSchema = {
       "name": "¿Cómo copiar y pegar letras azules para Facebook o WhatsApp?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nuestro generador convierte instantáneamente tu texto normal en letras azules gruesas. Solo tienes que escribir en el buscador superior, hacer clic en el botón de copiar y luego pegarlo (paste) en cualquier red social como Facebook, Twitter, WhatsApp o Instagram. Al ser caracteres especiales Unicode, mantienen su color en casi todos los dispositivos móviles y web."
+        "text": "Nuestro generador transforma las letras A-Z en Regional Indicator Symbols de Unicode. Escribe tu texto, pulsa copiar y pégalo en la aplicación que quieras. En algunas plataformas estos símbolos se ven como letras dentro de cuadros de color; en otras pueden verse con un estilo diferente porque el color y la apariencia dependen del sistema y de la fuente."
       }
     },
     {
@@ -228,7 +228,7 @@ const faqSchema = {
       "name": "¿Las letras azules funcionan en todos los celulares (Android e iPhone)?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sí, los caracteres conocidos como Regional Indicator Symbols son un estándar, por lo que la gran mayoría de móviles o celulares modernos los procesan correctamente exhibiendo tipografías de color azul con fondo transparente o sombreado. Si un dispositivo muy antiguo no lo soporta, verá letras normales mayúsculas."
+        "text": "Los Regional Indicator Symbols forman parte de Unicode y los sistemas modernos suelen reconocerlos, pero su apariencia no es idéntica en todos los dispositivos. Según la plataforma pueden mostrarse como símbolos de estilo emoji, letras encuadradas o con otra presentación; dos símbolos consecutivos también pueden combinarse para representar una bandera."
       }
     },
     {
@@ -236,7 +236,7 @@ const faqSchema = {
       "name": "¿Existen otros colores además de las fuentes de letras azules?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Por defecto, el estándar Unicode asignó estos indicadores de regiones con el color azul para banderas. No existen letras rojas, verdes o amarillas bajo esta misma regla. Si quieres otras variantes de texto llamativas, te recomendamos probar los estilos invertidos, hacker o letras rúnicas disponibles en nuestro generador."
+        "text": "Unicode define el carácter, no un color fijo para estas letras. El color y el diseño visual los decide el sistema operativo, la aplicación o la fuente utilizada. Por eso no es posible elegir de forma universal una versión roja, verde o amarilla del mismo carácter; para otros efectos puedes usar las variantes de letras cuadradas, invertidas o decoradas del generador."
       }
     }
   ]
@@ -255,7 +255,7 @@ export default function LetrasAzules() {
     if (!text) return 'Escribe aquí';
     
     if (styleId === 'blue') {
-      return text.toUpperCase().split('').map(char => {
+      return Array.from(text.toUpperCase()).map(char => {
         if (char >= 'A' && char <= 'Z') {
           return String.fromCodePoint(0x1F1E6 + char.charCodeAt(0) - 0x41) + ' '; 
         }
@@ -268,7 +268,7 @@ export default function LetrasAzules() {
     // Appply mapped fonts
     if (FONT_MAPS[styleId]) {
       const map = FONT_MAPS[styleId];
-      result = result.split('').map(char => {
+      result = Array.from(result).map(char => {
         if (styleId === 'al_reves' || styleId === 'espejo' || styleId === 'invertido_mayusculas') {
           const mapped = map[char] || map[char.toLowerCase()] || char;
           return mapped;
@@ -278,7 +278,7 @@ export default function LetrasAzules() {
       
       // Si es al revés o espejo, el texto completo también se invierte
       if (styleId === 'al_reves' || styleId === 'espejo' || styleId === 'invertido_mayusculas') {
-        result = result.split('').reverse().join('');
+        result = Array.from(result).reverse().join('');
       }
     }
 
@@ -287,11 +287,11 @@ export default function LetrasAzules() {
       const dec = DECORATORS[styleId];
       
       if (dec.modifier) {
-        result = result.split('').map(char => char !== ' ' ? char + dec.modifier : char).join('');
+        result = Array.from(result).map(char => char !== ' ' ? char + dec.modifier : char).join('');
       }
       
       if (dec.join) {
-        result = result.split('').join(dec.join);
+        result = Array.from(result).join(dec.join);
       }
       
       if (dec.pre || dec.post) {
@@ -299,7 +299,7 @@ export default function LetrasAzules() {
       }
       
       if (dec.reverse) {
-        result = result.split('').reverse().join('');
+        result = Array.from(result).reverse().join('');
       }
     }
 
@@ -349,7 +349,7 @@ export default function LetrasAzules() {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Herramientas",
-                "item": "https://generadordelettering.org/"
+                "item": "https://generadordelettering.org/herramientas"
               },
               {
                 "@type": "ListItem",
@@ -455,7 +455,7 @@ export default function LetrasAzules() {
           Las "letras azules" son en realidad un bloque especial de caracteres Unicode conocido como <strong>Regional Indicator Symbols</strong>. Originalmente, están diseñados para combinarse en pares y formar banderas de países (por ejemplo, 🇪 + 🇸 = 🇪🇸).
         </p>
         <p className="mt-4">
-          Cuando se usan por separado o separados por espacios, muchas plataformas y teléfonos (especialmente en Android y algunas aplicaciones de Windows/Web) las muestran como letras mayúsculas de color azul claro o oscuro dentro de pequeños cuadrados. Al copiar y pegar el texto generado aquí, podrás usarlas como un estilo de fuente único en tus perfiles.
+          Cuando se usan por separado, algunas plataformas los representan como símbolos de estilo emoji o letras dentro de cuadros, y de ahí viene el nombre popular de "letras azules". Unicode no fija ese color: la apariencia final depende del sistema operativo, la aplicación y la fuente. El generador separa los símbolos para reducir la posibilidad de que dos letras consecutivas se interpreten como una bandera.
         </p>
       </div>
 
@@ -469,7 +469,7 @@ export default function LetrasAzules() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Cómo copiar y pegar letras azules para Facebook o WhatsApp?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Nuestro generador convierte instantáneamente tu texto normal en <strong>letras azules gruesas</strong>. Solo tienes que escribir en el buscador superior, hacer clic en el botón de copiar y luego pegarlo (paste) en cualquier red social como Facebook, Twitter, WhatsApp o Instagram. Al ser caracteres especiales Unicode, mantienen su color en casi todos los dispositivos móviles y web.
+              Nuestro generador transforma las letras A-Z en <strong>Regional Indicator Symbols</strong> de Unicode. Escribe tu texto, pulsa copiar y pégalo en la aplicación que quieras. En algunas plataformas estos símbolos se ven como letras dentro de cuadros de color; en otras pueden verse con un estilo diferente porque la apariencia depende del sistema y de la fuente.
             </p>
           </div>
 
@@ -483,14 +483,14 @@ export default function LetrasAzules() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Las letras azules funcionan en todos los celulares (Android e iPhone)?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Sí, los caracteres conocidos como <em>Regional Indicator Symbols</em> son un estándar, por lo que la gran mayoría de móviles o celulares modernos los procesan correctamente exhibiendo <strong>tipografías de color azul con fondo transparente o sombreado</strong>. Si un dispositivo muy antiguo no lo soporta, verá letras normales mayúsculas.
+              Los <em>Regional Indicator Symbols</em> forman parte de Unicode y los sistemas modernos suelen reconocerlos, pero su apariencia no es idéntica en todos los dispositivos. Según la plataforma pueden mostrarse como símbolos de estilo emoji, letras encuadradas o con otra presentación; dos símbolos consecutivos también pueden combinarse para representar una bandera.
             </p>
           </div>
 
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Existen otros colores además de las fuentes de letras azules?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Por defecto, el estándar Unicode asignó estos indicadores de regiones con el color azul para banderas. No existen letras rojas, verdes o amarillas bajo esta misma regla. Si quieres otras variantes de texto llamativas, te recomendamos probar los estilos invertidos, hacker o letras rúnicas disponibles en nuestro generador.
+              Unicode define el carácter, no un color fijo para estas letras. El color y el diseño visual los decide el sistema operativo, la aplicación o la fuente utilizada. Por eso no existe una forma universal de elegir una versión roja, verde o amarilla del mismo símbolo; para otros efectos puedes usar las variantes cuadradas, invertidas o decoradas del generador.
             </p>
           </div>
         </div>
