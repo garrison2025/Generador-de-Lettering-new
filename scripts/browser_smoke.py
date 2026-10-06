@@ -109,7 +109,7 @@ def assert_no_runtime_errors(label: str) -> None:
         fail(f"{label}: browser runtime errors: {' | '.join(failures)}")
 
 
-def assert_layout_stability(label: str, threshold: float = 0.25) -> None:
+def assert_layout_stability(label: str, threshold: float = 0.10) -> None:
     # Give hydration, lazy chunks and the local font response a short window to settle.
     time.sleep(0.2)
     cls = driver.execute_script("return Number(window.__smokeCLS || 0)")
@@ -229,6 +229,7 @@ try:
     driver.execute_script("arguments[0].click()", route_link[-1])
     wait.until(lambda d: urlparse(d.current_url).path == "/herramientas/creador-de-lettering")
     wait.until(lambda d: d.execute_script("return window.scrollY") <= 2)
+    wait.until(lambda d: d.execute_script("return document.activeElement && document.activeElement.id") == "main-content")
     assert_no_runtime_errors("SPA route scroll reset")
 
     # Repeat the most overflow-prone tools at a narrow 320px mobile viewport.

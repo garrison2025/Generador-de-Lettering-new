@@ -10,6 +10,7 @@ export default function Layout() {
   const navigationType = useNavigationType();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const mainContentRef = useRef<HTMLElement>(null);
   const isEditor = location.pathname === '/editor';
 
   useEffect(() => {
@@ -22,6 +23,9 @@ export default function Layout() {
     // to the browser so Back/Forward can restore the user's previous position.
     if (navigationType !== 'POP') {
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      requestAnimationFrame(() => {
+        mainContentRef.current?.focus({ preventScroll: true });
+      });
     }
   }, [location.pathname, navigationType]);
 
@@ -150,7 +154,7 @@ export default function Layout() {
         )}
       </header>
       
-      <main id="main-content" className={`flex-1 flex flex-col relative w-full h-full`} tabIndex={-1}>
+      <main ref={mainContentRef} id="main-content" className={`flex-1 flex flex-col relative w-full h-full`} tabIndex={-1}>
         <Outlet />
       </main>
 
