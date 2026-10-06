@@ -179,8 +179,9 @@ export default function GeneradorNombresFreeFire() {
       window.alert('No se pudo copiar automáticamente. Selecciona el nick y cópialo manualmente.');
       return;
     }
-    setCopiedId(id || text);
-    setTimeout(() => setCopiedId(null), 2000);
+    const copiedKey = id || text;
+    setCopiedId(copiedKey);
+    setTimeout(() => setCopiedId((current) => current === copiedKey ? null : current), 2000);
   };
 
   const toggleSaveNick = (text: string) => {
