@@ -75,56 +75,42 @@ function validateUnicodeMaps() {
   );
 }
 
-function extractNamedFontMap(source, mapName, path) {
-  const mapsStart = source.indexOf('const FONT_MAPS');
-  assert(mapsStart >= 0, `Could not locate FONT_MAPS in ${path}`);
-
-  const marker = `${mapName}: {`;
-  const markerStart = source.indexOf(marker, mapsStart);
-  assert(markerStart >= 0, `Could not locate FONT_MAPS.${mapName} in ${path}`);
-
-  const objectStart = source.indexOf('{', markerStart);
-  let depth = 0;
-  let objectEnd = -1;
-
-  for (let index = objectStart; index < source.length; index += 1) {
-    const char = source[index];
-    if (char === '{') depth += 1;
-    if (char === '}') {
-      depth -= 1;
-      if (depth === 0) {
-        objectEnd = index;
-        break;
-      }
-    }
-  }
-
-  assert(objectEnd > objectStart, `Could not parse FONT_MAPS.${mapName} in ${path}`);
-
-  return new Map(
-    [...source.slice(objectStart, objectEnd + 1).matchAll(/'([^']+)':\s*'([^']+)'/g)]
-      .map((match) => [match[1], match[2]])
-  );
-}
-
 function validateFreeFireFontMaps() {
-  const sourceA = read('src/pages/LetrasFreeFire.tsx');
-  const sourceB = read('src/pages/GeneradorNombresFreeFire.tsx');
+  const configs = [
+    {
+      path: 'src/pages/LetrasFreeFire.tsx',
+      references: [
+        'smallCaps: SHARED_FONT_MAPS.small_caps',
+        'gothic: SHARED_FONT_MAPS.gotica'
+      ]
+    },
+    {
+      path: 'src/pages/GeneradorNombresFreeFire.tsx',
+      references: [
+        'smallCaps: SHARED_FONT_MAPS.small_caps',
+        'gothic: SHARED_FONT_MAPS.gotica',
+        'cursiva: SHARED_FONT_MAPS.cursiva'
+      ]
+    }
+  ];
 
-  for (const mapName of ['smallCaps', 'gothic']) {
-    const mapA = extractNamedFontMap(sourceA, mapName, 'src/pages/LetrasFreeFire.tsx');
-    const mapB = extractNamedFontMap(sourceB, mapName, 'src/pages/GeneradorNombresFreeFire.tsx');
+  for (const config of configs) {
+    const source = read(config.path);
 
-    const expectedKeys = mapName === 'gothic'
-      ? Array.from('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
-      : Array.from('abcdefghijklmnopqrstuvwxyz');
+    assert(
+      source.includes("import { FONT_MAPS as SHARED_FONT_MAPS } from '../data/unicodeStyles';"),
+      `Free Fire tool must import the shared Unicode font map: ${config.path}`
+    );
 
-    for (const key of expectedKeys) {
-      assert(mapA.has(key), `Missing Free Fire ${mapName} mapping for "${key}" in LetrasFreeFire.tsx`);
-      assert(mapB.has(key), `Missing Free Fire ${mapName} mapping for "${key}" in GeneradorNombresFreeFire.tsx`);
+    assert(
+      !source.includes('const FONT_MAPS:'),
+      `Duplicated local FONT_MAPS found in ${config.path}`
+    );
+
+    for (const reference of config.references) {
       assert(
-        mapA.get(key) === mapB.get(key),
-        `Free Fire ${mapName} mapping mismatch for "${key}": ${mapA.get(key)} != ${mapB.get(key)}`
+        source.includes(reference),
+        `Missing shared Free Fire font-map reference in ${config.path}: ${reference}`
       );
     }
   }
