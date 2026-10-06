@@ -276,7 +276,7 @@ export default function GeneradorNombresFreeFire() {
         ]}
       />
 
-      <div className="max-w-5xl mx-auto px-4 py-12 w-full">
+      <div className="max-w-5xl mx-auto px-4 py-12 w-full min-w-0">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="mb-8">
           <ol className="flex items-center space-x-2 text-sm text-gray-500 font-medium">
@@ -422,7 +422,7 @@ export default function GeneradorNombresFreeFire() {
             <Flame className="w-64 h-64 text-amber-500" />
           </div>
           
-          <div className="flex items-center justify-between border-b border-amber-500/20 pb-3 mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-amber-500/20 pb-3 mb-4">
             <div className="flex items-center gap-2">
               <Award className="w-5 h-5 text-amber-400" />
               <span className="text-xs font-black uppercase tracking-widest text-amber-400">
@@ -436,7 +436,7 @@ export default function GeneradorNombresFreeFire() {
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
+            <div className="min-w-0 flex items-center gap-4">
               {/* Rank Emblem */}
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-red-600 p-0.5 shadow-lg flex items-center justify-center shrink-0">
                 <div className="w-full h-full bg-slate-950 rounded-2xl flex flex-col items-center justify-center">
@@ -445,12 +445,12 @@ export default function GeneradorNombresFreeFire() {
                 </div>
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Vista Previa de tu Nick en el Juego:</span>
-                <p className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">
+                <p className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md break-all sm:break-words">
                   {clanPrefix ? `${clanPrefix} ` : ''}{DECORATORS[0].prefix}{applyFont(deferredInput || 'Slayer', 'gothic')}{DECORATORS[0].suffix}
                 </p>
-                <div className="flex items-center gap-3 mt-1.5 text-xs text-amber-200/80 font-semibold">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1.5 text-xs text-amber-200/80 font-semibold">
                   <span className="flex items-center gap-1"><Shield className="w-3.5 h-3.5 text-amber-400" /> Clan: {clanPrefix || 'HEROICOS'}</span>
                   <span>•</span>
                   <span className="flex items-center gap-1"><Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" /> 9,999+ Likes</span>
@@ -532,9 +532,9 @@ export default function GeneradorNombresFreeFire() {
               {savedNicks.map((saved, idx) => (
                 <div 
                   key={idx}
-                  className="bg-white border border-amber-200 rounded-xl px-3.5 py-1.5 flex items-center gap-2 shadow-xs"
+                  className="min-w-0 max-w-full bg-white border border-amber-200 rounded-xl px-3.5 py-1.5 flex items-center gap-2 shadow-xs"
                 >
-                  <span className="text-sm font-bold text-gray-900">{saved}</span>
+                  <span className="min-w-0 max-w-[70vw] sm:max-w-none text-sm font-bold text-gray-900 break-all sm:break-words">{saved}</span>
                   <button 
                     type="button"
                     onClick={() => copyToClipboard(saved, `saved-${idx}`)}
@@ -587,9 +587,9 @@ export default function GeneradorNombresFreeFire() {
                 return (
                   <div 
                     key={option.key} 
-                    className="bg-white border border-gray-200 hover:border-amber-400 rounded-2xl p-4 flex items-center justify-between gap-3 shadow-sm hover:shadow-md transition group"
+                    className="min-w-0 bg-white border border-gray-200 hover:border-amber-400 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm hover:shadow-md transition group"
                   >
-                    <div className="overflow-hidden flex-1">
+                    <div className="min-w-0 overflow-hidden flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
                           {option.name}
@@ -604,7 +604,7 @@ export default function GeneradorNombresFreeFire() {
                           </span>
                         )}
                       </div>
-                      <p className="text-lg md:text-xl font-bold text-gray-900 truncate pr-2" title={option.fullName}>
+                      <p className="text-lg md:text-xl font-bold text-gray-900 break-all sm:break-words md:truncate pr-0 md:pr-2 leading-relaxed" title={option.fullName}>
                         {option.fullName}
                       </p>
                     </div>

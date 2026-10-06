@@ -396,7 +396,7 @@ export default function GeneradorNombresInstagram() {
         ]}
       />
 
-      <div className="max-w-5xl mx-auto px-4 py-10 w-full">
+      <div className="max-w-5xl mx-auto px-4 py-10 w-full min-w-0">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="mb-6">
           <ol className="flex items-center space-x-2 text-sm text-gray-500 font-medium">
@@ -483,12 +483,12 @@ export default function GeneradorNombresInstagram() {
           <>
             {/* Interactive Generator Input */}
             <div className="bg-gradient-to-br from-purple-900 via-indigo-900 to-slate-900 rounded-3xl p-6 md:p-8 text-white shadow-xl mb-8 border border-purple-800/50">
-              <div className="flex justify-between items-center mb-3">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-3">
                 <label htmlFor="insta-input" className="block text-sm font-bold text-pink-300 uppercase tracking-wider flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-pink-400" />
                   Escribe tu Nombre, Marca o Frase:
                 </label>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                   <span className="text-xs font-semibold bg-white/10 px-3 py-1 rounded-full text-pink-200">
                     {inputCharacterCount} / {INSTAGRAM_INPUT_LIMIT} caracteres
                   </span>
@@ -596,9 +596,9 @@ export default function GeneradorNombresInstagram() {
                   {savedNames.map((saved, idx) => (
                     <div 
                       key={idx}
-                      className="bg-white border border-pink-200 rounded-xl px-3.5 py-1.5 flex items-center gap-2 shadow-xs"
+                      className="min-w-0 max-w-full bg-white border border-pink-200 rounded-xl px-3.5 py-1.5 flex items-center gap-2 shadow-xs"
                     >
-                      <span className="text-sm font-medium text-gray-900">{saved}</span>
+                      <span className="min-w-0 max-w-[70vw] sm:max-w-none text-sm font-medium text-gray-900 break-all sm:break-words">{saved}</span>
                       <button 
                         type="button"
                         onClick={() => copyToClipboard(saved, `saved-${idx}`)}
@@ -644,8 +644,8 @@ export default function GeneradorNombresInstagram() {
                   <h3 className="font-bold text-gray-900 text-base truncate">
                     {convertText(deferredInput, 'cursiva_bold')}
                   </h3>
-                  <p className="text-xs text-gray-500 font-medium">@{(deferredInput || 'usuario').toLowerCase().replace(/\s+/g, '')}</p>
-                  <p className="text-xs text-gray-700 mt-2 whitespace-pre-line leading-relaxed">
+                  <p className="text-xs text-gray-500 font-medium break-all">@{(deferredInput || 'usuario').toLowerCase().replace(/\s+/g, '')}</p>
+                  <p className="text-xs text-gray-700 mt-2 whitespace-pre-line leading-relaxed break-all sm:break-words">
                     ✨ {convertText(deferredInput, 'cursiva')} <br />
                     📍 Creador Digital & Aesthetic Vibes <br />
                     ✦ generadordelettering.org
@@ -655,7 +655,7 @@ export default function GeneradorNombresInstagram() {
             </div>
 
             {/* Category Filter Pills */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar">
+            <div className="max-w-full flex items-center gap-2 overflow-x-auto overscroll-x-contain pb-4 mb-6 no-scrollbar">
               <span className="text-xs font-bold text-gray-400 uppercase tracking-wider shrink-0 mr-1">Filtrar:</span>
               {categories.map((cat) => (
                 <button
@@ -681,13 +681,13 @@ export default function GeneradorNombresInstagram() {
                 return (
                   <div 
                     key={fontKey}
-                    className="bg-white border border-gray-200 hover:border-pink-400 rounded-2xl p-5 flex items-center justify-between gap-4 shadow-sm hover:shadow-md transition group"
+                    className="min-w-0 bg-white border border-gray-200 hover:border-pink-400 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm hover:shadow-md transition group"
                   >
-                    <div className="overflow-hidden flex-1">
+                    <div className="min-w-0 overflow-hidden flex-1">
                       <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-1">
                         {fontInfo.label}
                       </span>
-                      <p className="text-xl md:text-2xl font-medium text-gray-900 truncate pr-2" title={converted}>
+                      <p className="text-xl md:text-2xl font-medium text-gray-900 break-all sm:break-words md:truncate pr-0 md:pr-2 leading-relaxed" title={converted}>
                         {converted}
                       </p>
                     </div>
@@ -731,13 +731,13 @@ export default function GeneradorNombresInstagram() {
                 return (
                   <div 
                     key={decId}
-                    className="bg-white border border-gray-200 hover:border-purple-400 rounded-2xl p-5 flex items-center justify-between gap-4 shadow-sm hover:shadow-md transition group"
+                    className="min-w-0 bg-white border border-gray-200 hover:border-purple-400 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm hover:shadow-md transition group"
                   >
-                    <div className="overflow-hidden flex-1">
+                    <div className="min-w-0 overflow-hidden flex-1">
                       <span className="text-[11px] font-bold text-purple-600 uppercase tracking-wider block mb-1">
                         {dec.name}
                       </span>
-                      <p className="text-xl md:text-2xl font-medium text-gray-900 truncate pr-2" title={fullDecorated}>
+                      <p className="text-xl md:text-2xl font-medium text-gray-900 break-all sm:break-words md:truncate pr-0 md:pr-2 leading-relaxed" title={fullDecorated}>
                         {fullDecorated}
                       </p>
                     </div>
