@@ -8,6 +8,7 @@ export default function NotFound() {
       <SEO 
         title="Página no encontrada (404) | Generador de Lettering"
         description="Lo sentimos, no pudimos encontrar la página que buscas. Descubre nuestro conversor de letras bonitas y otras herramientas para tus redes sociales."
+        noindex
       />
       <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center py-20">
         <div className="w-24 h-24 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center mb-8">
