@@ -758,6 +758,53 @@ function validateLegacyCanonicalUrls() {
   );
 }
 
+function validatePrerenderStorageSafety() {
+  const pages = [
+    {
+      path: 'src/pages/LetrasTikTok.tsx',
+      state: 'favorites',
+      hydratedState: 'favoritesHydrated',
+      storageKey: 'tiktok_fav_fonts'
+    },
+    {
+      path: 'src/pages/GeneradorNombresInstagram.tsx',
+      state: 'savedNames',
+      hydratedState: 'savedNamesHydrated',
+      storageKey: 'ig_saved_names'
+    },
+    {
+      path: 'src/pages/GeneradorNombresFreeFire.tsx',
+      state: 'savedNicks',
+      hydratedState: 'savedNicksHydrated',
+      storageKey: 'ff_saved_nicks'
+    }
+  ];
+
+  for (const page of pages) {
+    const source = read(page.path);
+    assert(
+      source.includes(`const [${page.state}, set${page.state[0].toUpperCase() + page.state.slice(1)}] = useState<string[]>([]);`),
+      `Prerendered persisted state must start empty in ${page.path}`
+    );
+    assert(
+      source.includes(`const [${page.hydratedState}, set${page.hydratedState[0].toUpperCase() + page.hydratedState.slice(1)}] = useState(false);`),
+      `Prerendered persisted state must have an explicit hydration gate in ${page.path}`
+    );
+    assert(
+      source.includes(`localStorage.getItem('${page.storageKey}')`),
+      `Missing persisted-state restore for ${page.storageKey} in ${page.path}`
+    );
+    assert(
+      source.includes(`if (!${page.hydratedState}) return;`),
+      `Persisted-state writes must wait until hydration completes in ${page.path}`
+    );
+    assert(
+      !new RegExp(`useState<string\\[\\]>\\(\\(\\) =>[\\s\\S]{0,400}localStorage\\.getItem\\('${page.storageKey}'\\)`).test(source),
+      `localStorage must not run inside the initial useState render for ${page.path}`
+    );
+  }
+}
+
 function validateSearchIntentOwnership() {
   const home = read('src/pages/Home.tsx');
   const editor = read('src/pages/Editor.tsx');
@@ -879,6 +926,7 @@ validateRemovedUiImports();
 validateEditorHistoryMemorySafety();
 validateEditorStoreUsage();
 validateLegacyCanonicalUrls();
+validatePrerenderStorageSafety();
 validateSearchIntentOwnership();
 validateTrustAndBreadcrumbs();
 
