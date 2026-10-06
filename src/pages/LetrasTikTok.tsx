@@ -73,19 +73,8 @@ export default function LetrasTikTok() {
   const [inputText, setInputText] = useState('Aesthetic TikTok');
   const [selectedCategory, setSelectedCategory] = useState<string>('todas');
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [favorites, setFavorites] = useState<string[]>(() => {
-    try {
-      const saved = localStorage.getItem('tiktok_fav_fonts');
-      if (!saved) return [];
-
-      const parsed: unknown = JSON.parse(saved);
-      if (!Array.isArray(parsed)) return [];
-
-      return [...new Set(parsed.filter((value): value is string => typeof value === 'string'))].slice(0, 50);
-    } catch {
-      return [];
-    }
-  });
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [favoritesHydrated, setFavoritesHydrated] = useState(false);
   const [storagePersistent, setStoragePersistent] = useState(true);
   const [previewMode, setPreviewMode] = useState<'bio' | 'comment'>('bio');
 
@@ -94,12 +83,33 @@ export default function LetrasTikTok() {
 
   useEffect(() => {
     try {
+      const saved = localStorage.getItem('tiktok_fav_fonts');
+      if (saved) {
+        const parsed: unknown = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setFavorites(
+            [...new Set(parsed.filter((value): value is string => typeof value === 'string'))].slice(0, 50)
+          );
+        }
+      }
+      setStoragePersistent(true);
+    } catch {
+      setStoragePersistent(false);
+    } finally {
+      setFavoritesHydrated(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!favoritesHydrated) return;
+
+    try {
       localStorage.setItem('tiktok_fav_fonts', JSON.stringify(favorites));
       setStoragePersistent(true);
     } catch {
       setStoragePersistent(false);
     }
-  }, [favorites]);
+  }, [favorites, favoritesHydrated]);
 
   const handleCopy = async (text: string, id: string) => {
     if (!(await copyText(text))) {
