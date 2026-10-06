@@ -83,33 +83,50 @@ export function CanvasArea() {
 
   useEffect(() => {
     let active = true;
+    let redrawTimer: ReturnType<typeof setTimeout> | null = null;
+
     setFontLoaded(false);
     loadFont(fontFamily).then(() => {
-      // Pequeño retraso para asegurar que el motor de renderizado del navegador
-      // haya aplicado la fuente al contexto del canvas
-      setTimeout(() => {
-        if (active) {
-          setFontLoaded(true);
-          // Forzar a Konva a redibujar todo
-          stageRef.current?.batchDraw();
-        }
+      if (!active) return;
+
+      // Give the browser one short paint window to apply the loaded web font
+      // before asking Konva to redraw its text layer.
+      redrawTimer = setTimeout(() => {
+        if (!active) return;
+        setFontLoaded(true);
+        stageRef.current?.batchDraw();
       }, 100);
     });
-    return () => { active = false; };
+
+    return () => {
+      active = false;
+      if (redrawTimer) clearTimeout(redrawTimer);
+    };
   }, [fontFamily]);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
+
     const observer = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        setDimensions({
-          width: entry.contentRect.width,
-          height: entry.contentRect.height,
-        });
-      }
+      const entry = entries[0];
+      if (!entry) return;
+
+      const width = entry.contentRect.width;
+      const height = entry.contentRect.height;
+
+      setDimensions((current) => (
+        current.width === width && current.height === height
+          ? current
+          : { width, height }
+      ));
     });
-    observer.observe(containerRef.current);
-    
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const triggerDownload = (url: string, requestedFormat: 'png' | 'jpeg' | 'webp') => {
       const mimeMatch = url.match(/^data:image\/([^;,]+)/i);
       const actualFormat = (mimeMatch?.[1] || requestedFormat).toLowerCase();
@@ -185,9 +202,8 @@ export function CanvasArea() {
     };
 
     window.addEventListener('export-canvas', handleExport as EventListener);
-    
+
     return () => {
-      observer.disconnect();
       window.removeEventListener('export-canvas', handleExport as EventListener);
     };
   }, [backgroundColor, backgroundImage, isSelected]);
