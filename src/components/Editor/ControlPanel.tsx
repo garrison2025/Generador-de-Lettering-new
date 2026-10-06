@@ -6,6 +6,7 @@ import { AlignLeft, AlignCenter, AlignRight, Check, ChevronDown } from 'lucide-r
 type LocalSliderProps = {
   value: number[];
   onValueChange: (value: number[]) => void;
+  onValueCommit?: (initialValue: number) => void;
   min?: number;
   max?: number;
   step?: number;
@@ -15,11 +16,27 @@ type LocalSliderProps = {
 function Slider({
   value,
   onValueChange,
+  onValueCommit,
   min = 0,
   max = 100,
   step = 1,
   className = ''
 }: LocalSliderProps) {
+  const initialValueRef = useRef<number | null>(null);
+
+  const captureInitialValue = (currentValue: number) => {
+    if (initialValueRef.current === null) {
+      initialValueRef.current = currentValue;
+    }
+  };
+
+  const commitValue = () => {
+    if (initialValueRef.current === null) return;
+    const initialValue = initialValueRef.current;
+    initialValueRef.current = null;
+    onValueCommit?.(initialValue);
+  };
+
   return (
     <input
       type="range"
@@ -27,7 +44,11 @@ function Slider({
       min={min}
       max={max}
       step={step}
+      onPointerDown={(event) => captureInitialValue(Number(event.currentTarget.value))}
+      onFocus={(event) => captureInitialValue(Number(event.currentTarget.value))}
       onChange={(event) => onValueChange([Number(event.target.value)])}
+      onPointerUp={commitValue}
+      onBlur={commitValue}
       className={`h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-[#5A4AD2] ${className}`}
     />
   );
@@ -183,7 +204,8 @@ export function ControlPanel() {
                 <div className="flex items-center gap-3">
                   <Slider 
                     value={[store.fontSize]} 
-                    onValueChange={(val: any) => store.updateState({ fontSize: Array.isArray(val) ? val[0] : val })}
+                    onValueChange={(val: any) => store.previewState({ fontSize: Array.isArray(val) ? val[0] : val })}
+                     onValueCommit={(initial) => store.commitPreview({ fontSize: initial })}
                     min={10} max={200} step={1}
                     className="flex-1"
                   />
@@ -214,7 +236,8 @@ export function ControlPanel() {
                 </div>
                 <Slider 
                   value={[store.letterSpacing]} 
-                  onValueChange={(val) => store.updateState({ letterSpacing: Array.isArray(val) ? val[0] : val as unknown as number })}
+                  onValueChange={(val) => store.previewState({ letterSpacing: Array.isArray(val) ? val[0] : val as unknown as number })}
+                   onValueCommit={(initial) => store.commitPreview({ letterSpacing: initial })}
                   min={-20} max={50} step={1}
                 />
               </div>
@@ -226,7 +249,8 @@ export function ControlPanel() {
                 </div>
                 <Slider 
                   value={[store.lineHeight]} 
-                  onValueChange={(val) => store.updateState({ lineHeight: Array.isArray(val) ? val[0] : val as unknown as number })}
+                  onValueChange={(val) => store.previewState({ lineHeight: Array.isArray(val) ? val[0] : val as unknown as number })}
+                   onValueCommit={(initial) => store.commitPreview({ lineHeight: initial })}
                   min={0.5} max={3} step={0.1}
                 />
               </div>
@@ -238,7 +262,8 @@ export function ControlPanel() {
                 </div>
                 <Slider 
                   value={[store.rotation]} 
-                  onValueChange={(val) => store.updateState({ rotation: Array.isArray(val) ? val[0] : val as unknown as number })}
+                  onValueChange={(val) => store.previewState({ rotation: Array.isArray(val) ? val[0] : val as unknown as number })}
+                   onValueCommit={(initial) => store.commitPreview({ rotation: initial })}
                   min={-180} max={180} step={1}
                 />
               </div>
@@ -297,7 +322,8 @@ export function ControlPanel() {
                  </div>
                  <Slider 
                    value={[store.textOpacity * 100]} 
-                   onValueChange={(val: any) => store.updateState({ textOpacity: (Array.isArray(val) ? val[0] : val) / 100 })}
+                   onValueChange={(val: any) => store.previewState({ textOpacity: (Array.isArray(val) ? val[0] : val) / 100 })}
+                    onValueCommit={(initial) => store.commitPreview({ textOpacity: initial / 100 })}
                    min={0} max={100} step={1}
                  />
                </div>
@@ -372,7 +398,8 @@ export function ControlPanel() {
                   </div>
                   <Slider 
                     value={[store.overlayOpacity * 100]} 
-                    onValueChange={(val: any) => store.updateState({ overlayOpacity: (Array.isArray(val) ? val[0] : val) / 100 })}
+                    onValueChange={(val: any) => store.previewState({ overlayOpacity: (Array.isArray(val) ? val[0] : val) / 100 })}
+                     onValueCommit={(initial) => store.commitPreview({ overlayOpacity: initial / 100 })}
                     min={0} max={100} step={1}
                   />
                 </div>
@@ -410,7 +437,7 @@ export function ControlPanel() {
                     <label className="text-xs font-medium text-gray-700">Desenfoque</label>
                     <span className="text-xs text-gray-500">{store.shadowBlur}px</span>
                   </div>
-                  <Slider value={[store.shadowBlur]} onValueChange={(val: any) => store.updateState({ shadowBlur: Array.isArray(val) ? val[0] : val })} min={0} max={50} step={1} />
+                  <Slider value={[store.shadowBlur]} onValueChange={(val: any) => store.previewState({ shadowBlur: Array.isArray(val) ? val[0] : val })} onValueCommit={(initial) => store.commitPreview({ shadowBlur: initial })} min={0} max={50} step={1} />
                 </div>
 
                 <div className="space-y-4">
@@ -419,8 +446,8 @@ export function ControlPanel() {
                     <span className="text-xs text-gray-500">{store.shadowOffsetX}, {store.shadowOffsetY}</span>
                   </div>
                   <div className="flex gap-4">
-                    <Slider value={[store.shadowOffsetX]} onValueChange={(val: any) => store.updateState({ shadowOffsetX: Array.isArray(val) ? val[0] : val })} min={-50} max={50} step={1} className="flex-1" />
-                    <Slider value={[store.shadowOffsetY]} onValueChange={(val: any) => store.updateState({ shadowOffsetY: Array.isArray(val) ? val[0] : val })} min={-50} max={50} step={1} className="flex-1" />
+                    <Slider value={[store.shadowOffsetX]} onValueChange={(val: any) => store.previewState({ shadowOffsetX: Array.isArray(val) ? val[0] : val })} onValueCommit={(initial) => store.commitPreview({ shadowOffsetX: initial })} min={-50} max={50} step={1} className="flex-1" />
+                    <Slider value={[store.shadowOffsetY]} onValueChange={(val: any) => store.previewState({ shadowOffsetY: Array.isArray(val) ? val[0] : val })} onValueCommit={(initial) => store.commitPreview({ shadowOffsetY: initial })} min={-50} max={50} step={1} className="flex-1" />
                   </div>
                 </div>
 
@@ -437,7 +464,7 @@ export function ControlPanel() {
                     <label className="text-xs font-medium text-gray-700">Grosor</label>
                     <span className="text-xs text-gray-500">{store.strokeWidth}px</span>
                   </div>
-                  <Slider value={[store.strokeWidth]} onValueChange={(val: any) => store.updateState({ strokeWidth: Array.isArray(val) ? val[0] : val })} min={0} max={20} step={1} />
+                  <Slider value={[store.strokeWidth]} onValueChange={(val: any) => store.previewState({ strokeWidth: Array.isArray(val) ? val[0] : val })} onValueCommit={(initial) => store.commitPreview({ strokeWidth: initial })} min={0} max={20} step={1} />
                 </div>
                 <div className="space-y-2 items-center flex justify-between">
                   <label className="text-xs font-medium text-gray-700">Color</label>
