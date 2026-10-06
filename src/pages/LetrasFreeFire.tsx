@@ -93,9 +93,9 @@ const faqSchema = {
 const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Nombres para Free Fire y Generador de Letras Insanas",
+  "name": "Letras para Free Fire con Símbolos",
   "url": "https://generadordelettering.org/herramientas/letras-free-fire",
-  "description": "Crea nombres insanos de Free Fire que den miedo con alas, símbolos y letras exclusivas para copiar y pegar en tu perfil y clanes.",
+  "description": "Convierte tu nick en letras para Free Fire con símbolos, alas, coronas y estilos Unicode listos para copiar y pegar.",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "All",
   "offers": {
@@ -165,9 +165,9 @@ export default function LetrasFreeFire() {
   return (
     <>
       <SEO 
-        title="Generador de Nombres | Letras para Free Fire con Símbolos"
-        description="Generador de nombres pro para Free Fire. Crea nicks épicos con alas, coronas, cruces y letras raras para destacar en el juego."
-        keywords="letras para free fire, nombres para free fire, generador nombres free fire, simbolos free fire letras"
+        title="Letras para Free Fire con Símbolos | Copiar y Pegar"
+        description="Convierte tu nick en letras para Free Fire con alas, coronas, cruces y símbolos. Compara estilos y copia la opción que mejor encaje en tu perfil o clan."
+        keywords="letras para free fire, simbolos para free fire, letras free fire copiar y pegar, letras raras free fire, nicks con simbolos"
         canonical="https://generadordelettering.org/herramientas/letras-free-fire"
         jsonSchema={[
           faqSchema, 
@@ -351,18 +351,18 @@ export default function LetrasFreeFire() {
           Leer la Guía de Nombres Insanos &rarr;
         </Link>
         <p className="text-xs text-gray-600 mt-4">
-          ¿Necesitas prefijos de clan, nombres para dúos, favoritos y espacio invisible?
+          ¿Quieres construir un nombre completo con prefijo de clan, dúos, favoritos o espacio invisible?
           {' '}
           <Link to="/herramientas/generador-de-nombres-para-free-fire" className="font-bold text-amber-700 hover:underline">
-            Abrir el generador avanzado de nicks
+            Abrir el Generador de Nombres para Free Fire
           </Link>
         </p>
       </div>
 
       <section className="mt-16 text-left space-y-8 bg-yellow-50/50 p-8 rounded-3xl border border-yellow-100">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-black text-gray-900 tracking-tight">Preguntas Frecuentes sobre Nombres para Free Fire</h2>
-          <p className="text-gray-600 mt-3">Resuelve tus dudas sobre cómo crear nicks, letras insanas y nombres de clan.</p>
+          <h2 className="text-3xl font-black text-gray-900 tracking-tight">Preguntas Frecuentes sobre Letras y Símbolos para Free Fire</h2>
+          <p className="text-gray-600 mt-3">Resuelve dudas sobre compatibilidad, letras insanas, símbolos y cómo copiar un estilo para tu nick.</p>
         </div>
         
         <div className="space-y-6">
