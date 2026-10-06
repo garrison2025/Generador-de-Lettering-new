@@ -277,7 +277,7 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       "position": 2,
       "name": "Herramientas",
-      "item": "https://generadordelettering.org/herramientas/conversor-texto"
+      "item": "https://generadordelettering.org/herramientas"
     },
     {
       "@type": "ListItem",
