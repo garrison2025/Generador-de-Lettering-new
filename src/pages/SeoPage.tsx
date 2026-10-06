@@ -27,28 +27,28 @@ interface SeoRouteConfig {
 const SEO_CONFIG: Record<string, SeoRouteConfig> = {
   '/generador-de-letras-goticas': {
     title: 'Generador de Letras Góticas Online | Caligrafía Antigua Gratis',
-    description: 'Crea e imprime letras góticas elegantes en alta resolución. Generador de tipografía gótica gratis para tatuajes, nombres y títulos medievales.',
+    description: 'Crea letras góticas elegantes online y exporta tus diseños como imagen. Generador de tipografía gótica gratis para nombres, títulos y referencias visuales.',
     keywords: 'generador de letras goticas, letras goticas online, tipografia gotica, fuentes goticas gratis, letras medievales',
     breadcrumbName: 'Letras Góticas',
     defaultState: { fontFamily: 'Pirata One', text: 'Estilo Gótico', textColor: '#000000', backgroundColor: '#F3F4F6' },
     h1Title: 'Generador de Letras Góticas y Fuentes Medievales Online',
-    introText: 'La tipografía gótica (también conocida como Blackletter o Fraktur) surgió en Europa en el siglo XII y se caracteriza por sus trazos oscuros, ángulos marcados y estética majestuosa. Nuestro generador te permite diseñar frases y nombres góticos con efectos visuales modernos, sombras 3D y descarga gratuita en HD.',
+    introText: 'La tipografía gótica (también conocida como Blackletter o Fraktur) se asocia con trazos oscuros, ángulos marcados y una estética medieval. Nuestro generador permite diseñar frases y nombres góticos con sombras, contornos, colores y exportación de imagen desde el navegador.',
     features: [
-      'Fuentes de alta definición inspiradas en manuscritos medievales.',
-      'Sombra 3D configurable, colores personalizados y textura de pergamino.',
-      'Exportación instantánea en formato PNG o SVG transparente.',
-      '100% compatible con bocetos de tatuajes, logos y portadas.'
+      'Fuentes de estilo gótico y Blackletter disponibles en el editor.',
+      'Sombras, contornos, colores personalizados y fondos configurables.',
+      'Exportación en PNG, JPG o WEBP; PNG puede conservar un fondo transparente.',
+      'Útil para crear referencias visuales de nombres, títulos, portadas y bocetos.'
     ],
     steps: [
       'Escribe tu texto o nombre en la caja del editor superior.',
       'Selecciona la tipografía gótica de tu preferencia (ej. Pirata One, Unifraktur).',
       'Personaliza el color de relleno, el grosor del borde y la sombra 3D.',
-      'Haz clic en "Descargar Imagen" para guardarla en alta calidad sin marca de agua.'
+      'Usa el menú de exportación para guardar el diseño en PNG, JPG o WEBP, en resolución normal o ampliada.'
     ],
     faqs: [
       {
         question: '¿Puedo usar estas letras góticas para bocetos de tatuajes?',
-        answer: '¡Sí! Todas las fuentes e imágenes vectoriales generadas en nuestra plataforma son libres de uso para bocetos de tatuajes, impresiones y proyectos personales o comerciales.'
+        answer: 'Puedes usar el resultado como referencia visual para un boceto. Para un tatuaje definitivo, conviene que el profesional adapte el diseño al tamaño, la piel y la técnica. Si incorporas contenido externo, respeta sus licencias y derechos.'
       },
       {
         question: '¿Cuál es la diferencia entre letra gótica y manuscrita?',
@@ -56,7 +56,7 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
       },
       {
         question: '¿Tengo que pagar o registrarme para descargar?',
-        answer: 'No. Nuestro estudio de diseño y generador tipográfico es completamente gratis y no requiere registro ni correo electrónico.'
+        answer: 'Actualmente puedes usar las funciones disponibles del editor sin registrarte ni pagar una suscripción.'
       }
     ]
   },
@@ -71,14 +71,14 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     features: [
       'Colección de tipografías Script y Brush Calligraphy de alta fidelidad.',
       'Efectos de trazo continuo, degradados pasteles y sombras suaves.',
-      'Generación de imágenes vectoriales para estampar o imprimir.',
-      'Opción de copiar formato tipográfico para redes sociales.'
+      'Exportación de la composición como imagen en PNG, JPG o WEBP.',
+      'Fondos transparentes o de color y relaciones de lienzo configurables.'
     ],
     steps: [
       'Ingresa la frase o carta que deseas estilizar.',
       'Explora las tipografías cursivas disponibles (Dancing Script, Pacifico, Great Vibes).',
       'Ajusta la inclinación, el interlineado y la paleta de colores.',
-      'Descarga tu diseño en PNG transparente o compártelo directo.'
+      'Descarga tu diseño como PNG, JPG o WEBP; usa PNG si necesitas conservar transparencia.'
     ],
     faqs: [
       {
@@ -101,24 +101,24 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     introText: 'Destaca en el feed e historias de Instagram con textos con estilo, fuentes aesthetic, tipografías llamativas y diseños gráficos personalizados. Convierte tu biografía y tus publicaciones en imanes de seguidores.',
     features: [
       'Formatos optimizados para historias, posts cuadrados (1:1) y reels.',
-      'Combina fuentes modernas con stickers tipográficos y sombras brillantes.',
-      'Generador de frases motivacionales e historias aesthetic.',
-      'Compatibilidad total con dispositivos iOS y Android.'
+      'Combina fuentes modernas con símbolos decorativos, colores y sombras.',
+      'Frases de ejemplo para empezar rápidamente una composición aesthetic.',
+      'Interfaz responsive para móviles, tablets y escritorio; el resultado puede variar según navegador y dispositivo.'
     ],
     steps: [
       'Escribe el texto de tu publicación o biografía.',
       'Aplica estilos de letra aesthetic (Neón, Retro, Minimalista).',
       'Personaliza el fondo o mantenlo transparente.',
-      'Descarga o copia la composición para pegarla en tu perfil.'
+      'Descarga la composición como imagen; para texto copiable en la bio utiliza el conversor Unicode del sitio.'
     ],
     faqs: [
       {
         question: '¿Cómo cambiar la letra de la biografía de Instagram?',
-        answer: 'Escribe tu texto en nuestro generador, selecciona la fuente que te guste, haz clic en copiar o descargar y pégalo en "Editar Perfil" en la app de Instagram.'
+        answer: 'Para una biografía de Instagram necesitas texto Unicode copiable, no una imagen. Usa nuestro Conversor de Letras Bonitas para copiar el texto y pégalo después en "Editar perfil". Este editor visual está pensado para crear imágenes para posts e historias.'
       },
       {
         question: '¿Por qué algunas fuentes de Instagram se ven como cuadros con X?',
-        answer: 'Ocurre cuando el sistema operativo del teléfono móvil es muy antiguo y no soporta el estándar Unicode más reciente. Nuestras fuentes recomendadas son 100% compatibles.'
+        answer: 'Puede ocurrir cuando una aplicación, sistema operativo o fuente no incluye determinados caracteres Unicode. Prueba una variante más simple y comprueba el resultado en el dispositivo donde se publicará.'
       }
     ]
   },
@@ -134,18 +134,18 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
       'Previsualización de tatuajes con fondo blanco limpio para calcar o imprimir.',
       'Líneas de contorno ajustables (Stroke) ideales para agujas finas.',
       'Estilos populares: Gótico Chicano, Fine Line, Script Tradicional y Cursiva.',
-      'Exportación en resolución ultra alta para plantillas (stencils).'
+      'Exportación de imágenes ampliadas para compartir una referencia visual con tu tatuador.'
     ],
     steps: [
       'Escribe el nombre, fecha o frase de tu próximo tatuaje.',
       'Prueba diferentes fuentes estilo Tattoo Script o Chicano Lettering.',
       'Ajusta el grosor de línea para que tu tatuador tenga una guía clara.',
-      'Descarga e imprime tu plantilla de tatuaje gratis.'
+      'Exporta el diseño como referencia y consulta con tu tatuador antes de preparar el stencil definitivo.'
     ],
     faqs: [
       {
         question: '¿Puedo llevar esta plantilla impresa a mi tatuador?',
-        answer: '¡Totalmente! La exportación en alta resolución te permite imprimir el diseño exacto para que el tatuador haga el stencil sobre tu piel.'
+        answer: 'Puedes llevar la imagen como referencia de tipografía y composición. El stencil definitivo debe prepararlo o revisarlo el tatuador según tamaño, ubicación, técnica y legibilidad.'
       },
       {
         question: '¿Qué tipo de letra para tatuaje dura más tiempo legible?',
@@ -179,7 +179,7 @@ export default function SeoPage() {
     faqs: [
       {
         question: '¿Es gratuito?',
-        answer: 'Sí, 100% gratuito sin registro.'
+        answer: 'Actualmente las funciones disponibles se pueden usar sin registro ni suscripción.'
       }
     ]
   };
