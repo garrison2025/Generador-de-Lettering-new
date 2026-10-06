@@ -1,5 +1,5 @@
 import { copyText } from '../utils/copyText';
-import React, { useState, useEffect, useDeferredValue } from 'react';
+import React, { useState, useEffect, useDeferredValue, useMemo } from 'react';
 import { 
   Copy, 
   Check, 
@@ -77,12 +77,17 @@ export default function LetrasTikTok() {
   const [favorites, setFavorites] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('tiktok_fav_fonts');
-      return saved ? JSON.parse(saved) : [];
+      if (!saved) return [];
+
+      const parsed: unknown = JSON.parse(saved);
+      if (!Array.isArray(parsed)) return [];
+
+      return [...new Set(parsed.filter((value): value is string => typeof value === 'string'))].slice(0, 50);
     } catch {
       return [];
     }
   });
-
+  const [storagePersistent, setStoragePersistent] = useState(true);
   const [previewMode, setPreviewMode] = useState<'bio' | 'comment'>('bio');
 
   const deferredInput = useDeferredValue(inputText);
@@ -90,8 +95,9 @@ export default function LetrasTikTok() {
   useEffect(() => {
     try {
       localStorage.setItem('tiktok_fav_fonts', JSON.stringify(favorites));
-    } catch (e) {
-      console.error(e);
+      setStoragePersistent(true);
+    } catch {
+      setStoragePersistent(false);
     }
   }, [favorites]);
 
@@ -116,32 +122,33 @@ export default function LetrasTikTok() {
     setInputText(prev => prev + ' ' + symbol);
   };
 
-  // Generate generated list
-  const generatedList = STYLES.map(style => {
-    const converted = style.convert(deferredInput || 'Aesthetic TikTok');
-    return {
+  const allCombinations = useMemo(() => {
+    const sourceText = deferredInput || 'Aesthetic TikTok';
+
+    const generatedList = STYLES.map((style) => ({
       id: style.id,
       name: style.name,
-      text: converted,
-      category: style.cat
-    };
-  });
+      text: style.convert(sourceText),
+      category: style.cat,
+    }));
 
-  const generatedDecorators = DECORATORS.map((dec, idx) => {
-    const converted = STYLES[0].convert(deferredInput || 'Aesthetic TikTok');
-    return {
+    const decoratorBase = STYLES[0].convert(sourceText);
+    const generatedDecorators = DECORATORS.map((dec, idx) => ({
       id: `dec-${idx}`,
       name: dec.name,
-      text: `${dec.prefix}${converted}${dec.suffix}`,
-      category: dec.category
-    };
-  });
+      text: `${dec.prefix}${decoratorBase}${dec.suffix}`,
+      category: dec.category,
+    }));
 
-  const allCombinations = [...generatedList, ...generatedDecorators];
+    return [...generatedList, ...generatedDecorators];
+  }, [deferredInput]);
 
-  const filteredItems = selectedCategory === 'todas'
-    ? allCombinations
-    : allCombinations.filter(item => item.category === selectedCategory);
+  const filteredItems = useMemo(
+    () => selectedCategory === 'todas'
+      ? allCombinations
+      : allCombinations.filter((item) => item.category === selectedCategory),
+    [allCombinations, selectedCategory]
+  );
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -531,6 +538,11 @@ export default function LetrasTikTok() {
                   Borrar todas
                 </button>
               </div>
+              {!storagePersistent && (
+                <p role="status" className="text-xs font-medium text-amber-700">
+                  Tu navegador no permite guardar favoritos de forma persistente. Seguirán disponibles durante esta sesión, pero pueden perderse al cerrar o recargar la página.
+                </p>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {favorites.map((fav, i) => (
                   <div key={i} className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-pink-100 text-xs font-medium">
