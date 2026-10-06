@@ -22,100 +22,78 @@ function escapeRegExp(value) {
 }
 
 function validateUnicodeMaps() {
-  const configs = [
-    {
-      path: 'src/pages/ConversorTexto.tsx',
-      expected: 52,
-      mode: 'object'
-    },
-    {
-      path: 'src/pages/LetrasAzules.tsx',
-      expected: 52,
-      mode: 'object'
-    },
-    {
-      path: 'src/pages/ConversorLetrasBonitas.tsx',
-      expected: 52,
-      mode: 'object'
-    },
-    {
-      path: 'src/pages/GeneradorNombresInstagram.tsx',
-      expected: 62,
-      mode: 'mapping'
-    },
-    {
-      path: 'src/pages/LetrasTikTok.tsx',
-      expected: 52,
-      mode: 'inline-convert'
-    }
-  ];
+  const sharedSource = read('src/data/unicodeStyles.ts');
+  const fontsStart = sharedSource.indexOf('export const FONTS_DATA');
+  const fontsEnd = sharedSource.indexOf('export const FONT_MAPS', fontsStart);
+  assert(fontsStart >= 0 && fontsEnd > fontsStart, 'Could not locate shared FONTS_DATA');
 
-  for (const config of configs) {
-    const source = read(config.path);
-    const failures = [];
+  const failures = [];
+  const seenMappings = new Map();
+  const sharedFonts = sharedSource.slice(fontsStart, fontsEnd);
+  const sharedRegex = /^\s*([a-zA-Z0-9_]+):\s*'([^'\n]*)'/gm;
+  let sharedMatch;
 
-    if (config.mode === 'object') {
-      const start = source.indexOf('const FONTS_DATA');
-      const end = source.indexOf('const FONT_MAPS', start);
-      assert(start >= 0 && end > start, `Could not locate FONTS_DATA in ${config.path}`);
-      const section = source.slice(start, end);
-      const regex = /^\s*([a-zA-Z0-9_]+):\s*'([^'\n]*)'/gm;
-      const seenMappings = new Map();
-      let match;
+  while ((sharedMatch = sharedRegex.exec(sharedFonts))) {
+    const [, key, value] = sharedMatch;
+    if (value.length <= 20) continue;
 
-      while ((match = regex.exec(section))) {
-        const [, key, value] = match;
-        if (value.length <= 20) continue;
-
-        const length = Array.from(value).length;
-        if (length !== config.expected) {
-          failures.push(`${key}=${length}`);
-        }
-
-        const previousKey = seenMappings.get(value);
-        if (previousKey) {
-          failures.push(`duplicate:${previousKey}=${key}`);
-        } else {
-          seenMappings.set(value, key);
-        }
-      }
-    } else if (config.mode === 'mapping') {
-      const regex = /mapping:\s*'([^'\n]*)'/gm;
-      let match;
-      let index = 0;
-
-      while ((match = regex.exec(source))) {
-        const length = Array.from(match[1]).length;
-        if (length !== config.expected) {
-          failures.push(`mapping#${index}=${length}`);
-        }
-        index += 1;
-      }
-    } else if (config.mode === 'inline-convert') {
-      const regex = /id:\s*'([^']+)'[\s\S]*?convert:\s*\(t:\s*string\)\s*=>\s*convertFont\(t,\s*'([^'\n]*)'\)/g;
-      let match;
-      let count = 0;
-
-      while ((match = regex.exec(source))) {
-        const [, styleId, mapping] = match;
-        const length = Array.from(mapping).length;
-        if (length !== config.expected) {
-          failures.push(`${styleId}=${length}`);
-        }
-        count += 1;
-      }
-
-      assert(count > 0, `No inline convertFont mappings found in ${config.path}`);
+    const length = Array.from(value).length;
+    if (length !== 52) {
+      failures.push(`${key}=${length}`);
     }
 
-    assert(
-      failures.length === 0,
-      `Unicode mapping length mismatch in ${config.path}: ${failures.join(', ')}`
-    );
+    const previousKey = seenMappings.get(value);
+    if (previousKey) {
+      failures.push(`duplicate:${previousKey}=${key}`);
+    } else {
+      seenMappings.set(value, key);
+    }
   }
+
+  const instagram = read('src/pages/GeneradorNombresInstagram.tsx');
+  let mappingIndex = 0;
+  for (const match of instagram.matchAll(/mapping:\s*'([^'\n]*)'/gm)) {
+    const length = Array.from(match[1]).length;
+    if (length !== 62) failures.push(`instagram#${mappingIndex}=${length}`);
+    mappingIndex += 1;
+  }
+
+  const tiktok = read('src/pages/LetrasTikTok.tsx');
+  let tiktokCount = 0;
+  for (const match of tiktok.matchAll(/id:\s*'([^']+)'[\s\S]*?convert:\s*\(t:\s*string\)\s*=>\s*convertFont\(t,\s*'([^'\n]*)'\)/g)) {
+    const [, styleId, mapping] = match;
+    const length = Array.from(mapping).length;
+    if (length !== 52) failures.push(`tiktok:${styleId}=${length}`);
+    tiktokCount += 1;
+  }
+
+  assert(mappingIndex > 0, 'No Instagram Unicode mappings found');
+  assert(tiktokCount > 0, 'No TikTok inline convertFont mappings found');
+  assert(
+    failures.length === 0,
+    `Unicode mapping validation failed: ${failures.join(', ')}`
+  );
 }
 
 function validateUnicodeStyleReferences() {
+  const sharedSource = read('src/data/unicodeStyles.ts');
+  const fontsStart = sharedSource.indexOf('export const FONTS_DATA');
+  const fontsEnd = sharedSource.indexOf('export const FONT_MAPS', fontsStart);
+  const decoratorsStart = sharedSource.indexOf('export const DECORATORS');
+  const decoratorsEnd = sharedSource.length;
+
+  assert(fontsStart >= 0 && fontsEnd > fontsStart, 'Could not locate shared FONTS_DATA');
+  assert(decoratorsStart >= 0, 'Could not locate shared DECORATORS');
+
+  const fontKeys = new Set(
+    [...sharedSource.slice(fontsStart, fontsEnd).matchAll(/^\s*([A-Za-z0-9_]+):\s*'/gm)]
+      .map((match) => match[1])
+  );
+  const decoratorKeys = new Set(
+    [...sharedSource.slice(decoratorsStart, decoratorsEnd).matchAll(/^\s*([A-Za-z0-9_]+):\s*\{/gm)]
+      .map((match) => match[1])
+  );
+
   const files = [
     { path: 'src/pages/ConversorTexto.tsx', extras: [] },
     { path: 'src/pages/ConversorLetrasBonitas.tsx', extras: [] },
@@ -124,25 +102,10 @@ function validateUnicodeStyleReferences() {
 
   for (const config of files) {
     const source = read(config.path);
-    const fontsStart = source.indexOf('const FONTS_DATA');
-    const fontsEnd = source.indexOf('const FONT_MAPS', fontsStart);
-    const decoratorsStart = source.indexOf('const DECORATORS');
-    const decoratorsEnd = source.indexOf('const STYLES', decoratorsStart);
     const stylesStart = source.indexOf('const STYLES');
     const stylesEnd = source.indexOf('export default', stylesStart);
-
-    assert(fontsStart >= 0 && fontsEnd > fontsStart, `Could not locate FONTS_DATA in ${config.path}`);
-    assert(decoratorsStart >= 0 && decoratorsEnd > decoratorsStart, `Could not locate DECORATORS in ${config.path}`);
     assert(stylesStart >= 0 && stylesEnd > stylesStart, `Could not locate STYLES in ${config.path}`);
 
-    const fontKeys = new Set(
-      [...source.slice(fontsStart, fontsEnd).matchAll(/^\s*([A-Za-z0-9_]+):\s*'/gm)]
-        .map((match) => match[1])
-    );
-    const decoratorKeys = new Set(
-      [...source.slice(decoratorsStart, decoratorsEnd).matchAll(/^\s*([A-Za-z0-9_]+):\s*\{/gm)]
-        .map((match) => match[1])
-    );
     const styleIds = [
       ...source.slice(stylesStart, stylesEnd).matchAll(/\{\s*id:\s*'([^']+)'/g)
     ].map((match) => match[1]);
