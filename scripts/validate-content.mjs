@@ -60,14 +60,23 @@ function validateUnicodeMaps() {
       assert(start >= 0 && end > start, `Could not locate FONTS_DATA in ${config.path}`);
       const section = source.slice(start, end);
       const regex = /^\s*([a-zA-Z0-9_]+):\s*'([^'\n]*)'/gm;
+      const seenMappings = new Map();
       let match;
 
       while ((match = regex.exec(section))) {
         const [, key, value] = match;
         if (value.length <= 20) continue;
+
         const length = Array.from(value).length;
         if (length !== config.expected) {
           failures.push(`${key}=${length}`);
+        }
+
+        const previousKey = seenMappings.get(value);
+        if (previousKey) {
+          failures.push(`duplicate:${previousKey}=${key}`);
+        } else {
+          seenMappings.set(value, key);
         }
       }
     } else if (config.mode === 'mapping') {
