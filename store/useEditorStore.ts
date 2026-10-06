@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist, type StateStorage } from 'zustand/middleware';
 
 export interface EditorState {
   text: string;
@@ -114,6 +114,72 @@ const mergePreviousHistoryValues = (
     ...previousHistoryValues,
   };
 };
+
+const PERSIST_WRITE_DELAY_MS = 250;
+let pendingStorageWrite: { name: string; value: string } | null = null;
+let pendingStorageTimer: ReturnType<typeof setTimeout> | null = null;
+
+const flushEditorStorage = () => {
+  if (!pendingStorageWrite || typeof localStorage === 'undefined') return;
+
+  const { name, value } = pendingStorageWrite;
+  pendingStorageWrite = null;
+
+  if (pendingStorageTimer) {
+    clearTimeout(pendingStorageTimer);
+    pendingStorageTimer = null;
+  }
+
+  try {
+    localStorage.setItem(name, value);
+  } catch {
+    // The editor still works when storage is blocked or quota is unavailable.
+  }
+};
+
+const deferredEditorStorage: StateStorage = {
+  getItem: (name) => {
+    if (pendingStorageWrite?.name === name) {
+      return pendingStorageWrite.value;
+    }
+
+    try {
+      return typeof localStorage === 'undefined' ? null : localStorage.getItem(name);
+    } catch {
+      return null;
+    }
+  },
+  setItem: (name, value) => {
+    pendingStorageWrite = { name, value };
+
+    if (pendingStorageTimer) {
+      clearTimeout(pendingStorageTimer);
+    }
+
+    pendingStorageTimer = setTimeout(flushEditorStorage, PERSIST_WRITE_DELAY_MS);
+  },
+  removeItem: (name) => {
+    if (pendingStorageWrite?.name === name) {
+      pendingStorageWrite = null;
+    }
+    if (pendingStorageTimer) {
+      clearTimeout(pendingStorageTimer);
+      pendingStorageTimer = null;
+    }
+
+    try {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.removeItem(name);
+      }
+    } catch {
+      // Ignore unavailable storage.
+    }
+  },
+};
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('pagehide', flushEditorStorage);
+}
 
 const RANDOM_TEXTS = ["Hola Mundo", "Vivir es Increíble", "Amor y Paz", "Arte Digital", "Sueña en Grande", "Buenas Vibras"];
 const RANDOM_COLORS = ["#FF6B6B", "#FBBF24", "#34D399", "#3B82F6", "#5A4AD2", "#9333EA", "#000000", "#FFFFFF"];
@@ -242,6 +308,7 @@ export const useEditorStore = create<EditorStore>()(
     {
       name: 'lettering-editor-storage',
       version: 3,
+      storage: createJSONStorage(() => deferredEditorStorage),
       // Keep lightweight editor preferences, but never serialize uploaded image data URLs.
       partialize: (state) => ({
         ...extractState(state),
