@@ -290,54 +290,6 @@ function validateInternalLinks() {
   );
 }
 
-function validateInternalLinks() {
-  const sitemap = read('public/sitemap.xml');
-  const sitemapRoutes = new Set(
-    [...sitemap.matchAll(/<loc>https:\/\/generadordelettering\.org([^<]*)<\/loc>/g)]
-      .map((match) => match[1] || '/')
-  );
-
-  const files = [];
-  function walk(dir) {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const full = `${dir}/${entry.name}`;
-      if (entry.isDirectory()) {
-        walk(full);
-      } else if (/\.(?:ts|tsx)$/.test(entry.name)) {
-        files.push(full);
-      }
-    }
-  }
-  walk('src');
-
-  const allowedNonSitemap = new Set(['/404']);
-  const failures = [];
-
-  for (const path of files) {
-    const source = read(path);
-    const links = new Set();
-
-    for (const match of source.matchAll(/(?:to|href)="(\/[^"#?]*)[^"]*"/g)) {
-      links.add(match[1] || '/');
-    }
-    for (const match of source.matchAll(/\]\((\/[^)#?]*)[^)]*\)/g)) {
-      links.add(match[1] || '/');
-    }
-
-    for (const route of links) {
-      if (allowedNonSitemap.has(route)) continue;
-      if (!sitemapRoutes.has(route)) {
-        failures.push(`${path}: ${route}`);
-      }
-    }
-  }
-
-  assert(
-    failures.length === 0,
-    `Internal links missing from sitemap/routes:\n- ${failures.join('\n- ')}`
-  );
-}
-
 function validateLlmsLinks() {
   const sitemap = read('public/sitemap.xml');
   const sitemapRoutes = new Set(
