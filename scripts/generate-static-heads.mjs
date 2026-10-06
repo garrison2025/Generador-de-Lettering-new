@@ -282,7 +282,23 @@ if (extraHeadShells.length > 0) {
 }
 
 const seen = new Set();
+const titleOwners = new Map();
+const descriptionOwners = new Map();
+
 for (const page of pages) {
+  const previousTitleRoute = titleOwners.get(page.title);
+  if (previousTitleRoute) {
+    throw new Error(`Duplicate static SEO title: "${page.title}" on ${previousTitleRoute} and ${page.route}`);
+  }
+  titleOwners.set(page.title, page.route);
+
+  const previousDescriptionRoute = descriptionOwners.get(page.description);
+  if (previousDescriptionRoute) {
+    throw new Error(
+      `Duplicate static SEO description on ${previousDescriptionRoute} and ${page.route}: "${page.description}"`
+    );
+  }
+  descriptionOwners.set(page.description, page.route);
   if (seen.has(page.route)) throw new Error(`Duplicate static head route: ${page.route}`);
   seen.add(page.route);
 
