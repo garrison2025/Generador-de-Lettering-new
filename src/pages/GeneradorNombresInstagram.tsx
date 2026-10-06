@@ -245,29 +245,39 @@ export default function GeneradorNombresInstagram() {
   const [bioVibe, setBioVibe] = useState('☁️ Amante del café y los viajes ☕');
   const [bioLink, setBioLink] = useState('👇 Conoce mi portafolio:');
   const [bioFont, setBioFont] = useState('cursiva');
-  const [savedNames, setSavedNames] = useState<string[]>(() => {
-    try {
-      const saved = localStorage.getItem('ig_saved_names');
-      if (!saved) return [];
-
-      const parsed: unknown = JSON.parse(saved);
-      if (!Array.isArray(parsed)) return [];
-
-      return [...new Set(parsed.filter((value): value is string => typeof value === 'string'))].slice(0, 50);
-    } catch {
-      return [];
-    }
-  });
+  const [savedNames, setSavedNames] = useState<string[]>([]);
+  const [savedNamesHydrated, setSavedNamesHydrated] = useState(false);
   const [storagePersistent, setStoragePersistent] = useState(true);
 
   useEffect(() => {
+    try {
+      const saved = localStorage.getItem('ig_saved_names');
+      if (saved) {
+        const parsed: unknown = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setSavedNames(
+            [...new Set(parsed.filter((value): value is string => typeof value === 'string'))].slice(0, 50)
+          );
+        }
+      }
+      setStoragePersistent(true);
+    } catch {
+      setStoragePersistent(false);
+    } finally {
+      setSavedNamesHydrated(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!savedNamesHydrated) return;
+
     try {
       localStorage.setItem('ig_saved_names', JSON.stringify(savedNames));
       setStoragePersistent(true);
     } catch {
       setStoragePersistent(false);
     }
-  }, [savedNames]);
+  }, [savedNames, savedNamesHydrated]);
 
   const copyToClipboard = async (text: string, id: string) => {
     if (!(await copyText(text))) {
