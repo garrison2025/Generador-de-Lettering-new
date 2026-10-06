@@ -1,3 +1,4 @@
+import { copyText } from '../utils/copyText';
 import { useState, useEffect, useDeferredValue } from 'react';
 import { Copy, Check, ChevronLeft, Dices } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -108,8 +109,11 @@ export default function LetrasFreeFire() {
     // Removed document.title
   }, []);
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const copyToClipboard = async (text: string) => {
+    if (!(await copyText(text))) {
+      window.alert('No se pudo copiar automáticamente. Mantén pulsado el nick y cópialo manualmente.');
+      return;
+    }
     setCopiedId(text);
     setTimeout(() => setCopiedId(null), 2000);
   };
