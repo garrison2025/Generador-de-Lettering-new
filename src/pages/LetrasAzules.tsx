@@ -205,7 +205,7 @@ export default function LetrasAzules() {
       return;
     }
     setCopiedResult(id);
-    setTimeout(() => setCopiedResult(null), 2000);
+    setTimeout(() => setCopiedResult((current) => current === id ? null : current), 2000);
   };
 
   return (
