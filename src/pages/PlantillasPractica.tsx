@@ -6,34 +6,30 @@ import { SEO } from '../components/SEO';
 const SHEETS = [
   {
     title: 'Trazos Básicos',
-    description: 'Aprende a controlar la presión: trazos finos hacia arriba y gruesos hacia abajo. Ideal para principiantes con rotulador de punta pincel.',
+    description: 'Practica líneas rectas, diagonales, curvas y ritmos repetitivos sobre guías de altura y línea base.',
     level: 'Principiante',
     format: 'A4 SVG',
-    img: 'https://images.unsplash.com/photo-1586077595304-eb5dc146bd2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=75&fm=webp',
     color: 'bg-green-100 text-green-700'
   },
   {
     title: 'Alfabeto Minúsculas',
-    description: 'Práctica de las letras minúsculas en cursiva (brush lettering). Contiene guías paso a paso para formar cada letra.',
+    description: 'Repasa grupos de letras minúsculas de la a a la z y continúa cada secuencia sobre las líneas guía.',
     level: 'Principiante',
     format: 'A4 SVG',
-    img: 'https://images.unsplash.com/photo-1549488344-c68936dd0ea0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=75&fm=webp',
     color: 'bg-green-100 text-green-700'
   },
   {
     title: 'Alfabeto Mayúsculas',
-    description: 'Hojas avanzadas con florituras y variaciones para el alfabeto en mayúsculas. Perfecto para titulares y nombres.',
+    description: 'Practica grupos de letras mayúsculas de la A a la Z con referencias grises y espacio para repetirlas.',
     level: 'Intermedio',
     format: 'A4 SVG',
-    img: 'https://images.unsplash.com/photo-1550592704-6c76defa99ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=75&fm=webp',
     color: 'bg-orange-100 text-orange-700'
   },
   {
     title: 'Florituras y Conexiones',
-    description: 'Aprende a conectar letras de forma elegante y a añadir florituras, remates y adornos para un lettering profesional.',
+    description: 'Practica bucles, enlaces, símbolos decorativos y palabras cortas para mejorar continuidad y ritmo.',
     level: 'Avanzado',
     format: 'A4 SVG',
-    img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=75&fm=webp',
     color: 'bg-red-100 text-red-700'
   }
 ];
@@ -114,6 +110,10 @@ const practiceBreadcrumbSchema = {
   ]
 };
 
+function svgPreviewDataUrl(title: string) {
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(generateSVG(title))}`;
+}
+
 function slugifyTitle(title: string) {
   return title
     .normalize('NFD')
@@ -178,14 +178,14 @@ export default function PlantillasPractica() {
         {SHEETS.map((sheet) => (
           <div key={sheet.title} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col group">
             <div className="h-48 relative overflow-hidden bg-gray-100">
-              <img 
-                src={sheet.img} 
-                alt={sheet.title} 
-                width="400" 
-                height="192" 
-                loading="lazy" 
-                decoding="async" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+              <img
+                src={svgPreviewDataUrl(sheet.title)}
+                alt={`Vista previa de la plantilla ${sheet.title}`}
+                width="400"
+                height="566"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-contain bg-white group-hover:scale-[1.02] transition-transform duration-500"
               />
               <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-gray-700 shadow-sm">
                 {sheet.format}
@@ -200,7 +200,8 @@ export default function PlantillasPractica() {
               <h3 className="font-bold text-gray-900 mb-2">{sheet.title}</h3>
               <p className="text-sm text-gray-600 mb-6 flex-1">{sheet.description}</p>
               
-              <button 
+              <button
+                type="button"
                 onClick={() => handleDownload(sheet.title)}
                 className={`flex items-center justify-center gap-2 w-full py-2.5 border rounded-lg text-sm font-bold transition-all shadow-sm ${
                   downloading === sheet.title 
