@@ -2,6 +2,7 @@ import { useState, useEffect, useDeferredValue } from 'react';
 import { Copy, Check, ExternalLink, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import { RelatedTools } from '../components/RelatedTools';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -211,7 +212,7 @@ function convertText(text: string, styleId: string) {
   // Appply mapped fonts
   if (FONT_MAPS[styleId]) {
     const map = FONT_MAPS[styleId];
-    result = result.split('').map(char => {
+    result = Array.from(result).map(char => {
       if (styleId === 'al_reves' || styleId === 'espejo' || styleId === 'invertido_mayusculas') {
         const mapped = map[char] || map[char.toLowerCase()] || char;
         return mapped;
@@ -221,7 +222,7 @@ function convertText(text: string, styleId: string) {
     
     // Si es al revés o espejo, el texto completo también se invierte
     if (styleId === 'al_reves' || styleId === 'espejo' || styleId === 'invertido_mayusculas') {
-      result = result.split('').reverse().join('');
+      result = Array.from(result).reverse().join('');
     }
   }
 
@@ -230,11 +231,11 @@ function convertText(text: string, styleId: string) {
     const dec = DECORATORS[styleId];
     
     if (dec.modifier) {
-      result = result.split('').map(char => char !== ' ' ? char + dec.modifier : char).join('');
+      result = Array.from(result).map(char => char !== ' ' ? char + dec.modifier : char).join('');
     }
     
     if (dec.join) {
-      result = result.split('').join(dec.join);
+      result = Array.from(result).join(dec.join);
     }
     
     if (dec.pre || dec.post) {
@@ -249,6 +250,46 @@ function convertText(text: string, styleId: string) {
   return result;
 }
 
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Conversor de Letras Online",
+  "url": "https://generadordelettering.org/herramientas/conversor-texto",
+  "description": "Conversor de letras y texto Unicode con más de 50 estilos para copiar y pegar en redes sociales.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://generadordelettering.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Herramientas",
+      "item": "https://generadordelettering.org/herramientas/conversor-texto"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Conversor de Letras",
+      "item": "https://generadordelettering.org/herramientas/conversor-texto"
+    }
+  ]
+};
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -258,7 +299,7 @@ const faqSchema = {
       "name": "¿En qué se diferencian estas letras raras y copy paste de otras?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nuestro conversor de texto incluye el catálogo de tipografías y fuentes unicode más grande de 2024. Te permite cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas en un solo clic. Otras herramientas limitan el número de estilos \"aesthetic\", nosotros te presentamos todo junto para que tengas infinitas opciones."
+        "text": "Nuestro conversor de texto reúne más de 50 estilos y transformaciones Unicode en una sola herramienta. Te permite cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas en un solo clic. Otras herramientas limitan el número de estilos \"aesthetic\", nosotros te presentamos todo junto para que tengas infinitas opciones."
       }
     },
     {
@@ -266,7 +307,7 @@ const faqSchema = {
       "name": "¿Cómo copiar letras al revés, tachadas o subrayadas?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Dentro de la herramienta, escribe tu frase y fíjate en las últimas opciones de la lista. Verás estilos creativos como 'Al revés', 'Tachado (Strikethrough)' y 'Subrayado'. Solo da un toque encima de la tarjeta que te gusto, ¡y listo! Se habrá copiado para publicarlo inmediatamente en Facebook, WhatsApp, Discord o Twitter."
+        "text": "Dentro de la herramienta, escribe tu frase y fíjate en las últimas opciones de la lista. Verás estilos creativos como 'Al revés', 'Tachado (Strikethrough)' y 'Subrayado'. Solo da un toque encima de la tarjeta que te guste, ¡y listo! Se habrá copiado para publicarlo inmediatamente en Facebook, WhatsApp, Discord o Twitter."
       }
     },
     {
@@ -306,10 +347,11 @@ export default function ConversorTexto() {
   return (
     <>
       <SEO 
-        title="Conversor de Letras | Cambiar Letras y Fuentes de Texto"
-        description="Conversor de letras para cambiar tipos de fuente y copiar y pegar fácilmente. Más de 50 estilos diferentes gratis y sin instalar nada."
+        title="Conversor de Letras Online | +50 Fuentes para Copiar y Pegar"
+        description="Cambia tu texto a más de 50 estilos Unicode: cursivas, góticas, negritas y letras raras listas para copiar y pegar. Gratis y sin registro."
         keywords="conversor de letras, cambiar tipo de letra, conversor texto online, letras raras copy paste"
-        jsonSchema={faqSchema}
+        canonical="https://generadordelettering.org/herramientas/conversor-texto"
+        jsonSchema={[faqSchema, softwareSchema, breadcrumbSchema]}
       />
       <div className="max-w-4xl mx-auto px-4 py-12 w-full">
       <Link to="/" className="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-[#5A4AD2] mb-8 transition-colors">
@@ -410,14 +452,14 @@ export default function ConversorTexto() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿En qué se diferencian estas letras raras y copy paste de otras?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Nuestro conversor de texto incluye el catálogo de tipografías y fuentes unicode más grande de 2024. Te permite <strong>cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas</strong> en un solo clic. Otras herramientas limitan el número de estilos "aesthetic", nosotros te presentamos todo junto para que tengas infinitas opciones.
+              Nuestro conversor de texto reúne más de 50 estilos y transformaciones Unicode en una sola herramienta. Te permite <strong>cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas</strong> en un solo clic. Otras herramientas limitan el número de estilos "aesthetic", nosotros te presentamos todo junto para que tengas infinitas opciones.
             </p>
           </div>
 
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Cómo copiar letras al revés, tachadas o subrayadas?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Dentro de la herramienta, escribe tu frase y fíjate en las últimas opciones de la lista. Verás estilos creativos como "Al revés", "Tachado (Strikethrough)" y "Subrayado". Solo da un toque encima de la tarjeta que te gusto, ¡y listo! Se habrá copiado para publicarlo inmediatamente en Facebook, WhatsApp, Discord o Twitter.
+              Dentro de la herramienta, escribe tu frase y fíjate en las últimas opciones de la lista. Verás estilos creativos como "Al revés", "Tachado (Strikethrough)" y "Subrayado". Solo da un toque encima de la tarjeta que te guste, ¡y listo! Se habrá copiado para publicarlo inmediatamente en Facebook, WhatsApp, Discord o Twitter.
             </p>
           </div>
 
@@ -436,6 +478,8 @@ export default function ConversorTexto() {
           </div>
         </div>
       </section>
+
+      <RelatedTools currentPath="/herramientas/conversor-texto" />
     </div>
     </>
   );
