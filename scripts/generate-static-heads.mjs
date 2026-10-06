@@ -161,9 +161,12 @@ function makeHead(baseHtml, route, title, description, keywords, publishedTime, 
     .replace(/\s*<meta\s+data-rh="true"\s+property="article:published_time"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+property="article:modified_time"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+name="twitter:title"[^>]*>/gi, '')
-    .replace(/\s*<meta\s+data-rh="true"\s+name="twitter:description"[^>]*>/gi, '');
+    .replace(/\s*<meta\s+data-rh="true"\s+name="twitter:description"[^>]*>/gi, '')
+    .replace(/\s*<meta\s+data-rh="true"\s+name="twitter:url"[^>]*>/gi, '')
+    .replace(/\s*<meta\b[^>]*\bname="robots"[^>]*>/gi, '');
 
   const routeTags = [
+    `    <meta data-rh="true" name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />`,
     `    <link data-rh="true" rel="canonical" href="${canonical}" />`,
     `    <meta data-rh="true" property="og:title" content="${escapeHtml(title)}" />`,
     `    <meta data-rh="true" property="og:description" content="${escapeHtml(description)}" />`,
@@ -178,6 +181,7 @@ function makeHead(baseHtml, route, title, description, keywords, publishedTime, 
     ...(modifiedTime
       ? [`    <meta data-rh="true" property="article:modified_time" content="${escapeHtml(modifiedTime)}" />`]
       : []),
+    `    <meta data-rh="true" name="twitter:url" content="${canonical}" />`,
     `    <meta data-rh="true" name="twitter:title" content="${escapeHtml(title)}" />`,
     `    <meta data-rh="true" name="twitter:description" content="${escapeHtml(description)}" />`,
     ...(absoluteImage
