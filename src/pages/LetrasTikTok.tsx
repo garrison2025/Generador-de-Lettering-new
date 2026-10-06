@@ -91,6 +91,7 @@ export default function LetrasTikTok() {
   const [previewMode, setPreviewMode] = useState<'bio' | 'comment'>('bio');
 
   const deferredInput = useDeferredValue(inputText);
+  const inputCharacterCount = Array.from(inputText).length;
 
   useEffect(() => {
     try {
@@ -292,11 +293,11 @@ export default function LetrasTikTok() {
             </label>
             <div className="flex items-center gap-2">
               <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-                inputText.length > 80 
+                inputCharacterCount > 80 
                   ? 'bg-amber-50 text-amber-700 border border-amber-200' 
                   : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
               }`}>
-                {inputText.length} caracteres · 80 base segura
+                {inputCharacterCount} caracteres · 80 base segura
               </span>
             </div>
           </div>
@@ -322,7 +323,7 @@ export default function LetrasTikTok() {
             )}
           </div>
 
-          {inputText.length > 80 && (
+          {inputCharacterCount > 80 && (
             <div className="flex items-center gap-2 text-xs text-amber-700 bg-amber-50 p-3 rounded-xl border border-amber-200">
               <AlertCircle className="w-4 h-4 flex-shrink-0 text-amber-600" />
               Has superado la base segura de 80 caracteres. Algunas cuentas pueden admitir más, pero comprueba el límite que muestra TikTok en Editar perfil antes de guardar.
