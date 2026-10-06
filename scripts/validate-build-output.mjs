@@ -77,6 +77,19 @@ const sitemapUrls = new Set(
     .map((match) => match[1])
 );
 
+const prerenderedUrls = new Set([
+  'https://generadordelettering.org/',
+  'https://generadordelettering.org/plantillas',
+  'https://generadordelettering.org/herramientas',
+  'https://generadordelettering.org/herramientas/paletas-de-color',
+  'https://generadordelettering.org/herramientas/combinador-de-fuentes',
+  'https://generadordelettering.org/herramientas/plantillas-practica',
+  'https://generadordelettering.org/herramientas/conversor-texto',
+  'https://generadordelettering.org/herramientas/letras-azules',
+  'https://generadordelettering.org/herramientas/letras-free-fire',
+  'https://generadordelettering.org/herramientas/conversor-letras-bonitas'
+]);
+
 const generatedCanonicals = new Map();
 const titleOwners = new Map();
 const descriptionOwners = new Map();
@@ -106,6 +119,17 @@ for (const htmlFile of htmlFiles) {
   assert(description, `Missing meta description in ${htmlFile}`);
   assert(canonical, `Missing canonical in ${htmlFile}`);
   assert(sitemapUrls.has(canonical), `Canonical is not present in sitemap (${htmlFile}): ${canonical}`);
+
+  if (prerenderedUrls.has(canonical)) {
+    assert(
+      !/<div\s+id=["']root["']>\s*<\/div>/i.test(html),
+      `Core prerender route still has an empty root: ${canonical}`
+    );
+    assert(
+      /<div\s+id=["']root["']>[\s\S]*?<h1\b/i.test(html),
+      `Core prerender route is missing server-rendered H1 content: ${canonical}`
+    );
+  }
 
   if (generatedCanonicals.has(canonical)) {
     throw new Error(`Duplicate canonical in build output: ${canonical} in ${generatedCanonicals.get(canonical)} and ${htmlFile}`);
