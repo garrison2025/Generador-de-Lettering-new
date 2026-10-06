@@ -41,6 +41,7 @@
     <!-- Monetization scripts load only after explicit cookie consent -->
     <script>
       (function() {
+        var monetizationScheduled = false;
         var monetizationStarted = false;
         var adsenseLoaded = false;
 
@@ -77,13 +78,7 @@
         }
 
         function loadMonetizationScripts() {
-          if (monetizationStarted || !hasAcceptedConsent()) return;
-
-          if (!document.body) {
-            document.addEventListener('DOMContentLoaded', loadMonetizationScripts, { once: true });
-            return;
-          }
-
+          if (monetizationStarted || !hasAcceptedConsent() || !document.body) return;
           monetizationStarted = true;
 
           appendScript(
@@ -103,16 +98,32 @@
             window.addEventListener(eventName, loadAdSense, { passive: true, once: true });
           });
 
-          if ('requestIdleCallback' in window) {
-            requestIdleCallback(function() { setTimeout(loadAdSense, 5000); });
+          // Keep AdSense even farther away from the initial rendering path.
+          setTimeout(loadAdSense, 5000);
+        }
+
+        function scheduleMonetizationScripts() {
+          if (monetizationScheduled || !hasAcceptedConsent()) return;
+          monetizationScheduled = true;
+
+          var scheduleIdle = function() {
+            if ('requestIdleCallback' in window) {
+              requestIdleCallback(loadMonetizationScripts, { timeout: 3000 });
+            } else {
+              setTimeout(loadMonetizationScripts, 1500);
+            }
+          };
+
+          if (document.readyState === 'complete') {
+            scheduleIdle();
           } else {
-            setTimeout(loadAdSense, 5000);
+            window.addEventListener('load', scheduleIdle, { once: true });
           }
         }
 
-        window.addEventListener('cookie-consent-accepted', loadMonetizationScripts);
+        window.addEventListener('cookie-consent-accepted', scheduleMonetizationScripts);
         if (hasAcceptedConsent()) {
-          loadMonetizationScripts();
+          scheduleMonetizationScripts();
         }
       })();
     </script>
