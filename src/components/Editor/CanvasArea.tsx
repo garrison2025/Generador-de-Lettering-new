@@ -3,6 +3,7 @@ import { Stage, Layer, Text as KonvaText, Group, Image as KonvaImage, Rect, Tran
 import Konva from 'konva';
 import useImage from 'use-image';
 import { useEditorStore } from '@/store/useEditorStore';
+import { useShallow } from 'zustand/react/shallow';
 import { loadFont } from '@/lib/fonts';
 
 export function CanvasArea() {
@@ -18,7 +19,31 @@ export function CanvasArea() {
     textOpacity, isGradient, gradientStartColor, gradientEndColor,
     shadowOffsetX, shadowOffsetY, shadowBlur, shadowColor, strokeWidth, strokeColor, rotation,
     backgroundImage, canvasRatio, overlayColor, overlayOpacity
-  } = useEditorStore();
+  } = useEditorStore(useShallow((state) => ({
+    text: state.text,
+    fontFamily: state.fontFamily,
+    fontSize: state.fontSize,
+    letterSpacing: state.letterSpacing,
+    lineHeight: state.lineHeight,
+    textAlign: state.textAlign,
+    textColor: state.textColor,
+    backgroundColor: state.backgroundColor,
+    textOpacity: state.textOpacity,
+    isGradient: state.isGradient,
+    gradientStartColor: state.gradientStartColor,
+    gradientEndColor: state.gradientEndColor,
+    shadowOffsetX: state.shadowOffsetX,
+    shadowOffsetY: state.shadowOffsetY,
+    shadowBlur: state.shadowBlur,
+    shadowColor: state.shadowColor,
+    strokeWidth: state.strokeWidth,
+    strokeColor: state.strokeColor,
+    rotation: state.rotation,
+    backgroundImage: state.backgroundImage,
+    canvasRatio: state.canvasRatio,
+    overlayColor: state.overlayColor,
+    overlayOpacity: state.overlayOpacity,
+  })));
 
   const [fontLoaded, setFontLoaded] = useState(false);
   const [bgImageObj] = useImage(backgroundImage || '');
