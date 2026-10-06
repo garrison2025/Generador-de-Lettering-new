@@ -71,7 +71,7 @@ const STYLES = [
   { id: 'ondas', name: 'Onditas (﹏)' },
   { id: 'puntos', name: 'Punteado (•)' },
   { id: 'asteriscos', name: 'Asteriscos (*)' },
-  { id: 'slash', name: 'Slassh ( / )' },
+  { id: 'slash', name: 'Slash ( / )' },
   { id: 'estrellas', name: 'Estrellitas (✨)' },
   { id: 'corazones', name: 'Corazones (💙)' },
   { id: 'corazon_roto', name: 'Corazón Roto (💔)' },
@@ -140,12 +140,29 @@ export default function LetrasAzules() {
     if (!text) return 'Escribe aquí';
     
     if (styleId === 'blue') {
-      return Array.from(text.toUpperCase()).map(char => {
-        if (char >= 'A' && char <= 'Z') {
-          return String.fromCodePoint(0x1F1E6 + char.charCodeAt(0) - 0x41) + ' '; 
+      const output: string[] = [];
+      let previousWasRegionalIndicator = false;
+
+      for (const char of Array.from(text.toUpperCase())) {
+        const isLatinLetter = char >= 'A' && char <= 'Z';
+
+        if (isLatinLetter) {
+          if (previousWasRegionalIndicator) {
+            // Regional Indicator pairs may render as country flags. A normal
+            // space between consecutive indicators prevents that ligature.
+            output.push(' ');
+          }
+
+          output.push(String.fromCodePoint(0x1F1E6 + char.charCodeAt(0) - 0x41));
+          previousWasRegionalIndicator = true;
+          continue;
         }
-        return char;
-      }).join('');
+
+        output.push(char);
+        previousWasRegionalIndicator = false;
+      }
+
+      return output.join('');
     }
     
     let result = text;
