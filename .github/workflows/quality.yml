@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Content validation
+        run: npm run validate
+
       - name: TypeScript check
         run: npm run lint
 
