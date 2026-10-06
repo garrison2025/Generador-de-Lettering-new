@@ -21,6 +21,8 @@ export interface EditorState {
   strokeWidth: number;
   strokeColor: string;
   rotation: number;
+  textOffsetX: number;
+  textOffsetY: number;
   backgroundImage: string | null;
   canvasRatio: 'free' | '1:1' | '16:9' | '9:16';
   overlayColor: string;
@@ -59,6 +61,8 @@ const DEFAULT_STATE: EditorState = {
   strokeWidth: 0,
   strokeColor: '#000000',
   rotation: 0,
+  textOffsetX: 0,
+  textOffsetY: 0,
   backgroundImage: null,
   canvasRatio: 'free',
   overlayColor: '#000000',
@@ -85,6 +89,8 @@ const extractState = (state: EditorStore): EditorState => ({
   strokeWidth: state.strokeWidth,
   strokeColor: state.strokeColor,
   rotation: state.rotation,
+  textOffsetX: state.textOffsetX,
+  textOffsetY: state.textOffsetY,
   backgroundImage: state.backgroundImage,
   canvasRatio: state.canvasRatio,
   overlayColor: state.overlayColor,
