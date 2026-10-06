@@ -294,7 +294,7 @@ export default function LetrasFreeFire() {
       <div className="mt-12 p-8 bg-black text-white rounded-2xl border border-gray-800 text-center relative overflow-hidden">
          <h3 className="text-xl font-bold mb-4 text-[#FACC15] relative z-10">Consejo para Letras Pro</h3>
          <p className="text-gray-300 max-w-2xl mx-auto relative z-10">
-           Algunos juegos tienen límite de caracteres. Al usar símbolos complejos y letras especiales (como LetrasPro, letras bonitas, etc), asegúrate de que el nombre final no exceda el límite permitido por el juego (usualmente 12 caracteres en Free Fire). Las alertas en rojo te avisarán.
+           Los juegos pueden aplicar límites y reglas propias a los nombres. Al usar símbolos complejos o variantes Unicode, comprueba el resultado dentro de Free Fire antes de confirmar el cambio y prepara una versión más corta por si algún carácter no es aceptado.
          </p>
          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#FACC15]/5 rounded-full blur-3xl z-0 pointer-events-none"></div>
       </div>
@@ -302,7 +302,7 @@ export default function LetrasFreeFire() {
       {/* Cross link to Blog */}
       <div className="mt-8 bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-2xl p-6 text-center max-w-2xl mx-auto">
         <h3 className="text-lg font-bold text-gray-900 mb-2">🔥 ¿Buscas inspiración secreta?</h3>
-        <p className="text-gray-700 text-sm mb-4">Descubre nuestro Top 10 con los mejores nombres insanos probados en torneos para causar terror a tus oponentes.</p>
+        <p className="text-gray-700 text-sm mb-4">Descubre nuestro Top 10 de ideas de nombres insanos y combinaciones de símbolos para inspirar tu próximo nick.</p>
         <Link to="/blog/mejores-nombres-insanos-free-fire" className="inline-flex items-center gap-2 bg-[#FACC15] hover:bg-yellow-500 text-gray-900 font-bold py-2 px-6 rounded-lg transition-colors text-sm">
           Leer la Guía de Nombres Insanos &rarr;
         </Link>
