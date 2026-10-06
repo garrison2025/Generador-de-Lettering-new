@@ -257,9 +257,9 @@ export default function ConversorTexto() {
       </nav>
 
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Conversor de Letras Bonitas</h1>
+        <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Conversor de Letras Online</h1>
         <p className="text-lg text-gray-600">
-          Transforma tu texto normal en fuentes especiales (con caracteres Unicode) para copiar y pegar en Instagram, TikTok, Twitter o WhatsApp.
+          Cambia el tipo de letra de tu texto con más de 50 estilos Unicode: cursivas, góticas, negritas, letras raras y otras variantes listas para copiar y pegar.
         </p>
       </div>
 
