@@ -135,6 +135,30 @@ export default function LetrasFreeFire() {
 
   const inputCharacterCount = countCodePoints(inputText);
 
+  const generatedNames = DECORATORS
+    .flatMap((decorator) => [
+      { ...decorator, font: 'normal' },
+      { ...decorator, font: 'smallCaps' },
+      { ...decorator, font: 'gothic' }
+    ])
+    .map((option, index) => {
+      const appliedText = applyFont(deferredInput || 'Hero', option.font);
+      const fullName = `${option.prefix}${appliedText}${option.suffix}`;
+      const characterCount = countCodePoints(fullName);
+
+      return {
+        ...option,
+        key: `${option.name}-${option.font}-${index}`,
+        fullName,
+        characterCount,
+        withinGuide: characterCount <= FREE_FIRE_GUIDE_LIMIT
+      };
+    })
+    .sort((a, b) => {
+      if (a.withinGuide !== b.withinGuide) return a.withinGuide ? -1 : 1;
+      return a.characterCount - b.characterCount;
+    });
+
   return (
     <>
       <SEO 
@@ -254,29 +278,27 @@ export default function LetrasFreeFire() {
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+      <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
         <span className="bg-[#FACC15] w-2 h-6 inline-block rounded-sm"></span>
         Nombres y Letras para Free Fire Generados
       </h2>
+      <p className="text-sm text-gray-500 mb-6">
+        Mostramos primero las variantes de hasta {FREE_FIRE_GUIDE_LIMIT} caracteres Unicode como referencia. Confirma el nick dentro del juego antes de cambiarlo, porque Garena puede ajustar la validación de símbolos y nombres.
+      </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {DECORATORS.flatMap(dec => [
-          { ...dec, font: 'normal' },
-          { ...dec, font: 'smallCaps' },
-          { ...dec, font: 'gothic' }
-        ]).map((dec, idx) => {
-          const appliedText = applyFont(deferredInput || 'Hero', dec.font);
-          const fullName = `${dec.prefix}${appliedText}${dec.suffix}`;
+        {generatedNames.map((option) => {
+          const { fullName, characterCount, withinGuide } = option;
           const isCopied = copiedId === fullName;
-          
+
           return (
-            <div key={idx} className="bg-white border text-center md:text-left border-gray-200 rounded-xl p-3 flex flex-col sm:flex-row items-center gap-4 hover:border-[#FACC15] transition-colors hover:shadow-md group">
+            <div key={option.key} className="bg-white border text-center md:text-left border-gray-200 rounded-xl p-3 flex flex-col sm:flex-row items-center gap-4 hover:border-[#FACC15] transition-colors hover:shadow-md group">
               <div className="flex-1 overflow-hidden w-full order-2 sm:order-1 flex items-center justify-center sm:justify-start min-h-[50px] relative">
                 <p className="text-xl md:text-2xl text-gray-900 truncate px-2 font-medium pr-12" title={fullName}>
                   {fullName}
                 </p>
-                <span className={`absolute right-2 text-xs font-bold ${fullName.length > 12 ? 'text-red-500' : 'text-gray-500'}`}>
-                  {fullName.length}
+                <span className={`absolute right-2 text-xs font-bold ${withinGuide ? 'text-green-600' : 'text-orange-600'}`}>
+                  {characterCount} {withinGuide ? '✓' : 'largo'}
                 </span>
               </div>
               <button
