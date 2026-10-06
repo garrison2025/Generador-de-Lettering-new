@@ -292,12 +292,8 @@ export default function LetrasTikTok() {
               Escribe tu biografía o nombre para TikTok:
             </label>
             <div className="flex items-center gap-2">
-              <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-                inputCharacterCount > 80 
-                  ? 'bg-amber-50 text-amber-700 border border-amber-200' 
-                  : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-              }`}>
-                {inputCharacterCount}/500 caracteres · 80 base segura
+              <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-gray-50 text-gray-600 border border-gray-200">
+                {inputCharacterCount}/500 caracteres
               </span>
             </div>
           </div>
@@ -322,13 +318,6 @@ export default function LetrasTikTok() {
               </button>
             )}
           </div>
-
-          {inputCharacterCount > 80 && (
-            <div className="flex items-center gap-2 text-xs text-amber-700 bg-amber-50 p-3 rounded-xl border border-amber-200">
-              <AlertCircle className="w-4 h-4 flex-shrink-0 text-amber-600" />
-              Has superado la base segura de 80 caracteres. Algunas cuentas pueden admitir más, pero comprueba el límite que muestra TikTok en Editar perfil antes de guardar.
-            </div>
-          )}
 
           {/* Aesthetic Symbols Quick Toolbar */}
           <div>
