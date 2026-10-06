@@ -84,11 +84,17 @@ const descriptionOwners = new Map();
 for (const htmlFile of htmlFiles) {
   const html = fs.readFileSync(htmlFile, 'utf8');
 
-  if (path.basename(htmlFile) === '404.html') {
+  const baseName = path.basename(htmlFile);
+
+  if (baseName === '404.html') {
     assert(
       /<meta\b[^>]*name=["']robots["'][^>]*content=["']noindex,\s*follow["'][^>]*>/i.test(html),
       '404.html must keep noindex, follow'
     );
+    continue;
+  }
+
+  if (/^google[a-z0-9]+\.html$/i.test(baseName)) {
     continue;
   }
 
