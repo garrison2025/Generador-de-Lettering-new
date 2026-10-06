@@ -388,6 +388,10 @@ export default function GeneradorNombresInstagram() {
             </li>
             <li className="flex items-center space-x-2">
               <span className="text-gray-400">/</span>
+              <Link to="/herramientas" className="hover:text-[#4F46E5] transition-colors">Herramientas</Link>
+            </li>
+            <li className="flex items-center space-x-2">
+              <span className="text-gray-400">/</span>
               <span className="text-gray-900" aria-current="page">Nombres para Instagram</span>
             </li>
           </ol>
