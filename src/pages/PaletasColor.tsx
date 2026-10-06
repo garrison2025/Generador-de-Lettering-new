@@ -15,7 +15,7 @@ const PALETTES = [
   { name: 'Primavera Pastel', colors: ['#FFB5A7', '#FCD5CE', '#F8EDEB', '#F9E2E2', '#E8E8E4'] },
   { name: 'Neón Cyberpunk', colors: ['#FF003C', '#F9F871', '#00F0FF', '#7000FF', '#1D0054'] },
   { name: 'Tierra Terracota', colors: ['#D4A373', '#FAEDCD', '#FEFAE0', '#E9EDC9', '#CCD5AE'] },
-  { name: 'Vintage 70s', colors: ['#264653', '#2A9D8F', '#E9C46A', '#F4A261', '#E76F51'] },
+  { name: 'Vintage 70s', colors: ['#5C3A21', '#A44A3F', '#D97B29', '#E6B655', '#6B7A40'] },
   { name: 'Aurora Boreal', colors: ['#00F2FE', '#4FACFE', '#0072FF', '#00C6FF', '#005BEA'] },
   { name: 'Atardecer', colors: ['#F6D365', '#FDA085', '#FF8C7F', '#FF6B9E', '#FF3E96'] }
 ];
