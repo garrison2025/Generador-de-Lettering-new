@@ -101,19 +101,24 @@ export default function BlogPost() {
             </div>
           </header>
 
-          <div className="prose prose-lg prose-indigo max-w-none text-gray-700 leading-relaxed 
-            prose-headings:font-bold prose-headings:text-gray-900 prose-headings:tracking-tight
-            prose-h1:text-4xl prose-h1:font-black prose-h1:mb-8
-            prose-h2:text-3xl prose-h2:mt-14 prose-h2:mb-6 prose-h2:font-extrabold prose-h2:tracking-tight
-            prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4
-            prose-p:mb-6 prose-p:leading-8 prose-p:text-[1.1rem]
-            prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline hover:prose-a:text-indigo-800
-            prose-strong:text-gray-900 prose-strong:font-bold
-            prose-ul:list-disc prose-ul:ml-6 prose-ul:mb-6 prose-li:mb-2
-            prose-ol:list-decimal prose-ol:ml-6 prose-ol:mb-6
-            prose-blockquote:border-l-4 prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-50 prose-blockquote:py-3 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:text-gray-800 prose-blockquote:italic prose-blockquote:my-8
-            prose-code:text-indigo-600 prose-code:bg-indigo-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
-            prose-pre:bg-gray-900 prose-pre:text-gray-50 prose-pre:rounded-xl">
+          <div className="max-w-none text-gray-700 leading-relaxed
+            [&_h1]:text-4xl [&_h1]:font-black [&_h1]:text-gray-900 [&_h1]:tracking-tight [&_h1]:mb-8
+            [&_h2]:text-3xl [&_h2]:font-extrabold [&_h2]:text-gray-900 [&_h2]:tracking-tight [&_h2]:mt-14 [&_h2]:mb-6
+            [&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-gray-900 [&_h3]:tracking-tight [&_h3]:mt-10 [&_h3]:mb-4
+            [&_p]:mb-6 [&_p]:leading-8 [&_p]:text-[1.1rem]
+            [&_a]:text-indigo-600 [&_a]:no-underline hover:[&_a]:underline hover:[&_a]:text-indigo-800
+            [&_strong]:text-gray-900 [&_strong]:font-bold
+            [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-6
+            [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:mb-6
+            [&_li]:mb-2 [&_li]:leading-7
+            [&_blockquote]:border-l-4 [&_blockquote]:border-indigo-500 [&_blockquote]:bg-indigo-50 [&_blockquote]:py-3 [&_blockquote]:px-6 [&_blockquote]:rounded-r-lg [&_blockquote]:text-gray-800 [&_blockquote]:italic [&_blockquote]:my-8
+            [&_code]:text-indigo-600 [&_code]:bg-indigo-50 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded-md
+            [&_pre]:bg-gray-900 [&_pre]:text-gray-50 [&_pre]:rounded-xl [&_pre]:p-5 [&_pre]:overflow-x-auto [&_pre]:my-8
+            [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:p-0
+            [&_table]:w-full [&_table]:border-collapse [&_table]:my-8
+            [&_th]:border [&_th]:border-gray-200 [&_th]:bg-gray-50 [&_th]:p-3 [&_th]:text-left [&_th]:font-bold [&_th]:text-gray-900
+            [&_td]:border [&_td]:border-gray-200 [&_td]:p-3
+            [&_img]:rounded-xl [&_img]:my-8">
             <Markdown remarkPlugins={[remarkGfm]}>
               {post.content}
             </Markdown>
