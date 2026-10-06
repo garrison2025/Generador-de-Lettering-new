@@ -1,3 +1,4 @@
+import { copyText } from '../utils/copyText';
 import { useState, useEffect, useDeferredValue } from 'react';
 import { Copy, Check, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -306,8 +307,11 @@ export default function LetrasAzules() {
     return result;
   };
 
-  const handleCopy = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
+  const handleCopy = async (text: string, id: string) => {
+    if (!(await copyText(text))) {
+      window.alert('No se pudo copiar automáticamente. Selecciona el texto y cópialo manualmente.');
+      return;
+    }
     setCopiedResult(id);
     setTimeout(() => setCopiedResult(null), 2000);
   };
