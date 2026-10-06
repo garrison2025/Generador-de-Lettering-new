@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useEditorStore } from '@/store/useEditorStore';
-import { FONTS, PRESET_COLORS } from '@/lib/fonts';
+import { FONTS, PRESET_COLORS, loadFontPreviews } from '@/lib/fonts';
 import { AlignLeft, AlignCenter, AlignRight, Check, ChevronDown } from 'lucide-react';
 
 type LocalSliderProps = {
@@ -140,7 +140,10 @@ export function ControlPanel() {
                 <label className="text-xs font-semibold text-gray-700">Estilo de Letra</label>
                 <button 
                   type="button"
-                  onClick={() => setIsFontSelectOpen(!isFontSelectOpen)}
+                  onClick={() => {
+                    if (!isFontSelectOpen) void loadFontPreviews();
+                    setIsFontSelectOpen(!isFontSelectOpen);
+                  }}
                   className="w-full flex items-center justify-between border border-gray-200 rounded-lg p-3 bg-white hover:bg-gray-50 focus:ring-1 focus:ring-[#5A4AD2] outline-none text-left"
                 >
                   <span className="text-xl" style={{ fontFamily: selectedFont.family }}>{selectedFont.group}</span>
