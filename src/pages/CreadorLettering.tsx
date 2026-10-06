@@ -174,7 +174,7 @@ export default function CreadorLettering() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Creador de Lettering Online",
-    "url": "https://generadordelettering.org/creador-de-lettering",
+    "url": "https://generadordelettering.org/herramientas/creador-de-lettering",
     "description": "Herramienta online para crear diseños de lettering digital, fuentes manuscritas, efectos neón, 3D y caligrafía. Gratis y sin registro.",
     "applicationCategory": "DesignApplication",
     "operatingSystem": "All",
