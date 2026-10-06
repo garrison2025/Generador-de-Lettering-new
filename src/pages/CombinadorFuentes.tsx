@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PenTool, ArrowRight, ChevronLeft, Type } from 'lucide-react';
-import { Slider } from '@/components/ui/slider';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 
@@ -95,10 +94,15 @@ export default function CombinadorFuentes() {
               <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Tamaño</label>
               <span className="text-[10px] text-gray-900 font-mono font-bold bg-gray-100 px-1.5 py-0.5 rounded border border-gray-200">{fontSize}px</span>
             </div>
-            <Slider 
-              value={[fontSize]} 
-              onValueChange={(val) => setFontSize(val[0])}
-              min={16} max={72} step={1}
+            <input
+              type="range"
+              aria-label="Tamaño de la vista previa"
+              value={fontSize}
+              onChange={(event) => setFontSize(Number(event.target.value))}
+              min={16}
+              max={72}
+              step={1}
+              className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-[#5A4AD2]"
             />
           </div>
         </div>
