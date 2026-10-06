@@ -90,7 +90,7 @@ const faqSchema = {
       "name": "¿Son permitidos estos símbolos por Garena Free Fire?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sí, todos los símbolos Unicode incluidos en nuestro generador son compatibles y aceptados en los servidores globales de Garena Free Fire."
+        "text": "La mayoría de los símbolos Unicode habituales funcionan, pero la compatibilidad puede variar según la versión del juego, la región o cambios de Garena. Si un símbolo es rechazado, prueba una variante más corta o diferente."
       }
     }
   ]
@@ -229,6 +229,12 @@ export default function GeneradorNombresFreeFire() {
           <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Personaliza tu Nickname para Free Fire con <strong>letras bonitas, góticas, cursivas, alas, coronas y espacio invisible</strong>. Diseña nicks insanos para clanes, dúos o perfil personal en un solo clic.
           </p>
+          <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-2 text-xs md:text-sm text-gray-600 bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3">
+            <span>Esta versión avanzada añade prefijo de clan, dúos, favoritos y espacio invisible.</span>
+            <Link to="/herramientas/letras-free-fire" className="font-bold text-amber-700 hover:underline">
+              Para letras y símbolos rápidos, usa Letras para Free Fire →
+            </Link>
+          </div>
         </div>
 
         {/* Interactive Creator Box */}
@@ -695,7 +701,7 @@ export default function GeneradorNombresFreeFire() {
                 ¿Por qué no puedo pegar algunos símbolos en mi perfil?
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Todos los símbolos de esta página son compatibles con el motor Unicode de Garena Free Fire. Sin embargo, si sobrepasas el límite máximo de 12 caracteres el juego rechazará la confirmación.
+                La mayoría de los símbolos Unicode habituales funcionan, pero Garena puede cambiar la compatibilidad según la versión o región. Si un símbolo es rechazado, prueba otro diseño más corto y revisa también que el nick no exceda el límite mostrado por la herramienta.
               </p>
             </div>
 
