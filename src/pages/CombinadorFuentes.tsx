@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { PenTool, ArrowRight, ChevronLeft, Type } from 'lucide-react';
+import { PenTool, ArrowRight, Type } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 import { loadFont } from '@/lib/fonts';
-import { useEditorStore } from '@/store/useEditorStore';
+import { EDITOR_DEFAULT_STATE, useEditorStore } from '@/store/useEditorStore';
 
 const PAIRINGS = [
   {
@@ -57,6 +57,31 @@ const PAIRINGS = [
   }
 ];
 
+const pairingSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Combinador de Fuentes",
+  "url": "https://generadordelettering.org/herramientas/combinador-de-fuentes",
+  "description": "Prueba combinaciones tipográficas, cambia el texto de ejemplo y lleva la fuente principal al editor de lettering.",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+const pairingBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://generadordelettering.org/" },
+    { "@type": "ListItem", "position": 2, "name": "Herramientas", "item": "https://generadordelettering.org/herramientas" },
+    { "@type": "ListItem", "position": 3, "name": "Combinador de Fuentes", "item": "https://generadordelettering.org/herramientas/combinador-de-fuentes" }
+  ]
+};
+
 export default function CombinadorFuentes() {
   const [customText, setCustomText] = useState('');
   const [fontSize, setFontSize] = useState(36);
@@ -72,6 +97,7 @@ export default function CombinadorFuentes() {
 
   const tryPrimaryFont = (pairing: (typeof PAIRINGS)[number]) => {
     updateState({
+      ...EDITOR_DEFAULT_STATE,
       fontFamily: pairing.primaryFont,
       fontSize,
       text: customText.trim() || pairing.preview,
@@ -85,12 +111,17 @@ export default function CombinadorFuentes() {
         title="Combinador de Fuentes y Tipografías | Diseños de Texto"
         description="Explora combinaciones de fuentes perfectas para tus diseños. Inspiración tipográfica para caligrafía, lettering y maquetación web."
         keywords="combinar fuentes, tipografias que combinan, diseño de texto, emparejar letras"
+        canonical="https://generadordelettering.org/herramientas/combinador-de-fuentes"
+        jsonSchema={[pairingSchema, pairingBreadcrumbSchema]}
       />
     <div className="max-w-7xl mx-auto px-4 py-12 w-full">
-      <Link to="/" className="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-[#5A4AD2] mb-8 transition-colors">
-        <ChevronLeft className="w-4 h-4 mr-1" />
-        Volver a inicio
-      </Link>
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-gray-500 mb-8 font-medium">
+        <Link to="/" className="hover:text-[#5A4AD2] transition-colors">Inicio</Link>
+        <span>/</span>
+        <Link to="/herramientas" className="hover:text-[#5A4AD2] transition-colors">Herramientas</Link>
+        <span>/</span>
+        <span className="text-gray-900">Combinador de Fuentes</span>
+      </nav>
 
       <div className="text-center mb-10">
         <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Combinador de Fuentes</h1>
