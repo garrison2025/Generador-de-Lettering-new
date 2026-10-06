@@ -132,6 +132,34 @@ function makeHead(baseHtml, route, title, description) {
   return html;
 }
 
+function make404Html(baseHtml) {
+  let html = baseHtml;
+
+  html = html.replace(
+    /<title(?:\s+data-rh="true")?>[\s\S]*?<\/title>/i,
+    '<title data-rh="true">Página no encontrada (404) | Generador de Lettering</title>'
+  );
+
+  html = html.replace(
+    /<meta\b[^>]*\bname="description"[^>]*>/i,
+    '<meta data-rh="true" name="description" content="La página solicitada no existe. Explora nuestras herramientas de lettering, letras bonitas y nombres para redes sociales." />'
+  );
+
+  html = html
+    .replace(/\s*<link\s+data-rh="true"\s+rel="canonical"[^>]*>/gi, '')
+    .replace(/\s*<meta\s+data-rh="true"\s+name="robots"[^>]*>/gi, '');
+
+  const robots = '    <meta data-rh="true" name="robots" content="noindex, follow" />';
+  html = html.replace('</head>', `${robots}\n  </head>`);
+
+  const robotsCount = (html.match(/<meta\b[^>]*\bname="robots"[^>]*>/gi) || []).length;
+  if (robotsCount !== 1 || !html.includes('content="noindex, follow"')) {
+    throw new Error('Generated 404.html is missing the expected noindex robots tag');
+  }
+
+  return html;
+}
+
 const baseHtml = read('dist/index.html');
 const pages = [];
 
@@ -196,4 +224,11 @@ for (const page of pages) {
   fs.writeFileSync(output, html);
 }
 
-console.log(`Generated and verified static SEO head shells for ${pages.length} routes.`);
+const notFoundHtml = make404Html(baseHtml);
+fs.writeFileSync('dist/404.html', notFoundHtml);
+
+if (!fs.existsSync('dist/404.html')) {
+  throw new Error('Failed to generate top-level dist/404.html');
+}
+
+console.log(`Generated and verified static SEO head shells for ${pages.length} routes plus 404.html.`);
