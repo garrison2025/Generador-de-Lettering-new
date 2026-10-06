@@ -82,14 +82,16 @@ function extractSeoLanding(route) {
 function extractBlogPosts() {
   const source = read('src/data/blogPosts.ts');
   const posts = [];
-  const regex = /slug:\s*'([^']+)',[\s\S]*?title:\s*'([^']+)',[\s\S]*?excerpt:\s*'([^']+)',[\s\S]*?keywords:\s*'([^']+)'/g;
+  const regex = /slug:\s*'([^']+)',[\s\S]*?title:\s*'([^']+)',[\s\S]*?excerpt:\s*'([^']+)',[\s\S]*?date:\s*'([^']+)'(?:,[\s\S]*?updated:\s*'([^']+)')?,[\s\S]*?keywords:\s*'([^']+)'/g;
   let match;
   while ((match = regex.exec(source))) {
     posts.push({
       route: `/blog/${match[1]}`,
       title: `${match[2]} | Generador de Lettering Blog`,
       description: match[3],
-      keywords: match[4]
+      publishedTime: match[4],
+      modifiedTime: match[5] || match[4],
+      keywords: match[6]
     });
   }
   return posts;
@@ -104,7 +106,7 @@ function routeOutputFile(route) {
   return path.join('dist', `${route.replace(/^\//, '')}.html`);
 }
 
-function makeHead(baseHtml, route, title, description, keywords) {
+function makeHead(baseHtml, route, title, description, keywords, publishedTime, modifiedTime) {
   const canonical = `${SITE}${route === '/' ? '/' : route}`;
   let html = baseHtml;
 
@@ -131,6 +133,8 @@ function makeHead(baseHtml, route, title, description, keywords) {
     .replace(/\s*<meta\s+data-rh="true"\s+property="og:title"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+property="og:description"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+property="og:url"[^>]*>/gi, '')
+    .replace(/\s*<meta\s+data-rh="true"\s+property="article:published_time"[^>]*>/gi, '')
+    .replace(/\s*<meta\s+data-rh="true"\s+property="article:modified_time"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+name="twitter:title"[^>]*>/gi, '')
     .replace(/\s*<meta\s+data-rh="true"\s+name="twitter:description"[^>]*>/gi, '');
 
@@ -139,6 +143,12 @@ function makeHead(baseHtml, route, title, description, keywords) {
     `    <meta data-rh="true" property="og:title" content="${escapeHtml(title)}" />`,
     `    <meta data-rh="true" property="og:description" content="${escapeHtml(description)}" />`,
     `    <meta data-rh="true" property="og:url" content="${canonical}" />`,
+    ...(publishedTime
+      ? [`    <meta data-rh="true" property="article:published_time" content="${escapeHtml(publishedTime)}" />`]
+      : []),
+    ...(modifiedTime
+      ? [`    <meta data-rh="true" property="article:modified_time" content="${escapeHtml(modifiedTime)}" />`]
+      : []),
     `    <meta data-rh="true" name="twitter:title" content="${escapeHtml(title)}" />`,
     `    <meta data-rh="true" name="twitter:description" content="${escapeHtml(description)}" />`
   ].join('\n');
@@ -231,7 +241,7 @@ for (const page of pages) {
   const output = routeOutputFile(page.route);
   fs.mkdirSync(path.dirname(output), { recursive: true });
 
-  const html = makeHead(baseHtml, page.route, page.title, page.description, page.keywords);
+  const html = makeHead(baseHtml, page.route, page.title, page.description, page.keywords, page.publishedTime, page.modifiedTime);
   const canonical = `${SITE}${page.route === '/' ? '/' : page.route}`;
   const expectedTitle = `<title data-rh="true">${escapeHtml(page.title)}</title>`;
   const expectedDescription = `<meta data-rh="true" name="description" content="${escapeHtml(page.description)}" />`;
@@ -239,6 +249,12 @@ for (const page of pages) {
     ? `<meta data-rh="true" name="keywords" content="${escapeHtml(page.keywords)}" />`
     : null;
   const expectedCanonical = `<link data-rh="true" rel="canonical" href="${canonical}" />`;
+  const expectedPublishedTime = page.publishedTime
+    ? `<meta data-rh="true" property="article:published_time" content="${escapeHtml(page.publishedTime)}" />`
+    : null;
+  const expectedModifiedTime = page.modifiedTime
+    ? `<meta data-rh="true" property="article:modified_time" content="${escapeHtml(page.modifiedTime)}" />`
+    : null;
 
   if (!html.includes(expectedTitle)) {
     throw new Error(`Generated head is missing the expected title for ${page.route}`);
@@ -254,6 +270,18 @@ for (const page of pages) {
   }
   if (!html.includes(expectedCanonical)) {
     throw new Error(`Generated head is missing the expected canonical for ${page.route}`);
+  }
+  if (expectedPublishedTime && !html.includes(expectedPublishedTime)) {
+    throw new Error(`Generated head is missing article:published_time for ${page.route}`);
+  }
+  if (expectedModifiedTime && !html.includes(expectedModifiedTime)) {
+    throw new Error(`Generated head is missing article:modified_time for ${page.route}`);
+  }
+  if (!expectedPublishedTime && /property="article:published_time"/i.test(html)) {
+    throw new Error(`Non-article route contains article:published_time: ${page.route}`);
+  }
+  if (!expectedModifiedTime && /property="article:modified_time"/i.test(html)) {
+    throw new Error(`Non-article route contains article:modified_time: ${page.route}`);
   }
 
   const descriptionCount = (html.match(/<meta\b[^>]*\bname="description"[^>]*>/gi) || []).length;
