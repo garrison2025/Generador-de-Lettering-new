@@ -431,7 +431,7 @@ export function ControlPanel() {
                     <span>Subir Imagen</span>
                     <input 
                       type="file" 
-                      accept="image/*" 
+                      accept="image/png,image/jpeg,image/webp" 
                       className="hidden" 
                       onChange={async (e) => {
                         const input = e.currentTarget;
@@ -441,8 +441,14 @@ export function ControlPanel() {
                         const maxBytes = 10 * 1024 * 1024;
                         const maxPixels = 25_000_000;
 
-                        if (!file.type.startsWith('image/')) {
-                          window.alert('Selecciona un archivo de imagen válido.');
+                        const allowedTypes = new Set([
+                          'image/png',
+                          'image/jpeg',
+                          'image/webp',
+                        ]);
+
+                        if (!allowedTypes.has(file.type)) {
+                          window.alert('Formato no compatible. Usa una imagen PNG, JPG o WEBP.');
                           input.value = '';
                           return;
                         }
