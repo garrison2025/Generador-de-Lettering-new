@@ -86,7 +86,7 @@ export default function Home() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "LetrasPro",
+    "name": "Generador de Lettering",
     "url": "https://generadordelettering.org/",
     "potentialAction": {
       "@type": "SearchAction",
