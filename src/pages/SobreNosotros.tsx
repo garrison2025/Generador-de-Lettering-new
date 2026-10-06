@@ -9,7 +9,7 @@ export default function SobreNosotros() {
     "@type": "Organization",
     "name": "Generador de Lettering",
     "url": "https://generadordelettering.org",
-    "logo": "https://generadordelettering.org/icon.svg",
+    "logo": "https://generadordelettering.org/pwa-512x512.png",
     "description": "Plataforma de herramientas gratuitas para lettering digital, conversión de texto Unicode y personalización de nombres para redes sociales y videojuegos.",
     "knowsAbout": ["Typography", "Calligraphy", "Digital Lettering", "Unicode", "Web Design"],
     "sameAs": []
