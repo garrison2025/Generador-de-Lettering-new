@@ -51,11 +51,11 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
       badge: 'WhatsApp & Juegos'
     },
     {
-      title: 'Letras para Free Fire (Nick Insano)',
-      desc: 'Letras y variantes Unicode para probar en nicks de Free Fire y clanes.',
+      title: 'Letras y Símbolos para Free Fire',
+      desc: 'Convierte tu texto a letras Unicode y añade símbolos, alas o coronas para copiar y pegar.',
       path: '/herramientas/letras-free-fire',
       icon: <Shield className="w-5 h-5 text-amber-600" />,
-      badge: 'FF Nicks'
+      badge: 'Símbolos FF'
     },
     {
       title: 'Letras para TikTok Aesthetic',
