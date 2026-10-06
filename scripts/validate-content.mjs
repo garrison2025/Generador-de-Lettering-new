@@ -172,6 +172,22 @@ function validatePublicAssets() {
   }
 }
 
+function validateRemovedUiImports() {
+  const sourceFiles = [
+    ...fs.readdirSync('src/pages').filter((name) => name.endsWith('.tsx')).map((name) => `src/pages/${name}`),
+    ...fs.readdirSync('src/components').filter((name) => name.endsWith('.tsx')).map((name) => `src/components/${name}`),
+    ...fs.readdirSync('src/components/Editor').filter((name) => name.endsWith('.tsx')).map((name) => `src/components/Editor/${name}`)
+  ];
+
+  for (const path of sourceFiles) {
+    const source = read(path);
+    assert(
+      !source.includes('@/components/ui/'),
+      `Removed UI wrapper import found in ${path}`
+    );
+  }
+}
+
 function validateEditorStoreUsage() {
   const files = [
     'src/pages/Editor.tsx',
@@ -228,6 +244,7 @@ validateUnicodeMaps();
 validateRoutesAndSitemap();
 validateLlmsLinks();
 validatePublicAssets();
+validateRemovedUiImports();
 validateEditorStoreUsage();
 validateTrustAndBreadcrumbs();
 
