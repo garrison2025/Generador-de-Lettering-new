@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ControlPanel } from '../components/Editor/ControlPanel';
@@ -27,7 +27,12 @@ function CanvasLoadingFallback() {
 export default function Editor({ embedded = false }: { embedded?: boolean }) {
   const canUndo = useEditorStore((state) => state.past.length > 0);
   const canRedo = useEditorStore((state) => state.future.length > 0);
+  const [canvasReady, setCanvasReady] = useState(false);
   useEditorShortcuts();
+
+  useEffect(() => {
+    setCanvasReady(true);
+  }, []);
 
   return (
     <>
@@ -100,9 +105,13 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
                </details>
              </div>
              <div className="h-[250px] md:h-[400px] w-full relative bg-[#F8F9FC]">
-               <Suspense fallback={<CanvasLoadingFallback />}>
-                 <CanvasArea />
-               </Suspense>
+               {canvasReady ? (
+                 <Suspense fallback={<CanvasLoadingFallback />}>
+                   <CanvasArea />
+                 </Suspense>
+               ) : (
+                 <CanvasLoadingFallback />
+               )}
              </div>
               <div className="p-3 lg:p-4 border-t border-gray-100 flex flex-wrap gap-2 lg:gap-4 bg-white rounded-b-xl">
                 <button 
