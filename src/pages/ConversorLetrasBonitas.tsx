@@ -306,14 +306,14 @@ export default function ConversorLetrasBonitas() {
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-12">
         <div className="bg-gray-50 border-b border-gray-100 px-6 py-4 flex justify-between items-center">
           <label htmlFor="text-input" className="block text-sm font-bold text-gray-800 uppercase tracking-wider">Tu Frase o Nombre:</label>
-          <span className="text-xs font-medium text-gray-500 bg-white px-2 py-1 rounded border border-gray-200">{inputCharacterCount} caracteres</span>
+          <span className="text-xs font-medium text-gray-500 bg-white px-2 py-1 rounded border border-gray-200">{inputCharacterCount}/500 caracteres</span>
         </div>
         <div className="p-6 md:p-8">
           <div className="relative">
             <textarea
               id="text-input"
               value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
+              onChange={(e) => setInputText(Array.from(e.target.value).slice(0, 500).join(''))}
               className="w-full h-32 p-5 bg-white border-2 border-gray-200 rounded-xl focus:ring-0 focus:border-[#5A4AD2] outline-none resize-none text-xl md:text-2xl font-medium pr-12 shadow-inner transition-colors placeholder:text-gray-500"
               placeholder="Escribe aquí para transformar tu letra..."
             />
