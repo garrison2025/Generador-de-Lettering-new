@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import Layout from './components/Layout';
 
@@ -19,6 +19,7 @@ const Contacto = lazy(() => import('./pages/Contacto'));
 const Privacidad = lazy(() => import('./pages/Privacidad'));
 const Terminos = lazy(() => import('./pages/Terminos'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const Herramientas = lazy(() => import('./pages/Herramientas'));
 
 // Herramientas adicionales
 const PaletasColor = lazy(() => import('./pages/PaletasColor'));
@@ -49,6 +50,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="editor" element={<Editor />} />
             <Route path="plantillas" element={<Plantillas />} />
+            <Route path="herramientas" element={<Herramientas />} />
             
             <Route path="herramientas/paletas-de-color" element={<PaletasColor />} />
             <Route path="herramientas/combinador-de-fuentes" element={<CombinadorFuentes />} />
@@ -61,9 +63,9 @@ export default function App() {
             <Route path="herramientas/generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />
             <Route path="herramientas/generador-de-nombres-para-free-fire" element={<GeneradorNombresFreeFire />} />
             <Route path="herramientas/creador-de-lettering" element={<CreadorLettering />} />
-            <Route path="creador-de-lettering" element={<CreadorLettering />} />
-            <Route path="generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />
-            <Route path="generador-de-nombres-para-free-fire" element={<GeneradorNombresFreeFire />} />
+            <Route path="creador-de-lettering" element={<Navigate to="/herramientas/creador-de-lettering" replace />} />
+            <Route path="generador-de-nombres-para-instagram" element={<Navigate to="/herramientas/generador-de-nombres-para-instagram" replace />} />
+            <Route path="generador-de-nombres-para-free-fire" element={<Navigate to="/herramientas/generador-de-nombres-para-free-fire" replace />} />
 
             <Route path="blog" element={<Blog />} />
             <Route path="blog/:slug" element={<BlogPost />} />
