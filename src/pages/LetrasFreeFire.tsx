@@ -249,7 +249,7 @@ export default function LetrasFreeFire() {
             placeholder="Ejemplo: Slayer..."
           />
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
-            <span className={`text-xs font-bold ${inputCharacterCount >= FREE_FIRE_GUIDE_LIMIT ? 'text-red-400' : 'text-gray-500'}`}>
+            <span className={`text-xs font-bold ${inputCharacterCount === FREE_FIRE_GUIDE_LIMIT ? 'text-yellow-400' : 'text-gray-500'}`}>
               {inputCharacterCount}/{FREE_FIRE_GUIDE_LIMIT} guía
             </span>
             {inputText && (
@@ -301,8 +301,13 @@ export default function LetrasFreeFire() {
                 <p className="text-xl md:text-2xl text-gray-900 truncate px-2 font-medium pr-12" title={fullName}>
                   {fullName}
                 </p>
-                <span className={`absolute right-2 text-xs font-bold ${withinGuide ? 'text-green-600' : 'text-orange-600'}`}>
-                  {characterCount} {withinGuide ? '✓' : 'largo'}
+                <span
+                  className={`absolute right-2 text-xs font-bold ${withinGuide ? 'text-green-600' : 'text-orange-600'}`}
+                  title={withinGuide
+                    ? `Dentro de la referencia de ${FREE_FIRE_GUIDE_LIMIT} caracteres`
+                    : `Supera la referencia de ${FREE_FIRE_GUIDE_LIMIT} caracteres`}
+                >
+                  {characterCount} {withinGuide ? '✓' : `>${FREE_FIRE_GUIDE_LIMIT}`}
                 </span>
               </div>
               <button
