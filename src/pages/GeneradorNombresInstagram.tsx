@@ -644,8 +644,8 @@ export default function GeneradorNombresInstagram() {
                   <h3 className="font-bold text-gray-900 text-base truncate">
                     {convertText(deferredInput, 'cursiva_bold')}
                   </h3>
-                  <p className="text-xs text-gray-500 font-medium">@{(deferredInput || 'usuario').toLowerCase().replace(/\s+/g, '')}</p>
-                  <p className="text-xs text-gray-700 mt-2 whitespace-pre-line leading-relaxed">
+                  <p className="text-xs text-gray-500 font-medium break-all">@{(deferredInput || 'usuario').toLowerCase().replace(/\s+/g, '')}</p>
+                  <p className="text-xs text-gray-700 mt-2 whitespace-pre-line leading-relaxed break-all sm:break-words">
                     ✨ {convertText(deferredInput, 'cursiva')} <br />
                     📍 Creador Digital & Aesthetic Vibes <br />
                     ✦ generadordelettering.org
@@ -655,7 +655,7 @@ export default function GeneradorNombresInstagram() {
             </div>
 
             {/* Category Filter Pills */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar">
+            <div className="max-w-full flex items-center gap-2 overflow-x-auto overscroll-x-contain pb-4 mb-6 no-scrollbar">
               <span className="text-xs font-bold text-gray-400 uppercase tracking-wider shrink-0 mr-1">Filtrar:</span>
               {categories.map((cat) => (
                 <button
