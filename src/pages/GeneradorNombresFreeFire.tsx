@@ -1,5 +1,5 @@
 import { copyText } from '../utils/copyText';
-import { useState, useDeferredValue, useEffect } from 'react';
+import { useState, useDeferredValue, useEffect, useMemo } from 'react';
 import { Copy, Check, Dices, Flame, Shield, Swords, Sparkles, Heart, Bookmark, Trash2, Users, Eye, Sliders, Zap, Award, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
@@ -203,9 +203,36 @@ export default function GeneradorNombresFreeFire() {
 
   const categories = ['Todas', 'Insanos 🔥', 'Alas & Coronas ꧁꧂', 'Para Clanes 亗', 'Dúos & Parejas 💕', 'Chicas FF 🌸'];
 
-  const filteredDecorators = activeCategory === 'Todas' 
-    ? DECORATORS 
-    : DECORATORS.filter(d => d.category === activeCategory);
+  const generatedNickOptions = useMemo(() => {
+    const decorators = activeCategory === 'Todas'
+      ? DECORATORS
+      : DECORATORS.filter((decorator) => decorator.category === activeCategory);
+
+    return decorators
+      .flatMap((decorator) => [
+        { ...decorator, font: 'normal' },
+        { ...decorator, font: 'smallCaps' },
+        { ...decorator, font: 'gothic' },
+        { ...decorator, font: 'cursiva' }
+      ])
+      .map((option, index) => {
+        const appliedText = applyFont(deferredInput || 'Slayer', option.font);
+        const fullName = `${clanPrefix ? `${clanPrefix} ` : ''}${option.prefix}${appliedText}${option.suffix}`;
+        const characterCount = Array.from(fullName).length;
+
+        return {
+          ...option,
+          key: `${option.name}-${option.font}-${index}`,
+          fullName,
+          characterCount,
+          withinGuide: characterCount <= 12,
+        };
+      })
+      .sort((a, b) => {
+        if (a.withinGuide !== b.withinGuide) return a.withinGuide ? -1 : 1;
+        return a.characterCount - b.characterCount;
+      });
+  }, [activeCategory, clanPrefix, deferredInput]);
 
   return (
     <>
@@ -525,32 +552,23 @@ export default function GeneradorNombresFreeFire() {
 
             {/* Results Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-              {filteredDecorators.flatMap(dec => [
-                { ...dec, font: 'normal' },
-                { ...dec, font: 'smallCaps' },
-                { ...dec, font: 'gothic' },
-                { ...dec, font: 'cursiva' }
-              ]).map((dec, idx) => {
-                const appliedText = applyFont(deferredInput || 'Slayer', dec.font);
-                const fullName = `${clanPrefix ? `${clanPrefix} ` : ''}${dec.prefix}${appliedText}${dec.suffix}`;
-                const isCopied = copiedId === fullName;
-                const isSaved = savedNicks.includes(fullName);
-                const fullNameCharacterCount = Array.from(fullName).length;
-                const isOverLimit = fullNameCharacterCount > 12;
+              {generatedNickOptions.map((option) => {
+                const isCopied = copiedId === option.fullName;
+                const isSaved = savedNicks.includes(option.fullName);
 
                 return (
                   <div 
-                    key={idx} 
+                    key={option.key} 
                     className="bg-white border border-gray-200 hover:border-amber-400 rounded-2xl p-4 flex items-center justify-between gap-3 shadow-sm hover:shadow-md transition group"
                   >
                     <div className="overflow-hidden flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
-                          {dec.name}
+                          {option.name}
                         </span>
-                        {isOverLimit ? (
+                        {!option.withinGuide ? (
                           <span className="text-[10px] font-bold text-red-500 bg-red-50 px-1.5 py-0.5 rounded border border-red-100">
-                            {fullNameCharacterCount} car. guía
+                            {option.characterCount} car. guía
                           </span>
                         ) : (
                           <span className="text-[10px] font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded border border-green-100">
@@ -558,16 +576,16 @@ export default function GeneradorNombresFreeFire() {
                           </span>
                         )}
                       </div>
-                      <p className="text-lg md:text-xl font-bold text-gray-900 truncate pr-2" title={fullName}>
-                        {fullName}
+                      <p className="text-lg md:text-xl font-bold text-gray-900 truncate pr-2" title={option.fullName}>
+                        {option.fullName}
                       </p>
                     </div>
 
                     <div className="shrink-0 flex items-center gap-1.5">
                       <button
                         type="button"
-                        aria-label={isSaved ? `Quitar ${fullName} de guardados` : `Guardar ${fullName} en favoritos`}
-                        onClick={() => toggleSaveNick(fullName)}
+                        aria-label={isSaved ? `Quitar ${option.fullName} de guardados` : `Guardar ${option.fullName} en favoritos`}
+                        onClick={() => toggleSaveNick(option.fullName)}
                         title={isSaved ? 'Quitar de guardados' : 'Guardar en favoritos'}
                         className={`p-2.5 rounded-xl border transition ${
                           isSaved 
@@ -579,7 +597,7 @@ export default function GeneradorNombresFreeFire() {
                       </button>
 
                       <button
-                        onClick={() => copyToClipboard(fullName)}
+                        onClick={() => copyToClipboard(option.fullName)}
                         className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-xs transition ${
                           isCopied 
                             ? 'bg-green-100 text-green-700' 
