@@ -192,7 +192,7 @@ export default function GeneradorNombresFreeFire() {
   return (
     <>
       <SEO 
-        title="Generador de Nombres para Free Fire - Nicks Insanos, Símbolos y Espacio Invisible"
+        title="Generador de Nombres para Free Fire | Nicks Insanos y Símbolos"
         description="Generador de nombres para Free Fire. Crea nicks insanos con letras bonitas, góticas, cursivas, alas, coronas, espacio invisible y prefijos de clan para copiar y pegar."
         keywords="generador de nombres para free fire, nicks para free fire, letras bonitas free fire, simbolos para free fire, espacio invisible free fire, creador de nombres ff"
         canonical="https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire"
