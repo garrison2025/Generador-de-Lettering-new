@@ -546,8 +546,8 @@ export default function LetrasTikTok() {
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {favorites.map((fav, i) => (
-                  <div key={i} className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-pink-100 text-xs font-medium">
-                    <span className="truncate mr-2 text-gray-900">{fav}</span>
+                  <div key={i} className="min-w-0 flex items-center justify-between gap-2 bg-white p-2.5 rounded-xl border border-pink-100 text-xs font-medium">
+                    <span className="min-w-0 flex-1 break-all sm:truncate text-gray-900">{fav}</span>
                     <button
                       onClick={() => handleCopy(fav, `fav-${i}`)}
                       className="px-2 py-1 bg-pink-600 text-white rounded-lg font-bold hover:bg-pink-700 text-[11px]"
