@@ -85,57 +85,78 @@ export function CanvasArea() {
     });
     observer.observe(containerRef.current);
     
-    const handleExport = (e: CustomEvent<{format: 'png' | 'jpeg' | 'webp', pixelRatio?: number}>) => {
-      const { format, pixelRatio = 3 } = e.detail;
-      if (!stageRef.current) return;
-      
-      // Hide transformer before export
-      if (trRef.current) trRef.current.nodes([]);
-      
-      // Small delay to allow the transformer to disappear before taking snapshot
-      setTimeout(() => {
-        if (!stageRef.current) return;
-        const config: any = {
-          mimeType: `image/${format}`,
-          pixelRatio: pixelRatio,
-        };
+    const triggerDownload = (url: string, requestedFormat: 'png' | 'jpeg' | 'webp') => {
+      const mimeMatch = url.match(/^data:image\/([^;,]+)/i);
+      const actualFormat = (mimeMatch?.[1] || requestedFormat).toLowerCase();
+      const extension = actualFormat === 'jpeg' ? 'jpg' : actualFormat;
 
-        let dataUrl = stageRef.current.toDataURL(config);
-        
-        if ((format === 'jpeg' || format === 'webp') && backgroundColor === 'transparent' && !backgroundImage) {
-           const canvas = document.createElement("canvas");
-           const img = new Image();
-           img.onload = () => {
-             canvas.width = img.width;
-             canvas.height = img.height;
-             const ctx = canvas.getContext("2d");
-             if (ctx) {
-               ctx.fillStyle = '#ffffff';
-               ctx.fillRect(0, 0, canvas.width, canvas.height);
-               ctx.drawImage(img, 0, 0);
-               const finalUrl = canvas.toDataURL(`image/${format}`, format === 'webp' ? 0.9 : 1.0);
-               triggerDownload(finalUrl, format);
-             }
-           };
-           img.src = dataUrl;
-        } else {
-           triggerDownload(dataUrl, format);
-        }
-        
-        // Restore selected node if it was previously selected
-        if (groupRef.current && isSelected) {
-          trRef.current?.nodes([groupRef.current]);
-        }
-      }, 50);
-    };
+      if (requestedFormat === 'webp' && actualFormat !== 'webp') {
+        window.alert('Tu navegador no admite exportación WEBP. La imagen se descargará como PNG.');
+      }
 
-    const triggerDownload = (url: string, format: string) => {
       const link = document.createElement('a');
-      link.download = `lettering-export.${format}`;
+      link.download = `lettering-export.${extension}`;
       link.href = url;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+    };
+
+    const handleExport = (e: CustomEvent<{format: 'png' | 'jpeg' | 'webp', pixelRatio?: number}>) => {
+      const { format, pixelRatio = 3 } = e.detail;
+      if (!stageRef.current) return;
+
+      if (trRef.current) trRef.current.nodes([]);
+
+      setTimeout(() => {
+        try {
+          if (!stageRef.current) return;
+
+          const dataUrl = stageRef.current.toDataURL({
+            mimeType: `image/${format}`,
+            pixelRatio,
+          });
+
+          if ((format === 'jpeg' || format === 'webp') && backgroundColor === 'transparent' && !backgroundImage) {
+            const canvas = document.createElement('canvas');
+            const img = new Image();
+
+            img.onload = () => {
+              canvas.width = img.width;
+              canvas.height = img.height;
+              const ctx = canvas.getContext('2d');
+
+              if (!ctx) {
+                window.alert('No se pudo preparar la imagen para exportar. Inténtalo de nuevo.');
+                return;
+              }
+
+              ctx.fillStyle = '#ffffff';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(img, 0, 0);
+
+              const finalUrl = canvas.toDataURL(
+                `image/${format}`,
+                format === 'webp' ? 0.9 : 1.0
+              );
+              triggerDownload(finalUrl, format);
+            };
+
+            img.onerror = () => {
+              window.alert('No se pudo preparar la imagen para exportar. Inténtalo de nuevo.');
+            };
+            img.src = dataUrl;
+          } else {
+            triggerDownload(dataUrl, format);
+          }
+        } catch {
+          window.alert('No se pudo exportar el diseño. Prueba una resolución menor o vuelve a intentarlo.');
+        } finally {
+          if (groupRef.current && isSelected) {
+            trRef.current?.nodes([groupRef.current]);
+          }
+        }
+      }, 50);
     };
 
     window.addEventListener('export-canvas', handleExport as EventListener);
