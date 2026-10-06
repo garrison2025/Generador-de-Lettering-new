@@ -13,7 +13,7 @@ export default defineConfig(() => {
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: 'script-defer',
-        includeAssets: ['favicon-32x32.png', 'icon.svg', 'apple-touch-icon.png', 'og-image.jpg', 'og-image.webp', 'llms.txt', 'llms-full.txt'],
+        includeAssets: ['favicon-32x32.png', 'icon.svg', 'apple-touch-icon.png'],
         workbox: {
           cleanupOutdatedCaches: true,
           navigateFallback: null,
