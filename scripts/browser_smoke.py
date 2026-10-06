@@ -48,7 +48,28 @@ def assert_no_horizontal_overflow(label: str) -> None:
         """
     )
     if overflow > 2:
-        fail(f"{label}: horizontal overflow is {overflow}px")
+        offenders = driver.execute_script(
+            """
+            const width = document.documentElement.clientWidth;
+            return [...document.querySelectorAll('body *')]
+              .map((el) => {
+                const rect = el.getBoundingClientRect();
+                return {
+                  tag: el.tagName,
+                  cls: typeof el.className === 'string' ? el.className : '',
+                  text: (el.textContent || '').trim().slice(0, 80),
+                  left: Math.round(rect.left),
+                  right: Math.round(rect.right),
+                  width: Math.round(rect.width),
+                  excess: Math.round(Math.max(0, rect.right - width, -rect.left)),
+                };
+              })
+              .filter((item) => item.excess > 2)
+              .sort((a, b) => b.excess - a.excess)
+              .slice(0, 8);
+            """
+        )
+        fail(f"{label}: horizontal overflow is {overflow}px; offenders={offenders}")
 
 
 def assert_no_runtime_errors(label: str) -> None:
