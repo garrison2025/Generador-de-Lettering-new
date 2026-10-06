@@ -7,8 +7,12 @@ export default function CookieConsent() {
 
   useEffect(() => {
     // Check if user has already accepted/declined cookies
-    const consent = localStorage.getItem('cookie_consent');
-    if (consent) return;
+    try {
+      const consent = localStorage.getItem('cookie_consent');
+      if (consent) return;
+    } catch {
+      // Storage may be unavailable in restricted browsing contexts.
+    }
 
     // Show banner on first user interaction or after an 8-second fallback
     const showBanner = () => setIsVisible(true);
@@ -35,13 +39,21 @@ export default function CookieConsent() {
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('cookie_consent', 'accepted');
+    try {
+      localStorage.setItem('cookie_consent', 'accepted');
+    } catch {
+      // Continue without persistence if browser storage is unavailable.
+    }
     window.dispatchEvent(new Event('cookie-consent-accepted'));
     setIsVisible(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem('cookie_consent', 'declined');
+    try {
+      localStorage.setItem('cookie_consent', 'declined');
+    } catch {
+      // Continue without persistence if browser storage is unavailable.
+    }
     setIsVisible(false);
   };
 
