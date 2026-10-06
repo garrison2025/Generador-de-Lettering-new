@@ -125,6 +125,31 @@ function validateRoutesAndSitemap() {
   );
 }
 
+function validateLlmsLinks() {
+  const sitemap = read('public/sitemap.xml');
+  const sitemapRoutes = new Set(
+    [...sitemap.matchAll(/<loc>https:\/\/generadordelettering\.org([^<]*)<\/loc>/g)]
+      .map((match) => match[1] || '/')
+  );
+
+  const legacyRoutes = new Set([
+    '/creador-de-lettering',
+    '/generador-de-nombres-para-instagram',
+    '/generador-de-nombres-para-free-fire'
+  ]);
+
+  for (const path of ['public/llms.txt', 'public/llms-full.txt']) {
+    const source = read(path);
+    const routes = [...source.matchAll(/https:\/\/generadordelettering\.org([^\s)\]]*)/g)]
+      .map((match) => match[1] || '/');
+
+    for (const route of routes) {
+      assert(!legacyRoutes.has(route), `Legacy canonical route found in ${path}: ${route}`);
+      assert(sitemapRoutes.has(route), `LLM document URL is not in sitemap (${path}): ${route}`);
+    }
+  }
+}
+
 function validateTrustAndBreadcrumbs() {
   const files = [
     'src/pages/Home.tsx',
@@ -162,6 +187,7 @@ function validateTrustAndBreadcrumbs() {
 
 validateUnicodeMaps();
 validateRoutesAndSitemap();
+validateLlmsLinks();
 validateTrustAndBreadcrumbs();
 
 console.log('Content validation passed.');
