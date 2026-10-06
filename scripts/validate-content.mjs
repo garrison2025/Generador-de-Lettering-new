@@ -268,8 +268,26 @@ function validateTrustAndBreadcrumbs() {
 
   for (const path of toolPages) {
     const source = read(path);
-    const badBreadcrumb = /"name":\s*"Herramientas"[\s\S]{0,120}"item":\s*"https:\/\/generadordelettering\.org\/"/;
-    assert(!badBreadcrumb.test(source), `Tools breadcrumb points to homepage in ${path}`);
+
+    const schemaBreadcrumbs = [
+      ...source.matchAll(/"name":\s*"Herramientas"[\s\S]{0,160}?"item":\s*"([^"]+)"/g)
+    ];
+    for (const match of schemaBreadcrumbs) {
+      assert(
+        match[1] === 'https://generadordelettering.org/herramientas',
+        `Tools schema breadcrumb has the wrong parent in ${path}: ${match[1]}`
+      );
+    }
+
+    const visibleBreadcrumbs = [
+      ...source.matchAll(/<Link\s+to="([^"]+)"[^>]*>Herramientas<\/Link>/g)
+    ];
+    for (const match of visibleBreadcrumbs) {
+      assert(
+        match[1] === '/herramientas',
+        `Visible tools breadcrumb has the wrong parent in ${path}: ${match[1]}`
+      );
+    }
   }
 }
 
