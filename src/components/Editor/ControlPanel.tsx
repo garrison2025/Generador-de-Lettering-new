@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useEditorStore } from '@/store/useEditorStore';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { FONTS, PRESET_COLORS } from '@/lib/fonts';
 import { AlignLeft, AlignCenter, AlignRight, Check, ChevronDown } from 'lucide-react';
 
 export function ControlPanel() {
   const store = useEditorStore();
+  const [activeTab, setActiveTab] = useState<'texto' | 'estilo' | 'efectos'>('texto');
   const [isFontSelectOpen, setIsFontSelectOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -25,15 +25,33 @@ export function ControlPanel() {
   return (
     <div className="flex flex-col h-full bg-white overflow-hidden z-10 w-full">
       <div className="overflow-y-auto w-full overscroll-contain">
-        <Tabs defaultValue="texto" className="w-full">
-          <TabsList className="w-full grid grid-cols-3 bg-gray-100 rounded-none border-b border-gray-200">
-            <TabsTrigger value="texto" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-[#5A4AD2]">Texto</TabsTrigger>
-            <TabsTrigger value="estilo" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-[#5A4AD2]">Estilo</TabsTrigger>
-            <TabsTrigger value="efectos" className="text-sm rounded-none data-[state=active]:bg-white data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-[#5A4AD2]">Efectos</TabsTrigger>
-          </TabsList>
+        <div className="w-full">
+          <div className="w-full grid grid-cols-3 bg-gray-100 border-b border-gray-200" role="tablist" aria-label="Controles del editor">
+            {[
+              { id: 'texto', label: 'Texto' },
+              { id: 'estilo', label: 'Estilo' },
+              { id: 'efectos', label: 'Efectos' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={activeTab === tab.id}
+                onClick={() => setActiveTab(tab.id as 'texto' | 'estilo' | 'efectos')}
+                className={`py-2.5 text-sm font-medium transition border-b-2 ${
+                  activeTab === tab.id
+                    ? 'bg-white text-gray-900 border-[#5A4AD2]'
+                    : 'text-gray-500 border-transparent hover:text-gray-800 hover:bg-gray-50'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
           
           <div className="p-6">
-            <TabsContent value="texto" className="space-y-6 mt-0">
+            {activeTab === 'texto' && (
+              <div className="space-y-6 mt-0">
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <label className="text-xs font-semibold text-gray-700">Texto para Lettering</label>
@@ -193,9 +211,11 @@ export function ControlPanel() {
                 />
               </div>
 
-            </TabsContent>
+              </div>
+            )}
 
-            <TabsContent value="estilo" className="space-y-6 mt-0">
+            {activeTab === 'estilo' && (
+              <div className="space-y-6 mt-0">
                <div className="space-y-3">
                  <div className="flex justify-between items-center">
                    <label className="text-xs font-semibold text-gray-700">Color de Texto</label>
@@ -332,9 +352,11 @@ export function ControlPanel() {
                   ))}
                 </div>
               </div>
-            </TabsContent>
+              </div>
+            )}
 
-            <TabsContent value="efectos" className="space-y-8 mt-0">
+            {activeTab === 'efectos' && (
+              <div className="space-y-8 mt-0">
                <div className="space-y-6">
                 <h3 className="font-bold border-b pb-2 text-sm text-gray-800">Sombra</h3>
                 
@@ -378,9 +400,10 @@ export function ControlPanel() {
                 </div>
               </div>
 
-            </TabsContent>
+              </div>
+            )}
           </div>
-        </Tabs>
+        </div>
       </div>
     </div>
   );
