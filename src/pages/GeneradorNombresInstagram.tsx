@@ -1,3 +1,4 @@
+import { copyText } from '../utils/copyText';
 import { useState, useDeferredValue, useEffect } from 'react';
 import { Copy, Check, Instagram, Sparkles, Heart, Wand2, UserCheck, Layout, ExternalLink, Bookmark, Trash2, Sliders, Palette } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -254,8 +255,11 @@ export default function GeneradorNombresInstagram() {
     }
   }, [savedNames]);
 
-  const copyToClipboard = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
+  const copyToClipboard = async (text: string, id: string) => {
+    if (!(await copyText(text))) {
+      window.alert('No se pudo copiar automáticamente. Selecciona el texto y cópialo manualmente.');
+      return;
+    }
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
