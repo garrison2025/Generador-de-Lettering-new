@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, X } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
@@ -61,7 +61,7 @@ export default function CookieConsent() {
               <div className="space-y-1">
                 <h4 className="font-bold text-gray-900 text-sm md:text-base">Valoramos tu privacidad</h4>
                 <p className="text-gray-500 text-xs md:text-sm leading-relaxed max-w-2xl">
-                  Utilizamos cookies propias y de terceros, como Google Analytics y Google AdSense, para analizar el tráfico de nuestro sitio, personalizar el contenido y mostrarte anuncios relevantes basados en tus hábitos de navegación. Al hacer clic en "Aceptar", consientes el uso de todas las cookies. Puedes leer más en nuestra{' '}
+                  Utilizamos almacenamiento local para recordar tus preferencias y, si aceptas, podemos cargar servicios publicitarios de terceros como Google AdSense, Monetag y Adsterra. Si rechazas, esos scripts publicitarios no se cargarán desde nuestra implementación. Puedes leer los detalles en nuestra{' '}
                   <Link to="/politica-de-privacidad" className="text-[#4F46E5] hover:underline font-medium">
                     Política de Privacidad
                   </Link>
