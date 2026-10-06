@@ -31,6 +31,8 @@ interface EditorStore extends EditorState {
   past: EditorState[];
   future: EditorState[];
   updateState: (updates: Partial<EditorState>) => void;
+  previewState: (updates: Partial<EditorState>) => void;
+  commitPreview: (previousValues: Partial<EditorState>) => void;
   resetState: () => void;
   randomizeState: () => void;
   undo: () => void;
@@ -105,6 +107,25 @@ export const useEditorStore = create<EditorStore>()(
           ...state,
           ...updates,
           past: [...state.past, currentState].slice(-20), // keep last 20 actions
+          future: [],
+        };
+      }),
+      previewState: (updates) => set((state) => ({
+        ...state,
+        ...updates,
+      })),
+      commitPreview: (previousValues) => set((state) => {
+        const changed = (Object.keys(previousValues) as (keyof EditorState)[])
+          .some((key) => state[key] !== previousValues[key]);
+
+        if (!changed) return state;
+
+        return {
+          ...state,
+          past: [
+            ...state.past,
+            { ...extractState(state), ...previousValues }
+          ].slice(-20),
           future: [],
         };
       }),
