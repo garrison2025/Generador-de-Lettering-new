@@ -79,7 +79,7 @@ export default function BlogPost() {
   return (
     <>
       <SEO 
-        title={`${post.title} | Generador de Lettering Blog`}
+        title={post.seoTitle || post.title}
         description={post.excerpt}
         keywords={post.keywords}
         type="article"
