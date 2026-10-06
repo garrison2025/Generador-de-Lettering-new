@@ -204,7 +204,7 @@ export default function CreadorLettering() {
         "name": "¿Cómo exportar las imágenes creadas?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Puedes exportar tu composición en formatos PNG, JPG o WEBP en resolución estándar o Alta Definición (HD) lista para imprimir o compartir en redes sociales."
+          "text": "Puedes exportar tu composición en PNG, JPG o WEBP en resolución estándar o ampliada. La opción de alta resolución genera más píxeles y resulta útil para compartir o preparar una referencia de impresión, pero no fija un DPI de imprenta."
         }
       },
       {
@@ -573,7 +573,7 @@ export default function CreadorLettering() {
               </div>
               <h3 className="font-bold text-gray-900 text-base">Descarga en HD</h3>
               <p className="text-xs text-gray-600 leading-relaxed">
-                Haz clic en "Exportar Lettering" para descargar una imagen. Usa PNG si necesitas conservar el fondo transparente; JPG y WEBP se exportan con fondo visible en la implementación actual.
+                Haz clic en "Exportar Lettering" para descargar una imagen. La opción de alta resolución exporta a 3× el tamaño de píxel del lienzo actual; no fija un DPI de imprenta. Usa PNG si necesitas conservar el fondo transparente; JPG y WEBP se exportan con fondo visible.
               </p>
             </div>
           </div>
