@@ -117,6 +117,8 @@ function FontOption({
     <button
       ref={buttonRef}
       type="button"
+      role="option"
+      aria-selected={isSelected}
       className={`w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-[#FCD34D] transition-colors ${isSelected ? 'bg-gray-50' : ''}`}
       onPointerEnter={() => void loadFont(font.family)}
       onFocus={() => void loadFont(font.family)}
@@ -241,7 +243,9 @@ export function ControlPanel() {
                 key={tab.id}
                 type="button"
                 role="tab"
+                id={`editor-tab-${tab.id}`}
                 aria-selected={activeTab === tab.id}
+                aria-controls={`editor-panel-${tab.id}`}
                 onClick={() => setActiveTab(tab.id as 'texto' | 'estilo' | 'efectos')}
                 className={`py-2.5 text-sm font-medium transition border-b-2 ${
                   activeTab === tab.id
@@ -256,7 +260,12 @@ export function ControlPanel() {
           
           <div className="p-6">
             {activeTab === 'texto' && (
-              <div className="space-y-6 mt-0">
+              <div
+                id="editor-panel-texto"
+                role="tabpanel"
+                aria-labelledby="editor-tab-texto"
+                className="space-y-6 mt-0"
+              >
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <label className="text-xs font-semibold text-gray-700">Texto para Lettering</label>
@@ -327,6 +336,9 @@ export function ControlPanel() {
                 <label className="text-xs font-semibold text-gray-700">Estilo de Letra</label>
                 <button 
                   type="button"
+                  aria-haspopup="listbox"
+                  aria-expanded={isFontSelectOpen}
+                  aria-controls="editor-font-options"
                   onClick={() => setIsFontSelectOpen(!isFontSelectOpen)}
                   className="w-full flex items-center justify-between border border-gray-200 rounded-lg p-3 bg-white hover:bg-gray-50 focus:ring-1 focus:ring-[#5A4AD2] outline-none text-left"
                 >
@@ -335,7 +347,12 @@ export function ControlPanel() {
                 </button>
 
                 {isFontSelectOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 shadow-lg rounded-lg py-1 z-50 max-h-64 overflow-y-auto">
+                  <div
+                    id="editor-font-options"
+                    role="listbox"
+                    aria-label="Estilos de letra"
+                    className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 shadow-lg rounded-lg py-1 z-50 max-h-64 overflow-y-auto"
+                  >
                     {FONTS.map((font) => (
                       <FontOption
                         key={font.family}
@@ -473,7 +490,12 @@ export function ControlPanel() {
             )}
 
             {activeTab === 'estilo' && (
-              <div className="space-y-6 mt-0">
+              <div
+                id="editor-panel-estilo"
+                role="tabpanel"
+                aria-labelledby="editor-tab-estilo"
+                className="space-y-6 mt-0"
+              >
                <div className="space-y-3">
                  <div className="flex justify-between items-center">
                    <label className="text-xs font-semibold text-gray-700">Color de Texto</label>
@@ -726,7 +748,12 @@ export function ControlPanel() {
             )}
 
             {activeTab === 'efectos' && (
-              <div className="space-y-8 mt-0">
+              <div
+                id="editor-panel-efectos"
+                role="tabpanel"
+                aria-labelledby="editor-tab-efectos"
+                className="space-y-8 mt-0"
+              >
                <div className="space-y-6">
                 <h3 className="font-bold border-b pb-2 text-sm text-gray-800">Sombra</h3>
                 
