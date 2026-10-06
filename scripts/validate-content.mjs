@@ -86,6 +86,25 @@ function validateUnicodeMaps() {
   }
 }
 
+function validateUnicodeSafeTransforms() {
+  const files = [
+    'src/pages/ConversorTexto.tsx',
+    'src/pages/ConversorLetrasBonitas.tsx',
+    'src/pages/LetrasAzules.tsx',
+    'src/pages/LetrasTikTok.tsx'
+  ];
+
+  const unsafeReversePattern = /\.split\(['"]{2}\)\.reverse\(\)\.join\(['"]{2}\)/;
+
+  for (const path of files) {
+    const source = read(path);
+    assert(
+      !unsafeReversePattern.test(source),
+      `Unicode-unsafe split('').reverse() transform found in ${path}; use Array.from(...).reverse() instead.`
+    );
+  }
+}
+
 function validateRoutesAndSitemap() {
   const app = read('src/App.tsx');
   const sitemap = read('public/sitemap.xml');
@@ -461,6 +480,7 @@ function validateTrustAndBreadcrumbs() {
 }
 
 validateUnicodeMaps();
+validateUnicodeSafeTransforms();
 validateRoutesAndSitemap();
 validateBlogLastmod();
 validateInternalLinks();
