@@ -293,6 +293,22 @@ function validateInternalRouteLinks() {
     }
   }
 
+  const markdownTargets = [...blog.matchAll(/\]\((\/[^)\s]+)\)/g)]
+    .map((match) => match[1]);
+
+  for (const target of markdownTargets) {
+    const normalized = target.split(/[?#]/, 1)[0] || '/';
+
+    if (legacyPaths.has(normalized)) {
+      failures.push(`src/data/blogPosts.ts: legacy Markdown route ${target}`);
+      continue;
+    }
+
+    if (!validPaths.has(normalized)) {
+      failures.push(`src/data/blogPosts.ts: unresolved Markdown route ${target}`);
+    }
+  }
+
   assert(
     failures.length === 0,
     `Internal route link validation failed:\n- ${failures.join('\n- ')}`
