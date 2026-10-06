@@ -54,8 +54,11 @@ export function SEO({
   const siteUrl = 'https://generadordelettering.org';
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
   const currentUrl = canonical || `${siteUrl}${pathname}`;
+  const absoluteImage = image.startsWith('http')
+    ? image
+    : `${siteUrl}${image.startsWith('/') ? image : `/${image}`}`;
   const openGraphType = type === 'article' ? 'article' : 'website';
-  const imagePath = image.split(/[?#]/, 1)[0].toLowerCase();
+  const imagePath = absoluteImage.split(/[?#]/, 1)[0].toLowerCase();
   const imageMimeType =
     imagePath.endsWith('.png') ? 'image/png' :
     imagePath.endsWith('.webp') ? 'image/webp' :
@@ -95,7 +98,7 @@ export function SEO({
     appendMeta('property', 'og:url', currentUrl);
     appendMeta('property', 'og:title', title);
     appendMeta('property', 'og:description', description);
-    appendMeta('property', 'og:image', image);
+    appendMeta('property', 'og:image', absoluteImage);
     appendMeta('property', 'og:image:width', '1200');
     appendMeta('property', 'og:image:height', '630');
     if (imageMimeType) appendMeta('property', 'og:image:type', imageMimeType);
@@ -111,7 +114,7 @@ export function SEO({
     appendMeta('name', 'twitter:url', currentUrl);
     appendMeta('name', 'twitter:title', title);
     appendMeta('name', 'twitter:description', description);
-    appendMeta('name', 'twitter:image', image);
+    appendMeta('name', 'twitter:image', absoluteImage);
 
     for (const schema of schemasToRender) {
       appendSchema(schema);
@@ -122,7 +125,7 @@ export function SEO({
     currentUrl,
     keywords,
     openGraphType,
-    image,
+    absoluteImage,
     imageMimeType,
     publishedTime,
     modifiedTime,
