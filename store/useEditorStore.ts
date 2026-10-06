@@ -209,26 +209,30 @@ export const useEditorStore = create<EditorStore>()(
     }),
     {
       name: 'lettering-editor-storage',
-      version: 2,
+      version: 3,
       // Keep lightweight editor preferences, but never serialize uploaded image data URLs.
       partialize: (state) => ({
         ...extractState(state),
         backgroundImage: null,
       }),
-      // Version 2 forces existing v1 browser data through migration.
-      // Explicitly drop legacy history arrays and uploaded image data, then fill
-      // any fields that older persisted payloads did not contain.
+      // Version 3 normalizes persisted editor data after introducing responsive
+      // text offsets. Drop legacy history/image payloads and reset old pixel-based
+      // offsets so they cannot be interpreted as canvas-relative ratios.
       migrate: (persistedState) => {
         const {
           past: _past,
           future: _future,
           backgroundImage: _backgroundImage,
+          textOffsetX: _textOffsetX,
+          textOffsetY: _textOffsetY,
           ...legacyEditorState
         } = (persistedState || {}) as Partial<EditorStore>;
 
         return {
           ...EDITOR_DEFAULT_STATE,
           ...legacyEditorState,
+          textOffsetX: 0,
+          textOffsetY: 0,
           backgroundImage: null,
         };
       },
