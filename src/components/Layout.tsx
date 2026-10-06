@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigationType } from 'react-router-dom';
 import { PenTool, Menu, X } from 'lucide-react';
 
 const CookieConsent = lazy(() => import('./CookieConsent'));
@@ -7,6 +7,7 @@ const CookieConsent = lazy(() => import('./CookieConsent'));
 
 export default function Layout() {
   const location = useLocation();
+  const navigationType = useNavigationType();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const isEditor = location.pathname === '/editor';
@@ -14,6 +15,16 @@ export default function Layout() {
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    // React Router keeps the old document scroll position during SPA navigation.
+    // Reset new forward/replaced pages to the top, while leaving POP navigation
+    // to the browser so Back/Forward can restore the user's previous position.
+    if (navigationType !== 'POP') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+  }, [location.pathname, navigationType]);
+
   useEffect(() => {
     if (!mobileMenuOpen) return;
 

@@ -23,6 +23,23 @@ options.page_load_strategy = "eager"
 options.set_capability("goog:loggingPrefs", {"browser": "ALL"})
 
 driver = webdriver.Chrome(options=options)
+driver.execute_cdp_cmd(
+    "Page.addScriptToEvaluateOnNewDocument",
+    {
+        "source": """
+          window.__smokeCLS = 0;
+          try {
+            new PerformanceObserver((list) => {
+              for (const entry of list.getEntries()) {
+                if (!entry.hadRecentInput) window.__smokeCLS += entry.value;
+              }
+            }).observe({ type: 'layout-shift', buffered: true });
+          } catch (_) {
+            window.__smokeCLS = 0;
+          }
+        """
+    },
+)
 wait = WebDriverWait(driver, 12)
 
 
@@ -39,6 +56,7 @@ def open_path(path: str, h1: str | None = None) -> None:
             fail(f"{path}: expected H1 containing {h1!r}, got {heading.text!r}")
     assert_no_horizontal_overflow(path)
     assert_no_runtime_errors(path)
+    assert_layout_stability(path)
 
 
 def assert_no_horizontal_overflow(label: str) -> None:
@@ -89,6 +107,14 @@ def assert_no_runtime_errors(label: str) -> None:
             failures.append(message)
     if failures:
         fail(f"{label}: browser runtime errors: {' | '.join(failures)}")
+
+
+def assert_layout_stability(label: str, threshold: float = 0.25) -> None:
+    # Give hydration, lazy chunks and the local font response a short window to settle.
+    time.sleep(0.2)
+    cls = driver.execute_script("return Number(window.__smokeCLS || 0)")
+    if cls > threshold:
+        fail(f"{label}: hydration/layout CLS is {cls:.4f}, above {threshold:.2f}")
 
 
 def replace_value(element, value: str) -> None:
@@ -192,6 +218,18 @@ try:
     open_path("/herramientas/creador-de-lettering", "Creador de")
     wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#main-content canvas")))
     assert_no_runtime_errors("Creator canvas hydration")
+
+    # SPA navigation from a deeply scrolled page should open the next route at the top.
+    open_path("/blog", "Aprende y Descubre")
+    driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight)")
+    wait.until(lambda d: d.execute_script("return window.scrollY") > 300)
+    route_link = driver.find_elements(By.CSS_SELECTOR, 'footer a[href="/herramientas/creador-de-lettering"]')
+    if not route_link:
+        fail("Could not find footer route link for SPA scroll-reset test")
+    driver.execute_script("arguments[0].click()", route_link[-1])
+    wait.until(lambda d: urlparse(d.current_url).path == "/herramientas/creador-de-lettering")
+    wait.until(lambda d: d.execute_script("return window.scrollY") <= 2)
+    assert_no_runtime_errors("SPA route scroll reset")
 
     # Repeat the most overflow-prone tools at a narrow 320px mobile viewport.
     driver.set_window_size(320, 800)
