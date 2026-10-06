@@ -85,7 +85,7 @@ export default function Layout() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <Link to="/editor" className="hidden md:inline-flex bg-[#4F46E5] text-white text-sm font-semibold px-6 py-2.5 rounded hover:bg-[#4338CA] transition shadow-sm">
+            <Link to="/herramientas/creador-de-lettering" className="hidden md:inline-flex bg-[#4F46E5] text-white text-sm font-semibold px-6 py-2.5 rounded hover:bg-[#4338CA] transition shadow-sm">
               Comenzar Ahora
             </Link>
             
@@ -130,7 +130,7 @@ export default function Layout() {
               <Link to="/herramientas/conversor-texto" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50">Conversor de Letras</Link>
               <Link to="/herramientas/generador-de-nombres-para-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Nombres para Free Fire</Link>
               <div className="mt-4 pt-4 px-3 w-full border-t border-gray-50">
-                <Link to="/editor" onClick={() => setMobileMenuOpen(false)} className="flex w-full items-center justify-center bg-[#4F46E5] text-white text-base font-semibold px-6 py-3 rounded hover:bg-[#4338CA] transition shadow-sm">
+                <Link to="/herramientas/creador-de-lettering" onClick={() => setMobileMenuOpen(false)} className="flex w-full items-center justify-center bg-[#4F46E5] text-white text-base font-semibold px-6 py-3 rounded hover:bg-[#4338CA] transition shadow-sm">
                   Comenzar Ahora
                 </Link>
               </div>
