@@ -1,5 +1,5 @@
 import { copyText } from '../utils/copyText';
-import { useState, useEffect, useDeferredValue } from 'react';
+import { useState, useDeferredValue, useMemo } from 'react';
 import { Copy, Check, Sparkles, PenTool, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
@@ -333,9 +333,13 @@ export default function ConversorLetrasBonitas() {
   const deferredInput = useDeferredValue(inputText);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Removed document.title 
-  }, []);
+  const convertedStyles = useMemo(
+    () => STYLES.map((style) => ({
+      ...style,
+      converted: convertText(deferredInput, style.id),
+    })),
+    [deferredInput]
+  );
 
   const copyToClipboard = async (text: string, id: string) => {
     if (!(await copyText(text))) {
@@ -436,8 +440,8 @@ export default function ConversorLetrasBonitas() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {STYLES.map((style) => {
-          const converted = convertText(deferredInput, style.id);
+        {convertedStyles.map((style) => {
+          const converted = style.converted;
           const isCopied = copiedId === style.id;
           
           return (
