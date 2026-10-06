@@ -1,21 +1,31 @@
 # Generador de Lettering y Conversor de Letras Bonitas
-> Estudio Tipográfico Digital Gratis para Creadores de Contenido, Gamers y Diseñadores.
+> Herramientas gratuitas en español para lettering digital, caracteres Unicode, nombres para redes sociales y nicks de videojuegos.
 
-## Core Tools / Herramientas Principales
-- [Creador de Lettering Digital](https://generadordelettering.org/creador-de-lettering): Diseñador de arte tipográfico con luces neón, acuarela y sombras 3D en PNG HD.
-- [Conversor de Letras Bonitas](https://generadordelettering.org/herramientas/conversor-letras-bonitas): Transforma textos en fuentes cursivas, góticas, estéticas y símbolos Unicode para copiar y pegar.
-- [Generador de Nombres para Free Fire](https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire): Creador de Nicks insanos con espacio invisible, alas, coronas y símbolos de clan.
-- [Generador de Nombres para Instagram](https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram): Nombres de usuario aesthetic, convertidor de biografías y letras lindas.
+## Herramientas
+- [Centro de Herramientas](https://generadordelettering.org/herramientas): Índice de generadores, conversores y recursos del sitio.
+- [Creador de Lettering Digital](https://generadordelettering.org/herramientas/creador-de-lettering): Editor visual para crear composiciones tipográficas con fuentes, colores, sombras, bordes y fondos.
+- [Conversor de Letras Bonitas](https://generadordelettering.org/herramientas/conversor-letras-bonitas): Convierte texto en variantes Unicode cursivas, góticas, decoradas y aesthetic para copiar y pegar.
+- [Conversor de Letras Online](https://generadordelettering.org/herramientas/conversor-texto): Genera múltiples estilos Unicode a partir de texto normal.
+- [Letras para Free Fire](https://generadordelettering.org/herramientas/letras-free-fire): Letras, símbolos y estilos para crear nicks de Free Fire.
+- [Generador de Nombres para Free Fire](https://generadordelettering.org/herramientas/generador-de-nombres-para-free-fire): Crea ideas de nicks con símbolos, adornos y espacio invisible.
+- [Letras para TikTok](https://generadordelettering.org/herramientas/letras-tiktok): Tipografías Unicode y símbolos para bio, nombre visible y comentarios.
+- [Generador de Nombres para Instagram](https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram): Ideas de nombres, letras bonitas y textos para biografía.
+- [Letras Azules](https://generadordelettering.org/herramientas/letras-azules): Convierte A-Z en Regional Indicator Symbols y ofrece variantes Unicode; el color final depende de la plataforma y del sistema.
 
-## Secondary Tools & Landing Pages
-- [Generador de Letras Góticas](https://generadordelettering.org/generador-de-letras-goticas): Tipografía gótica y medieval online para tatuajes.
-- [Generador de Letras Cursivas](https://generadordelettering.org/generador-de-letras-cursivas): Caligrafía y letras manuscritas elegantes.
-- [Letras para Instagram](https://generadordelettering.org/letras-para-instagram): Fuentes decoradas y biografías aesthetic.
-- [Letras para Tatuajes](https://generadordelettering.org/letras-para-tatuajes): Bocetos y fuentes para tattoos.
-- [Letras Azules](https://generadordelettering.org/herramientas/letras-azules): Formato de texto azul especial para WhatsApp.
+## Landing Pages
+- [Generador de Letras Góticas](https://generadordelettering.org/generador-de-letras-goticas)
+- [Generador de Letras Cursivas](https://generadordelettering.org/generador-de-letras-cursivas)
+- [Letras para Instagram](https://generadordelettering.org/letras-para-instagram)
+- [Letras para Tatuajes](https://generadordelettering.org/letras-para-tatuajes)
 
-## Blog & Educational Guides
+## Guías
 - [Diferencias entre Lettering, Caligrafía y Tipografía](https://generadordelettering.org/blog/diferencias-lettering-caligrafia-tipografia)
-- [Mejores Nombres Insanos para Free Fire](https://generadordelettering.org/blog/mejores-nombres-insanos-free-fire)
-- [Fuentes Aesthetic para Copiar y Pegar en Instagram](https://generadordelettering.org/blog/fuentes-aesthetic-para-copiar-y-pegar-instagram)
-- [Espacios Invisibles Unicode para Redes Sociales](https://generadordelettering.org/blog/letras-invisibles-espacios-guia-redes-sociales)
+- [Nombres para Free Fire](https://generadordelettering.org/blog/mejores-nombres-insanos-free-fire)
+- [Bio TikTok Aesthetic Dark](https://generadordelettering.org/blog/biografia-tiktok-aesthetic-dark)
+- [Fuentes Aesthetic para Instagram](https://generadordelettering.org/blog/fuentes-aesthetic-para-copiar-y-pegar-instagram)
+- [Espacios Invisibles Unicode](https://generadordelettering.org/blog/letras-invisibles-espacios-guia-redes-sociales)
+
+## Información del sitio
+- [Sobre Nosotros](https://generadordelettering.org/sobre-nosotros)
+- [Política de Privacidad](https://generadordelettering.org/politica-de-privacidad)
+- [Contacto](https://generadordelettering.org/contacto)
