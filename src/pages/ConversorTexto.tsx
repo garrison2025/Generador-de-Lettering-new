@@ -331,6 +331,7 @@ const faqSchema = {
 export default function ConversorTexto() {
   const [inputText, setInputText] = useState('Lettering Mágico');
   const deferredInput = useDeferredValue(inputText);
+  const inputCharacterCount = Array.from(inputText).length;
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const convertedStyles = useMemo(
@@ -375,7 +376,7 @@ export default function ConversorTexto() {
       <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-6 md:p-8 mb-8">
         <div className="flex justify-between items-end mb-3">
           <label htmlFor="text-input" className="block text-sm font-bold text-gray-700 uppercase tracking-wider">Escribe tu texto aquí:</label>
-          <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{inputText.length} caracteres / {inputText.split(/\s+/).filter(w => w.length > 0).length} palabras</span>
+          <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{inputCharacterCount} caracteres / {inputText.split(/\s+/).filter(w => w.length > 0).length} palabras</span>
         </div>
         <div className="relative">
           <textarea
