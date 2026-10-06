@@ -20,23 +20,31 @@ import {
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
-
-const ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+import { FONT_MAPS as SHARED_FONT_MAPS } from '../data/unicodeStyles';
 
 const STYLES = [
-  { id: 'aesthetic', name: 'Aesthetic Double Struck', convert: (t: string) => convertFont(t, '𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ'), cat: 'aesthetic' },
-  { id: 'cursiva', name: 'Cursiva Elegante', convert: (t: string) => convertFont(t, '𝒶𝒷𝒸𝒹ℯ𝒻ℊ𝒽𝒾𝒿𝓀𝓁𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵'), cat: 'cursivas' },
-  { id: 'cursiva-negrita', name: 'Cursiva Negrita', convert: (t: string) => convertFont(t, '𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩'), cat: 'cursivas' },
-  { id: 'sans-bold', name: 'Sans Negrita', convert: (t: string) => convertFont(t, '𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭'), cat: 'negritas' },
-  { id: 'mono', name: 'Espaciado Monospace', convert: (t: string) => convertFont(t, '𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉'), cat: 'aesthetic' },
-  { id: 'gotica', name: 'Gótica Dark', convert: (t: string) => convertFont(t, '𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ'), cat: 'goticas' },
-  { id: 'gotica-bold', name: 'Gótica Negrita Dark', convert: (t: string) => convertFont(t, '𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅'), cat: 'goticas' },
-  { id: 'circulos', name: 'Círculos Blancos', convert: (t: string) => convertFont(t, 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ'), cat: 'efectos' },
-  { id: 'circulos-negros', name: 'Círculos Negros', convert: (t: string) => convertFont(t, '🅐🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩🅐🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩'), cat: 'efectos' },
-  { id: 'cuadrados', name: 'Cuadrados Estilo Pixel', convert: (t: string) => convertFont(t, '🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉'), cat: 'efectos' },
-  { id: 'small-caps', name: 'Mayúsculas Pequeñas (Small Caps)', convert: (t: string) => convertFont(t, 'ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ'), cat: 'aesthetic' },
-  { id: 'burbujas', name: 'Burbujas Suaves', convert: (t: string) => convertFont(t, 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ'), cat: 'aesthetic' },
+  { id: 'aesthetic', name: 'Aesthetic Double Struck', fontMapId: 'doble', cat: 'aesthetic' },
+  { id: 'cursiva', name: 'Cursiva Elegante', fontMapId: 'cursiva', cat: 'cursivas' },
+  { id: 'cursiva-negrita', name: 'Cursiva Negrita', fontMapId: 'cursiva_bold', cat: 'cursivas' },
+  { id: 'sans-bold', name: 'Sans Negrita', fontMapId: 'sans_bold', cat: 'negritas' },
+  { id: 'mono', name: 'Espaciado Monospace', fontMapId: 'monospace', cat: 'aesthetic' },
+  { id: 'gotica', name: 'Gótica Dark', fontMapId: 'gotica', cat: 'goticas' },
+  { id: 'gotica-bold', name: 'Gótica Negrita Dark', fontMapId: 'gotica_bold', cat: 'goticas' },
+  { id: 'circulos', name: 'Círculos Blancos', fontMapId: 'burbujas', cat: 'efectos' },
+  { id: 'circulos-negros', name: 'Círculos Negros', fontMapId: 'burbujas_negra', cat: 'efectos' },
+  { id: 'cuadrados', name: 'Cuadrados Estilo Pixel', fontMapId: 'cuadrados', cat: 'efectos' },
+  { id: 'small-caps', name: 'Mayúsculas Pequeñas (Small Caps)', fontMapId: 'small_caps', cat: 'aesthetic' },
+  { id: 'burbujas', name: 'Burbujas Suaves', fontMapId: 'burbujas', cat: 'aesthetic' },
 ];
+
+function convertFont(text: string, fontMapId: string) {
+  const map = SHARED_FONT_MAPS[fontMapId];
+  if (!map) return text;
+
+  return Array.from(text)
+    .map((char) => map[char] || char)
+    .join('');
+}
 
 const DECORATORS = [
   { prefix: '˚ ༘♡ ⋆｡˚ ', suffix: ' ❀', name: 'Flores Soft Aesthetic', category: 'simbolos' },
@@ -60,14 +68,6 @@ const BIO_TEMPLATES = [
   { label: 'Coquette Soft', text: '𓍢ִ໋🌷͙֒ 𝒩𝑜𝓉𝒶𝓈 𝒹𝑒 𝒶𝓂𝑜𝓇 𝓎 𝓂𝑜𝒹𝒶 🎀 ♡ Sígueme para más' },
   { label: 'Minimal / Bio', text: '✦ ᴅ ᴇ s ɪ ɢ ɴ ᴇ ʀ ┊ ᴄ ᴏ ɴ ᴛ ᴇ ɴ ᴛ  ᴄ ʀ ᴇ ᴀ ᴛ ᴏ ʀ ⚡️' },
 ];
-
-function convertFont(text: string, targetMap: string) {
-  const mappedChars = Array.from(targetMap);
-  return Array.from(text).map((char) => {
-    const index = ALPHABET.indexOf(char);
-    return index !== -1 ? (mappedChars[index] || char) : char;
-  }).join('');
-}
 
 export default function LetrasTikTok() {
   const [inputText, setInputText] = useState('Aesthetic TikTok');
@@ -130,11 +130,11 @@ export default function LetrasTikTok() {
     const generatedList = STYLES.map((style) => ({
       id: style.id,
       name: style.name,
-      text: style.convert(sourceText),
+      text: convertFont(sourceText, style.fontMapId),
       category: style.cat,
     }));
 
-    const decoratorBase = STYLES[0].convert(sourceText);
+    const decoratorBase = convertFont(sourceText, STYLES[0].fontMapId);
     const generatedDecorators = DECORATORS.map((dec, idx) => ({
       id: `dec-${idx}`,
       name: dec.name,
