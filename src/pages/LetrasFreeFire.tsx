@@ -70,7 +70,7 @@ const faqSchema = {
       "name": "¿Por qué algunos nombres de Free Fire no se aceptan o no caben?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "En Free Fire, el límite máximo para un apodo/nombre (nick) es de 12 caracteres. Sin embargo, algunos símbolos especiales o adornos muy extensos ocupan más espacio interno que una letra de texto normal. Si el juego te indica un error, te sugerimos utilizar un estilo abreviado y reducir la longitud."
+        "text": "Free Fire puede aplicar límites de longitud y compatibilidad que cambian con el tiempo. Algunos símbolos Unicode o adornos pueden ocupar más espacio o no ser aceptados por el juego. Si aparece un error, prueba una versión más corta y con menos símbolos antes de confirmar el cambio de nombre."
       }
     },
     {
@@ -339,7 +339,7 @@ export default function LetrasFreeFire() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Por qué algunos nombres de Free Fire no se aceptan o no caben?</h3>
             <p className="text-gray-600 leading-relaxed">
-              En Free Fire, el límite máximo para un apodo/nombre (nick) es de 12 caracteres. Sin embargo, algunos símbolos especiales o adornos muy extensos ocupan más espacio interno que una letra de texto normal. Si el juego te indica un error, te sugerimos utilizar un estilo abreviado y reducir la longitud.
+              Free Fire puede aplicar límites de longitud y compatibilidad que cambian con el tiempo. Algunos símbolos Unicode o adornos pueden ocupar más espacio o no ser aceptados por el juego. Si aparece un error, prueba una versión más corta y con menos símbolos antes de confirmar el cambio de nombre.
             </p>
           </div>
 
