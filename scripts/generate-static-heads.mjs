@@ -182,6 +182,12 @@ if (fs.existsSync('dist/sw.js')) {
   if (serviceWorker.includes('index.html')) {
     throw new Error('PWA service worker must not precache or navigate-fallback to index.html');
   }
+
+  for (const heavyBundle of ['canvas-vendor', 'markdown-vendor']) {
+    if (serviceWorker.includes(heavyBundle)) {
+      throw new Error(`PWA service worker must not precache heavy route bundle: ${heavyBundle}`);
+    }
+  }
 }
 
 for (const heavyPreload of ['canvas-vendor', 'markdown-vendor']) {
