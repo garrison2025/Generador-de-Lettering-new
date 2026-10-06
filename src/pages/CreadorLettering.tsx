@@ -284,7 +284,13 @@ export default function CreadorLettering() {
             {presets.map((p, idx) => (
               <button
                 key={idx}
-                onClick={() => updateState(p.style)}
+                onClick={() => updateState({
+                  ...p.style,
+                  backgroundImage: null,
+                  overlayOpacity: 0,
+                  rotation: 0,
+                  textOpacity: 1,
+                })}
                 className="p-3 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:border-[#5A4AD2] hover:shadow-md transition text-left flex flex-col justify-between h-20 group"
               >
                 <span className="text-[10px] font-bold text-[#5A4AD2] bg-purple-50 px-1.5 py-0.5 rounded w-fit">
