@@ -30,7 +30,7 @@ const DECORATORS = [
   { prefix: '🎀 ', suffix: ' 🎀', name: 'Coquette FF', category: 'Chicas FF 🌸' },
   { prefix: '❥ ', suffix: ' ❥', name: 'Corazón Dúo', category: 'Dúos & Parejas 💕' },
   { prefix: 'ᴳᵒᵈ ', suffix: '', name: 'Dios FF', category: 'Insanos 🔥' },
-  { prefix: '⚔️ ', suffix: ' ⚔️', name: 'Guerro Clan', category: 'Para Clanes 亗' }
+  { prefix: '⚔️ ', suffix: ' ⚔️', name: 'Guerrero Clan', category: 'Para Clanes 亗' }
 ];
 
 const DUO_MATCHES = [
@@ -39,7 +39,7 @@ const DUO_MATCHES = [
   { p1: '╰‿╯ 𝔎𝔦𝔩𝔩𝔢𝔯', p2: '╰‿╯ 𝓐𝓷𝓰𝓮𝓵', style: 'Asesino y Ángel' },
   { p1: '꧁ ༒ 𝒫𝒶𝓅𝒾 ༒ ꧂', p2: '꧁ ༒ ℳ𝒶𝓂𝒾 ༒ ꧂', style: 'Papi y Mami' },
   { p1: '☠️ 𝔅𝔞𝔡ℬ𝔬𝔶', p2: '☠️ 𝔅𝔞𝔡𝔊𝔦𝔯𝔩', style: 'Bad Boy & Bad Girl' },
-  { p1: '☂️ 𝒮𝓃𝒾𝓅ℯ𝓇', p2: '☂️ 𝒮𝓊𝓅𝄄ℴ𝓇𝓉', style: 'Sniper & Support' }
+  { p1: '☂️ 𝒮𝓃𝒾𝓅ℯ𝓇', p2: '☂️ 𝒮𝓊𝓅𝓅ℴ𝓇𝓉', style: 'Sniper & Support' }
 ];
 
 const SYMBOLS = ['꧁', '꧂', '༒', '★', '彡', '☠', '๖ۣۜ', 'ꪶ', 'ꫂ', '【', '】', '『', '』', '⚡', '╰‿╯', '亗', '✿', '❖', 'ツ', '☂', '✦', 'メ', '×͜×', 'ᴮᴼˢˢ', 'ᴳᵒᵈ', '♛', '♚', '︻╦╤─', '⚔️', 'ㅤ'];
