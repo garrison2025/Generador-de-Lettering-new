@@ -174,19 +174,12 @@ export default function CombinadorFuentes() {
             <div className="flex-1 flex flex-col justify-center gap-4 py-4 overflow-hidden">
               <h2 className={`${pairing.primaryClass.replace(/text-\dxl/g, '')} leading-tight truncate w-full transition-all duration-100`} style={{
                 fontSize: `${fontSize}px`,
-                fontFamily: pairing.primaryFont === 'Oswald' ? 'Oswald, sans-serif' : 
-                            pairing.primaryFont === 'Space Grotesk' ? 'Space Grotesk, sans-serif' : 
-                            pairing.primaryFont === 'Outfit' ? 'Outfit, sans-serif' : 
-                            pairing.primaryFont === 'Playfair Display' ? 'Playfair Display, serif' : 
-                            pairing.primaryFont === 'Lobster' ? 'Lobster, cursive' :
-                            pairing.primaryFont === 'JetBrains Mono' ? 'JetBrains Mono, monospace' : 'inherit'
+                fontFamily: pairing.primaryFont
               }}>
                 {customText || pairing.preview}
               </h2>
               <p className={`${pairing.secondaryClass} text-sm line-clamp-2`} style={{
-                fontFamily: pairing.secondaryFont === 'Lora' ? 'Lora, serif' : 
-                            pairing.secondaryFont === 'JetBrains Mono' ? 'JetBrains Mono, monospace' : 
-                            pairing.secondaryFont === 'Inter' ? 'Inter, sans-serif' : 'inherit'
+                fontFamily: pairing.secondaryFont
               }}>
                 El arte de dibujar letras requiere paciencia, práctica y sobre todo, una excelente selección tipográfica para destacar el mensaje.
               </p>
