@@ -325,9 +325,20 @@ export default function GeneradorNombresInstagram() {
   }, [deferredInput, spacingMode]);
 
   const usernameIdeas = useMemo(() => {
-    const base = (deferredInput || 'nombre').toLowerCase().replace(/\s+/g, '');
+    const normalizedBase = (deferredInput || 'nombre')
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9._]/g, '')
+      .replace(/\.{2,}/g, '.')
+      .replace(/^\.+|\.+$/g, '') || 'nombre';
+
     return USERNAME_PREFIXES
-      .flatMap((prefix) => USERNAME_SUFFIXES.map((suffix) => `${prefix}.${base}.${suffix}`))
+      .flatMap((prefix) => USERNAME_SUFFIXES.map((suffix) => {
+        const maxBaseLength = Math.max(1, 30 - prefix.length - suffix.length - 2);
+        const base = normalizedBase.slice(0, maxBaseLength).replace(/\.+$/g, '') || 'nombre';
+        return `${prefix}.${base}.${suffix}`;
+      }))
       .slice(0, 12);
   }, [deferredInput]);
 
