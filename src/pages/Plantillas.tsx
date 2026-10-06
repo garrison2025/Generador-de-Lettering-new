@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEditorStore } from '@/store/useEditorStore';
+import { EDITOR_DEFAULT_STATE, useEditorStore, type EditorState } from '@/store/useEditorStore';
 import { loadFont } from '@/lib/fonts';
 import { SEO } from '../components/SEO';
 
-const TEMPLATES = [
+const TEMPLATES: { id: number; title: string; state: Partial<EditorState> }[] = [
   {
     id: 1,
     title: "Cumpleaños Feliz",
@@ -38,15 +38,18 @@ const TEMPLATES = [
 ];
 
 export default function Plantillas() {
-  const store = useEditorStore();
+  const updateState = useEditorStore((state) => state.updateState);
   const navigate = useNavigate();
 
   useEffect(() => {
     TEMPLATES.forEach(t => loadFont(t.state.fontFamily));
   }, []);
 
-  const handleUseTemplate = (state: any) => {
-    store.updateState(state);
+  const handleUseTemplate = (state: Partial<EditorState>) => {
+    updateState({
+      ...EDITOR_DEFAULT_STATE,
+      ...state,
+    });
     navigate('/editor');
   };
 
