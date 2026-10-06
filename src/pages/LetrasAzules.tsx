@@ -316,7 +316,7 @@ export default function LetrasAzules() {
     <>
       <SEO 
         title="Letras Azules para Copiar | Generador de Letras en Cuadraditos"
-        description="Convierte tu texto en letras azules gruesas o letras cuadradas para copiar y pegar en WhatsApp, Facebook, Instagram y Twitter."
+        description="Genera las llamadas letras azules con Regional Indicator Symbols y letras cuadradas Unicode para copiar y pegar en WhatsApp, Facebook, Instagram y otras apps."
         keywords="letras azules, conversor de letras azules, generador letras cuadraditos, letras emojie azules copy paste"
         canonical="https://generadordelettering.org/herramientas/letras-azules"
         jsonSchema={[
