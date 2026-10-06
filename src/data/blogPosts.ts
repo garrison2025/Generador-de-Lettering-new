@@ -1,6 +1,7 @@
 export interface BlogPostData {
   slug: string;
   title: string;
+  seoTitle?: string;
   excerpt: string;
   date: string;
   updated?: string;
@@ -13,6 +14,7 @@ export const BLOG_POSTS: BlogPostData[] = [
   {
     slug: 'mejores-nombres-insanos-free-fire',
     title: 'Los 10 mejores nombres insanos y exclusivos para jugar Free Fire',
+    seoTitle: 'Nombres Insanos para Free Fire: 10 Ideas con Símbolos',
     excerpt: 'Ideas para crear nombres llamativos en Free Fire usando símbolos, alas, letras raras y combinaciones fáciles de copiar.',
     date: '2024-05-15',
     updated: '2026-10-06',
@@ -101,6 +103,7 @@ Prueba varias combinaciones, guarda las que mejor se lean en tu dispositivo y el
   {
     slug: 'biografia-tiktok-aesthetic-dark',
     title: 'Biografía Aesthetic Dark en TikTok: Guía para escribirla paso a paso',
+    seoTitle: 'Biografía Aesthetic Dark para TikTok: Guía Paso a Paso',
     excerpt: 'Ideas para dar a tu perfil de TikTok una estética dark o grunge con texto Unicode, frases breves y una composición visual coherente.',
     date: '2024-05-15',
     updated: '2026-10-06',
@@ -196,6 +199,7 @@ Empieza hoy mismo tu 're-branding'. Experimenta, combina estilos y busca la oscu
   {
     slug: 'letras-invisibles-espacios-guia-redes-sociales',
     title: 'Cómo crear espacios y letras invisibles para Instagram y Juegos',
+    seoTitle: 'Letras Invisibles y Espacios para Instagram y Juegos',
     excerpt: 'Todo lo que necesitas saber sobre los caracteres Unicode transparentes y cómo usarlos para crear espacios en blanco donde las apps no te dejan.',
     date: '2024-05-16',
     updated: '2026-10-06',
@@ -250,6 +254,7 @@ La personalización digital suele explorar las posibilidades que ofrecen Unicode
   {
     slug: 'diferencias-lettering-caligrafia-tipografia',
     title: 'Diferencias entre Lettering, Caligrafía y Tipografía: Guía Completa de Arte Tipográfico',
+    seoTitle: 'Lettering vs Caligrafía vs Tipografía: Diferencias Clave',
     excerpt: '¿No sabes si estás haciendo lettering, caligrafía o tipografía? Descubre las diferencias clave, técnicas, materiales e historia de cada disciplina artística.',
     date: '2024-06-01',
     updated: '2026-10-06',
@@ -325,6 +330,7 @@ En nuestro sitio web cuentas con el **Creador de Lettering Digital en Español**
   {
     slug: 'fuentes-aesthetic-para-copiar-y-pegar-instagram',
     title: 'Las Mejores Fuentes Aesthetic para Copiar y Pegar en Instagram, TikTok y WhatsApp',
+    seoTitle: 'Fuentes Aesthetic para Instagram, TikTok y WhatsApp',
     excerpt: 'Colección completa de letras aesthetic, cursivas, lindas y góticas con símbolos para decorar tus publicaciones y biografías de redes sociales.',
     date: '2024-06-05',
     updated: '2026-10-06',
