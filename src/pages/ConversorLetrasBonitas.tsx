@@ -281,7 +281,7 @@ const faqSchema = {
       "name": "¿Es gratis usar este generador de fuentes?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Es 100% gratis y sin límites. No necesitas descargar, instalar apps ni extensiones, y tampoco debes registrarte. Puedes generar infinidad de nombres y textos llamativos cuantas veces quieras y probar con nuestros más de 50 estilos aesthetic totalmente gratuitos."
+        "text": "No necesitas descargar, instalar aplicaciones ni registrarte. Las funciones disponibles actualmente se pueden utilizar gratis desde el navegador y permiten probar múltiples estilos aesthetic."
       }
     }
   ]
@@ -538,7 +538,7 @@ export default function ConversorLetrasBonitas() {
             Las herramientas de asistencia visual y los lectores de pantalla (como TalkBack en Android o VoiceOver en iOS) interpretan las letras matemáticas especiales según su código Unicode (por ejemplo, leyendo "Alfabeto matemático cursivo A" en lugar de simplemente "A"). 
           </p>
           <p className="text-sm text-amber-800 leading-relaxed font-medium">
-            <strong>Consejo Pro:</strong> Utiliza las letras bonitas decoradas para destacar tu nombre de usuario, palabras clave o títulos breves. Mantén el cuerpo principal de textos o párrafos largos en texto estándar para garantizar que todos tus seguidores puedan leer tu contenido con claridad.
+            <strong>Consejo Pro:</strong> Utiliza las letras bonitas decoradas para destacar tu nombre de usuario, palabras clave o títulos breves. Mantén el cuerpo principal de textos o párrafos largos en texto estándar para facilitar la lectura y reducir problemas de compatibilidad.
           </p>
         </div>
       </article>
@@ -574,7 +574,7 @@ export default function ConversorLetrasBonitas() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Es gratis usar este generador de fuentes?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Es 100% gratis y sin límites. No necesitas descargar, instalar apps ni extensiones, y tampoco debes registrarte. Puedes generar infinidad de nombres y textos llamativos cuantas veces quieras y probar con nuestros <strong>más de 50 estilos <em>aesthetic</em></strong> totalmente gratuitos.
+              No necesitas descargar, instalar aplicaciones ni registrarte. Las funciones disponibles actualmente se pueden utilizar gratis desde el navegador y permiten probar <strong>más de 50 estilos <em>aesthetic</em></strong>.
             </p>
           </div>
         </div>
