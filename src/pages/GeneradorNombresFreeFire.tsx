@@ -44,6 +44,30 @@ const DUO_MATCHES = [
 
 const SYMBOLS = ['꧁', '꧂', '༒', '★', '彡', '☠', '๖ۣۜ', 'ꪶ', 'ꫂ', '【', '】', '『', '』', '⚡', '╰‿╯', '亗', '✿', '❖', 'ツ', '☂', '✦', 'メ', '×͜×', 'ᴮᴼˢˢ', 'ᴳᵒᵈ', '♛', '♚', '︻╦╤─', '⚔️', 'ㅤ'];
 
+const INVISIBLE_SPACES = [
+  {
+    id: 'hangul',
+    char: '\u3164',
+    code: 'U+3164',
+    name: 'Hangul Filler',
+    note: 'Opción histórica muy usada. Algunas versiones o regiones pueden rechazarla.'
+  },
+  {
+    id: 'nbsp',
+    char: '\u00A0',
+    code: 'U+00A0',
+    name: 'No-Break Space',
+    note: 'Alternativa para separar palabras; algunas validaciones la recortan o bloquean.'
+  },
+  {
+    id: 'braille',
+    char: '\u2800',
+    code: 'U+2800',
+    name: 'Braille Pattern Blank',
+    note: 'Alternativa visualmente vacía; en ciertos dispositivos puede mostrarse como un cuadro.'
+  }
+] as const;
+
 const GAMER_BASES = ['Slayer', 'Ninja', 'Ghost', 'Demon', 'King', 'Viper', 'Titan', 'Hunter', 'Sniper', 'Pro', 'God', 'Beast', 'Insano', 'Cobra', 'Shadow', 'Sakura', 'Goku', 'Kratos'];
 
 const FREE_FIRE_FONT_MAPS: Record<string, Record<string, string>> = {
@@ -684,40 +708,53 @@ export default function GeneradorNombresFreeFire() {
                 <Eye className="w-8 h-8" />
               </div>
               <h2 className="text-2xl md:text-3xl font-black text-amber-400">
-                Generador de Espacio Invisible para Free Fire (ㅤ)
+                Generador de Espacio Invisible para Free Fire
               </h2>
               <p className="text-gray-300 text-sm leading-relaxed">
-                El carácter Unicode <code className="bg-slate-900 text-amber-300 px-2 py-0.5 rounded font-mono">U+3164</code> se usa habitualmente como espacio invisible en nombres de Free Fire. Su aceptación puede cambiar según la versión del juego, así que pruébalo en el campo de nickname antes de confirmar un cambio de nombre.
+                Free Fire puede cambiar qué caracteres especiales acepta según la versión, la región o el dispositivo. Por eso ofrecemos varias alternativas Unicode: copia una, pruébala en el campo de nickname y <strong>no confirmes el cambio</strong> hasta verificar que el juego la acepta y la muestra como esperas.
               </p>
 
-              <div className="bg-slate-900 p-6 rounded-2xl border border-amber-500/30 space-y-4">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">Tu Espacio Invisible Unicode Listo para Copiar:</span>
-                <div className="text-2xl font-mono text-amber-300 py-3 bg-slate-950 border border-slate-800 rounded-xl">
-                  [ㅤ]
-                </div>
-                
-                <button
-                  onClick={() => copyToClipboard('ㅤ', 'invisible-space-full')}
-                  className={`w-full py-3.5 rounded-xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition ${
-                    copiedId === 'invisible-space-full' 
-                      ? 'bg-green-500 text-white' 
-                      : 'bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 shadow-md'
-                  }`}
-                >
-                  {copiedId === 'invisible-space-full' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                  {copiedId === 'invisible-space-full' ? '¡Espacio Invisible Copiado!' : 'Copiar Espacio Invisible (1 Clic)'}
-                </button>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {INVISIBLE_SPACES.map((space) => {
+                  const copyId = `invisible-space-${space.id}`;
+                  const isCopied = copiedId === copyId;
+
+                  return (
+                    <div key={space.id} className="bg-slate-900 p-4 rounded-2xl border border-amber-500/30 text-left space-y-3">
+                      <div>
+                        <span className="block text-xs font-black text-amber-300">{space.name}</span>
+                        <code className="text-[11px] text-gray-400">{space.code}</code>
+                      </div>
+                      <div className="text-xl font-mono text-amber-300 py-2 text-center bg-slate-950 border border-slate-800 rounded-xl" aria-label={`Vista previa ${space.code}`}>
+                        [{space.char}]
+                      </div>
+                      <p className="text-[11px] leading-relaxed text-gray-400 min-h-[48px]">{space.note}</p>
+                      <button
+                        type="button"
+                        onClick={() => copyToClipboard(space.char, copyId)}
+                        className={`w-full py-2.5 rounded-xl font-black text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 transition ${
+                          isCopied
+                            ? 'bg-green-500 text-white'
+                            : 'bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950'
+                        }`}
+                      >
+                        {isCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        {isCopied ? 'Copiado' : `Copiar ${space.code}`}
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
 
               <div className="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 text-left text-xs text-gray-300 space-y-2">
                 <p className="font-bold text-amber-400 flex items-center gap-1.5">
                   <Info className="w-4 h-4" />
-                  ¿Cómo usar el espacio transparente en Free Fire?
+                  ¿Cómo probar un espacio invisible sin gastar el cambio de nombre?
                 </p>
                 <ol className="list-decimal list-inside space-y-1 text-gray-400">
-                  <li>Presiona el botón superior para copiar el espacio invisible <code className="text-amber-300">ㅤ</code>.</li>
-                  <li>Abre Free Fire y ve a tu perfil para cambiar tu apodo.</li>
-                  <li>Pégalo entre las palabras de tu nick y comprueba la vista previa del juego. Si el cliente lo rechaza o muestra un cuadro, no confirmes el cambio.</li>
+                  <li>Copia una de las tres opciones superiores.</li>
+                  <li>Abre Free Fire, entra en la pantalla de cambio de apodo y pégala entre las palabras del nick.</li>
+                  <li>Comprueba si el campo la acepta y si la vista previa se ve correcta. Si falla, vuelve y prueba la siguiente opción antes de confirmar.</li>
                 </ol>
               </div>
             </div>
