@@ -143,7 +143,11 @@ export default function LetrasFreeFire() {
     ])
     .map((option, index) => {
       const appliedText = applyFont(deferredInput || 'Hero', option.font);
-      const fullName = `${option.prefix}${appliedText}${option.suffix}`;
+      // Keep decorative symbols but remove padding spaces next to the nick.
+      // This produces genuinely shorter variants before falling back to longer styles.
+      const compactPrefix = option.prefix.trimEnd();
+      const compactSuffix = option.suffix.trimStart();
+      const fullName = `${compactPrefix}${appliedText}${compactSuffix}`;
       const characterCount = countCodePoints(fullName);
 
       return {
