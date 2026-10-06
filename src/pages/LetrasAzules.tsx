@@ -330,7 +330,7 @@ export default function LetrasAzules() {
             "@type": "WebApplication",
             "name": "Generador de Letras Azules",
             "url": "https://generadordelettering.org/herramientas/letras-azules",
-            "description": "Convierte tu texto en letras azules gruesas o letras cuadradas para copiar y pegar.",
+            "description": "Genera Regional Indicator Symbols y variantes Unicode conocidas como letras azules o letras cuadradas para copiar y pegar; la apariencia final depende de la plataforma.",
             "applicationCategory": "UtilitiesApplication",
             "operatingSystem": "All",
             "offers": {
