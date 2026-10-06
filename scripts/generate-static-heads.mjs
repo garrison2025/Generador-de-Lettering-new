@@ -3,6 +3,21 @@ import path from 'node:path';
 
 const SITE = 'https://generadordelettering.org';
 
+const PRERENDER_ROUTES = new Set([
+  '/',
+  '/plantillas',
+  '/herramientas',
+  '/herramientas/paletas-de-color',
+  '/herramientas/combinador-de-fuentes',
+  '/herramientas/plantillas-practica',
+  '/herramientas/conversor-texto',
+  '/herramientas/letras-azules',
+  '/herramientas/letras-free-fire',
+  '/herramientas/conversor-letras-bonitas'
+]);
+
+const { render: renderPrerenderedRoute } = await import('../dist-ssr/entry-server.js');
+
 const staticPages = [
   ['/', 'src/pages/Home.tsx'],
   ['/editor', 'src/pages/Editor.tsx'],
@@ -187,6 +202,22 @@ function makeHead(baseHtml, route, title, description, keywords, publishedTime, 
   return html;
 }
 
+async function injectPrerenderedBody(html, route) {
+  if (!PRERENDER_ROUTES.has(route)) return html;
+
+  const rootShell = '<div id="root"></div>';
+  if (!html.includes(rootShell)) {
+    throw new Error(`Could not locate the empty root shell for prerender route: ${route}`);
+  }
+
+  const markup = await renderPrerenderedRoute(route);
+  if (!markup || !/<h1\b/i.test(markup)) {
+    throw new Error(`Prerendered route is missing meaningful H1 content: ${route}`);
+  }
+
+  return html.replace(rootShell, `<div id="root">${markup}</div>`);
+}
+
 function make404Html(baseHtml) {
   let html = baseHtml;
 
@@ -303,7 +334,8 @@ for (const page of pages) {
   const output = routeOutputFile(page.route);
   fs.mkdirSync(path.dirname(output), { recursive: true });
 
-  const html = makeHead(baseHtml, page.route, page.title, page.description, page.keywords, page.publishedTime, page.modifiedTime, page.image);
+  let html = makeHead(baseHtml, page.route, page.title, page.description, page.keywords, page.publishedTime, page.modifiedTime, page.image);
+  html = await injectPrerenderedBody(html, page.route);
   const canonical = `${SITE}${page.route === '/' ? '/' : page.route}`;
   const expectedTitle = `<title data-rh="true">${escapeHtml(page.title)}</title>`;
   const expectedDescription = `<meta data-rh="true" name="description" content="${escapeHtml(page.description)}" />`;
@@ -383,4 +415,4 @@ if (!fs.existsSync('dist/404.html')) {
   throw new Error('Failed to generate top-level dist/404.html');
 }
 
-console.log(`Generated and verified static SEO head shells for ${pages.length} routes plus 404.html.`);
+console.log(`Generated and verified static SEO head shells for ${pages.length} routes, prerendered ${PRERENDER_ROUTES.size} core route bodies, plus 404.html.`);
