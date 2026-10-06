@@ -29,14 +29,43 @@ export const PRESET_COLORS = [
   "#000000", "#FFFFFF", "#FF6B6B", "#FBBF24", "#34D399", "#3B82F6", "#5A4AD2", "#9333EA"
 ];
 
+const fontLoadPromises = new Map<string, Promise<void>>();
+
 export const loadFont = async (fontFamily: string) => {
   const fontDef = FONTS.find(f => f.family === fontFamily);
-  if (!fontDef) return;
+  if (!fontDef || typeof document === 'undefined') return;
 
-  try {
-    await document.fonts.load(`16px "${fontFamily}"`);
-    await document.fonts.ready;
-  } catch(e) {
-    console.error("Failed to load font", fontFamily, e)
-  }
+  const existing = fontLoadPromises.get(fontFamily);
+  if (existing) return existing;
+
+  const promise = (async () => {
+    try {
+      const linkId = `gdl-font-${fontFamily.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+      let link = document.getElementById(linkId) as HTMLLinkElement | null;
+
+      if (!link) {
+        link = document.createElement('link');
+        link.id = linkId;
+        link.rel = 'stylesheet';
+        link.href = `https://fonts.googleapis.com/css2?family=${fontDef.href}&display=swap`;
+
+        const stylesheetReady = new Promise<void>((resolve, reject) => {
+          link!.addEventListener('load', () => resolve(), { once: true });
+          link!.addEventListener('error', () => reject(new Error(`Failed to load stylesheet for ${fontFamily}`)), { once: true });
+        });
+
+        document.head.appendChild(link);
+        await stylesheetReady;
+      }
+
+      await document.fonts.load(`16px "${fontFamily}"`);
+      await document.fonts.ready;
+    } catch (error) {
+      fontLoadPromises.delete(fontFamily);
+      console.error('Failed to load font', fontFamily, error);
+    }
+  })();
+
+  fontLoadPromises.set(fontFamily, promise);
+  return promise;
 };
