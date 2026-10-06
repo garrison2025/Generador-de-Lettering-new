@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { ChevronLeft, Calendar } from 'lucide-react';
+import { ChevronLeft, Calendar, List } from 'lucide-react';
 import { BLOG_POSTS } from '../data/blogPosts';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
@@ -18,6 +18,50 @@ function formatPostDate(date: string) {
   return POST_DATE_FORMATTER.format(new Date(`${date}T00:00:00Z`));
 }
 
+function slugifyHeading(value: string) {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
+function extractTableOfContents(content: string) {
+  return content
+    .split('\n')
+    .map((line) => line.match(/^(##|###)\s+(.+)$/))
+    .filter((match): match is RegExpMatchArray => Boolean(match))
+    .map((match) => {
+      const label = match[2].replace(/[*_`]/g, '').trim();
+      return { level: match[1].length, label, id: slugifyHeading(label) };
+    });
+}
+
+const BLOG_CTA: Record<string, [string, string][]> = {
+  'mejores-nombres-insanos-free-fire': [
+    ['Generador de Nombres Free Fire', '/herramientas/generador-de-nombres-para-free-fire'],
+    ['Letras para Free Fire', '/herramientas/letras-free-fire'],
+  ],
+  'biografia-tiktok-aesthetic-dark': [
+    ['Letras para TikTok', '/herramientas/letras-tiktok'],
+    ['Conversor de Letras Bonitas', '/herramientas/conversor-letras-bonitas'],
+  ],
+  'letras-invisibles-espacios-guia-redes-sociales': [
+    ['Conversor de Letras Online', '/herramientas/conversor-texto'],
+    ['Generador de Nombres Free Fire', '/herramientas/generador-de-nombres-para-free-fire'],
+  ],
+  'diferencias-lettering-caligrafia-tipografia': [
+    ['Creador de Lettering', '/herramientas/creador-de-lettering'],
+    ['Plantillas de Práctica', '/herramientas/plantillas-practica'],
+  ],
+  'fuentes-aesthetic-para-copiar-y-pegar-instagram': [
+    ['Conversor de Letras Bonitas', '/herramientas/conversor-letras-bonitas'],
+    ['Generador de Nombres para Instagram', '/herramientas/generador-de-nombres-para-instagram'],
+  ],
+};
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const post = BLOG_POSTS.find(p => p.slug === slug);
@@ -25,6 +69,12 @@ export default function BlogPost() {
   if (!post) {
     return <Navigate to="/404" replace />;
   }
+
+  const tableOfContents = extractTableOfContents(post.content);
+  const ctaLinks = BLOG_CTA[post.slug] || [
+    ['Conversor de Letras Bonitas', '/herramientas/conversor-letras-bonitas'],
+    ['Creador de Lettering', '/herramientas/creador-de-lettering'],
+  ];
 
   return (
     <>
@@ -112,6 +162,29 @@ export default function BlogPost() {
             </div>
           </header>
 
+          {tableOfContents.length >= 2 && (
+            <nav
+              aria-label="Tabla de contenidos del artículo"
+              className="mb-10 rounded-2xl border border-gray-200 bg-gray-50/80 p-5 md:p-6"
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <List className="w-5 h-5 text-[#5A4AD2]" />
+                <h2 className="font-bold text-gray-900 text-base">En este artículo</h2>
+              </div>
+              <ol className="space-y-2">
+                {tableOfContents.map((item, index) => (
+                  <li key={item.id + '-' + index} className={item.level === 3 ? 'ml-4' : ''}>
+                    <a
+                      href={'#' + item.id}
+                      className="text-sm text-gray-600 hover:text-[#5A4AD2] hover:underline"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
           <div className="max-w-none text-gray-700 leading-relaxed
             [&_h1]:text-4xl [&_h1]:font-black [&_h1]:text-gray-900 [&_h1]:tracking-tight [&_h1]:mb-8
             [&_h2]:text-3xl [&_h2]:font-extrabold [&_h2]:text-gray-900 [&_h2]:tracking-tight [&_h2]:mt-14 [&_h2]:mb-6
@@ -130,7 +203,19 @@ export default function BlogPost() {
             [&_th]:border [&_th]:border-gray-200 [&_th]:bg-gray-50 [&_th]:p-3 [&_th]:text-left [&_th]:font-bold [&_th]:text-gray-900
             [&_td]:border [&_td]:border-gray-200 [&_td]:p-3
             [&_img]:rounded-xl [&_img]:my-8">
-            <Markdown remarkPlugins={[remarkGfm]}>
+            <Markdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                h2: ({ children, ...props }) => {
+                  const label = React.Children.toArray(children).join('');
+                  return <h2 id={slugifyHeading(label)} {...props}>{children}</h2>;
+                },
+                h3: ({ children, ...props }) => {
+                  const label = React.Children.toArray(children).join('');
+                  return <h3 id={slugifyHeading(label)} {...props}>{children}</h3>;
+                },
+              }}
+            >
               {post.content}
             </Markdown>
           </div>
@@ -156,21 +241,20 @@ export default function BlogPost() {
         </article>
 
         <div className="mt-16 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">¿Te gustó el artículo? Empieza a crear ahora mismo:</h3>
-          <p className="text-gray-600 mb-8 font-medium">Usa nuestras herramientas gratuitas para hacer tus letras únicas</p>
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Prueba estas herramientas relacionadas</h3>
+          <p className="text-gray-600 mb-8 font-medium">Continúa con una herramienta directamente relacionada con el tema del artículo.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              to="/herramientas/conversor-letras-bonitas"
-              className="inline-flex items-center justify-center px-8 py-4 bg-[#4F46E5] text-white font-bold rounded-xl hover:bg-[#4338CA] transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-            >
-              Conversor de Letras Bonitas
-            </Link>
-            <Link 
-              to="/herramientas/letras-free-fire"
-              className="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-gray-800 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-            >
-              Generador para Free Fire
-            </Link>
+            {ctaLinks.map(([label, path], index) => (
+              <Link
+                key={path}
+                to={path}
+                className={'inline-flex items-center justify-center px-8 py-4 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 ' + (
+                  index === 0 ? 'bg-[#4F46E5] hover:bg-[#4338CA]' : 'bg-gray-900 hover:bg-gray-800'
+                )}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
         </div>
 
