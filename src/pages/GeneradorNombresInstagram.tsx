@@ -396,7 +396,7 @@ export default function GeneradorNombresInstagram() {
         ]}
       />
 
-      <div className="max-w-5xl mx-auto px-4 py-10 w-full">
+      <div className="max-w-5xl mx-auto px-4 py-10 w-full min-w-0">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="mb-6">
           <ol className="flex items-center space-x-2 text-sm text-gray-500 font-medium">
