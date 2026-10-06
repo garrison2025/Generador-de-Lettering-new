@@ -41,7 +41,7 @@ interface EditorStore extends EditorState {
   redo: () => void;
 }
 
-const DEFAULT_STATE: EditorState = {
+export const EDITOR_DEFAULT_STATE: EditorState = {
   text: 'Generador\nde Lettering',
   fontFamily: 'Dancing Script',
   fontSize: 80,
@@ -104,7 +104,7 @@ const RANDOM_FONTS = ["Dancing Script", "Pacifico", "Parisienne", "Caveat", "Lob
 export const useEditorStore = create<EditorStore>()(
   persist(
     (set) => ({
-      ...DEFAULT_STATE,
+      ...EDITOR_DEFAULT_STATE,
       past: [],
       future: [],
       updateState: (updates) => set((state) => {
@@ -168,7 +168,7 @@ export const useEditorStore = create<EditorStore>()(
         };
       }),
       resetState: () => set((state) => ({
-        ...DEFAULT_STATE,
+        ...EDITOR_DEFAULT_STATE,
         past: state.backgroundImage
           ? []
           : [...state.past, extractState(state)].slice(-20),
@@ -227,7 +227,7 @@ export const useEditorStore = create<EditorStore>()(
         } = (persistedState || {}) as Partial<EditorStore>;
 
         return {
-          ...DEFAULT_STATE,
+          ...EDITOR_DEFAULT_STATE,
           ...legacyEditorState,
           backgroundImage: null,
         };
