@@ -18,7 +18,7 @@ export function CanvasArea() {
     text, fontFamily, fontSize, letterSpacing, lineHeight, textAlign, textColor, backgroundColor,
     textOpacity, isGradient, gradientStartColor, gradientEndColor,
     shadowOffsetX, shadowOffsetY, shadowBlur, shadowColor, strokeWidth, strokeColor, rotation,
-    backgroundImage, canvasRatio, overlayColor, overlayOpacity
+    textOffsetX, textOffsetY, backgroundImage, canvasRatio, overlayColor, overlayOpacity
   } = useEditorStore(useShallow((state) => ({
     text: state.text,
     fontFamily: state.fontFamily,
@@ -39,6 +39,8 @@ export function CanvasArea() {
     strokeWidth: state.strokeWidth,
     strokeColor: state.strokeColor,
     rotation: state.rotation,
+    textOffsetX: state.textOffsetX,
+    textOffsetY: state.textOffsetY,
     backgroundImage: state.backgroundImage,
     canvasRatio: state.canvasRatio,
     overlayColor: state.overlayColor,
@@ -262,8 +264,8 @@ export function CanvasArea() {
                  )}
                  <Group
                    ref={groupRef}
-                   x={stageWidth / 2}
-                   y={stageHeight / 2}
+                   x={stageWidth / 2 + textOffsetX}
+                   y={stageHeight / 2 + textOffsetY}
                  rotation={rotation}
                  draggable
                  onClick={() => {
@@ -277,6 +279,12 @@ export function CanvasArea() {
                    if (groupRef.current && trRef.current) {
                      trRef.current.nodes([groupRef.current]);
                    }
+                 }}
+                 onDragEnd={(event) => {
+                   useEditorStore.getState().updateState({
+                     textOffsetX: Math.round(event.target.x() - stageWidth / 2),
+                     textOffsetY: Math.round(event.target.y() - stageHeight / 2),
+                   });
                  }}
                  onTransformEnd={(e) => {
                    const node = groupRef.current;
