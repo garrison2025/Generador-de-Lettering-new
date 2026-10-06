@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import Editor from './Editor';
-import { useEditorStore } from '@/store/useEditorStore';
+import { useEditorStore, type EditorState } from '@/store/useEditorStore';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 import { Sparkles, HelpCircle, BookOpen, CheckCircle, PenTool } from 'lucide-react';
@@ -23,6 +23,29 @@ interface SeoRouteConfig {
   steps: string[];
   faqs: FaqItem[];
 }
+
+const SEO_LANDING_BASE_STATE: Partial<EditorState> = {
+  fontSize: 80,
+  letterSpacing: 0,
+  lineHeight: 1.2,
+  textAlign: 'center',
+  textOpacity: 1,
+  isGradient: false,
+  gradientStartColor: '#FF6B6B',
+  gradientEndColor: '#5A4AD2',
+  backgroundColor: 'transparent',
+  shadowOffsetX: 0,
+  shadowOffsetY: 0,
+  shadowBlur: 0,
+  shadowColor: '#000000',
+  strokeWidth: 0,
+  strokeColor: '#000000',
+  rotation: 0,
+  backgroundImage: null,
+  canvasRatio: 'free',
+  overlayColor: '#000000',
+  overlayOpacity: 0,
+};
 
 const SEO_CONFIG: Record<string, SeoRouteConfig> = {
   '/generador-de-letras-goticas': {
@@ -162,7 +185,10 @@ export default function SeoPage() {
 
   useEffect(() => {
     if (config) {
-      store.updateState(config.defaultState);
+      store.updateState({
+        ...SEO_LANDING_BASE_STATE,
+        ...config.defaultState,
+      });
     }
   }, [location.pathname]);
 
