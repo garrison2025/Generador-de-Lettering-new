@@ -606,6 +606,8 @@ export default function GeneradorNombresFreeFire() {
               {DUO_MATCHES.map((duo, idx) => {
                 const isCopiedP1 = copiedId === `duo-${idx}-p1`;
                 const isCopiedP2 = copiedId === `duo-${idx}-p2`;
+                const p1Count = Array.from(duo.p1).length;
+                const p2Count = Array.from(duo.p2).length;
                 return (
                   <div key={idx} className="border border-amber-200 rounded-2xl p-5 bg-gradient-to-br from-amber-50/50 to-orange-50/50 flex flex-col justify-between gap-4">
                     <span className="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full self-start">
@@ -617,8 +619,11 @@ export default function GeneradorNombresFreeFire() {
                         <div>
                           <span className="text-[10px] font-bold text-gray-400 uppercase block">Jugador 1</span>
                           <span className="text-base font-bold text-gray-900">{duo.p1}</span>
+                          <span className="text-[10px] text-gray-400 block">{p1Count} car. guía</span>
                         </div>
                         <button
+                          type="button"
+                          aria-label={isCopiedP1 ? `Nombre de jugador 1 copiado: ${duo.p1}` : `Copiar nombre de jugador 1: ${duo.p1}`}
                           onClick={() => copyToClipboard(duo.p1, `duo-${idx}-p1`)}
                           className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                             isCopiedP1 ? 'bg-green-100 text-green-700' : 'bg-amber-400 text-slate-950 hover:bg-amber-500'
@@ -632,8 +637,11 @@ export default function GeneradorNombresFreeFire() {
                         <div>
                           <span className="text-[10px] font-bold text-gray-400 uppercase block">Jugador 2</span>
                           <span className="text-base font-bold text-gray-900">{duo.p2}</span>
+                          <span className="text-[10px] text-gray-400 block">{p2Count} car. guía</span>
                         </div>
                         <button
+                          type="button"
+                          aria-label={isCopiedP2 ? `Nombre de jugador 2 copiado: ${duo.p2}` : `Copiar nombre de jugador 2: ${duo.p2}`}
                           onClick={() => copyToClipboard(duo.p2, `duo-${idx}-p2`)}
                           className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                             isCopiedP2 ? 'bg-green-100 text-green-700' : 'bg-amber-400 text-slate-950 hover:bg-amber-500'
