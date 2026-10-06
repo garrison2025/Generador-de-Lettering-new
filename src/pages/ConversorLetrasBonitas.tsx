@@ -282,6 +282,10 @@ export default function ConversorLetrasBonitas() {
           </li>
           <li className="flex items-center space-x-2">
             <span className="text-gray-500">/</span>
+            <Link to="/herramientas" className="hover:text-[#5A4AD2] transition-colors">Herramientas</Link>
+          </li>
+          <li className="flex items-center space-x-2">
+            <span className="text-gray-500">/</span>
             <span className="text-gray-900" aria-current="page">Letras Bonitas</span>
           </li>
         </ol>
