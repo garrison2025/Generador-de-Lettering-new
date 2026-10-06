@@ -33,6 +33,17 @@ export async function copyText(text: string): Promise<boolean> {
     return false;
   } finally {
     textarea.remove();
-    activeElement?.focus({ preventScroll: true });
+
+    if (activeElement) {
+      try {
+        activeElement.focus({ preventScroll: true });
+      } catch {
+        try {
+          activeElement.focus();
+        } catch {
+          // Copy result should not fail only because focus restoration is unsupported.
+        }
+      }
+    }
   }
 }
