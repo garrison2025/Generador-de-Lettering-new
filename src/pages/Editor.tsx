@@ -6,6 +6,40 @@ import { useEditorStore } from '@/store/useEditorStore';
 import { useEditorShortcuts } from '../hooks/useEditorShortcuts';
 import { SEO } from '../components/SEO';
 
+const editorAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Editor de Lettering Avanzado",
+  "url": "https://generadordelettering.org/editor",
+  "description": "Editor de lettering en lienzo para ajustar tipografía, tamaño, color, contorno, sombras y fondo y exportar el resultado como imagen.",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+const editorBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://generadordelettering.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Editor de Lettering",
+      "item": "https://generadordelettering.org/editor"
+    }
+  ]
+};
+
 const CanvasArea = lazy(() =>
   import('../components/Editor/CanvasArea').then((module) => ({
     default: module.CanvasArea,
@@ -41,17 +75,19 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
           title="Editor de Lettering Avanzado | Lienzo, Colores y Efectos"
           description="Editor avanzado de lettering en lienzo: ajusta tipografía, tamaño, color, contorno, sombras y fondo con control manual. Exporta en PNG, JPG o WEBP."
           keywords="editor de lettering, editor de letras online, lienzo de lettering, efectos de texto, sombras y contornos"
+          canonical="https://generadordelettering.org/editor"
+          jsonSchema={[editorAppSchema, editorBreadcrumbSchema]}
         />
       )}
     <div className="max-w-7xl mx-auto px-4 py-8 w-full flex-1">
       {!embedded && (
         <>
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-6 font-medium">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-gray-500 mb-6 font-medium">
             <Link to="/" className="flex items-center gap-1 hover:text-[#5A4AD2] transition"><Home className="w-4 h-4" /> Inicio</Link>
-            <span className="text-gray-500">&gt;</span>
-            <span className="text-[#5A4AD2]">Editor de Lettering</span>
-          </div>
+            <span className="text-gray-500" aria-hidden="true">&gt;</span>
+            <span className="text-[#5A4AD2]" aria-current="page">Editor de Lettering</span>
+          </nav>
           
           <div className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Editor de Lettering Avanzado</h1>
