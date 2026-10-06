@@ -59,6 +59,10 @@ const FONT_MAPS: Record<string, Record<string, string>> = {
   }
 };
 
+function limitCodePoints(value: string, max: number) {
+  return Array.from(value).slice(0, max).join('');
+}
+
 function applyFont(text: string, fontType: string) {
   if (fontType === 'normal') return text;
   const map = FONT_MAPS[fontType];
@@ -83,7 +87,7 @@ const faqSchema = {
       "name": "¿Cuál es el límite de caracteres en Free Fire?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "El límite de caracteres para un nombre o apodo en Free Fire es de 12 caracteres. Nuestro sistema te alerta con un indicador en rojo si tu nombre sobrepasa este límite."
+        "text": "Muchos jugadores y herramientas de la comunidad usan 12 caracteres como referencia para el nickname de Free Fire, pero Garena puede cambiar la validación y algunos símbolos Unicode pueden ocupar distinto espacio. Usa el contador como guía y confirma siempre en el campo de nombre del juego."
       }
     },
     {
@@ -140,6 +144,7 @@ const breadcrumbSchema = {
 export default function GeneradorNombresFreeFire() {
   const [inputText, setInputText] = useState('Slayer');
   const [clanPrefix, setClanPrefix] = useState('');
+  const inputCharacterCount = Array.from(inputText).length;
   const [activeCategory, setActiveCategory] = useState('Todas');
   const [activeTab, setActiveTab] = useState<'all' | 'duos' | 'invisible'>('all');
   const deferredInput = useDeferredValue(inputText);
@@ -258,8 +263,11 @@ export default function GeneradorNombresFreeFire() {
                   <Swords className="w-4 h-4 text-amber-400" />
                   Tu Nombre Base:
                 </label>
-                <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${inputText.length > 12 ? 'bg-red-500/20 text-red-400 border border-red-500/40' : 'bg-amber-500/10 text-amber-400'}`}>
-                  {inputText.length}/12 caracteres
+                <span
+                  className="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400"
+                  title="Contador orientativo; el juego decide la validación final."
+                >
+                  {inputCharacterCount}/12 guía
                 </span>
               </div>
               <div className="relative">
@@ -267,8 +275,7 @@ export default function GeneradorNombresFreeFire() {
                   id="ff-nick-input"
                   type="text"
                   value={inputText}
-                  maxLength={12}
-                  onChange={(e) => setInputText(e.target.value)}
+                  onChange={(e) => setInputText(limitCodePoints(e.target.value, 12))}
                   className="w-full px-5 py-3.5 bg-slate-900 border-2 border-amber-500/50 rounded-2xl focus:border-amber-400 focus:outline-none text-xl md:text-2xl font-bold text-white pr-12 transition-colors shadow-inner placeholder-gray-600"
                   placeholder="Ejemplo: Slayer..."
                 />
@@ -306,8 +313,7 @@ export default function GeneradorNombresFreeFire() {
                 id="ff-clan-prefix"
                 type="text"
                 value={clanPrefix}
-                maxLength={6}
-                onChange={(e) => setClanPrefix(e.target.value)}
+                onChange={(e) => setClanPrefix(limitCodePoints(e.target.value, 6))}
                 className="w-full px-4 py-3.5 bg-slate-900 border-2 border-amber-500/30 rounded-2xl focus:border-amber-400 focus:outline-none text-lg font-bold text-amber-300 placeholder-gray-600 mb-2"
                 placeholder="Ej. [100k] o 亗"
               />
