@@ -199,9 +199,9 @@ export default function Home() {
               { icon: PenTool, title: 'Diseño Intuitivo', desc: 'Interfaz fácil de usar diseñada para todos los niveles de experiencia, desde principiantes hasta profesionales.' },
               { icon: Type, title: 'Múltiples Estilos de Tipografía', desc: 'Más de 10 estilos caligráficos diferentes para personalizar tus textos según la ocasión.' },
               { icon: Palette, title: 'Personalización Total', desc: 'Ajusta tamaño, color, espaciado y añade efectos como sombras y contornos a tu gusto.' },
-              { icon: Download, title: 'Exportación Sencilla', desc: 'Descarga tus creaciones en formato PNG o JPG para usarlas donde quieras.' },
+              { icon: Download, title: 'Exportación Sencilla', desc: 'Descarga tus creaciones en PNG, JPG o WEBP; usa PNG cuando necesites conservar transparencia.' },
               { icon: Globe, title: 'Gratis y Sin Registro', desc: 'Las funciones disponibles actualmente se pueden usar desde el navegador sin crear una cuenta.' },
-              { icon: CheckCircle2, title: 'Sin Registro', desc: 'Comienza a crear inmediatamente sin necesidad de registrarte o proporcionar datos personales.' },
+              { icon: CheckCircle2, title: 'Sin Instalación', desc: 'Crea y exporta desde el navegador sin instalar un programa de diseño en tu dispositivo.' },
             ].map((feature, i) => (
               <div key={i} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 flex flex-col items-start text-left">
                 <div className="w-12 h-12 bg-[#5A4AD2]/10 text-[#5A4AD2] rounded-lg flex items-center justify-center mb-6">
@@ -228,7 +228,7 @@ export default function Home() {
               { num: 1, title: 'Elige una plantilla o comienza desde cero', desc: 'Selecciona una de nuestras plantillas prediseñadas o comienza con tu propio texto personalizado.' },
               { num: 2, title: 'Personaliza tu texto', desc: 'Modifica el estilo de letra, tamaño, color y alineación según tus preferencias.' },
               { num: 3, title: 'Añade efectos especiales', desc: 'Aplica sombras, contornos o rotación para dar un toque único a tu diseño.' },
-              { num: 4, title: 'Exporta tu creación', desc: 'Descarga tu diseño en formato PNG o JPG para usarlo en tus proyectos.' },
+              { num: 4, title: 'Exporta tu creación', desc: 'Descarga tu diseño en PNG, JPG o WEBP y elige resolución normal o ampliada según el uso.' },
             ].map((step) => (
               <div key={step.num} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full border-4 border-white bg-[#5A4AD2] text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm relative z-10 w-[50px] h-[50px]">
