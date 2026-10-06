@@ -1,3 +1,4 @@
+import { copyText } from '../utils/copyText';
 import { useState, useEffect, useDeferredValue } from 'react';
 import { Copy, Check, Sparkles, PenTool, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -336,8 +337,11 @@ export default function ConversorLetrasBonitas() {
     // Removed document.title 
   }, []);
 
-  const copyToClipboard = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
+  const copyToClipboard = async (text: string, id: string) => {
+    if (!(await copyText(text))) {
+      window.alert('No se pudo copiar automáticamente. Selecciona el texto y cópialo manualmente.');
+      return;
+    }
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
