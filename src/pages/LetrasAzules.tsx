@@ -246,6 +246,7 @@ const faqSchema = {
 export default function LetrasAzules() {
   const [inputText, setInputText] = useState('LETRAS AZULES');
   const deferredInput = useDeferredValue(inputText);
+  const inputCharacterCount = Array.from(inputText).length;
   const [copiedResult, setCopiedResult] = useState<string | null>(null);
 
   const convertText = (text: string, styleId: string) => {
@@ -392,7 +393,7 @@ export default function LetrasAzules() {
       <div className="bg-white justify-center items-center rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-6 md:p-8 mb-8">
         <div className="flex justify-between items-end mb-3">
           <label htmlFor="text-input" className="block text-sm font-bold text-gray-700 uppercase tracking-wider">Escribe tu texto:</label>
-          <span className="text-xs font-medium text-[#2980b9] bg-[#3498db]/10 px-2 py-1 rounded">{inputText.length} caracteres</span>
+          <span className="text-xs font-medium text-[#2980b9] bg-[#3498db]/10 px-2 py-1 rounded">{inputCharacterCount} caracteres</span>
         </div>
         <div className="relative">
           <input
