@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { PenTool, Download, Type, LayoutTemplate, Palette, Globe, CheckCircle2, ChevronDown } from 'lucide-react';
+import { PenTool, Download, Type, LayoutTemplate, Palette, Globe, CheckCircle2, ChevronDown, Flame, Instagram, Sparkles, Hash } from 'lucide-react';
 import React, { useState } from 'react';
 import { SEO } from '../components/SEO';
 
@@ -126,6 +126,63 @@ export default function Home() {
               <LayoutTemplate className="w-5 h-5" />
               Ver Plantillas
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Proven search-demand tools */}
+      <section className="py-12 px-4 bg-[#F8F9FC] border-b border-gray-100">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-7">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Herramientas populares de letras y nombres</h2>
+              <p className="text-gray-500 mt-2">Accede directamente a nuestros generadores más utilizados para redes sociales y gaming.</p>
+            </div>
+            <Link to="/herramientas/conversor-texto" className="text-sm font-semibold text-[#4F46E5] hover:underline">
+              Ver conversor de letras →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                to: '/herramientas/letras-free-fire',
+                title: 'Letras para Free Fire',
+                desc: 'Nicks con símbolos, letras góticas, alas y coronas.',
+                icon: Flame
+              },
+              {
+                to: '/herramientas/letras-tiktok',
+                title: 'Letras para TikTok',
+                desc: 'Fuentes aesthetic y símbolos para bio, nombre y comentarios.',
+                icon: Hash
+              },
+              {
+                to: '/herramientas/letras-azules',
+                title: 'Letras Azules',
+                desc: 'Letras y símbolos especiales listos para copiar y pegar.',
+                icon: Sparkles
+              },
+              {
+                to: '/herramientas/generador-de-nombres-para-instagram',
+                title: 'Nombres para Instagram',
+                desc: 'Ideas de nombres, letras bonitas y creador de bio aesthetic.',
+                icon: Instagram
+              }
+            ].map((tool) => (
+              <Link
+                key={tool.to}
+                to={tool.to}
+                className="group bg-white rounded-2xl border border-gray-200 p-5 shadow-sm hover:shadow-md hover:border-[#4F46E5]/30 transition"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[#4F46E5]/10 text-[#4F46E5] flex items-center justify-center mb-4 group-hover:scale-105 transition">
+                  <tool.icon className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-gray-900 group-hover:text-[#4F46E5] transition">{tool.title}</h3>
+                <p className="text-sm text-gray-500 mt-2 leading-relaxed">{tool.desc}</p>
+                <span className="inline-block mt-4 text-sm font-semibold text-[#4F46E5]">Abrir herramienta →</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
