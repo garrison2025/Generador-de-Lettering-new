@@ -48,6 +48,17 @@ export default defineConfig(() => {
       },
     },
     build: {
+      modulePreload: {
+        resolveDependencies: (_filename, deps, context) => {
+          if (context.hostType !== 'html') return deps;
+
+          return deps.filter(
+            (dep) =>
+              !dep.includes('canvas-vendor-') &&
+              !dep.includes('markdown-vendor-')
+          );
+        }
+      },
       rollupOptions: {
         output: {
           manualChunks: {
