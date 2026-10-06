@@ -1,3 +1,4 @@
+import { copyText } from '../utils/copyText';
 import React, { useState, useEffect, useDeferredValue } from 'react';
 import { 
   Copy, 
@@ -94,8 +95,11 @@ export default function LetrasTikTok() {
     }
   }, [favorites]);
 
-  const handleCopy = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
+  const handleCopy = async (text: string, id: string) => {
+    if (!(await copyText(text))) {
+      window.alert('No se pudo copiar automáticamente. Selecciona el texto y cópialo manualmente.');
+      return;
+    }
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
