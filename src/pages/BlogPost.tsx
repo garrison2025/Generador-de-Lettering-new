@@ -7,6 +7,17 @@ import { BLOG_POSTS } from '../data/blogPosts';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 
+const POST_DATE_FORMATTER = new Intl.DateTimeFormat('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
+function formatPostDate(date: string) {
+  return POST_DATE_FORMATTER.format(new Date(`${date}T00:00:00Z`));
+}
+
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const post = BLOG_POSTS.find(p => p.slug === slug);
@@ -91,11 +102,11 @@ export default function BlogPost() {
             <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-gray-500 font-medium">
               <span className="inline-flex items-center">
                 <Calendar className="w-4 h-4 mr-2" />
-                Publicado <time className="ml-1" dateTime={post.date}>{new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                Publicado <time className="ml-1" dateTime={post.date}>{formatPostDate(post.date)}</time>
               </span>
               {post.updated && post.updated !== post.date && (
                 <span>
-                  · Actualizado <time dateTime={post.updated}>{new Date(post.updated).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                  · Actualizado <time dateTime={post.updated}>{formatPostDate(post.updated)}</time>
                 </span>
               )}
             </div>
