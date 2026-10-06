@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { PenTool, Menu, X } from 'lucide-react';
 
@@ -8,11 +8,31 @@ const CookieConsent = lazy(() => import('./CookieConsent'));
 export default function Layout() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const isEditor = location.pathname === '/editor';
 
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      setMobileMenuOpen(false);
+      requestAnimationFrame(() => mobileMenuButtonRef.current?.focus());
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#F8F9FC]">
@@ -70,6 +90,7 @@ export default function Layout() {
             </Link>
             
             <button
+              ref={mobileMenuButtonRef}
               type="button"
               className="md:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F46E5] focus-visible:ring-offset-2 rounded"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -134,7 +155,7 @@ export default function Layout() {
                   <span className="font-bold text-lg tracking-tight leading-none">Generador de Lettering</span>
                 </Link>
                 <p className="text-gray-500 text-sm mb-6">
-                  Tu plataforma definitiva para arte tipográfico, conversor de letras, y recursos de diseño web y gaming.
+                  Herramientas de arte tipográfico, conversión de letras y recursos para diseño, redes sociales y gaming.
                 </p>
               </div>
 
