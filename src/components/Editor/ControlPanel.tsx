@@ -1,8 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useEditorStore } from '@/store/useEditorStore';
+import { useEditorStore, type EditorState } from '@/store/useEditorStore';
 import { useShallow } from 'zustand/react/shallow';
 import { FONTS, PRESET_COLORS, loadFontPreviews } from '@/lib/fonts';
 import { AlignLeft, AlignCenter, AlignRight, Check, ChevronDown } from 'lucide-react';
+
+type ColorField =
+  | 'textColor'
+  | 'gradientStartColor'
+  | 'gradientEndColor'
+  | 'overlayColor'
+  | 'shadowColor'
+  | 'strokeColor';
 
 type LocalSliderProps = {
   value: number[];
@@ -88,6 +96,24 @@ export function ControlPanel() {
   const [isFontSelectOpen, setIsFontSelectOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const textEditStartRef = useRef<string | null>(null);
+  const colorEditStartRef = useRef<Partial<Record<ColorField, string>>>({});
+
+  const beginColorEdit = (field: ColorField, value: string) => {
+    if (colorEditStartRef.current[field] === undefined) {
+      colorEditStartRef.current[field] = value;
+    }
+  };
+
+  const previewColor = (field: ColorField, value: string) => {
+    store.previewState({ [field]: value } as Partial<EditorState>);
+  };
+
+  const commitColorEdit = (field: ColorField) => {
+    const initialValue = colorEditStartRef.current[field];
+    if (initialValue === undefined) return;
+    delete colorEditStartRef.current[field];
+    store.commitPreview({ [field]: initialValue } as Partial<EditorState>);
+  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -338,18 +364,42 @@ export function ControlPanel() {
                          style={{ backgroundColor: color }}
                        />
                      ))}
-                     <input type="color" value={store.textColor} onChange={e => store.updateState({ textColor: e.target.value })} className="w-8 h-8 rounded-full cursor-pointer p-0 border-0 overflow-hidden" />
+                     <input
+                       type="color"
+                       value={store.textColor}
+                       onFocus={() => beginColorEdit('textColor', store.textColor)}
+                       onPointerDown={() => beginColorEdit('textColor', store.textColor)}
+                       onChange={(e) => previewColor('textColor', e.target.value)}
+                       onBlur={() => commitColorEdit('textColor')}
+                       className="w-8 h-8 rounded-full cursor-pointer p-0 border-0 overflow-hidden"
+                     />
                    </div>
                  ) : (
                    <div className="flex gap-4 items-center">
                      <div className="flex flex-col gap-1 items-center">
                        <span className="text-[10px] text-gray-500">Inicio</span>
-                       <input type="color" value={store.gradientStartColor} onChange={e => store.updateState({ gradientStartColor: e.target.value })} className="w-8 h-8 rounded cursor-pointer p-0 border border-gray-200 overflow-hidden shadow-sm" />
+                       <input
+                         type="color"
+                         value={store.gradientStartColor}
+                         onFocus={() => beginColorEdit('gradientStartColor', store.gradientStartColor)}
+                         onPointerDown={() => beginColorEdit('gradientStartColor', store.gradientStartColor)}
+                         onChange={(e) => previewColor('gradientStartColor', e.target.value)}
+                         onBlur={() => commitColorEdit('gradientStartColor')}
+                         className="w-8 h-8 rounded cursor-pointer p-0 border border-gray-200 overflow-hidden shadow-sm"
+                       />
                      </div>
                      <div className="h-4 w-12 rounded bg-gradient-to-r" style={{ backgroundImage: `linear-gradient(to right, ${store.gradientStartColor}, ${store.gradientEndColor})` }} />
                      <div className="flex flex-col gap-1 items-center">
                        <span className="text-[10px] text-gray-500">Fin</span>
-                       <input type="color" value={store.gradientEndColor} onChange={e => store.updateState({ gradientEndColor: e.target.value })} className="w-8 h-8 rounded cursor-pointer p-0 border border-gray-200 overflow-hidden shadow-sm" />
+                       <input
+                         type="color"
+                         value={store.gradientEndColor}
+                         onFocus={() => beginColorEdit('gradientEndColor', store.gradientEndColor)}
+                         onPointerDown={() => beginColorEdit('gradientEndColor', store.gradientEndColor)}
+                         onChange={(e) => previewColor('gradientEndColor', e.target.value)}
+                         onBlur={() => commitColorEdit('gradientEndColor')}
+                         className="w-8 h-8 rounded cursor-pointer p-0 border border-gray-200 overflow-hidden shadow-sm"
+                       />
                      </div>
                    </div>
                  )}
@@ -431,8 +481,11 @@ export function ControlPanel() {
                     <label className="text-xs font-semibold text-gray-700">Filtro de Fondo (Oscurecer)</label>
                     <input 
                       type="color" 
-                      value={store.overlayColor} 
-                      onChange={e => store.updateState({ overlayColor: e.target.value })} 
+                      value={store.overlayColor}
+                      onFocus={() => beginColorEdit('overlayColor', store.overlayColor)}
+                      onPointerDown={() => beginColorEdit('overlayColor', store.overlayColor)}
+                      onChange={(e) => previewColor('overlayColor', e.target.value)}
+                      onBlur={() => commitColorEdit('overlayColor')}
                       className="w-6 h-6 rounded cursor-pointer p-0 border border-gray-200 overflow-hidden shadow-sm" 
                     />
                   </div>
@@ -493,7 +546,15 @@ export function ControlPanel() {
 
                 <div className="space-y-2 items-center flex justify-between">
                   <label className="text-xs font-medium text-gray-700">Color</label>
-                  <input type="color" value={store.shadowColor} onChange={e => store.updateState({ shadowColor: e.target.value })} className="w-8 h-8 rounded cursor-pointer p-0 border border-gray-200 overflow-hidden shadow-sm" />
+                  <input
+                    type="color"
+                    value={store.shadowColor}
+                    onFocus={() => beginColorEdit('shadowColor', store.shadowColor)}
+                    onPointerDown={() => beginColorEdit('shadowColor', store.shadowColor)}
+                    onChange={(e) => previewColor('shadowColor', e.target.value)}
+                    onBlur={() => commitColorEdit('shadowColor')}
+                    className="w-8 h-8 rounded cursor-pointer p-0 border border-gray-200 overflow-hidden shadow-sm"
+                  />
                 </div>
               </div>
 
@@ -508,7 +569,15 @@ export function ControlPanel() {
                 </div>
                 <div className="space-y-2 items-center flex justify-between">
                   <label className="text-xs font-medium text-gray-700">Color</label>
-                  <input type="color" value={store.strokeColor} onChange={e => store.updateState({ strokeColor: e.target.value })} className="w-8 h-8 rounded cursor-pointer p-0 border border-gray-200 overflow-hidden shadow-sm" />
+                  <input
+                    type="color"
+                    value={store.strokeColor}
+                    onFocus={() => beginColorEdit('strokeColor', store.strokeColor)}
+                    onPointerDown={() => beginColorEdit('strokeColor', store.strokeColor)}
+                    onChange={(e) => previewColor('strokeColor', e.target.value)}
+                    onBlur={() => commitColorEdit('strokeColor')}
+                    className="w-8 h-8 rounded cursor-pointer p-0 border border-gray-200 overflow-hidden shadow-sm"
+                  />
                 </div>
               </div>
 
