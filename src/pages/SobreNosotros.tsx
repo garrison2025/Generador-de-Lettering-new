@@ -13,8 +13,7 @@ export default function SobreNosotros() {
     "url": "https://generadordelettering.org",
     "logo": "https://generadordelettering.org/pwa-512x512.png",
     "description": "Plataforma de herramientas gratuitas para lettering digital, conversión de texto Unicode y personalización de nombres para redes sociales y videojuegos.",
-    "knowsAbout": ["Typography", "Calligraphy", "Digital Lettering", "Unicode", "Web Design"],
-    "sameAs": []
+    "knowsAbout": ["Typography", "Calligraphy", "Digital Lettering", "Unicode", "Web Design"]
   };
 
   const aboutPageSchema = {
