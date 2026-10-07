@@ -5,17 +5,17 @@ Date: 2026-10-07. Scope: code repository and publicly accessible pages. This che
 ## Why the previous result is plausible
 
 The site has real original web tools and search traffic, but at audit time the following issues were visible:
-- `index.html` loaded **Monetag vignette** and **Adsterra social-bar** scripts after cookie consent; those formats can obscure original content or interfere with navigation depending on what they show. Such behavior carries avoidable policy and user-experience risk.
+- The owner's earlier AdSense **low-value content** rejections predated installation of Monetag and Adsterra. Their presence is **not** evidence that these networks caused the rejection. Advert placements may still warrant independent UX/policy review.
 - Only five technical blog articles supported a site with a much larger number of tool/landing pages. The problem is **not** an official minimum article count: each content page must offer substantial original value.
 - Some home-page claims were generic or unverified (such as "most-used tools" or "unique experience").
 - Every blog card's topic label came from its array index, so several posts appeared incorrectly under "Gaming".
-- AdSense verification was not exposed as a static `google-adsense-account` meta tag for non-consenting reviewers (the old script loaded only after opt-in and interaction).
+- AdSense verification was not exposed as a static `google-adsense-account` meta tag for non-consenting reviewers (the old script loaded only after opt-in and interaction). The site previously displayed an `ads.txt not found` status (last updated 2026-08-29) although the file is publicly reachable by 2026-10-07; recheck status in AdSense after recrawl.
 
 ## Implemented in this change
 
-- Remove third-party vignette/social-bar loaders and their advertising metadata; retain Google AdSense publisher verification and `ads.txt`.
+- Preserve the owner's existing Monetag vignette and Adsterra social-bar setup while adding static Google AdSense verification and retaining `ads.txt`. Consent-gated script behavior remains unchanged.
 - Maintain opt-in behavior for the AdSense advertising script; never silently force ad cookies for site review.
-- Update consent and privacy explanations to match the implementation.
+- Disclose Google AdSense, Monetag and Adsterra in the consent interface and privacy policy, consistently with the actual site configuration.
 - Publish three authored, practical, tutorial-style resources: a Unicode compatibility experiment with a live codepoint inspector, a reproducible three-style image-design exercise, and a seven-session lettering worksheet/practice plan. The tutorials contain original illustrative assets, concrete examples and meaningful limitations.
 - Label blog posts by actual subject, not by accidental visual array position.
 - Improve the homepage's helpful navigation and replace unsupported popularity/superlative language.
@@ -26,7 +26,7 @@ The site has real original web tools and search traffic, but at audit time the f
 1. **Deploy & fetch:** verify the new production commit was deployed; open the homepage, three new articles, the Unicode inspector, every main tool, `/robots.txt` and `/ads.txt` on mobile and desktop. Production issues cannot be inferred from passing GitHub tests alone.
 2. **AdSense verification:** in AdSense > Sites, verify this exact domain and the chosen verification method. The static tag `google-adsense-account` and `ads.txt` must show the publisher ID of your OWN account. In AdSense click Verify / Check for updates as needed.
 3. **AdSense consent:** if monetizing traffic in the EEA, UK and Switzerland, set up and test a **Google-certified TCF CMP** (e.g. via AdSense Privacy & messaging) before serving personalized ads there. The site's simple local consent banner is **not** a substitute for an approved CMP. Do not claim full regulatory compliance without validating your setup.
-4. **Competing ad networks:** temporarily disabled. Do **not** re-enable pop-unders, deceptive navigation, social bars or other intrusive overlays; monitor each third-party provider before making any future monetization changes.
+4. **Advertising vendors:** Monetag and Adsterra are owner-authorized and remain enabled after consent. Review the real advertising experience for deceptive navigation, obstructive overlays, accidental clicks, prohibited content and policy conflicts, but do **not** attribute the historic low-value-content rejection to these scripts without evidence.
 5. **Audience trust:** verify `contacto@generadordelettering.org` is an actual monitored inbox. The contact form opens the visitor's own mail application; it is not a server-side form. Ensure content attribution, identity and privacy claims are accurate; do not invent personal author credentials, addresses or business certifications.
 6. **Quality review:** manually open each indexable route and ask if it delivers the specific tool/tutorial promised. Avoid blank templates, scraped text, repetitive near-duplicate articles, SEO keyword stuffing or pages intended only to show ads. Preserve the current well-performing page Title/H1/Canonical experiments.
 7. **Image & asset rights:** original educational SVG diagrams are generated in this repository. Review ownership/licensing of all other images, template assets and web fonts before implying they may be republished commercially.
