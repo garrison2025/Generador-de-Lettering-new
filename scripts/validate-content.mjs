@@ -334,8 +334,11 @@ function validateInternalRouteLinks() {
       continue;
     }
 
-    if (!validPaths.has(normalized)) {
-      failures.push(`src/data/blogPosts.ts: unresolved Markdown route ${target}`);
+    // Markdown also references first-party image assets; these are valid local
+    // URLs even though they do not appear as React Router routes.
+    const assetPath = `public${normalized}`;
+    if (!validPaths.has(normalized) && !fs.existsSync(assetPath)) {
+      failures.push(`src/data/blogPosts.ts: unresolved Markdown route or asset ${target}`);
     }
   }
 
