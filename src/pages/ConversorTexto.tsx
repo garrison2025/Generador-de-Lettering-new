@@ -273,7 +273,7 @@ export default function ConversorTexto() {
       </nav>
 
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Conversor de Letras y Tipografías</h1>
+        <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Conversor de Letras para Copiar y Pegar</h1>
         <p className="text-lg text-gray-600">
           Escribe tu texto una sola vez y compara más de 70 estilos Unicode: letras bonitas, cursivas, góticas, negritas, raras y decoradas listas para copiar y pegar.
         </p>
