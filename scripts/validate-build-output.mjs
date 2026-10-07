@@ -294,6 +294,17 @@ for (const htmlFile of htmlFiles) {
     );
   }
 
+  if (canonical === 'https://generadordelettering.org/herramientas/conversor-letras-bonitas') {
+    assert(
+      html.includes('Tu colección aesthetic: filtra, compara y guarda estilos') &&
+      html.includes('Compara el texto normal con un estilo antes de pegarlo') &&
+      html.includes('aesthetic-style-search') &&
+      html.includes('aesthetic-compare-style') &&
+      html.includes('Ocultar variantes repetidas en esta selección'),
+      'Aesthetic converter must expose original filter, deduplication and comparison workflows in raw HTML'
+    );
+  }
+
   if (canonical === 'https://generadordelettering.org/herramientas/combinador-de-fuentes') {
     assert(
       html.includes('Subtítulo para combinar fuentes') &&
