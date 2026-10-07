@@ -103,6 +103,16 @@
         "TikTok distinguishes profile nickname and username controls"
       ],
       "refresh": "before adding or changing hard TikTok profile-field claims"
+    },
+    {
+      "id": "unicode-text-segmentation",
+      "class": "official specification",
+      "source": "https://www.unicode.org/reports/tr29/",
+      "owner": "Unicode Consortium",
+      "supports": [
+        "The Unicode text segmentation rules distinguish code points from user-perceived text units"
+      ],
+      "refresh": "when the Unicode compatibility guide changes"
     }
   ],
   "platform_claim_policy": {

@@ -4,6 +4,7 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ChevronLeft, Calendar, List, ExternalLink, BookOpenCheck } from 'lucide-react';
 import { BLOG_POSTS } from '../data/blogPosts';
+import UnicodeInspector from '../components/UnicodeInspector';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 import { ORGANIZATION_ID, WEBSITE_ID } from '../seo/siteEntities';
@@ -61,6 +62,18 @@ const BLOG_CTA: Record<string, [string, string][]> = {
   'fuentes-aesthetic-para-copiar-y-pegar-instagram': [
     ['Conversor de Letras Bonitas', '/herramientas/conversor-letras-bonitas'],
     ['Generador de Nombres para Instagram', '/herramientas/generador-de-nombres-para-instagram'],
+  ],
+  'como-comprobar-letras-unicode-copiar-pegar': [
+    ['Conversor de Letras', '/herramientas/conversor-texto'],
+    ['Conversor de Letras Bonitas', '/herramientas/conversor-letras-bonitas'],
+  ],
+  'lettering-digital-tres-estilos-paso-a-paso': [
+    ['Creador de Lettering', '/herramientas/creador-de-lettering'],
+    ['Combinador de Fuentes', '/herramientas/combinador-de-fuentes'],
+  ],
+  'plan-practica-lettering-siete-dias': [
+    ['Descargar hojas de práctica', '/herramientas/plantillas-practica'],
+    ['Editor de Lettering', '/editor'],
   ],
 };
 export default function BlogPost() {
@@ -147,7 +160,7 @@ export default function BlogPost() {
           Volver al Blog
         </Link>
         
-        <article className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
+        <article className="min-w-0 w-full max-w-full bg-white rounded-3xl p-4 sm:p-8 md:p-12 shadow-sm border border-gray-100">
           <header className="mb-10 text-center">
             <h1 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight leading-tight">
               {post.title}
@@ -188,7 +201,7 @@ export default function BlogPost() {
               </ol>
             </nav>
           )}
-          <div className="max-w-none text-gray-700 leading-relaxed
+          <div className="min-w-0 w-full max-w-full overflow-hidden text-gray-700 leading-relaxed
             [&_h1]:text-4xl [&_h1]:font-black [&_h1]:text-gray-900 [&_h1]:tracking-tight [&_h1]:mb-8
             [&_h2]:text-3xl [&_h2]:font-extrabold [&_h2]:text-gray-900 [&_h2]:tracking-tight [&_h2]:mt-14 [&_h2]:mb-6
             [&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-gray-900 [&_h3]:tracking-tight [&_h3]:mt-10 [&_h3]:mb-4
@@ -218,7 +231,7 @@ export default function BlogPost() {
                   return <h3 id={slugifyHeading(label)} {...props}>{children}</h3>;
                 },
                 table: ({ children, ...props }) => (
-                  <div className="max-w-full overflow-x-auto overscroll-x-contain my-8 rounded-xl border border-gray-200">
+                  <div className="block min-w-0 w-full max-w-full overflow-x-auto overscroll-x-contain my-8 rounded-xl border border-gray-200">
                     <table className="min-w-[42rem] !my-0" {...props}>{children}</table>
                   </div>
                 ),
@@ -227,6 +240,8 @@ export default function BlogPost() {
               {post.content}
             </Markdown>
           </div>
+
+          {post.slug === 'como-comprobar-letras-unicode-copiar-pegar' && <UnicodeInspector />}
 
           {post.sources && post.sources.length > 0 && (
             <section

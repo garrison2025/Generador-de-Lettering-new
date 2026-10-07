@@ -259,6 +259,31 @@ try:
     open_path("/herramientas/generador-de-nombres-para-free-fire", "Free Fire")
     assert_no_horizontal_overflow("Free Fire at 320px")
 
+    # Editorial value audit: the original Unicode learning activity must work
+    # and show the difference between Unicode code points and UTF-16 units.
+    open_path("/blog/como-comprobar-letras-unicode-copiar-pegar", "Cómo comprobar letras Unicode")
+    assert driver.find_elements(By.CSS_SELECTOR, "meta[name='google-adsense-account']"), "Missing AdSense verification meta"
+    inspector = wait.until(EC.visibility_of_element_located((By.ID, "unicode-inspector-input")))
+    section_selector = 'section[aria-labelledby="unicode-inspector-title"]'
+    basic_button = wait.until(EC.element_to_be_clickable((
+        By.XPATH,
+        '//button[normalize-space(.)="Texto básico"]'
+    )))
+    basic_button.click()
+    wait.until(lambda d: [
+        node.text for node in d.find_elements(By.CSS_SELECTOR, section_selector + " dl dd")
+    ] == ["4", "4"])
+    bold_button = wait.until(EC.element_to_be_clickable((
+        By.XPATH,
+        '//button[normalize-space(.)="Negrita Unicode"]'
+    )))
+    bold_button.click()
+    wait.until(lambda d: [
+        node.text for node in d.find_elements(By.CSS_SELECTOR, section_selector + " dl dd")
+    ] == ["4", "8"])
+    assert_no_horizontal_overflow("Unicode inspector learning activity")
+    assert_no_runtime_errors("Unicode inspector learning activity")
+
     # Full mobile route audit: every sitemap URL must hydrate without runtime errors,
     # retain one H1/canonical/title, and fit inside a 390px viewport.
     driver.set_window_size(390, 844)

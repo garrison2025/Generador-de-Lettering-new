@@ -334,8 +334,11 @@ function validateInternalRouteLinks() {
       continue;
     }
 
-    if (!validPaths.has(normalized)) {
-      failures.push(`src/data/blogPosts.ts: unresolved Markdown route ${target}`);
+    // Markdown also references first-party image assets; these are valid local
+    // URLs even though they do not appear as React Router routes.
+    const assetPath = `public${normalized}`;
+    if (!validPaths.has(normalized) && !fs.existsSync(assetPath)) {
+      failures.push(`src/data/blogPosts.ts: unresolved Markdown route or asset ${target}`);
     }
   }
 
@@ -477,9 +480,14 @@ function validateMonetizationConfig() {
 
   const adsPublisher = ads.match(/^google\.com,\s*(pub-\d+),\s*DIRECT,\s*f08c47fec0942fa0\s*$/m)?.[1];
   const scriptPublisher = html.match(/adsbygoogle\.js\?client=ca-(pub-\d+)/)?.[1];
+  const accountPublisher = html.match(/<meta\s+name="google-adsense-account"\s+content="ca-(pub-\d+)"\s*\/>/)?.[1];
 
   assert(adsPublisher, 'Could not find a valid Google DIRECT publisher entry in public/ads.txt');
   assert(scriptPublisher, 'Could not find the AdSense publisher ID in index.html');
+  assert(accountPublisher === adsPublisher, 'Static AdSense account verification meta must match ads.txt');
+  assert(!/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(html), 'No competing vignette/social-bar networks are permitted during AdSense review');
+  assert(!/monetag|adsterra/i.test(read('src/components/CookieConsent.tsx')), 'Consent must describe only configured ad providers');
+  assert(!/monetag|adsterra/i.test(read('src/pages/Privacidad.tsx')), 'Privacy policy must describe only configured ad providers');
   assert(
     adsPublisher === scriptPublisher,
     `AdSense publisher mismatch: ads.txt=${adsPublisher}, script=${scriptPublisher}`
@@ -488,6 +496,50 @@ function validateMonetizationConfig() {
   assert(
     html.includes("localStorage.getItem('cookie_consent') === 'accepted'"),
     'Monetization loader is missing the explicit accepted-consent gate'
+  );
+}
+
+function validateAdSenseContentReadiness() {
+  const blog = read('src/data/blogPosts.ts');
+  const homepage = read('src/pages/Home.tsx');
+  const article = read('src/pages/BlogPost.tsx');
+  const inspector = read('src/components/UnicodeInspector.tsx');
+  const review = read('adsense/REVIEW-CHECKLIST.md');
+
+  for (const slug of [
+    'como-comprobar-letras-unicode-copiar-pegar',
+    'lettering-digital-tres-estilos-paso-a-paso',
+    'plan-practica-lettering-siete-dias'
+  ]) {
+    assert(blog.includes(`slug: '${slug}'`), `Original learning resource missing: ${slug}`);
+    assert(homepage.includes(`/blog/${slug}`), `Homepage must surface original learning resource: ${slug}`);
+  }
+
+  assert(
+    blog.includes('(/guia-unicode-comparacion.svg)') &&
+    blog.includes('(/guia-lettering-tres-estilos.svg)') &&
+    fs.existsSync('public/guia-unicode-comparacion.svg') &&
+    fs.existsSync('public/guia-lettering-tres-estilos.svg'),
+    'Original learning examples must have the actual illustrative assets'
+  );
+  assert(
+    blog.includes("category: 'Gaming'") &&
+    blog.includes("category: 'Unicode'") &&
+    blog.includes("category: 'Diseño'") &&
+    blog.includes("category: 'Práctica'"),
+    'Editorial categories must reflect subjects, not visual array indexes'
+  );
+  assert(
+    article.includes('UnicodeInspector') &&
+    inspector.includes('codePointAt(0)') &&
+    inspector.includes('Unidades UTF-16'),
+    'Unicode learning page must include an interactive, technically accurate inspection activity'
+  );
+  assert(
+    review.includes('Google-certified TCF CMP') &&
+    review.includes('AdSense verification') &&
+    review.includes('no published approval guarantee'),
+    'AdSense review checklist must explain actual account/regulatory work and lack of an approval guarantee'
   );
 }
 
@@ -1422,6 +1474,7 @@ validateBlogLastmod();
 validateInternalLinks();
 validateLlmsLinks();
 validateMonetizationConfig();
+validateAdSenseContentReadiness();
 validateCriticalBaseFontLoading();
 validateDeferredPreviewFontLoading();
 validateEditorFontPipeline();

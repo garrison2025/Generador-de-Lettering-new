@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" role="img" aria-labelledby="title desc">
+<title id="title">Tres propuestas ilustrativas de lettering digital</title><desc id="desc">Comparación de una tarjeta minimalista, una de neón y una de celebración con tipografías y colores diferentes.</desc>
+<rect width="960" height="490" rx="30" fill="#f6f8ff"/>
+<text x="50" y="65" font-family="system-ui,sans-serif" font-size="28" font-weight="700" fill="#17213b">Un mensaje, tres direcciones visuales</text>
+<text x="50" y="100" font-family="system-ui,sans-serif" font-size="17" fill="#64748b">Ejemplos ilustrativos. Personaliza el texto, el fondo y los efectos en el editor.</text>
+<rect x="50" y="148" width="268" height="255" rx="20" fill="#FAF7F2" stroke="#e0d8cc" stroke-width="2"/>
+<rect x="346" y="148" width="268" height="255" rx="20" fill="#0F172A" stroke="#151a2b" stroke-width="2"/>
+<rect x="642" y="148" width="268" height="255" rx="20" fill="#FFF7ED" stroke="#ffddd0" stroke-width="2"/>
+<text x="70" y="181" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#475569">01 · MINIMAL</text>
+<text x="366" y="181" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#c7d2fe">02 · NEÓN</text>
+<text x="662" y="181" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#92400e">03 · CELEBRACIÓN</text>
+<text x="184" y="286" text-anchor="middle" font-family="Georgia,serif" font-size="43" font-style="italic" fill="#182A36">Contigo</text>
+<text x="480" y="286" text-anchor="middle" font-family="system-ui,sans-serif" font-size="42" font-weight="800" fill="#00F0FF" stroke="#ff007f" stroke-width="0.75">CONTIGO</text>
+<text x="776" y="286" text-anchor="middle" font-family="Georgia,serif" font-size="40" font-style="italic" fill="#7C2D12">¡Contigo!</text>
+<text x="184" y="356" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">Contraste sereno</text>
+<text x="480" y="356" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#c7d2fe">Fondo oscuro · brillo</text>
+<text x="776" y="356" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#92400e">Tono cálido</text>
+<text x="50" y="452" font-family="system-ui,sans-serif" font-size="16" fill="#475569">Criterio práctico: elige el efecto que ayuda a leer el mensaje, no el que añade más adornos.</text>
+</svg>

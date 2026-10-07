@@ -132,7 +132,7 @@ export default function Layout() {
               <Link to="/blog" onClick={() => setMobileMenuOpen(false)} className={`block px-3 py-3 rounded-md text-base font-medium ${location.pathname.startsWith('/blog') ? 'text-[#4F46E5] bg-indigo-50' : 'text-gray-900 hover:bg-gray-50'}`}>Blog</Link>
               <div className="px-3 pt-4 pb-2 border-t border-gray-100 mt-2">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Herramientas Populares</span>
+                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Herramientas destacadas</span>
                   <Link to="/herramientas" onClick={() => setMobileMenuOpen(false)} className="text-xs font-bold text-[#4F46E5] hover:underline">Ver todas</Link>
                 </div>
               </div>

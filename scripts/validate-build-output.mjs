@@ -237,6 +237,32 @@ for (const htmlFile of htmlFiles) {
     );
   }
 
+  assert(
+    html.includes('name="google-adsense-account"') &&
+    !/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(html),
+    `AdSense site-verification meta or intrusive third-party ad guard failed: ${canonical}`
+  );
+  if (canonical === 'https://generadordelettering.org/blog/como-comprobar-letras-unicode-copiar-pegar') {
+    assert(
+      html.includes('Laboratorio Unicode') &&
+      html.includes('unicode-inspector-input') &&
+      html.includes('/guia-unicode-comparacion.svg'),
+      'Unicode educational article must prerender its original lab and illustration'
+    );
+  }
+  if (canonical === 'https://generadordelettering.org/blog/lettering-digital-tres-estilos-paso-a-paso') {
+    assert(
+      html.includes('/guia-lettering-tres-estilos.svg') && html.includes('Propuesta A'),
+      'Lettering image-design guide must prerender specific examples and original illustration'
+    );
+  }
+  if (canonical === 'https://generadordelettering.org/blog/plan-practica-lettering-siete-dias') {
+    assert(
+      html.includes('Día 7') && html.includes('Plantillas de Práctica'),
+      'Lettering practice plan must prerender original exercises and worksheet tool links'
+    );
+  }
+
   if (prerenderedUrls.has(canonical)) {
     assert(
       !/<div\s+id=["']root["']>\s*<\/div>/i.test(html),
