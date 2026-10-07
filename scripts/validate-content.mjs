@@ -668,6 +668,27 @@ function validatePublicAssets() {
   }
 }
 
+function validateConversorSearchClaims() {
+  const source = read('src/pages/ConversorTexto.tsx');
+  const styleBlock = source.match(/const STYLES = \[([\s\S]*?)\n\];/);
+  assert(styleBlock, 'Could not locate ConversorTexto STYLES array');
+
+  const styleCount = [...styleBlock[1].matchAll(/\{\s*id:\s*'[^']+'/g)].length;
+  assert(
+    styleCount >= 70,
+    `ConversorTexto claims 70+ styles but only ${styleCount} style entries are configured`
+  );
+  assert(
+    source.includes('title="Conversor de Letras | 70+ Estilos para Copiar y Pegar"'),
+    'High-impression ConversorTexto page must keep the GSC CTR-focused title'
+  );
+  assert(
+    source.includes('Gratis y sin registro') &&
+    source.includes('Conversión en tu navegador'),
+    'ConversorTexto must keep the trust/value signals next to the primary search intent'
+  );
+}
+
 function validateBulkUnicodeInputCaps() {
   const files = [
     'src/pages/ConversorTexto.tsx',
@@ -1072,6 +1093,7 @@ validateCriticalBaseFontLoading();
 validateDeferredPreviewFontLoading();
 validateEditorFontPipeline();
 validatePublicAssets();
+validateConversorSearchClaims();
 validateBulkUnicodeInputCaps();
 validateInstagramInputCap();
 validateClipboardUsage();
