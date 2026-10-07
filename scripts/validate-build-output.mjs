@@ -263,6 +263,30 @@ for (const htmlFile of htmlFiles) {
     );
   }
 
+  if (canonical === 'https://generadordelettering.org/plantillas') {
+    assert(
+      html.includes('Cómo utilizar estas seis plantillas') &&
+      html.includes('Qué ajustar:') &&
+      html.includes('Bodas y Romance') &&
+      html.includes('Gótico Moderno'),
+      'Template gallery must contain practical guidance and distinct examples in static HTML'
+    );
+  }
+  if (canonical === 'https://generadordelettering.org/herramientas') {
+    assert(
+      html.includes('¿Qué herramienta necesitas según el resultado?') &&
+      html.includes('Quiero un cartel o imagen'),
+      'Tools directory must guide visitors to the right kind of output'
+    );
+  }
+  if (canonical === 'https://generadordelettering.org/editor') {
+    assert(
+      html.includes('Cómo revisar tu lettering antes de exportar') &&
+      html.includes('Qué conviene guardar si vas a seguir editando'),
+      'Advanced editor must include concrete workflows in raw HTML'
+    );
+  }
+
   if (prerenderedUrls.has(canonical)) {
     assert(
       !/<div\s+id=["']root["']>\s*<\/div>/i.test(html),
