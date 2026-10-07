@@ -1025,6 +1025,52 @@ function validateSearchIntentOwnership() {
   }
 }
 
+function validateSeoGeoStandardAlignment() {
+  const brief = read('SEO-GEO-PROJECT-BRIEF.md');
+  const evidence = read('SEO-GEO-RELEASE-EVIDENCE.md');
+  const robots = read('public/robots.txt');
+  const entities = read('src/seo/siteEntities.ts');
+  const seoComponent = read('src/components/SEO.tsx');
+
+  for (const section of [
+    'Primary intent ownership',
+    'Indexation and canonical policy',
+    'GEO / AI-search answer plan',
+    'Evidence and source registry',
+    'Entity map',
+    'Structured-data plan',
+    'Search and AI crawler policy',
+    'Release verification'
+  ]) {
+    assert(
+      brief.includes(section),
+      `SEO-GEO-PROJECT-BRIEF.md is missing required section: ${section}`
+    );
+  }
+
+  assert(
+    evidence.includes('GSC protection') && evidence.includes('L1 evidence'),
+    'SEO-GEO release evidence must record GSC protection and deterministic L1 evidence'
+  );
+  assert(
+    robots.includes('# Public search crawl/index policy') &&
+    robots.includes('# AI/product crawlers:') &&
+    robots.includes('Google-Extended is not used here as a Search ranking/indexing control'),
+    'robots.txt must distinguish Search crawl policy from AI training/product crawler policy'
+  );
+  assert(
+    entities.includes("ORGANIZATION_ID = `\${SITE_URL}/#organization`") &&
+    entities.includes("WEBSITE_ID = `\${SITE_URL}/#website`") &&
+    entities.includes('publisher: {'),
+    'Stable Organization/WebSite entity IDs and relationship must remain centralized'
+  );
+  assert(
+    seoComponent.includes('data-seo-site-schema="true"') &&
+    seoComponent.includes('.map(enrichRouteSchema)'),
+    'SEO component must emit site identity JSON-LD and enrich route WebApplication schemas'
+  );
+}
+
 function validateGscBaselineProtection() {
   const baseline = JSON.parse(read('seo/gsc-baseline-2026-10-07.json'));
 
@@ -1213,6 +1259,7 @@ validateLegacyCanonicalUrls();
 validateEditorPrerenderSafety();
 validatePrerenderStorageSafety();
 validateSearchIntentOwnership();
+validateSeoGeoStandardAlignment();
 validateGscBaselineProtection();
 validateGscIntentSeparation();
 validateTrustAndBreadcrumbs();
