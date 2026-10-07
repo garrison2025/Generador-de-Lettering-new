@@ -141,7 +141,7 @@ const softwareSchema = {
   "@type": "WebApplication",
   "name": "Conversor de Letras Online",
   "url": "https://generadordelettering.org/herramientas/conversor-texto",
-  "description": "Conversor de letras y texto Unicode con más de 50 estilos para copiar y pegar en redes sociales.",
+  "description": "Conversor de letras y texto Unicode con más de 70 estilos para copiar y pegar en redes sociales.",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "All",
   "offers": {
@@ -185,7 +185,7 @@ const faqSchema = {
       "name": "¿En qué se diferencian estas letras raras y copy paste de otras?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nuestro conversor de texto reúne más de 50 estilos y transformaciones Unicode en una sola herramienta. Te permite cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas en un solo clic. Reunimos los estilos en una sola lista para que puedas comparar muchas opciones sin cambiar de herramienta."
+        "text": "Nuestro conversor de texto reúne más de 70 estilos y transformaciones Unicode en una sola herramienta. Te permite cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas en un solo clic. Reunimos los estilos en una sola lista para que puedas comparar muchas opciones sin cambiar de herramienta."
       }
     },
     {
@@ -202,6 +202,22 @@ const faqSchema = {
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "En absoluto. Personalizar tu biografía de Instagram o nombre de usuario de TikTok usando letras 'copy and paste' es una manera excelente de destacar y mostrar personalidad. Solo asegúrate de que siga siendo legible. Te recomendamos usar las letras cursivas elegantes (script) o letras pequeñas si quieres un estilo 'clean' u ordenado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuántos estilos de letras incluye el conversor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Incluye más de 70 estilos y transformaciones Unicode entre cursivas, góticas, negritas, burbujas, small caps, texto invertido, subrayados, adornos y símbolos. Todos aparecen en una sola lista para comparar y copiar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Mi texto se envía a un servidor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. La conversión de letras se realiza directamente en tu navegador con transformaciones Unicode. No necesitas crear una cuenta ni enviar el texto a un servidor para generar los estilos."
       }
     },
     {
@@ -241,9 +257,9 @@ export default function ConversorTexto() {
   return (
     <>
       <SEO 
-        title="Conversor de Letras y Tipografías | +50 Estilos para Copiar y Pegar"
-        description="Escribe una vez y compara más de 50 letras bonitas, cursivas, góticas, negritas y estilos Unicode. Copia y pega en Instagram, TikTok, WhatsApp y juegos."
-        keywords="conversor de letras, conversor de tipografias, letras para copiar y pegar, letras bonitas, letras raras unicode"
+        title="Conversor de Letras | 70+ Estilos para Copiar y Pegar"
+        description="Convierte tu texto en 70+ estilos Unicode: cursivas, góticas, negritas y letras decoradas. Gratis, sin registro y listo para copiar y pegar en redes y juegos."
+        keywords="conversor de letras, convertidor de letras, conversor de tipografias, letras para copiar y pegar, letras bonitas, letras raras unicode"
         canonical="https://generadordelettering.org/herramientas/conversor-texto"
         jsonSchema={[faqSchema, softwareSchema, breadcrumbSchema]}
       />
@@ -259,11 +275,17 @@ export default function ConversorTexto() {
       <div className="text-center mb-10">
         <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Conversor de Letras y Tipografías</h1>
         <p className="text-lg text-gray-600">
-          Escribe tu texto una sola vez y compara más de 50 estilos Unicode: letras bonitas, cursivas, góticas, negritas, raras y decoradas listas para copiar y pegar.
+          Escribe tu texto una sola vez y compara más de 70 estilos Unicode: letras bonitas, cursivas, góticas, negritas, raras y decoradas listas para copiar y pegar.
         </p>
         <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-sm">
           <span className="rounded-full bg-gray-100 px-3 py-1.5 text-gray-700 font-medium">
-            +50 estilos en una sola lista
+            70+ estilos en una sola lista
+          </span>
+          <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-emerald-800 font-semibold">
+            Gratis y sin registro
+          </span>
+          <span className="rounded-full bg-sky-50 px-3 py-1.5 text-sky-800 font-semibold">
+            Conversión en tu navegador
           </span>
           <Link to="/herramientas/conversor-letras-bonitas" className="rounded-full bg-indigo-50 px-3 py-1.5 font-semibold text-[#5A4AD2] hover:bg-indigo-100">
             Letras bonitas aesthetic
@@ -366,7 +388,7 @@ export default function ConversorTexto() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿En qué se diferencian estas letras raras y copy paste de otras?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Nuestro conversor de texto reúne más de 50 estilos y transformaciones Unicode en una sola herramienta. Te permite <strong>cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas</strong> en un solo clic. Reunimos más de 50 estilos en una sola lista para que puedas comparar muchas opciones sin cambiar de herramienta.
+              Nuestro conversor de texto reúne más de 70 estilos y transformaciones Unicode en una sola herramienta. Te permite <strong>cambiar el tipo de letra normal a negrita, cursivas, góticas, tachadas, al revés y letras especiales de burbujas</strong> en un solo clic. Reunimos más de 70 estilos en una sola lista para que puedas comparar muchas opciones sin cambiar de herramienta.
             </p>
           </div>
 
@@ -381,6 +403,20 @@ export default function ConversorTexto() {
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Es malo usar tipos de letra diferentes en perfiles y biografías?</h3>
             <p className="text-gray-600 leading-relaxed">
               En absoluto. Personalizar tu biografía de Instagram o nombre de usuario de TikTok usando letras "copy and paste" es una manera excelente de destacar y mostrar personalidad. Solo asegúrate de que siga siendo legible. Te recomendamos usar las <strong>letras cursivas elegantes (script)</strong> o <strong>letras pequeñas</strong> si quieres un estilo "clean" u ordenado.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">¿Cuántos estilos de letras incluye el conversor?</h3>
+            <p className="text-gray-600 leading-relaxed">
+              Incluye <strong>más de 70 estilos y transformaciones Unicode</strong>: cursivas, góticas, negritas, burbujas, small caps, texto invertido, subrayados, adornos y símbolos. Todos aparecen en una sola lista para que puedas compararlos y copiar el que prefieras.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">¿Mi texto se envía a un servidor?</h3>
+            <p className="text-gray-600 leading-relaxed">
+              No. La conversión se realiza directamente en tu navegador con transformaciones Unicode. No necesitas crear una cuenta ni enviar el texto a un servidor para generar los estilos.
             </p>
           </div>
 
