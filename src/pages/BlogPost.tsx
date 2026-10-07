@@ -4,6 +4,7 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ChevronLeft, Calendar, List, ExternalLink, BookOpenCheck } from 'lucide-react';
 import { BLOG_POSTS } from '../data/blogPosts';
+import UnicodeInspector from '../components/UnicodeInspector';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 import { ORGANIZATION_ID, WEBSITE_ID } from '../seo/siteEntities';
@@ -227,6 +228,8 @@ export default function BlogPost() {
               {post.content}
             </Markdown>
           </div>
+
+          {post.slug === 'como-comprobar-letras-unicode-copiar-pegar' && <UnicodeInspector />}
 
           {post.sources && post.sources.length > 0 && (
             <section
