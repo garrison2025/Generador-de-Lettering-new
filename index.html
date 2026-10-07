@@ -10,6 +10,7 @@
     <meta data-rh="true" name="keywords" content="letras bonitas, conversor de letras, tipografias, letras para Instagram, letras cursivas, letras góticas, copiar y pegar" />
     <meta name="author" content="Generador de Lettering" />
     <meta name="google-adsense-account" content="ca-pub-1528586776567779" />
+    <meta name="monetag" content="7c3922469417dad557b4f10939f75588" />
     
     <!-- Open Graph Default Fallbacks -->
     <meta data-rh="true" property="og:site_name" content="Generador de Lettering" />
@@ -88,8 +89,18 @@
           monetizationStarted = true;
           clearMonetizationEngagementListeners();
 
-          // During site-quality review, only the declared Google AdSense
-          // integration may run. No third-party vignette/social-bar networks.
+          appendScript(
+            'monetag-vignette',
+            'https://n6wxm.com/vignette.min.js',
+            document.head,
+            function(script) { script.dataset.zone = '11705116'; }
+          );
+
+          appendScript(
+            'adsterra-social-bar',
+            'https://pl26707745.profitableratecpmnetwork.com/aa/3e/7c/aa3e7c6a9214fa224ddd32eef045cb13.js',
+            document.body
+          );
 
           ['scroll', 'click', 'touchstart', 'mousemove'].forEach(function(eventName) {
             window.addEventListener(eventName, loadAdSense, { passive: true, once: true });
