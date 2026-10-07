@@ -5,6 +5,7 @@ import { ControlPanel } from '../components/Editor/ControlPanel';
 import { useEditorStore } from '@/store/useEditorStore';
 import { useEditorShortcuts } from '../hooks/useEditorShortcuts';
 import { SEO } from '../components/SEO';
+import { GeoAnswerBlock } from '../components/GeoAnswerBlock';
 
 const editorAppSchema = {
   "@context": "https://schema.org",
@@ -98,6 +99,24 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
               ¿Prefieres empezar con estilos y plantillas? Abrir el Creador de Lettering →
             </Link>
           </div>
+
+          <GeoAnswerBlock
+            id="editor-lettering"
+            answer={
+              <>
+                El Editor de Lettering Avanzado sirve para <strong>diseñar una imagen tipográfica sobre un lienzo</strong>.
+                Permite ajustar cada propiedad visual y exportar la composición; no sustituye un editor vectorial ni genera
+                automáticamente archivos SVG o de imprenta.
+              </>
+            }
+            facts={[
+              { label: 'Controles', value: 'Fuente, tamaño, color, contorno, sombra, rotación, fondo y lienzo.' },
+              { label: 'Exportación', value: 'PNG, JPG o WEBP en resolución normal o ampliada.' },
+              { label: 'Historial', value: 'Deshacer y rehacer cambios dentro de la sesión del editor.' },
+              { label: 'Flujo rápido', value: 'El Creador de Lettering ofrece presets si no necesitas control manual.' },
+            ]}
+            limitation="La opción de resolución ampliada aumenta los píxeles de salida, pero no establece por sí sola un DPI profesional de impresión."
+          />
         </>
       )}
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Download, FileText, ArrowRight, Check, ChevronLeft } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { GeoAnswerBlock } from '../components/GeoAnswerBlock';
 
 const SHEETS = [
   {
@@ -174,6 +175,24 @@ export default function PlantillasPractica() {
         </p>
       </div>
 
+      <GeoAnswerBlock
+        id="plantillas-practica"
+        answer={
+          <>
+            Esta herramienta genera <strong>cuatro hojas de práctica A4 en formato SVG</strong>: trazos básicos,
+            minúsculas, mayúsculas y florituras/conexiones. El archivo se crea en el navegador y puede abrirse,
+            escalarse o imprimirse sin convertirlo primero a una imagen rasterizada.
+          </>
+        }
+        facts={[
+          { label: 'Formato', value: 'SVG con tamaño A4 (210 × 297 mm).' },
+          { label: 'Hojas disponibles', value: '4 plantillas generadas por la propia página.' },
+          { label: 'Contenido', value: 'Guías, muestras grises y espacio para repetir trazos o letras.' },
+          { label: 'Descarga', value: 'Archivo SVG generado localmente al pulsar Descargar.' },
+        ]}
+        limitation="La plantilla es una guía de práctica, no un curso de caligrafía ni una evaluación de técnica. La escala física final depende de las opciones de impresión del navegador o impresora."
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {SHEETS.map((sheet) => (
           <div key={sheet.title} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col group">
@@ -234,7 +253,7 @@ export default function PlantillasPractica() {
           <div className="flex-1 text-center md:text-left">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Pasa de lo digital a lo manual</h2>
             <p className="text-gray-600">
-              Si prefieres trabajar online y no gastar papel, recuerda que tienes a tu disposición nuestro <strong className="text-gray-900">Generador de Lettering online</strong>, donde puedes exportar tus creaciones directamente como imágenes de alta resolución.
+              Si prefieres trabajar online, puedes usar nuestro <strong className="text-gray-900">Generador de Lettering</strong> para crear una composición visual y exportarla como imagen en resolución normal o ampliada.
             </p>
           </div>
           <div>

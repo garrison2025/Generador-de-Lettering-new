@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { PenTool, ArrowRight, Type } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
+import { GeoAnswerBlock } from '../components/GeoAnswerBlock';
 import { EDITOR_DEFAULT_STATE, useEditorStore } from '@/store/useEditorStore';
 import { useVisibleFonts } from '../hooks/useVisibleFonts';
 
@@ -182,7 +183,7 @@ export default function CombinadorFuentes() {
       <div className="text-center mb-10">
         <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Combinador de Fuentes</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-          Encuentra la pareja perfecta de tipografías para tus proyectos. Descubre combinaciones diseñadas para aportar jerarquía y armonía visual.
+          Prueba pares de tipografías con tu propio texto y compara cómo se ve una fuente principal junto a una secundaria antes de llevar la principal al editor.
         </p>
         
         <div className="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row items-center gap-6">
@@ -215,6 +216,23 @@ export default function CombinadorFuentes() {
           </div>
         </div>
       </div>
+
+      <GeoAnswerBlock
+        id="combinador-fuentes"
+        answer={
+          <>
+            El combinador muestra <strong>pares tipográficos de ejemplo</strong> para comparar jerarquía, contraste y legibilidad.
+            Puedes cambiar el texto y el tamaño, y enviar la fuente principal al editor para seguir diseñando.
+          </>
+        }
+        facts={[
+          { label: 'Qué compara', value: 'Una fuente principal y una secundaria en el mismo ejemplo.' },
+          { label: 'Qué puedes cambiar', value: 'Texto de prueba y tamaño de la vista previa.' },
+          { label: 'Siguiente paso', value: 'Abrir la fuente principal seleccionada en el Editor de Lettering.' },
+          { label: 'Criterio', value: 'Las combinaciones son sugerencias visuales, no reglas tipográficas universales.' },
+        ]}
+        limitation="La percepción de legibilidad y estilo depende del tamaño, idioma, soporte y contexto del diseño; conviene probar la combinación con el texto real del proyecto."
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {PAIRINGS.map((pairing) => (

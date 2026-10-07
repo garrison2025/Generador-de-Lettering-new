@@ -168,8 +168,8 @@ export default function Herramientas() {
         <section className="px-4 py-14">
           <div className="max-w-6xl mx-auto">
             <div className="mb-7">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Herramientas más populares</h2>
-              <p className="text-gray-500 mt-2">Empieza por los generadores que más utilizan nuestros visitantes.</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Herramientas destacadas</h2>
+              <p className="text-gray-500 mt-2">Accesos directos a los principales conversores, generadores de nombres y utilidades de letras del sitio.</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

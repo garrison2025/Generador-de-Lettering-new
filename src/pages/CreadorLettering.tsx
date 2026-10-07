@@ -5,6 +5,7 @@ import { ControlPanel } from '../components/Editor/ControlPanel';
 import { EDITOR_DEFAULT_STATE, useEditorStore } from '@/store/useEditorStore';
 import { useEditorShortcuts } from '../hooks/useEditorShortcuts';
 import { SEO } from '../components/SEO';
+import { GeoAnswerBlock } from '../components/GeoAnswerBlock';
 
 const CanvasArea = lazy(() =>
   import('../components/Editor/CanvasArea').then((module) => ({
@@ -296,6 +297,24 @@ export default function CreadorLettering() {
             ¿Quieres control manual de cada ajuste? Abrir el Editor de Lettering Avanzado →
           </Link>
         </div>
+
+        <GeoAnswerBlock
+          id="creador-lettering"
+          answer={
+            <>
+              Esta herramienta crea <strong>composiciones visuales de lettering</strong> a partir de texto, tipografías,
+              colores, contornos y sombras. El resultado se exporta como imagen; no convierte la frase en caracteres
+              Unicode para copiar y pegar dentro de una biografía o nickname.
+            </>
+          }
+          facts={[
+            { label: 'Entrada', value: 'Texto, estilo predefinido o ajustes manuales.' },
+            { label: 'Salida', value: 'Imagen PNG, JPG o WEBP.' },
+            { label: 'Uso recomendado', value: 'Posts, portadas, referencias visuales y composiciones tipográficas.' },
+            { label: 'Privacidad del texto', value: 'La edición principal se realiza en el navegador.' },
+          ]}
+          limitation="La apariencia final puede variar según la tipografía cargada, el navegador y el tamaño de exportación. Para texto Unicode copiable utiliza el Conversor de Letras."
+        />
 
         {/* Quick Presets Bar */}
         <div className="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-sm space-y-3">
