@@ -252,7 +252,7 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
       },
       {
         question: '¿Puedo copiar y pegar estas letras cursivas en WhatsApp?',
-        answer: 'Sí. Además de descargar el diseño en formato imagen, puedes usar nuestro conversor de texto Unicode para copiar caracteres cursivos en WhatsApp e Instagram.'
+        answer: 'Esta página crea una imagen, no letras copiables. Si necesitas caracteres cursivos para pegar en WhatsApp o Instagram, abre nuestro Conversor de Letras Unicode.'
       }
     ]
   },
@@ -323,7 +323,7 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
       'Interfaz responsive para móviles, tablets y escritorio; el resultado puede variar según navegador y dispositivo.'
     ],
     steps: [
-      'Escribe el texto de tu publicación o biografía.',
+      'Escribe un título o una frase para tu publicación o historia visual; para una bio Unicode utiliza el conversor de letras.',
       'Aplica estilos de letra aesthetic (Neón, Retro, Minimalista).',
       'Personaliza el fondo o mantenlo transparente.',
       'Descarga la composición como imagen; para texto copiable en la bio utiliza el conversor Unicode del sitio.'
@@ -406,8 +406,8 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     ],
     steps: [
       'Escribe el nombre, fecha o frase de tu próximo tatuaje.',
-      'Prueba diferentes fuentes estilo Tattoo Script o Chicano Lettering.',
-      'Ajusta el grosor de línea para que tu tatuador tenga una guía clara.',
+      'Prueba distintas tipografías script, manuales o góticas y elige una referencia visual según la legibilidad del nombre o la frase.',
+      'Prueba distintas opciones de grosor y espacio, sin asumir que el resultado tiene la escala o precisión de un stencil profesional.',
       'Exporta el diseño como referencia y consulta con tu tatuador antes de preparar el stencil definitivo.'
     ],
     faqs: [
