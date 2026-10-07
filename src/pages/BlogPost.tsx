@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { ChevronLeft, Calendar, List } from 'lucide-react';
+import { ChevronLeft, Calendar, List, ExternalLink, BookOpenCheck } from 'lucide-react';
 import { BLOG_POSTS } from '../data/blogPosts';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
@@ -109,7 +109,10 @@ export default function BlogPost() {
             },
             "publisher": {
               "@id": ORGANIZATION_ID
-            }
+            },
+            ...(post.sources?.length
+              ? { "citation": post.sources.map((source) => source.url) }
+              : {})
           },
           {
             "@context": "https://schema.org",
@@ -224,6 +227,42 @@ export default function BlogPost() {
               {post.content}
             </Markdown>
           </div>
+
+          {post.sources && post.sources.length > 0 && (
+            <section
+              aria-labelledby="blog-sources-title"
+              className="mt-12 pt-8 border-t border-gray-100"
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <BookOpenCheck className="w-5 h-5 text-[#5A4AD2]" />
+                <h2 id="blog-sources-title" className="text-lg font-black text-gray-900">
+                  Fuentes y referencias
+                </h2>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                Las fuentes siguientes respaldan los datos técnicos o de plataforma citados en este artículo. Las
+                recomendaciones estéticas y los ejemplos siguen siendo criterios editoriales del sitio.
+              </p>
+              <ul className="space-y-3">
+                {post.sources.map((source) => (
+                  <li key={source.url} className="rounded-xl border border-gray-200 bg-gray-50/70 p-4">
+                    <a
+                      href={source.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 font-bold text-[#4F46E5] hover:underline"
+                    >
+                      {source.label}
+                      <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+                    </a>
+                    {source.note && (
+                      <p className="mt-1.5 text-xs leading-relaxed text-gray-600">{source.note}</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Editorial attribution */}
           <div className="mt-12 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-4 bg-purple-50/50 p-6 rounded-2xl">

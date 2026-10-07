@@ -63,6 +63,46 @@
         "Organization, WebSite, WebApplication, BlogPosting, AboutPage, ContactPage and BreadcrumbList vocabulary"
       ],
       "refresh": "when structured-data types or properties change"
+    },
+    {
+      "id": "unicode-standard",
+      "class": "official specification",
+      "source": "https://www.unicode.org/standard/standard.html",
+      "owner": "Unicode Consortium",
+      "supports": [
+        "Unicode standard reference for character encoding and rendering explanations"
+      ],
+      "refresh": "when Unicode-specific explanatory copy materially changes"
+    },
+    {
+      "id": "unicode-hangul-filler",
+      "class": "official specification",
+      "source": "https://www.unicode.org/Public/UCD/latest/charts/nameslist/3130/",
+      "owner": "Unicode Consortium",
+      "supports": [
+        "U+3164 is named HANGUL FILLER in the Hangul Compatibility Jamo block"
+      ],
+      "refresh": "when invisible-character copy materially changes"
+    },
+    {
+      "id": "unicode-math-alphanumeric",
+      "class": "official specification",
+      "source": "https://www.unicode.org/versions/Unicode18.0.0/core-spec/chapter-22/",
+      "owner": "Unicode Consortium",
+      "supports": [
+        "Mathematical Alphanumeric Symbols are defined for mathematical or technical notation"
+      ],
+      "refresh": "on a major Unicode version update or when mathematical-alphanumeric copy changes"
+    },
+    {
+      "id": "tiktok-profile-editing",
+      "class": "first-party platform documentation",
+      "source": "https://support.tiktok.com/en/getting-started/setting-up-your-profile/editing-your-profile",
+      "owner": "TikTok",
+      "supports": [
+        "TikTok distinguishes profile nickname and username controls"
+      ],
+      "refresh": "before adding or changing hard TikTok profile-field claims"
     }
   ],
   "platform_claim_policy": {
