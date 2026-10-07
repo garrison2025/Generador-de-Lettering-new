@@ -593,6 +593,30 @@ function validateUniqueSpecializedLandingProjects() {
   );
 }
 
+function validateOriginalContrastValue() {
+  const tool = read('src/pages/PaletasColor.tsx');
+  const implementation = read('src/utils/colorContrast.ts');
+  assert(
+    tool.includes('Comprueba el contraste antes de diseñar') &&
+    tool.includes('Comprobar contraste entre extremos') &&
+    tool.includes('https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html'),
+    'Palette page must provide a usable original contrast checker with first-party technical reference'
+  );
+  assert(
+    implementation.includes('channel <= 0.04045') &&
+    implementation.includes('Math.pow((channel + 0.055) / 1.055, 2.4)') &&
+    implementation.includes('ratio >= 4.5') &&
+    implementation.includes('ratio >= 3') &&
+    implementation.includes('ratio >= 7'),
+    'Contrast calculation must follow the standard opaque sRGB luminance and WCAG thresholds'
+  );
+  assert(
+    tool.includes("setForegroundColor('#000000')") &&
+    tool.includes("setBackgroundColor('#FFFFFF')"),
+    'Colour contrast checker must preserve its deterministic black-on-white reference test'
+  );
+}
+
 function validateAdSenseToolDepth() {
   const templates = read('src/pages/Plantillas.tsx');
   const tools = read('src/pages/Herramientas.tsx');
@@ -1555,6 +1579,7 @@ validateLlmsLinks();
 validateMonetizationConfig();
 validateAdSenseContentReadiness();
 validateAdSenseToolDepth();
+validateOriginalContrastValue();
 validateUniqueSpecializedLandingProjects();
 validateCriticalBaseFontLoading();
 validateDeferredPreviewFontLoading();
