@@ -347,7 +347,7 @@ try:
     )))
     try:
         wait.until(
-            lambda d: "Lectura clara de prueba" in first_pair.find_element(By.XPATH, "../..").text,
+            lambda d: "LECTURA CLARA DE PRUEBA" in first_pair.find_element(By.XPATH, "../..").text.upper(),
             message="Live subtitle edit did not update the first font pairing card"
         )
     except TimeoutException:
