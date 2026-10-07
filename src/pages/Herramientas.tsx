@@ -41,7 +41,7 @@ const popularTools = [
   },
   {
     title: 'Conversor de Letras',
-    description: 'Más de 50 estilos Unicode: cursivas, góticas, negritas y letras raras.',
+    description: 'Más de 70 estilos Unicode: cursivas, góticas, negritas y letras raras.',
     path: '/herramientas/conversor-texto',
     icon: Type
   },
