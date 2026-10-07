@@ -336,24 +336,33 @@ try:
     assert_no_horizontal_overflow("palette contrast checker on mobile")
     assert_no_runtime_errors("palette contrast checker")
 
-    # Original font-pairing laboratory: title and subtitle are independently editable.
+    # Original font-pairing laboratory: independently editable title/subtitle + CSS.
     open_path("/herramientas/combinador-de-fuentes", "Combinador de Fuentes")
     secondary_input = wait.until(EC.element_to_be_clickable((
         By.CSS_SELECTOR, 'input[aria-label="Subtítulo para combinar fuentes"]'
     )))
     replace_value(secondary_input, "Lectura clara de prueba")
-    first_pair = driver.find_elements(By.CSS_SELECTOR, '#main-content details')[0]
-    wait.until(lambda d: "Lectura clara de prueba" in d.find_elements(
-        By.CSS_SELECTOR, '#main-content .grid.grid-cols-1.lg\\:grid-cols-2 > div'
-    )[0].text)
-    first_pair.find_element(By.CSS_SELECTOR, 'summary').click()
-    code_text = wait.until(EC.visibility_of_element_located((
-        By.CSS_SELECTOR, '#main-content details[open] pre code'
+    first_pair = wait.until(EC.presence_of_element_located((
+        By.CSS_SELECTOR, '#main-content details'
     )))
-    assert ".lettering-title {" in code_text.text
-    assert ".lettering-subtitle {" in code_text.text
-    assert "Playfair Display" in code_text.text
-    assert "font-size: 16px;" in code_text.text
+    try:
+        wait.until(
+            lambda d: "Lectura clara de prueba" in first_pair.find_element(By.XPATH, "../..").text,
+            message="Live subtitle edit did not update the first font pairing card"
+        )
+    except TimeoutException:
+        fail("Font pairing subtitle did not update: " + first_pair.find_element(By.XPATH, "../..").text[:220])
+    first_pair.find_element(By.CSS_SELECTOR, 'summary').click()
+    code_text = wait.until(
+        EC.visibility_of_element_located((
+            By.CSS_SELECTOR, '#main-content details[open] pre code'
+        )),
+        message="CSS example did not open in the font pairing card"
+    )
+    assert ".lettering-title {" in code_text.text, "Missing title CSS selector"
+    assert ".lettering-subtitle {" in code_text.text, "Missing subtitle CSS selector"
+    assert "Playfair Display" in code_text.text, "Missing pairing font in CSS"
+    assert "font-size: 16px;" in code_text.text, "Missing subtitle size in CSS"
     assert "\\n" not in code_text.text, "CSS snippet must contain real line breaks, not literal escape codes"
     assert_no_horizontal_overflow("font pairing CSS snippet at 320px")
     assert_no_runtime_errors("font pairing CSS snippet")
