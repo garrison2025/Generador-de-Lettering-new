@@ -44,8 +44,8 @@ export default function Blog() {
   return (
     <>
       <SEO 
-        title="Blog de Lettering y Tipografía | Guías, Tutoriales y Novedades"
-        description="Lee nuestras guías sobre cómo aprender lettering digital, elegir fuentes para tatuajes y personalizar textos aesthetic en redes sociales."
+        title="Guías de Lettering, Tipografía y Letras | Blog"
+        description="Guías prácticas sobre lettering, tipografía, letras Unicode, nombres para juegos y textos aesthetic para redes sociales. Tutoriales claros y herramientas relacionadas."
         keywords="blog de lettering, tutoriales de tipografía, guias lettering online, diseño de letras"
         canonical="https://generadordelettering.org/blog"
         jsonSchema={[blogCollectionSchema, blogBreadcrumbSchema]}
@@ -58,8 +58,8 @@ export default function Blog() {
       </nav>
 
       <div className="text-center mb-16">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Aprende y Descubre</h1>
-        <p className="text-xl text-gray-500 max-w-2xl mx-auto">Tutoriales, ideas y recursos para dominar el arte de las letras, la tipografía y el diseño digital.</p>
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Guías de Lettering, Tipografía y Letras</h1>
+        <p className="text-xl text-gray-500 max-w-2xl mx-auto">Tutoriales prácticos sobre lettering digital, Unicode, nombres para juegos y textos para redes sociales, con acceso directo a las herramientas relacionadas.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
