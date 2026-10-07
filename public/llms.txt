@@ -1,4 +1,5 @@
 # Generador de Lettering y Conversor de Letras Bonitas
+> Archivo opcional de interoperabilidad para sistemas que decidan leer llms.txt. No es un requisito de Google Search ni una directiva de indexación o ranking.
 > Herramientas gratuitas en español para lettering digital, caracteres Unicode, nombres para redes sociales y nicks de videojuegos.
 
 ## Herramientas
