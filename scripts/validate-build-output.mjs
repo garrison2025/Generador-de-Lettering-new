@@ -92,6 +92,13 @@ const geoAnswerRequiredUrls = new Set([
   'https://generadordelettering.org/letras-para-tatuajes'
 ]);
 
+const blogSourceRequiredUrls = new Set([
+  'https://generadordelettering.org/blog/mejores-nombres-insanos-free-fire',
+  'https://generadordelettering.org/blog/biografia-tiktok-aesthetic-dark',
+  'https://generadordelettering.org/blog/letras-invisibles-espacios-guia-redes-sociales',
+  'https://generadordelettering.org/blog/fuentes-aesthetic-para-copiar-y-pegar-instagram'
+]);
+
 const schemaRequiredUrls = new Set([
   'https://generadordelettering.org/',
   'https://generadordelettering.org/editor',
@@ -174,9 +181,11 @@ for (const htmlFile of htmlFiles) {
   const schemaMatches = [
     ...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*data-seo-schema=["']true["'][^>]*>([\s\S]*?)<\/script>/gi)
   ];
+  const parsedSchemas = [];
   for (const schemaMatch of schemaMatches) {
     try {
       const parsed = JSON.parse(schemaMatch[1]);
+      parsedSchemas.push(parsed);
       if (parsed?.['@type'] === 'WebApplication') {
         assert(
           typeof parsed?.url === 'string' && parsed?.['@id'] === `${parsed.url}#webapp`,
@@ -206,6 +215,19 @@ for (const htmlFile of htmlFiles) {
     assert(
       html.includes('Respuesta rápida') && html.includes('Límite:'),
       `Important GEO route is missing its extractable answer/limitation block in raw HTML: ${canonical}`
+    );
+  }
+
+  if (blogSourceRequiredUrls.has(canonical)) {
+    assert(
+      html.includes('Fuentes y referencias'),
+      `Evidence-sensitive blog route is missing visible references in raw HTML: ${canonical}`
+    );
+    const blogPosting = parsedSchemas.find((schema) => schema?.['@type'] === 'BlogPosting');
+    assert(blogPosting, `Evidence-sensitive blog route is missing BlogPosting schema: ${canonical}`);
+    assert(
+      Array.isArray(blogPosting.citation) && blogPosting.citation.length >= 2,
+      `Evidence-sensitive BlogPosting must expose source URLs via citation: ${canonical}`
     );
   }
   if (canonical === 'https://generadordelettering.org/herramientas/conversor-letras-bonitas') {
