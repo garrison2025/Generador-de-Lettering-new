@@ -120,11 +120,8 @@ def assert_layout_stability(label: str, threshold: float = 0.10) -> None:
 def replace_value(element, value: str) -> None:
     driver.execute_script("arguments[0].scrollIntoView({block: 'center'})", element)
     element.click()
-    if value == "":
-        element.clear()
-    else:
-        element.send_keys(Keys.CONTROL, "a")
-        element.send_keys(value)
+    element.send_keys(Keys.CONTROL, "a")
+    element.send_keys(value if value else Keys.BACKSPACE)
 
 
 def sitemap_paths() -> list[str]:
