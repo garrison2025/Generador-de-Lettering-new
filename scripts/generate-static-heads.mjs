@@ -93,7 +93,7 @@ function extractSeoLanding(route) {
 function extractBlogPosts() {
   const source = read('src/data/blogPosts.ts');
   const posts = [];
-  const regex = /slug:\s*'([^']+)',\s*title:\s*'([^']+)',\s*(?:seoTitle:\s*'([^']+)',\s*)?excerpt:\s*'([^']+)',[\s\S]*?date:\s*'([^']+)'(?:,[\s\S]*?updated:\s*'([^']+)')?,[\s\S]*?keywords:\s*'([^']+)'(?:,\s*\n\s*image:\s*'([^']+)')?/g;
+  const regex = /slug:\s*'([^']+)',\s*(?:category:\s*'[^']+',\s*)?title:\s*'([^']+)',\s*(?:seoTitle:\s*'([^']+)',\s*)?excerpt:\s*'([^']+)',[\s\S]*?date:\s*'([^']+)'(?:,[\s\S]*?updated:\s*'([^']+)')?,[\s\S]*?keywords:\s*'([^']+)'(?:,\s*\n\s*image:\s*'([^']+)')?/g;
   let match;
   while ((match = regex.exec(source))) {
     posts.push({
