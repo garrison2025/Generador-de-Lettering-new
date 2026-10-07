@@ -554,6 +554,45 @@ function validateAdSenseContentReadiness() {
   );
 }
 
+function validateUniqueSpecializedLandingProjects() {
+  const source = read('src/pages/SeoPage.tsx');
+
+  const routes = [
+    '/generador-de-letras-goticas',
+    '/generador-de-letras-cursivas',
+    '/letras-para-instagram',
+    '/letras-para-tatuajes'
+  ];
+  for (const route of routes) {
+    const start = source.indexOf(`  '${route}': {`);
+    assert(start >= 0, `Specialized SEO route is missing: ${route}`);
+    const end = source.indexOf("\n  },", start);
+    assert(end > start, `Specialized SEO route config is incomplete: ${route}`);
+    const body = source.slice(start, end);
+    assert(body.includes('starterDesigns:'), `Specialized route lacks interactive original examples: ${route}`);
+    const titles = [...body.matchAll(/"label":\s*"([^"]+)"/g)].map((match) => match[1]);
+    const descriptions = [...body.matchAll(/"goal":\s*"([^"]+)"/g)].map((match) => match[1]);
+    const actions = [...body.matchAll(/"test":\s*"([^"]+)"/g)].map((match) => match[1]);
+    assert(
+      titles.length === 3 && descriptions.length === 3 && actions.length === 3 &&
+      new Set(titles).size === 3,
+      `Specialized route must have three distinct original projects and objective tests: ${route}`
+    );
+  }
+  assert(
+    source.includes('updateState({') &&
+    source.includes('...design.state') &&
+    source.includes('onApply={applyStarterDesign}') &&
+    source.includes('seo-embedded-editor'),
+    'Route example cards must actually load their source-specific design into the editor'
+  );
+  assert(
+    source.includes('useVisibleFonts<HTMLDivElement>') &&
+    source.includes('Probar este ejemplo en el editor'),
+    'Specialized route examples must present actual editable starting designs'
+  );
+}
+
 function validateAdSenseToolDepth() {
   const templates = read('src/pages/Plantillas.tsx');
   const tools = read('src/pages/Herramientas.tsx');
@@ -1516,6 +1555,7 @@ validateLlmsLinks();
 validateMonetizationConfig();
 validateAdSenseContentReadiness();
 validateAdSenseToolDepth();
+validateUniqueSpecializedLandingProjects();
 validateCriticalBaseFontLoading();
 validateDeferredPreviewFontLoading();
 validateEditorFontPipeline();
