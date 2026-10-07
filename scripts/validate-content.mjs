@@ -960,7 +960,7 @@ function validateSearchIntentOwnership() {
   const layout = read('src/components/Layout.tsx');
 
   assert(
-    home.includes('title="Generador de Lettering Online | Letras Personalizadas"'),
+    home.includes('title="Generador de Lettering Online Gratis | Diseña tus Letras"'),
     'Home must remain the primary Generador de Lettering landing page'
   );
   assert(
@@ -1023,6 +1023,37 @@ function validateSearchIntentOwnership() {
       `Sitewide layout must expose proven search-demand route: ${target}`
     );
   }
+}
+
+function validateGscIntentSeparation() {
+  const home = read('src/pages/Home.tsx');
+  const posts = read('src/data/blogPosts.ts');
+
+  assert(
+    home.includes('Generador de <span className="text-[#5A4AD2]">Lettering Online</span> Gratis') &&
+    home.includes('PNG · JPG · WEBP') &&
+    home.includes('Abrir Conversor de Letras'),
+    'Home must keep its image-design lettering intent and explicit Unicode-converter escape hatch'
+  );
+
+  const freeFireArticle = posts.match(
+    /slug:\s*'mejores-nombres-insanos-free-fire',[\s\S]*?\n\s*},\n\s*\{/
+  )?.[0] || '';
+
+  assert(freeFireArticle, 'Could not locate the Free Fire ideas article');
+  assert(
+    freeFireArticle.includes("seoTitle: 'Nombres Insanos Free Fire: 10 Ideas + Símbolos (2026)'"),
+    'Free Fire article must keep the informational GSC CTR title'
+  );
+  assert(
+    !freeFireArticle.includes("keywords: 'nombres para free fire,"),
+    'Free Fire article must not claim the broad generic names keyword owned by the generator tool'
+  );
+  assert(
+    freeFireArticle.includes('[Letras y Símbolos para Free Fire](/herramientas/letras-free-fire)') &&
+    freeFireArticle.includes('[Generador de Nombres para Free Fire](/herramientas/generador-de-nombres-para-free-fire)'),
+    'Free Fire article must funnel separately to letters/symbols and advanced name-generation tools'
+  );
 }
 
 function validateTrustAndBreadcrumbs() {
@@ -1104,6 +1135,7 @@ validateLegacyCanonicalUrls();
 validateEditorPrerenderSafety();
 validatePrerenderStorageSafety();
 validateSearchIntentOwnership();
+validateGscIntentSeparation();
 validateTrustAndBreadcrumbs();
 
 console.log('Content validation passed.');

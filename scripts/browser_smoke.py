@@ -236,7 +236,7 @@ try:
     assert_no_runtime_errors("Creator canvas hydration")
 
     # SPA navigation from a deeply scrolled page should open the next route at the top.
-    open_path("/blog", "Aprende y Descubre")
+    open_path("/blog", "Guías de Lettering")
     driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight)")
     wait.until(lambda d: d.execute_script("return window.scrollY") > 300)
     route_link = driver.find_elements(By.CSS_SELECTOR, 'footer a[href="/herramientas/creador-de-lettering"]')

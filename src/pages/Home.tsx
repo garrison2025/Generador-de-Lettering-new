@@ -78,7 +78,7 @@ export default function Home() {
     "@type": "WebApplication",
     "name": "Generador de Lettering",
     "url": "https://generadordelettering.org/",
-    "description": "Herramientas gratuitas para crear lettering digital, plantillas de práctica y generadores de letras raras y bonitas para redes sociales y videojuegos.",
+    "description": "Generador de lettering online para crear diseños tipográficos con plantillas, fuentes, colores, sombras y efectos y exportarlos como imagen.",
     "applicationCategory": "DesignApplication",
     "operatingSystem": "All",
     "offers": {
@@ -98,9 +98,9 @@ export default function Home() {
   return (
     <>
     <SEO 
-      title="Generador de Lettering Online | Letras Personalizadas"
-      description="Generador de lettering online gratis para crear textos artísticos, caligrafía digital y letras personalizadas. Empieza con estilos rápidos y ajusta tu diseño sin registro."
-      keywords="generador de lettering, lettering online, crear lettering, letras personalizadas, caligrafía digital"
+      title="Generador de Lettering Online Gratis | Diseña tus Letras"
+      description="Crea lettering online con plantillas, fuentes, colores, sombras y efectos. Personaliza el diseño y expórtalo como imagen. Gratis y sin registro."
+      keywords="generador de lettering, lettering online, lettering gratis, crear lettering, diseño de letras, caligrafía digital"
       jsonSchema={[faqSchema, softwareSchema, websiteSchema]}
     />
     <div className="flex flex-col flex-1 w-full bg-[#F8F9FC]">
@@ -109,12 +109,17 @@ export default function Home() {
       <section className="py-20 px-4 text-center bg-white border-b border-gray-100">
         <div className="max-w-4xl mx-auto space-y-6">
           <h1 className="text-[40px] md:text-[56px] font-bold tracking-tight text-gray-800 !leading-[1.1]">
-            Generador de <span className="text-[#5A4AD2]">Lettering</span> y <span className="text-[#FF6B6B]">Letras Personalizadas</span>
+            Generador de <span className="text-[#5A4AD2]">Lettering Online</span> Gratis
           </h1>
           <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto font-medium">
-            Diseña textos artísticos, caligrafía digital y letras decoradas para tus proyectos con nuestro generador de lettering online. Fácil de usar, gratis y sin registro.
+            Diseña lettering digital con plantillas, fuentes, colores, sombras y efectos. Personaliza tu composición y expórtala como imagen sin registro.
           </p>
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm font-semibold text-gray-600">
+            <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-emerald-800">Gratis</span>
+            <span className="rounded-full bg-indigo-50 px-3 py-1.5 text-indigo-800">Sin registro</span>
+            <span className="rounded-full bg-amber-50 px-3 py-1.5 text-amber-800">PNG · JPG · WEBP</span>
+          </div>
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/herramientas/creador-de-lettering" className="min-w-[200px] bg-[#5A4AD2] text-white font-medium px-8 py-3.5 rounded-lg shadow-md hover:bg-[#4F46E5] transition-all flex items-center justify-center gap-2">
               <PenTool className="w-5 h-5" />
               Crear Lettering
@@ -125,6 +130,11 @@ export default function Home() {
             </Link>
           </div>
           <div className="text-sm text-gray-500">
+            ¿Buscas letras Unicode para copiar y pegar?{' '}
+            <Link to="/herramientas/conversor-texto" className="font-semibold text-[#5A4AD2] hover:underline">
+              Abrir Conversor de Letras
+            </Link>
+            <span className="mx-2" aria-hidden="true">·</span>
             ¿Necesitas ajustar cada detalle del lienzo?{' '}
             <Link to="/editor" className="font-semibold text-[#5A4AD2] hover:underline">
               Abrir Editor de Lettering Avanzado
