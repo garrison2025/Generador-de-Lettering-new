@@ -972,7 +972,7 @@ function validateSearchIntentOwnership() {
     'Creador de Lettering must own the presets/templates intent'
   );
   assert(
-    conversor.includes('title="Conversor de Letras y Tipografías | +50 Estilos para Copiar y Pegar"'),
+    conversor.includes('title="Conversor de Letras | 70+ Estilos para Copiar y Pegar"'),
     'Conversor must own the broad Unicode conversion intent'
   );
   assert(
