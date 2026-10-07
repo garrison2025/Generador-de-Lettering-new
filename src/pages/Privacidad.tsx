@@ -75,11 +75,11 @@ export default function Privacidad() {
             4. Publicidad de terceros
           </h2>
           <p>
-            La integración publicitaria configurada actualmente es <strong>Google AdSense</strong>. La página
-            incluye una etiqueta estática de verificación de AdSense, pero el script de anuncios solo se solicita
-            después de que aceptes expresamente las tecnologías publicitarias. Google puede tratar datos técnicos
-            de acuerdo con sus propias políticas. No cargamos redes de anuncios emergentes ni barras sociales
-            de terceros.
+            Cuando el usuario acepta las tecnologías publicitarias, el sitio puede cargar servicios de terceros actualmente
+            configurados, entre ellos <strong>Google AdSense</strong>, <strong>Monetag</strong> y <strong>Adsterra</strong>.
+            Estos proveedores pueden recibir información técnica del navegador y utilizar cookies u otras tecnologías de
+            acuerdo con sus propias políticas. La verificación de propiedad de AdSense se publica en una etiqueta estática,
+            mientras que los scripts publicitarios se activan solo después de aceptar estas tecnologías.
           </p>
           <p>
             Puedes consultar información sobre las tecnologías publicitarias de Google en{' '}
