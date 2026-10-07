@@ -57,3 +57,23 @@ Scope:
 Evidence:
 - GitHub Actions Quality run **#449** passed on implementation commit `d7243535c80ba755c56c7c12ebf991ea7fc3a292`.
 - The successful run covered content validation, TypeScript, production build/prerender, metadata/schema validation, performance budgets and mobile browser smoke checks.
+
+
+## Technical blog source/evidence increment — 2026-10-07
+
+Scope:
+- added explicit primary-source metadata to four technical articles covering Free Fire names, TikTok bio formatting, invisible Unicode characters and aesthetic text conversion
+- mirrored visible references into `BlogPosting.citation` while keeping editorial recommendations clearly distinct from technical evidence
+- registered Unicode Standard, U+3164 HANGUL FILLER, Mathematical Alphanumeric Symbols and TikTok profile-editing primary sources
+- removed unsupported platform-compatibility, slang-trend, arbitrary style, typography, printing and software-cost claims
+- refreshed materially edited article dates and corresponding sitemap `lastmod`
+- retained all protected GSC winner title/H1/canonical values and the Free Fire blog CTR experiment title/H1
+- added deterministic source-registry coverage plus prerendered raw-HTML citation/visible-reference checks
+
+Evidence:
+- GitHub Actions Quality run **#453** passed on implementation commit `06ea889516aaed46699c8def6b223f1377f3790d`.
+- The successful workflow covered content validation, TypeScript, production prerender/build, SEO/JSON-LD, performance budgets and mobile browser regression checks.
+
+Remaining:
+- source links document standard/platform facts; they do not prove in-game acceptance of a specific nickname or decorative character
+- continue observing the existing GSC experiments before revising their title/H1
