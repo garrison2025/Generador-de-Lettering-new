@@ -543,6 +543,35 @@ function validateAdSenseContentReadiness() {
   );
 }
 
+function validateAdSenseToolDepth() {
+  const templates = read('src/pages/Plantillas.tsx');
+  const tools = read('src/pages/Herramientas.tsx');
+  const editor = read('src/pages/Editor.tsx');
+
+  for (const value of ['Cumpleaños Feliz', 'Bodas y Romance', 'Neón y Fiesta', 'Gótico Moderno', 'Vintage Retro', 'Elegante Firma']) {
+    assert(templates.includes(`title: "${value}"`), `Lettering preset missing: ${value}`);
+  }
+  assert(
+    templates.includes('useCase:') &&
+    templates.includes('adjustment:') &&
+    templates.includes('Cómo utilizar estas seis plantillas'),
+    'Template gallery must include actionable use-case guidance for its presets'
+  );
+  assert(
+    tools.includes('¿Qué herramienta necesitas según el resultado?') &&
+    tools.includes('Quiero letras para copiar') &&
+    tools.includes('Quiero probar un nombre') &&
+    tools.includes('Quiero un cartel o imagen'),
+    'Tool hub must explain how to select the correct output'
+  );
+  assert(
+    editor.includes('Cómo revisar tu lettering antes de exportar') &&
+    editor.includes('Qué conviene guardar si vas a seguir editando') &&
+    editor.includes('no garantiza recuperar fondos subidos'),
+    'Advanced editor should explain useful workflow and limitations'
+  );
+}
+
 function validateCriticalBaseFontLoading() {
   const html = read('index.html');
   const css = read('src/index.css');
@@ -1475,6 +1504,7 @@ validateInternalLinks();
 validateLlmsLinks();
 validateMonetizationConfig();
 validateAdSenseContentReadiness();
+validateAdSenseToolDepth();
 validateCriticalBaseFontLoading();
 validateDeferredPreviewFontLoading();
 validateEditorFontPipeline();
