@@ -251,7 +251,7 @@ try:
         editor_text = wait.until(EC.presence_of_element_located((
             By.CSS_SELECTOR, "#seo-embedded-editor textarea"
         )))
-        expected_value = expected_text.replace("\\\\n", "\\n")
+        expected_value = expected_text.replace(chr(92) + "n", chr(10))
         try:
             wait.until(lambda d: editor_text.get_attribute("value") == expected_value)
         except TimeoutException:
