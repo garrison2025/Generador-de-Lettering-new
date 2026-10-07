@@ -31,7 +31,9 @@ The accepted baseline remains `seo/gsc-baseline-2026-10-07.json`. Protected winn
 
 ## L1 evidence
 
-Pending the PR Quality workflow. Record the successful run ID and commit SHA here after the branch passes all deterministic checks.
+GitHub Actions Quality run **#439** passed on implementation commit `886899752bc01bb0e8a3af12e585b8ace1178fbf`.
+
+The successful workflow covered the repository's deterministic release chain, including content validation, TypeScript, production build/prerender, generated metadata/schema checks, performance budgets, and mobile browser smoke coverage.
 
 ## Production follow-up
 
