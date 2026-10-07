@@ -1059,9 +1059,10 @@ function validateSeoGeoStandardAlignment() {
     'robots.txt must distinguish Search crawl policy from AI training/product crawler policy'
   );
   assert(
-    entities.includes("ORGANIZATION_ID = `\${SITE_URL}/#organization`") &&
-    entities.includes("WEBSITE_ID = `\${SITE_URL}/#website`") &&
-    entities.includes('publisher: {'),
+    entities.includes('/#organization') &&
+    entities.includes('/#website') &&
+    entities.includes('publisher: {') &&
+    entities.includes('enrichRouteSchema'),
     'Stable Organization/WebSite entity IDs and relationship must remain centralized'
   );
   assert(
