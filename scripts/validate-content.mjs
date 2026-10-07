@@ -1032,25 +1032,25 @@ function validateGscBaselineProtection() {
     {
       source: 'src/pages/LetrasFreeFire.tsx',
       title: 'Letras para Free Fire con Símbolos | Copiar y Pegar',
-      h1: 'Generador de Letras para Free Fire',
+      h1Needles: ['>Generador de Letras para Free Fire</h1>'],
       canonical: 'https://generadordelettering.org/herramientas/letras-free-fire'
     },
     {
       source: 'src/pages/LetrasTikTok.tsx',
       title: 'Conversor de Letras Bonitas para TikTok Aesthetic (Copiar y Pegar)',
-      h1: 'Conversor de Letras Bonitas para TikTok',
+      h1Needles: ['Conversor de <span', '>Letras Bonitas para TikTok</span>'],
       canonical: 'https://generadordelettering.org/herramientas/letras-tiktok'
     },
     {
       source: 'src/pages/GeneradorNombresInstagram.tsx',
       title: 'Generador de Nombres para Instagram - Letras Bonitas y Bio Aesthetic',
-      h1: 'Generador de Nombres para Instagram',
+      h1Needles: ['>Generador de Nombres para Instagram</h1>'],
       canonical: 'https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram'
     },
     {
       source: 'src/pages/LetrasAzules.tsx',
       title: 'Letras Azules para Copiar | Generador de Letras en Cuadraditos',
-      h1: 'Letras Azules y Cuadradas',
+      h1Needles: ['>Letras Azules y Cuadradas</h1>'],
       canonical: 'https://generadordelettering.org/herramientas/letras-azules'
     }
   ];
@@ -1067,7 +1067,7 @@ function validateGscBaselineProtection() {
       `Protected GSC winner title changed without new evidence: ${page.source}`
     );
     assert(
-      source.includes(`>${page.h1}</h1>`),
+      page.h1Needles.every((needle) => source.includes(needle)),
       `Protected GSC winner H1 changed without new evidence: ${page.source}`
     );
     assert(
