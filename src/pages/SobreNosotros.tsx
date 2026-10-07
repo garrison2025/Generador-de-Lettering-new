@@ -2,11 +2,13 @@ import React from 'react';
 import { SEO } from '../components/SEO';
 import { Sparkles, ShieldCheck, Heart, Cpu, BookOpen, Mail, Wrench, SearchCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ORGANIZATION_ID } from '../seo/siteEntities';
 
 export default function SobreNosotros() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": ORGANIZATION_ID,
     "name": "Generador de Lettering",
     "url": "https://generadordelettering.org",
     "logo": "https://generadordelettering.org/pwa-512x512.png",
@@ -20,7 +22,10 @@ export default function SobreNosotros() {
     "@type": "AboutPage",
     "name": "Sobre Nosotros | Generador de Lettering",
     "description": "Conoce cómo mantenemos Generador de Lettering, cómo revisamos las herramientas y contenidos y qué principios seguimos sobre privacidad y calidad.",
-    "url": "https://generadordelettering.org/sobre-nosotros"
+    "url": "https://generadordelettering.org/sobre-nosotros",
+    "mainEntity": {
+      "@id": ORGANIZATION_ID
+    }
   };
 
   return (
