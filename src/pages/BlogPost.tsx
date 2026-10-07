@@ -6,6 +6,7 @@ import { ChevronLeft, Calendar, List } from 'lucide-react';
 import { BLOG_POSTS } from '../data/blogPosts';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
+import { ORGANIZATION_ID } from '../seo/siteEntities';
 
 const POST_DATE_FORMATTER = new Intl.DateTimeFormat('es-ES', {
   year: 'numeric',
@@ -101,17 +102,10 @@ export default function BlogPost() {
             "datePublished": post.date,
             "dateModified": post.updated || post.date,
             "author": {
-              "@type": "Organization",
-              "name": "Generador de Lettering",
-              "url": "https://generadordelettering.org/sobre-nosotros"
+              "@id": ORGANIZATION_ID
             },
             "publisher": {
-              "@type": "Organization",
-              "name": "Generador de Lettering",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://generadordelettering.org/pwa-512x512.png"
-              }
+              "@id": ORGANIZATION_ID
             }
           },
           {
