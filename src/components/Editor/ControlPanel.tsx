@@ -41,6 +41,8 @@ function Slider({
   ariaLabel = 'Ajuste'
 }: LocalSliderProps) {
   const initialValueRef = useRef<number | null>(null);
+  const pendingValueRef = useRef<number[] | null>(null);
+  const previewFrameRef = useRef<number | null>(null);
 
   const captureInitialValue = (currentValue: number) => {
     if (initialValueRef.current === null) {
@@ -48,12 +50,48 @@ function Slider({
     }
   };
 
+  const flushPendingValue = () => {
+    if (previewFrameRef.current !== null) {
+      window.cancelAnimationFrame(previewFrameRef.current);
+      previewFrameRef.current = null;
+    }
+
+    const pendingValue = pendingValueRef.current;
+    pendingValueRef.current = null;
+    if (pendingValue) {
+      onValueChange(pendingValue);
+    }
+  };
+
+  const scheduleValueChange = (nextValue: number[]) => {
+    pendingValueRef.current = nextValue;
+    if (previewFrameRef.current !== null) return;
+
+    previewFrameRef.current = window.requestAnimationFrame(() => {
+      previewFrameRef.current = null;
+      const pendingValue = pendingValueRef.current;
+      pendingValueRef.current = null;
+      if (pendingValue) {
+        onValueChange(pendingValue);
+      }
+    });
+  };
+
   const commitValue = () => {
+    flushPendingValue();
     if (initialValueRef.current === null) return;
     const initialValue = initialValueRef.current;
     initialValueRef.current = null;
     onValueCommit?.(initialValue);
   };
+
+  useEffect(() => {
+    return () => {
+      if (previewFrameRef.current !== null) {
+        window.cancelAnimationFrame(previewFrameRef.current);
+      }
+    };
+  }, []);
 
   return (
     <input
@@ -65,7 +103,7 @@ function Slider({
       step={step}
       onPointerDown={(event) => captureInitialValue(Number(event.currentTarget.value))}
       onFocus={(event) => captureInitialValue(Number(event.currentTarget.value))}
-      onChange={(event) => onValueChange([Number(event.target.value)])}
+      onChange={(event) => scheduleValueChange([Number(event.target.value)])}
       onPointerUp={commitValue}
       onPointerCancel={commitValue}
       onBlur={commitValue}
