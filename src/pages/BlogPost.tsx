@@ -160,7 +160,7 @@ export default function BlogPost() {
           Volver al Blog
         </Link>
         
-        <article className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
+        <article className="min-w-0 w-full max-w-full bg-white rounded-3xl p-4 sm:p-8 md:p-12 shadow-sm border border-gray-100">
           <header className="mb-10 text-center">
             <h1 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight leading-tight">
               {post.title}
@@ -201,7 +201,7 @@ export default function BlogPost() {
               </ol>
             </nav>
           )}
-          <div className="max-w-none text-gray-700 leading-relaxed
+          <div className="min-w-0 w-full max-w-full overflow-hidden text-gray-700 leading-relaxed
             [&_h1]:text-4xl [&_h1]:font-black [&_h1]:text-gray-900 [&_h1]:tracking-tight [&_h1]:mb-8
             [&_h2]:text-3xl [&_h2]:font-extrabold [&_h2]:text-gray-900 [&_h2]:tracking-tight [&_h2]:mt-14 [&_h2]:mb-6
             [&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-gray-900 [&_h3]:tracking-tight [&_h3]:mt-10 [&_h3]:mb-4
@@ -231,7 +231,7 @@ export default function BlogPost() {
                   return <h3 id={slugifyHeading(label)} {...props}>{children}</h3>;
                 },
                 table: ({ children, ...props }) => (
-                  <div className="max-w-full overflow-x-auto overscroll-x-contain my-8 rounded-xl border border-gray-200">
+                  <div className="block min-w-0 w-full max-w-full overflow-x-auto overscroll-x-contain my-8 rounded-xl border border-gray-200">
                     <table className="min-w-[42rem] !my-0" {...props}>{children}</table>
                   </div>
                 ),
