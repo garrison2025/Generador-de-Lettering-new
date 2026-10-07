@@ -42,3 +42,18 @@ After merge/deployment:
 - inspect raw HTML for `#organization` and `#website` JSON-LD
 - confirm key canonical pages remain unchanged
 - continue the existing GSC observation window before further title/H1 experiments
+
+
+## GEO extractability increment — 2026-10-07
+
+Scope:
+- added reusable "Respuesta rápida" blocks with explicit output, assumptions and limitations
+- covered the advanced editor, lettering creator, aesthetic Unicode converter, font pairing, color palettes, practice sheets and four specialized SEO landing routes
+- corrected unsupported or overbroad compatibility, popularity, engagement and tattoo claims
+- linked the aesthetic Unicode converter to the Unicode Standard as its primary technical reference
+- kept protected GSC winners and active CTR experiment titles/H1/canonicals unchanged
+- required the answer/limitation blocks to exist in prerendered raw HTML
+
+Evidence:
+- GitHub Actions Quality run **#449** passed on implementation commit `d7243535c80ba755c56c7c12ebf991ea7fc3a292`.
+- The successful run covered content validation, TypeScript, production build/prerender, metadata/schema validation, performance budgets and mobile browser smoke checks.
