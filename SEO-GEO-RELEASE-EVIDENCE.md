@@ -10,6 +10,7 @@ This release aligns the existing production SEO/GEO implementation with the mand
 
 Implemented:
 - project-specific intent/indexation/entity/crawler/source plan
+- machine-readable primary-source registry in `seo/source-registry.json`
 - stable Organization and WebSite JSON-LD entity IDs
 - sitewide entity graph emitted in prerendered HTML
 - WebApplication schemas connected to the stable site entities
@@ -20,7 +21,7 @@ Implemented:
 Not added:
 - no duplicate AI-only pages
 - no invented AI schema
-- no `llms.txt` because no interoperability requirement was identified
+- no new AI-only markup; the pre-existing `llms.txt` files are kept only as optional interoperability metadata and are explicitly not treated as a Google requirement
 - no hreflang because the production site is Spanish-only
 - no fabricated SEO metrics
 
