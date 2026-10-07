@@ -47,7 +47,6 @@ export function CanvasArea() {
     overlayOpacity: state.overlayOpacity,
   })));
 
-  const [fontLoaded, setFontLoaded] = useState(false);
   const [bgImageObj] = useImage(backgroundImage || '');
 
   let stageWidth = dimensions.width;
@@ -85,24 +84,26 @@ export function CanvasArea() {
 
   useEffect(() => {
     let active = true;
-    let redrawTimer: ReturnType<typeof setTimeout> | null = null;
+    let redrawFrame: number | null = null;
 
-    setFontLoaded(false);
-    loadFont(fontFamily).then(() => {
+    // Keep Konva mounted and interactive while the requested font downloads.
+    // It can render with a fallback immediately, then redraw once that specific
+    // font is ready instead of blanking/remounting the entire canvas.
+    void loadFont(fontFamily).then(() => {
       if (!active) return;
 
-      // Give the browser one short paint window to apply the loaded web font
-      // before asking Konva to redraw its text layer.
-      redrawTimer = setTimeout(() => {
+      redrawFrame = window.requestAnimationFrame(() => {
         if (!active) return;
-        setFontLoaded(true);
+        trRef.current?.forceUpdate();
         stageRef.current?.batchDraw();
-      }, 100);
+      });
     });
 
     return () => {
       active = false;
-      if (redrawTimer) clearTimeout(redrawTimer);
+      if (redrawFrame !== null) {
+        window.cancelAnimationFrame(redrawFrame);
+      }
     };
   }, [fontFamily]);
 
@@ -114,8 +115,8 @@ export function CanvasArea() {
       const entry = entries[0];
       if (!entry) return;
 
-      const width = entry.contentRect.width;
-      const height = entry.contentRect.height;
+      const width = Math.max(0, Math.round(entry.contentRect.width));
+      const height = Math.max(0, Math.round(entry.contentRect.height));
 
       setDimensions((current) => (
         current.width === width && current.height === height
@@ -229,7 +230,7 @@ export function CanvasArea() {
         {backgroundColor === 'transparent' && (
           <div className="absolute inset-0 pointer-events-none opacity-20" style={{ backgroundImage: 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAXUlEQVQ4T2NkYGBg+P///38whrHAioEBmI2MgzQyMTAwMDIwMDTj10o0DEZGMmxgYGBgYWBgYGHwYhAhXhiMMqKwwzADyTKMWAWjRjEaDCjBSjBqFKMwwyh0I1YIAABKaxv1B+z2mQAAAABJRU5ErkJggg==")', backgroundRepeat: 'repeat' }} />
         )}
-              {fontLoaded && dimensions.width > 0 && (
+              {dimensions.width > 0 && (
            <Stage 
              width={stageWidth} 
              height={stageHeight} 
