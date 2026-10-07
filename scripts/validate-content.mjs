@@ -1061,7 +1061,7 @@ function validateSeoGeoStandardAlignment() {
   assert(
     entities.includes('/#organization') &&
     entities.includes('/#website') &&
-    entities.includes('publisher: {') &&
+    entities.includes('"publisher": {') &&
     entities.includes('enrichRouteSchema'),
     'Stable Organization/WebSite entity IDs and relationship must remain centralized'
   );
