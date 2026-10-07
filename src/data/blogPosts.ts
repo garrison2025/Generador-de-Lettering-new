@@ -295,7 +295,7 @@ La personalización digital suele explorar las posibilidades que ofrecen Unicode
     seoTitle: 'Lettering vs Caligrafía vs Tipografía: Diferencias Clave',
     excerpt: '¿No sabes si estás haciendo lettering, caligrafía o tipografía? Descubre las diferencias clave, técnicas, materiales e historia de cada disciplina artística.',
     date: '2024-06-01',
-    updated: '2026-10-06',
+    updated: '2026-10-07',
     keywords: 'diferencias entre lettering y caligrafia, que es lettering, que es caligrafia, tipografia diferencias, arte de dibujar letras, creador de lettering',
     image: 'https://generadordelettering.org/og-image.jpg',
     content: `En el fascinante mundo de las artes visuales y el diseño gráfico, es extremadamente común escuchar términos como **Lettering**, **Caligrafía** y **Tipografía** usados como sinónimos intercambiables. Sin embargo, para cualquier diseñador, ilustrador o entusiasta de las letras bonitas, entender la frontera conceptual y técnica entre estas tres disciplinas es fundamental.
