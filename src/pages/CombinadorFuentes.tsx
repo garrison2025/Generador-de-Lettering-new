@@ -87,7 +87,7 @@ function pairingCss(pairing: PairingDefinition, titleSize: number, subtitleSize:
     '  font-size: ' + subtitleSize + 'px;',
     '  line-height: 1.5;',
     '}',
-  ].join('\\n');
+  ].join('\n');
 }
 
 function PairingCard({
