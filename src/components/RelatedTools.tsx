@@ -66,7 +66,7 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
     },
     {
       title: 'Combinador de Fuentes',
-      desc: 'Prueba y combina fuentes tipográficas para tus proyectos creativos.',
+      desc: 'Compara titulares y subtítulos en 6 pares de fuentes, ajusta tamaños y copia el CSS.',
       path: '/herramientas/combinador-de-fuentes',
       icon: <PenTool className="w-5 h-5 text-purple-500" />,
       badge: 'Diseño'
