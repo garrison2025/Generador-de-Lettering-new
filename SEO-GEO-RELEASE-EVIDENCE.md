@@ -31,9 +31,9 @@ The accepted baseline remains `seo/gsc-baseline-2026-10-07.json`. Protected winn
 
 ## L1 evidence
 
-GitHub Actions Quality run **#439** passed on implementation commit `886899752bc01bb0e8a3af12e585b8ace1178fbf`.
+The merged Website-Starter-Standard release passed GitHub Actions Quality run **#446** (workflow run `37556704115`) on main commit `7497904a03f6a50f0e7f40b105c20187cf24b313`.
 
-The successful workflow covered the repository's deterministic release chain, including content validation, TypeScript, production build/prerender, generated metadata/schema checks, performance budgets, and mobile browser smoke coverage.
+The successful workflow covered the repository's deterministic release chain, including dependency audit, content/SEO-GEO governance validation, TypeScript, production build/prerender, generated metadata/schema checks, performance budgets, and mobile browser smoke coverage.
 
 ## Production follow-up
 
