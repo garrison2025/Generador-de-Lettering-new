@@ -10,7 +10,9 @@
     "clean": "rm -rf dist dist-ssr server.js",
     "lint": "tsc --noEmit",
     "validate": "node scripts/validate-content.mjs",
-    "validate:build": "node scripts/validate-build-output.mjs"
+    "validate:build": "node scripts/validate-build-output.mjs",
+    "test:gsc": "node --test scripts/gsc-opportunities.test.mjs",
+    "gsc:opportunities": "node scripts/gsc-opportunities.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
