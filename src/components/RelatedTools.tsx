@@ -38,7 +38,7 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
     },
     {
       title: 'Letras Bonitas Aesthetic',
-      desc: 'Transforma tu texto con estilos cursivos, góticos y adornos para perfiles sociales.',
+      desc: 'Filtra estilos aesthetic, compara texto Unicode y guarda tus 12 favoritos.',
       path: '/herramientas/conversor-letras-bonitas',
       icon: <Sparkles className="w-5 h-5 text-indigo-500" />,
       badge: 'Aesthetic'

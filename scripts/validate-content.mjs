@@ -593,6 +593,40 @@ function validateUniqueSpecializedLandingProjects() {
   );
 }
 
+function validateDistinctUnicodeWorkflows() {
+  const general = read('src/pages/ConversorTexto.tsx');
+  const aesthetic = read('src/pages/ConversorLetrasBonitas.tsx');
+  const audit = read('adsense/CONTENT-UNIQUENESS-AUDIT.md');
+
+  assert(
+    general.includes('Conversor de Letras para Copiar y Pegar') &&
+    general.includes('convertedStyles.map((style)'),
+    'General converter must keep its original comprehensive browsing role'
+  );
+  assert(
+    aesthetic.includes('Tu colección aesthetic: filtra, compara y guarda estilos') &&
+    aesthetic.includes('Compara el texto normal con un estilo antes de pegarlo') &&
+    aesthetic.includes('FAVORITES_STORAGE_KEY') &&
+    aesthetic.includes('favoritesHydrated') &&
+    aesthetic.includes('if (!favoritesHydrated) return;') &&
+    aesthetic.includes('FAVORITES_LIMIT = 12'),
+    'Aesthetic converter must provide a distinct, hydration-safe shortlist and compatibility workflow'
+  );
+  assert(
+    aesthetic.includes('Ocultar variantes repetidas en esta selección') &&
+    aesthetic.includes('groupForStyle') &&
+    aesthetic.includes("new Set<string>()") &&
+    aesthetic.includes('aria-label={`Comparar estilo ${style.name}`}'),
+    'Aesthetic converter must allow meaningful filtering, deduplication and exact-style comparison'
+  );
+  assert(
+    audit.includes('32 sitemap routes') &&
+    audit.includes('GSC') &&
+    audit.includes('do not guarantee AdSense approval'),
+    'AdSense content audit must document route coverage, protections and limitations'
+  );
+}
+
 function validateOriginalFontPairingValue() {
   const page = read('src/pages/CombinadorFuentes.tsx');
   assert(
@@ -1605,6 +1639,7 @@ validateAdSenseContentReadiness();
 validateAdSenseToolDepth();
 validateOriginalContrastValue();
 validateOriginalFontPairingValue();
+validateDistinctUnicodeWorkflows();
 validateUniqueSpecializedLandingProjects();
 validateCriticalBaseFontLoading();
 validateDeferredPreviewFontLoading();
