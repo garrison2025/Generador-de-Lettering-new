@@ -166,6 +166,10 @@ for (const htmlFile of htmlFiles) {
       const parsed = JSON.parse(schemaMatch[1]);
       if (parsed?.['@type'] === 'WebApplication') {
         assert(
+          typeof parsed?.url === 'string' && parsed?.['@id'] === `${parsed.url}#webapp`,
+          `WebApplication must expose a stable route-level @id in ${htmlFile}`
+        );
+        assert(
           parsed?.provider?.['@id'] === 'https://generadordelettering.org/#organization',
           `WebApplication provider must reference the stable Organization entity in ${htmlFile}`
         );
