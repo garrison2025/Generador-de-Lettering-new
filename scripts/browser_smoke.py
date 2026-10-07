@@ -503,7 +503,10 @@ try:
 
     print(f"Browser smoke validation passed across {audited} sitemap routes.")
 except (AssertionError, TimeoutException) as error:
+    import traceback
     print(f"Browser smoke validation failed: {error}", file=sys.stderr)
+    print(f"Last visited URL: {driver.current_url}", file=sys.stderr)
+    traceback.print_exc()
     sys.exit(1)
 finally:
     driver.quit()
