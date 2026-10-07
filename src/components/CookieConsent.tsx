@@ -53,7 +53,7 @@ export default function CookieConsent() {
               <div className="space-y-1">
                 <h4 id="privacy-consent-title" className="font-bold text-gray-900 text-sm md:text-base">Valoramos tu privacidad</h4>
                 <p id="privacy-consent-description" className="text-gray-500 text-xs md:text-sm leading-relaxed max-w-2xl">
-                  Utilizamos almacenamiento local para recordar tus preferencias y, si aceptas, podemos cargar servicios publicitarios de terceros como Google AdSense, Monetag y Adsterra. Si rechazas, esos scripts publicitarios no se cargarán desde nuestra implementación. Puedes leer los detalles en nuestra{' '}
+                  El script de Google AdSense se incluye en todas las páginas para la verificación del sitio y puede realizar solicitudes técnicas. Si aceptas, nuestro sitio también podrá cargar los servicios publicitarios Monetag y Adsterra. Si rechazas, no activaremos esos dos proveedores mediante nuestro cargador. Puedes leer los detalles en nuestra{' '}
                   <Link to="/politica-de-privacidad" className="text-[#4F46E5] hover:underline font-medium">
                     Política de Privacidad
                   </Link>

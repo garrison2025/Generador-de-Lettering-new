@@ -479,11 +479,16 @@ function validateMonetizationConfig() {
   const ads = read('public/ads.txt');
 
   const adsPublisher = ads.match(/^google\.com,\s*(pub-\d+),\s*DIRECT,\s*f08c47fec0942fa0\s*$/m)?.[1];
-  const scriptPublisher = html.match(/adsbygoogle\.js\?client=ca-(pub-\d+)/)?.[1];
+  const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
+  const scriptPublisher = head.match(/<script\s+async\s+src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-(pub-\d+)"\s+crossorigin="anonymous"><\/script>/i)?.[1];
   const accountPublisher = html.match(/<meta\s+name="google-adsense-account"\s+content="ca-(pub-\d+)"\s*\/>/)?.[1];
 
   assert(adsPublisher, 'Could not find a valid Google DIRECT publisher entry in public/ads.txt');
-  assert(scriptPublisher, 'Could not find the AdSense publisher ID in index.html');
+  assert(scriptPublisher, 'The required async AdSense verification script must be in the static <head>, not injected after consent');
+  assert(
+    [...html.matchAll(/adsbygoogle\.js\?client=/g)].length === 1,
+    'AdSense verification script must appear exactly once to avoid duplicate network requests'
+  );
   assert(accountPublisher === adsPublisher, 'Static AdSense account verification meta must match ads.txt');
   assert(
     html.includes('name="monetag"') &&
@@ -494,7 +499,9 @@ function validateMonetizationConfig() {
     'Original Monetag and Adsterra configurations must not be removed without owner approval'
   );
   assert(
-    /Google AdSense, Monetag y Adsterra/.test(read('src/components/CookieConsent.tsx')) &&
+    /Google AdSense/.test(read('src/components/CookieConsent.tsx')) &&
+    /Monetag y Adsterra/.test(read('src/components/CookieConsent.tsx')) &&
+    /<strong>Google AdSense<\/strong>/.test(read('src/pages/Privacidad.tsx')) &&
     /<strong>Monetag<\/strong>/.test(read('src/pages/Privacidad.tsx')) &&
     /<strong>Adsterra<\/strong>/.test(read('src/pages/Privacidad.tsx')),
     'Cookie banner and privacy policy must disclose all enabled ad networks'
