@@ -294,6 +294,15 @@ for (const htmlFile of htmlFiles) {
     );
   }
 
+  if (canonical === 'https://generadordelettering.org/herramientas/paletas-de-color') {
+    assert(
+      html.includes('Comprueba el contraste antes de diseñar') &&
+      html.includes('Ratio calculado') &&
+      html.includes('contrast-title') &&
+      html.includes('www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html'),
+      'Paletas de Color must expose the original, sourced contrast checker in prerendered HTML'
+    );
+  }
   if (canonical === 'https://generadordelettering.org/plantillas') {
     assert(
       html.includes('Cómo utilizar estas seis plantillas') &&

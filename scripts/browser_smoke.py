@@ -317,6 +317,25 @@ try:
     assert_no_horizontal_overflow("Unicode inspector learning activity")
     assert_no_runtime_errors("Unicode inspector learning activity")
 
+    # Original added-value tool: WCAG contrast calculator must react to choices.
+    open_path("/herramientas/paletas-de-color", "Paletas de Color")
+    ratio_selector = 'section[aria-labelledby="contrast-title"] p[aria-live="polite"]'
+    initial_ratio = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ratio_selector)))
+    assert initial_ratio.text.endswith(':1'), 'Palette contrast calculation did not render'
+    white_black = wait.until(EC.element_to_be_clickable((
+        By.XPATH, '//button[contains(., "Ver ejemplo de máximo contraste")]'
+    )))
+    white_black.click()
+    wait.until(lambda d: d.find_element(By.CSS_SELECTOR, ratio_selector).text.strip() == '21.00:1')
+    assert 'Cumple' in driver.find_element(By.CSS_SELECTOR, 'ul[aria-label="Resultados de contraste"]').text
+    palette_test = wait.until(EC.element_to_be_clickable((
+        By.XPATH, '(//button[contains(., "Comprobar contraste entre extremos")])[1]'
+    )))
+    palette_test.click()
+    wait.until(lambda d: d.find_element(By.CSS_SELECTOR, ratio_selector).text.strip() != '21.00:1')
+    assert_no_horizontal_overflow("palette contrast checker on mobile")
+    assert_no_runtime_errors("palette contrast checker")
+
     # Full mobile route audit: every sitemap URL must hydrate without runtime errors,
     # retain one H1/canonical/title, and fit inside a 390px viewport.
     driver.set_window_size(390, 844)
