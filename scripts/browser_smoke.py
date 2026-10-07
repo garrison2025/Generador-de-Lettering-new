@@ -336,6 +336,28 @@ try:
     assert_no_horizontal_overflow("palette contrast checker on mobile")
     assert_no_runtime_errors("palette contrast checker")
 
+    # Original font-pairing laboratory: title and subtitle are independently editable.
+    open_path("/herramientas/combinador-de-fuentes", "Combinador de Fuentes")
+    secondary_input = wait.until(EC.element_to_be_clickable((
+        By.CSS_SELECTOR, 'input[aria-label="Subtítulo para combinar fuentes"]'
+    )))
+    replace_value(secondary_input, "Lectura clara de prueba")
+    first_pair = driver.find_elements(By.CSS_SELECTOR, '#main-content details')[0]
+    wait.until(lambda d: "Lectura clara de prueba" in d.find_elements(
+        By.CSS_SELECTOR, '#main-content .grid.grid-cols-1.lg\\:grid-cols-2 > div'
+    )[0].text)
+    first_pair.find_element(By.CSS_SELECTOR, 'summary').click()
+    code_text = wait.until(EC.visibility_of_element_located((
+        By.CSS_SELECTOR, '#main-content details[open] pre code'
+    )))
+    assert ".lettering-title {" in code_text.text
+    assert ".lettering-subtitle {" in code_text.text
+    assert "Playfair Display" in code_text.text
+    assert "font-size: 16px;" in code_text.text
+    assert "\\n" not in code_text.text, "CSS snippet must contain real line breaks, not literal escape codes"
+    assert_no_horizontal_overflow("font pairing CSS snippet at 320px")
+    assert_no_runtime_errors("font pairing CSS snippet")
+
     # Full mobile route audit: every sitemap URL must hydrate without runtime errors,
     # retain one H1/canonical/title, and fit inside a 390px viewport.
     driver.set_window_size(390, 844)
