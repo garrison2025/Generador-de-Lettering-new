@@ -1,19 +1,17 @@
+# Public search crawl/index policy
 User-agent: *
 Allow: /
-Allow: /public/
-Allow: /*.jpg
-Allow: /*.png
-Allow: /*.webp
-Allow: /*.svg
 
-# Sitemaps
+# Sitemap
 Sitemap: https://generadordelettering.org/sitemap.xml
 
-# LLMs Specification
-# https://llmstxt.org/
+# AI/product crawlers: explicit permissions are separate from Search indexing.
+# Google-Extended is not used here as a Search ranking/indexing control.
 User-agent: GPTBot
 Allow: /
+
 User-agent: ClaudeBot
 Allow: /
+
 User-agent: PerplexityBot
 Allow: /
