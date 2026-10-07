@@ -1,0 +1,89 @@
+{
+  "captured_at": "2026-10-07",
+  "source": "User-provided Google Search Console screenshots, previous 3 months",
+  "site": "https://generadordelettering.org",
+  "overall": {
+    "clicks": 36600,
+    "impressions": 626000,
+    "ctr_percent": 5.8,
+    "average_position": 6.7
+  },
+  "winner_pages": [
+    {
+      "path": "/herramientas/letras-free-fire",
+      "clicks": 12094,
+      "impressions": 220972,
+      "ctr_percent": 5.47,
+      "title": "Letras para Free Fire con Símbolos | Copiar y Pegar",
+      "h1": "Generador de Letras para Free Fire",
+      "canonical": "https://generadordelettering.org/herramientas/letras-free-fire",
+      "policy": "protect"
+    },
+    {
+      "path": "/herramientas/letras-tiktok",
+      "clicks": 7439,
+      "impressions": 123104,
+      "ctr_percent": 6.04,
+      "title": "Conversor de Letras Bonitas para TikTok Aesthetic (Copiar y Pegar)",
+      "h1": "Conversor de Letras Bonitas para TikTok",
+      "canonical": "https://generadordelettering.org/herramientas/letras-tiktok",
+      "policy": "protect"
+    },
+    {
+      "path": "/herramientas/generador-de-nombres-para-instagram",
+      "clicks": 4628,
+      "impressions": 57718,
+      "ctr_percent": 8.02,
+      "title": "Generador de Nombres para Instagram - Letras Bonitas y Bio Aesthetic",
+      "h1": "Generador de Nombres para Instagram",
+      "canonical": "https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram",
+      "policy": "protect"
+    },
+    {
+      "path": "/herramientas/letras-azules",
+      "clicks": 4566,
+      "impressions": 28813,
+      "ctr_percent": 15.85,
+      "title": "Letras Azules para Copiar | Generador de Letras en Cuadraditos",
+      "h1": "Letras Azules y Cuadradas",
+      "canonical": "https://generadordelettering.org/herramientas/letras-azules",
+      "policy": "protect"
+    }
+  ],
+  "active_experiments": [
+    {
+      "path": "/herramientas/conversor-texto",
+      "baseline_clicks": 902,
+      "baseline_impressions": 47761,
+      "baseline_ctr_percent": 1.89,
+      "changed_at": "2026-10-07",
+      "measurement_window_days": 14,
+      "title": "Conversor de Letras | 70+ Estilos para Copiar y Pegar",
+      "h1": "Conversor de Letras para Copiar y Pegar",
+      "policy": "observe"
+    },
+    {
+      "path": "/",
+      "baseline_clicks": 2611,
+      "baseline_impressions": 56152,
+      "baseline_ctr_percent": 4.65,
+      "changed_at": "2026-10-07",
+      "measurement_window_days": 14,
+      "title": "Generador de Lettering Online Gratis | Diseña tus Letras",
+      "h1": "Generador de Lettering Online Gratis",
+      "policy": "observe"
+    },
+    {
+      "path": "/blog/mejores-nombres-insanos-free-fire",
+      "baseline_clicks": 123,
+      "baseline_impressions": 7087,
+      "baseline_ctr_percent": 1.74,
+      "changed_at": "2026-10-07",
+      "measurement_window_days": 14,
+      "title": "Nombres Insanos Free Fire: 10 Ideas + Símbolos (2026)",
+      "h1": "10 nombres insanos para Free Fire con símbolos y alas (2026)",
+      "policy": "observe"
+    }
+  ],
+  "decision_rule": "Do not change protected winner titles/H1/canonicals or active-experiment titles/H1 again without newer GSC evidence, except for a correctness, accessibility, security, or broken-function fix."
+}
