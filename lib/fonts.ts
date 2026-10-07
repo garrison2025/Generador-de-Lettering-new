@@ -34,6 +34,19 @@ export const PRESET_COLORS = [
 ];
 
 const fontLoadPromises = new Map<string, Promise<void>>();
+const queuedFontFamilies = new Set<string>();
+let queuedFontFrame: number | null = null;
+
+function ensureFontPreconnect() {
+  if (document.getElementById('gdl-font-preconnect')) return;
+
+  const preconnect = document.createElement('link');
+  preconnect.id = 'gdl-font-preconnect';
+  preconnect.rel = 'preconnect';
+  preconnect.href = 'https://fonts.gstatic.com';
+  preconnect.crossOrigin = 'anonymous';
+  document.head.appendChild(preconnect);
+}
 
 function fontLinkId(fontFamilies: string[]) {
   return `gdl-font-batch-${fontFamilies
@@ -90,6 +103,7 @@ export const loadFonts = async (fontFamilies: string[]) => {
       let stylesheet = document.getElementById(linkId) as HTMLLinkElement | null;
 
       try {
+        ensureFontPreconnect();
         if (!stylesheet) {
           stylesheet = document.createElement('link');
           stylesheet.id = linkId;
@@ -107,7 +121,6 @@ export const loadFonts = async (fontFamilies: string[]) => {
         await Promise.all(
           families.map((family) => document.fonts.load(`16px "${family}"`))
         );
-        await document.fonts.ready;
       } catch (error) {
         for (const family of families) {
           fontLoadPromises.delete(family);
@@ -126,6 +139,23 @@ export const loadFonts = async (fontFamilies: string[]) => {
     ...existingPromises,
     ...(batchPromise ? [batchPromise] : []),
   ]);
+};
+
+export const queueFonts = (fontFamilies: string[]) => {
+  if (typeof window === 'undefined') return;
+
+  for (const family of fontFamilies) {
+    queuedFontFamilies.add(family);
+  }
+
+  if (queuedFontFrame !== null) return;
+
+  queuedFontFrame = window.requestAnimationFrame(() => {
+    queuedFontFrame = null;
+    const families = [...queuedFontFamilies];
+    queuedFontFamilies.clear();
+    void loadFonts(families);
+  });
 };
 
 export const loadFont = async (fontFamily: string) => {

@@ -215,6 +215,22 @@ try:
     wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#main-content canvas")))
     assert_no_runtime_errors("Editor canvas hydration")
 
+    # Changing fonts must never blank/remount the Konva canvas while the web font resolves.
+    font_picker = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[aria-haspopup="listbox"]')))
+    font_picker.click()
+    font_option = wait.until(
+        EC.element_to_be_clickable(
+            (By.XPATH, '//*[@role="listbox"]//*[@role="option"][contains(., "Script Moderno")]')
+        )
+    )
+    font_option.click()
+    continuity_deadline = time.time() + 0.45
+    while time.time() < continuity_deadline:
+        if not driver.find_elements(By.CSS_SELECTOR, "#main-content canvas"):
+            fail("Editor canvas disappeared while changing fonts")
+        time.sleep(0.025)
+    assert_no_runtime_errors("Editor font-change continuity")
+
     open_path("/herramientas/creador-de-lettering", "Creador de")
     wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#main-content canvas")))
     assert_no_runtime_errors("Creator canvas hydration")

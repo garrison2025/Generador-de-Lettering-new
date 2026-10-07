@@ -1,21 +1,23 @@
 import { useEffect, useRef } from 'react';
-import { loadFonts } from '@/lib/fonts';
+import { queueFonts } from '@/lib/fonts';
 
 export function useVisibleFonts<T extends HTMLElement = HTMLDivElement>(
   fontFamilies: readonly string[],
   rootMargin = '320px 0px'
 ) {
   const targetRef = useRef<T>(null);
+  const familyKey = [...new Set(fontFamilies)]
+    .filter((family) => family !== 'system-ui')
+    .join('\u0000');
 
   useEffect(() => {
     const node = targetRef.current;
-    if (!node) return;
+    if (!node || !familyKey) return;
 
-    const families = [...new Set(fontFamilies)].filter((family) => family !== 'Inter');
-    if (families.length === 0) return;
+    const families = familyKey.split('\u0000');
 
     const load = () => {
-      void loadFonts(families);
+      queueFonts(families);
     };
 
     if (typeof IntersectionObserver === 'undefined') {
@@ -34,7 +36,7 @@ export function useVisibleFonts<T extends HTMLElement = HTMLDivElement>(
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [fontFamilies, rootMargin]);
+  }, [familyKey, rootMargin]);
 
   return targetRef;
 }

@@ -512,8 +512,8 @@ function validateDeferredPreviewFontLoading() {
   const hook = read('src/hooks/useVisibleFonts.ts');
 
   assert(
-    hook.includes('IntersectionObserver') && hook.includes('loadFonts(families)'),
-    'Visibility-triggered font loader must use IntersectionObserver and the shared batch loader'
+    hook.includes('IntersectionObserver') && hook.includes('queueFonts(families)'),
+    'Visibility-triggered font loader must use IntersectionObserver and the shared queued loader'
   );
 
   for (const [path, source] of [
@@ -532,6 +532,41 @@ function validateDeferredPreviewFontLoading() {
     !templates.includes('void loadFonts(') &&
     !pairings.includes('void loadFont(family)'),
     'Preview pages must not eagerly fetch decorative font batches during initial mount'
+  );
+  assert(
+    templates.includes('function TemplateCard') &&
+    templates.includes("'120px 0px'") &&
+    pairings.includes('function PairingCard') &&
+    pairings.includes("'120px 0px'"),
+    'Template and pairing pages must lazy-load fonts per visible card rather than per full grid'
+  );
+}
+
+function validateEditorFontPipeline() {
+  const fonts = read('lib/fonts.ts');
+  const canvas = read('src/components/Editor/CanvasArea.tsx');
+  const controls = read('src/components/Editor/ControlPanel.tsx');
+
+  assert(
+    fonts.includes('export const queueFonts') &&
+    !fonts.includes('await document.fonts.ready'),
+    'Font pipeline must batch preview requests and wait only for the requested families'
+  );
+  assert(
+    controls.includes('queueFonts([font.family])') &&
+    !controls.includes('onPointerEnter={() => void loadFont'),
+    'Editor font previews must use queued requests instead of one stylesheet request per option'
+  );
+  assert(
+    !canvas.includes('fontLoaded') &&
+    canvas.includes('{dimensions.width > 0 && (') &&
+    canvas.includes('stageRef.current?.batchDraw()'),
+    'Canvas must stay mounted while a new web font resolves and redraw in place'
+  );
+  assert(
+    canvas.includes('Math.round(entry.contentRect.width)') &&
+    canvas.includes('Math.round(entry.contentRect.height)'),
+    'Canvas resize observer must ignore subpixel jitter'
   );
 }
 
@@ -1029,6 +1064,7 @@ validateLlmsLinks();
 validateMonetizationConfig();
 validateCriticalBaseFontLoading();
 validateDeferredPreviewFontLoading();
+validateEditorFontPipeline();
 validatePublicAssets();
 validateBulkUnicodeInputCaps();
 validateInstagramInputCap();
