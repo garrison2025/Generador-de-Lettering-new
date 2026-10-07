@@ -1,0 +1,71 @@
+{
+  "checked_at": "2026-10-07",
+  "policy": "Primary sources first. Changing claims must be rechecked before hard numeric guarantees are added to visible copy.",
+  "sources": [
+    {
+      "id": "gsc-baseline-2026-10-07",
+      "class": "first-party production data",
+      "source": "seo/gsc-baseline-2026-10-07.json",
+      "supports": [
+        "accepted clicks, impressions, CTR and average-position baseline",
+        "winner-page protection",
+        "active CTR experiment baselines"
+      ],
+      "refresh": "next accepted GSC review"
+    },
+    {
+      "id": "converter-style-count",
+      "class": "first-party product source",
+      "source": "src/pages/ConversorTexto.tsx",
+      "supports": [
+        "70+ configured Unicode styles claim"
+      ],
+      "refresh": "whenever the STYLES array changes"
+    },
+    {
+      "id": "unicode-regional-indicators",
+      "class": "official specification",
+      "source": "https://www.unicode.org/Public/UCD/latest/charts/nameslist/1f100/",
+      "owner": "Unicode Consortium",
+      "supports": [
+        "Regional Indicator Symbol names and code points",
+        "the fact that adjacent Regional Indicator symbols can be interpreted in pairs"
+      ],
+      "refresh": "when Unicode-specific copy materially changes"
+    },
+    {
+      "id": "google-ai-search",
+      "class": "official search documentation",
+      "source": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "owner": "Google Search Central",
+      "supports": [
+        "normal SEO foundations apply to Google's generative-AI search experiences",
+        "no special AI-only markup is required for Google Search visibility"
+      ],
+      "refresh": "quarterly or before a major GEO-policy change"
+    },
+    {
+      "id": "google-generative-content",
+      "class": "official search documentation",
+      "source": "https://developers.google.com/search/docs/fundamentals/using-gen-ai-content",
+      "owner": "Google Search Central",
+      "supports": [
+        "AI-assisted content must add value and comply with spam policies"
+      ],
+      "refresh": "quarterly or before large-scale content generation"
+    },
+    {
+      "id": "schemaorg",
+      "class": "official vocabulary",
+      "source": "https://schema.org/",
+      "owner": "Schema.org",
+      "supports": [
+        "Organization, WebSite, WebApplication, BlogPosting, AboutPage, ContactPage and BreadcrumbList vocabulary"
+      ],
+      "refresh": "when structured-data types or properties change"
+    }
+  ],
+  "platform_claim_policy": {
+    "tiktok_instagram_free_fire": "Avoid hard limits or universal compatibility guarantees unless current first-party platform documentation supports them. When uncertain, phrase behavior as platform/version dependent and instruct users to confirm in the destination app."
+  }
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SEO } from '../components/SEO';
 import { Mail, Send, MessageSquare, Sparkles, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ORGANIZATION_ID, WEBSITE_ID } from '../seo/siteEntities';
 
 export default function Contacto() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: 'Sugerencia / Feedback', message: '' });
@@ -21,9 +22,16 @@ export default function Contacto() {
   const contactSchema = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
+    "@id": "https://generadordelettering.org/contacto#contact",
     "name": "Contacto | Generador de Lettering",
     "description": "Formulario de contacto oficial y soporte para el equipo de Generador de Lettering.",
-    "url": "https://generadordelettering.org/contacto"
+    "url": "https://generadordelettering.org/contacto",
+    "isPartOf": {
+      "@id": WEBSITE_ID
+    },
+    "about": {
+      "@id": ORGANIZATION_ID
+    }
   };
 
   return (

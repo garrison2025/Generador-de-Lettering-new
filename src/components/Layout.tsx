@@ -237,7 +237,7 @@ export default function Layout() {
                       Preferencias de cookies
                     </button>
                   </li>
-                  <li><a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="hover:text-[#4F46E5] text-xs text-gray-400">LLMs.txt (AI Spec)</a></li>
+                  <li><a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="hover:text-[#4F46E5] text-xs text-gray-400">llms.txt (interoperabilidad)</a></li>
                 </ul>
               </div>
             </div>

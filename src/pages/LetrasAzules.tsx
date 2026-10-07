@@ -374,6 +374,17 @@ export default function LetrasAzules() {
         <p className="mt-4">
           Cuando se usan por separado, algunas plataformas los representan como símbolos de estilo emoji o letras dentro de cuadros, y de ahí viene el nombre popular de "letras azules". Unicode no fija ese color: la apariencia final depende del sistema operativo, la aplicación y la fuente. El generador separa los símbolos para reducir la posibilidad de que dos letras consecutivas se interpreten como una bandera.
         </p>
+        <p className="mt-4 text-sm text-gray-500">
+          Fuente técnica:{' '}
+          <a
+            href="https://www.unicode.org/Public/UCD/latest/charts/nameslist/1f100/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[#5A4AD2] hover:underline"
+          >
+            Unicode Consortium — Regional Indicator Symbols
+          </a>.
+        </p>
       </div>
 
       <section className="mt-16 text-left space-y-8 bg-blue-50/50 p-8 rounded-3xl border border-blue-100">

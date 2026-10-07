@@ -1025,6 +1025,104 @@ function validateSearchIntentOwnership() {
   }
 }
 
+function validateSeoGeoStandardAlignment() {
+  const brief = read('SEO-GEO-PROJECT-BRIEF.md');
+  const evidence = read('SEO-GEO-RELEASE-EVIDENCE.md');
+  const robots = read('public/robots.txt');
+  const entities = read('src/seo/siteEntities.ts');
+  const seoComponent = read('src/components/SEO.tsx');
+  const layout = read('src/components/Layout.tsx');
+  const toolsHub = read('src/pages/Herramientas.tsx');
+  const blueLetters = read('src/pages/LetrasAzules.tsx');
+  const llms = read('public/llms.txt');
+  const llmsFull = read('public/llms-full.txt');
+  const sourceRegistry = JSON.parse(read('seo/source-registry.json'));
+
+  for (const section of [
+    'Primary intent ownership',
+    'Indexation and canonical policy',
+    'GEO / AI-search answer plan',
+    'Evidence and source registry',
+    'Entity map',
+    'Structured-data plan',
+    'Search and AI crawler policy',
+    'Release verification'
+  ]) {
+    assert(
+      brief.includes(section),
+      `SEO-GEO-PROJECT-BRIEF.md is missing required section: ${section}`
+    );
+  }
+
+  assert(
+    evidence.includes('GSC protection') && evidence.includes('L1 evidence'),
+    'SEO-GEO release evidence must record GSC protection and deterministic L1 evidence'
+  );
+  assert(
+    robots.includes('# Public search crawl/index policy') &&
+    robots.includes('# AI/product crawlers:') &&
+    robots.includes('Google-Extended is not used here as a Search ranking/indexing control'),
+    'robots.txt must distinguish Search crawl policy from AI training/product crawler policy'
+  );
+  assert(
+    entities.includes('/#organization') &&
+    entities.includes('/#website') &&
+    entities.includes('"publisher": {') &&
+    entities.includes('enrichRouteSchema'),
+    'Stable Organization/WebSite entity IDs and relationship must remain centralized'
+  );
+  assert(
+    seoComponent.includes('data-seo-site-schema="true"') &&
+    seoComponent.includes('.map(enrichRouteSchema)'),
+    'SEO component must emit site identity JSON-LD and enrich route WebApplication schemas'
+  );
+  assert(
+    entities.includes('schema["@id"]') &&
+    entities.includes('#webapp'),
+    'WebApplication entities must receive stable route-level @id values'
+  );
+
+  const registrySources = Array.isArray(sourceRegistry?.sources) ? sourceRegistry.sources : [];
+  const sourceById = new Map(registrySources.map((entry) => [entry.id, entry]));
+  assert(
+    sourceById.get('unicode-regional-indicators')?.source ===
+      'https://www.unicode.org/Public/UCD/latest/charts/nameslist/1f100/',
+    'GEO source registry must preserve the Unicode Consortium primary source'
+  );
+  assert(
+    sourceById.get('google-ai-search')?.source ===
+      'https://developers.google.com/search/docs/fundamentals/ai-optimization-guide',
+    'GEO source registry must preserve the official Google AI-search guidance source'
+  );
+  assert(
+    sourceById.get('gsc-baseline-2026-10-07')?.source ===
+      'seo/gsc-baseline-2026-10-07.json',
+    'GEO source registry must point production metrics to the accepted GSC baseline'
+  );
+
+  assert(
+    layout.includes('llms.txt (interoperabilidad)') && !layout.includes('LLMs.txt (AI Spec)'),
+    'llms.txt must be presented as optional interoperability metadata, not an AI SEO specification'
+  );
+  for (const llmsFile of [llms, llmsFull]) {
+    assert(
+      llmsFile.includes('No es un requisito de Google Search') &&
+      llmsFile.includes('indexación o ranking'),
+      'llms interoperability files must explicitly avoid implying Google Search requirements'
+    );
+  }
+
+  assert(
+    toolsHub.includes("Más de 70 estilos Unicode"),
+    'Tools hub must keep the converter style count aligned with the validated product claim'
+  );
+  assert(
+    blueLetters.includes('https://www.unicode.org/Public/UCD/latest/charts/nameslist/1f100/') &&
+    blueLetters.includes('Unicode Consortium — Regional Indicator Symbols'),
+    'Letras Azules must keep its primary-source Unicode citation near the factual explanation'
+  );
+}
+
 function validateGscBaselineProtection() {
   const baseline = JSON.parse(read('seo/gsc-baseline-2026-10-07.json'));
 
@@ -1213,6 +1311,7 @@ validateLegacyCanonicalUrls();
 validateEditorPrerenderSafety();
 validatePrerenderStorageSafety();
 validateSearchIntentOwnership();
+validateSeoGeoStandardAlignment();
 validateGscBaselineProtection();
 validateGscIntentSeparation();
 validateTrustAndBreadcrumbs();

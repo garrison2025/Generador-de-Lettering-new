@@ -2,25 +2,22 @@ import React from 'react';
 import { SEO } from '../components/SEO';
 import { Sparkles, ShieldCheck, Heart, Cpu, BookOpen, Mail, Wrench, SearchCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ORGANIZATION_ID, WEBSITE_ID } from '../seo/siteEntities';
 
 export default function SobreNosotros() {
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Generador de Lettering",
-    "url": "https://generadordelettering.org",
-    "logo": "https://generadordelettering.org/pwa-512x512.png",
-    "description": "Plataforma de herramientas gratuitas para lettering digital, conversión de texto Unicode y personalización de nombres para redes sociales y videojuegos.",
-    "knowsAbout": ["Typography", "Calligraphy", "Digital Lettering", "Unicode", "Web Design"],
-    "sameAs": []
-  };
-
   const aboutPageSchema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
+    "@id": "https://generadordelettering.org/sobre-nosotros#about",
     "name": "Sobre Nosotros | Generador de Lettering",
     "description": "Conoce cómo mantenemos Generador de Lettering, cómo revisamos las herramientas y contenidos y qué principios seguimos sobre privacidad y calidad.",
-    "url": "https://generadordelettering.org/sobre-nosotros"
+    "url": "https://generadordelettering.org/sobre-nosotros",
+    "isPartOf": {
+      "@id": WEBSITE_ID
+    },
+    "mainEntity": {
+      "@id": ORGANIZATION_ID
+    }
   };
 
   return (
@@ -30,7 +27,7 @@ export default function SobreNosotros() {
         description="Conoce cómo mantenemos Generador de Lettering, revisamos nuestras herramientas tipográficas y contenidos, y protegemos la privacidad del usuario."
         keywords="sobre generador de lettering, herramientas tipográficas, lettering digital, unicode"
         canonical="https://generadordelettering.org/sobre-nosotros"
-        jsonSchema={[organizationSchema, aboutPageSchema]}
+        jsonSchema={aboutPageSchema}
       />
 
       <div className="bg-[#F8F9FC] min-h-screen py-12 px-4 flex-1">

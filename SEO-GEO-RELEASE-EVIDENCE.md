@@ -1,0 +1,44 @@
+# SEO / GEO Release Evidence
+
+Release: Website-Starter-Standard alignment  
+Date: 2026-10-07  
+Branch: `seo/website-standard-geo-20261007`
+
+## Scope
+
+This release aligns the existing production SEO/GEO implementation with the mandatory rules in `chenmu2024/Website-Starter-Standard` without changing protected GSC winner titles/H1/canonicals or the active experiment ownership model.
+
+Implemented:
+- project-specific intent/indexation/entity/crawler/source plan
+- machine-readable primary-source registry in `seo/source-registry.json`
+- stable Organization and WebSite JSON-LD entity IDs
+- sitewide entity graph emitted in prerendered HTML
+- WebApplication schemas connected to the stable site entities
+- About, Contact, and BlogPosting entity relationships normalized
+- deterministic validation for site-identity schema in generated HTML
+- explicit separation between search crawl/index policy and AI training/product crawler policy
+
+Not added:
+- no duplicate AI-only pages
+- no invented AI schema
+- no new AI-only markup; the pre-existing `llms.txt` files are kept only as optional interoperability metadata and are explicitly not treated as a Google requirement
+- no hreflang because the production site is Spanish-only
+- no fabricated SEO metrics
+
+## GSC protection
+
+The accepted baseline remains `seo/gsc-baseline-2026-10-07.json`. Protected winners and active experiments remain frozen unless newer evidence, correctness, accessibility, security, or broken functionality justifies a change.
+
+## L1 evidence
+
+GitHub Actions Quality run **#439** passed on implementation commit `886899752bc01bb0e8a3af12e585b8ace1178fbf`.
+
+The successful workflow covered the repository's deterministic release chain, including content validation, TypeScript, production build/prerender, generated metadata/schema checks, performance budgets, and mobile browser smoke coverage.
+
+## Production follow-up
+
+After merge/deployment:
+- verify production `robots.txt` and `sitemap.xml`
+- inspect raw HTML for `#organization` and `#website` JSON-LD
+- confirm key canonical pages remain unchanged
+- continue the existing GSC observation window before further title/H1 experiments

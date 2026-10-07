@@ -1,5 +1,6 @@
 # Generador de Lettering - Documentación para sistemas de IA
 
+> Archivo opcional de interoperabilidad. No es un requisito de Google Search ni una directiva de indexación o ranking.
 > Resumen factual de Generador de Lettering (https://generadordelettering.org), un sitio en español con herramientas de lettering digital, conversión Unicode y personalización de texto.
 
 ## Qué ofrece el sitio

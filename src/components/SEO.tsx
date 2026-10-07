@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { SITE_IDENTITY_SCHEMA, enrichRouteSchema } from '../seo/siteEntities';
 
 interface SEOProps {
   title: string;
@@ -63,11 +64,12 @@ export function SEO({
     imagePath.endsWith('.jpg') || imagePath.endsWith('.jpeg') ? 'image/jpeg' :
     null;
 
-  const schemasToRender = Array.isArray(jsonSchema)
+  const schemasToRender = (Array.isArray(jsonSchema)
     ? jsonSchema
     : jsonSchema
       ? [jsonSchema]
-      : [];
+      : []
+  ).map(enrichRouteSchema);
   useEffect(() => {
     // Remove crawlable static-shell metadata and metadata from the previous SPA route.
     document.head.querySelectorAll('[data-rh="true"]').forEach((node) => node.remove());
@@ -125,6 +127,11 @@ export function SEO({
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        data-seo-site-schema="true"
+        dangerouslySetInnerHTML={{ __html: serializeSchema(SITE_IDENTITY_SCHEMA as unknown as Record<string, any>) }}
+      />
       {schemasToRender.map((schema, index) => (
         <script
           key={index}

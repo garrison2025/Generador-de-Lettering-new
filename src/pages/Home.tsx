@@ -88,20 +88,13 @@ export default function Home() {
     }
   };
 
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Generador de Lettering",
-    "url": "https://generadordelettering.org/"
-  };
-
   return (
     <>
     <SEO 
       title="Generador de Lettering Online Gratis | Diseña tus Letras"
       description="Crea lettering online con plantillas, fuentes, colores, sombras y efectos. Personaliza el diseño y expórtalo como imagen. Gratis y sin registro."
       keywords="generador de lettering, lettering online, lettering gratis, crear lettering, diseño de letras, caligrafía digital"
-      jsonSchema={[faqSchema, softwareSchema, websiteSchema]}
+      jsonSchema={[faqSchema, softwareSchema]}
     />
     <div className="flex flex-col flex-1 w-full bg-[#F8F9FC]">
       
