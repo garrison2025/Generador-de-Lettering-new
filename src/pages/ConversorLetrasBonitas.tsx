@@ -387,7 +387,7 @@ export default function ConversorLetrasBonitas() {
         </div>
         <h1 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tight mb-6">Conversor de Letras Bonitas</h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-          Generador y convertidor de textos orientado a <strong>bios, nombres y perfiles aesthetic</strong>. Combina letras bonitas, estilos decorativos y adornos Unicode para copiar y pegar en redes sociales.
+          Generador y convertidor de textos orientado a <strong>bios, nombres y perfiles aesthetic</strong>. Filtra 72 estilos, compara cuánto cambia tu texto Unicode y guarda una selección de favoritos para tu próxima bio.
         </p>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm text-gray-600">
           <span className="rounded-full bg-purple-50 px-3 py-1.5 text-[#5A4AD2]">
@@ -415,6 +415,7 @@ export default function ConversorLetrasBonitas() {
           { label: 'Estilos configurados', value: '72 variantes entre alfabetos estilizados, signos combinantes, separadores y adornos.' },
           { label: 'Entrada', value: 'Hasta 500 caracteres por conversión.' },
           { label: 'Salida', value: 'Texto copiable; no genera una imagen ni un archivo TTF/OTF.' },
+          { label: 'Selección', value: 'Filtros por estilo, comparación de resultados y hasta 12 favoritos locales.' },
           { label: 'Procesamiento', value: 'La transformación se calcula directamente en el navegador.' },
         ]}
         limitation="Una plataforma puede aceptar, rechazar o mostrar de forma distinta ciertos caracteres. Comprueba siempre el resultado en el campo y dispositivo donde vayas a publicarlo."
