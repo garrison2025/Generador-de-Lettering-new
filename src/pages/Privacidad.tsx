@@ -21,7 +21,7 @@ export default function Privacidad() {
 
         <div className="text-base text-gray-700 space-y-6 leading-relaxed">
           <p className="text-sm bg-gray-100 inline-block px-3 py-1 rounded-full font-medium text-gray-600">
-            Última actualización: 6 de octubre de 2026
+            Última actualización: 7 de octubre de 2026
           </p>
 
           <p>
@@ -75,10 +75,11 @@ export default function Privacidad() {
             4. Publicidad de terceros
           </h2>
           <p>
-            Cuando el usuario acepta las tecnologías publicitarias, el sitio puede cargar servicios de terceros actualmente
-            configurados, entre ellos <strong>Google AdSense</strong>, <strong>Monetag</strong> y <strong>Adsterra</strong>.
-            Estos proveedores pueden recibir información técnica del navegador y utilizar cookies u otras tecnologías de
-            acuerdo con sus propias políticas.
+            La integración publicitaria configurada actualmente es <strong>Google AdSense</strong>. La página
+            incluye una etiqueta estática de verificación de AdSense, pero el script de anuncios solo se solicita
+            después de que aceptes expresamente las tecnologías publicitarias. Google puede tratar datos técnicos
+            de acuerdo con sus propias políticas. No cargamos redes de anuncios emergentes ni barras sociales
+            de terceros.
           </p>
           <p>
             Puedes consultar información sobre las tecnologías publicitarias de Google en{' '}
