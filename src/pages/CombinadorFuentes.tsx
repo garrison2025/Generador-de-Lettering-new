@@ -11,7 +11,7 @@ const PAIRINGS = [
     title: 'Elegante & Moderno',
     primaryFont: 'Playfair Display',
     primaryClass: 'font-serif text-4xl',
-    secondaryFont: 'Inter',
+    secondaryFont: 'system-ui',
     secondaryClass: 'font-sans text-sm tracking-wide text-gray-500 uppercase',
     preview: 'Lettering Digital'
   },
@@ -43,7 +43,7 @@ const PAIRINGS = [
     title: 'Retro & Clásico',
     primaryFont: 'Lobster',
     primaryClass: 'text-4xl',
-    secondaryFont: 'Inter',
+    secondaryFont: 'system-ui',
     secondaryClass: 'font-sans text-sm text-gray-600',
     preview: 'Estilo Vintage'
   },
@@ -51,7 +51,7 @@ const PAIRINGS = [
     title: 'Monocromo & Minimalista',
     primaryFont: 'JetBrains Mono',
     primaryClass: 'font-mono text-3xl font-bold uppercase tracking-tight',
-    secondaryFont: 'Inter',
+    secondaryFont: 'system-ui',
     secondaryClass: 'font-sans text-sm text-gray-500',
     preview: 'Minimalismo'
   }
@@ -165,7 +165,7 @@ export default function CombinadorFuentes() {
               <span className="font-bold text-[#5A4AD2] tracking-tight">{pairing.title}</span>
               <div className="text-right">
                 <span className="block text-xs font-bold text-gray-900">{pairing.primaryFont}</span>
-                <span className="block text-[10px] uppercase tracking-wider text-gray-500 mt-0.5">{pairing.secondaryFont}</span>
+                <span className="block text-[10px] uppercase tracking-wider text-gray-500 mt-0.5">{pairing.secondaryFont === 'system-ui' ? 'Sistema' : pairing.secondaryFont}</span>
               </div>
             </div>
             

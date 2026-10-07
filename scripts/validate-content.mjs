@@ -491,6 +491,20 @@ function validateMonetizationConfig() {
   );
 }
 
+function validateCriticalBaseFontLoading() {
+  const html = read('index.html');
+  const css = read('src/index.css');
+
+  assert(
+    !html.includes('fonts.googleapis.com') && !html.includes('fonts.gstatic.com'),
+    'Initial HTML must not connect to or block on third-party font services'
+  );
+  assert(
+    !/Inter/i.test(css),
+    'Critical UI CSS must use the native system font stack instead of an external Inter dependency'
+  );
+}
+
 function validateDeferredPreviewFontLoading() {
   const home = read('src/pages/Home.tsx');
   const templates = read('src/pages/Plantillas.tsx');
@@ -529,7 +543,7 @@ function validateConfiguredFonts() {
   );
 
   const builtInOrGlobal = new Set([
-    'Inter',
+    'system-ui',
     'Arial',
     'Helvetica',
     'sans-serif',
@@ -1013,6 +1027,7 @@ validateBlogLastmod();
 validateInternalLinks();
 validateLlmsLinks();
 validateMonetizationConfig();
+validateCriticalBaseFontLoading();
 validateDeferredPreviewFontLoading();
 validatePublicAssets();
 validateBulkUnicodeInputCaps();
