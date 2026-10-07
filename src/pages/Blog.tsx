@@ -2,12 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { BLOG_POSTS } from '../data/blogPosts';
+import { ORGANIZATION_ID, WEBSITE_ID } from '../seo/siteEntities';
 
 const blogCollectionSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
+  "@id": "https://generadordelettering.org/blog#collection",
   "name": "Blog de Lettering y Tipografía",
   "url": "https://generadordelettering.org/blog",
+  "isPartOf": { "@id": WEBSITE_ID },
+  "publisher": { "@id": ORGANIZATION_ID },
   "description": "Guías y recursos sobre lettering, tipografía, Unicode, redes sociales y nombres para videojuegos.",
   "mainEntity": {
     "@type": "ItemList",
