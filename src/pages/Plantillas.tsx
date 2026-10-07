@@ -37,13 +37,60 @@ const TEMPLATES: { id: number; title: string; state: Partial<EditorState> }[] = 
   }
 ];
 
-const TEMPLATE_FONT_FAMILIES = [
-  ...new Set(
-    TEMPLATES
-      .map((template) => template.state.fontFamily)
-      .filter((family): family is string => Boolean(family))
-  )
-];
+type TemplateDefinition = (typeof TEMPLATES)[number];
+
+function TemplateCard({
+  tpl,
+  onUse,
+}: {
+  tpl: TemplateDefinition;
+  onUse: (state: Partial<EditorState>) => void;
+}) {
+  const fontRef = useVisibleFonts<HTMLDivElement>(
+    tpl.state.fontFamily ? [tpl.state.fontFamily] : [],
+    '120px 0px'
+  );
+
+  return (
+    <div
+      ref={fontRef}
+      className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all text-center flex flex-col items-center"
+    >
+      <div
+        className="w-full h-48 bg-gray-50 rounded-2xl mb-6 flex items-center justify-center border"
+        style={{ backgroundColor: tpl.state.backgroundColor || 'transparent' }}
+      >
+        <h3
+          className="text-3xl text-center leading-tight"
+          style={{
+            fontFamily: tpl.state.fontFamily,
+            color: tpl.state.textColor,
+            textShadow: tpl.state.shadowBlur
+              ? `${tpl.state.shadowOffsetX}px ${tpl.state.shadowOffsetY}px ${tpl.state.shadowBlur}px ${tpl.state.shadowColor}`
+              : 'none',
+            WebkitTextStroke: tpl.state.strokeWidth
+              ? `${tpl.state.strokeWidth}px ${tpl.state.strokeColor}`
+              : 'none',
+            transform: tpl.state.rotation ? `rotate(${tpl.state.rotation}deg)` : undefined,
+            letterSpacing: tpl.state.letterSpacing != null ? `${tpl.state.letterSpacing}px` : undefined,
+          }}
+        >
+          {(tpl.state.text || '').split('\n').map((line, index) => (
+            <div key={index}>{line}</div>
+          ))}
+        </h3>
+      </div>
+      <h2 className="text-xl font-bold mb-4">{tpl.title}</h2>
+      <button
+        type="button"
+        onClick={() => onUse(tpl.state)}
+        className="w-full bg-[#5A4AD2] text-white font-medium py-3 rounded-xl hover:bg-[#4F46E5] transition"
+      >
+        Usar Plantilla
+      </button>
+    </div>
+  );
+}
 
 const templatesSchema = {
   "@context": "https://schema.org",
@@ -65,7 +112,6 @@ const templatesBreadcrumbSchema = {
 export default function Plantillas() {
   const updateState = useEditorStore((state) => state.updateState);
   const navigate = useNavigate();
-  const templateGridRef = useVisibleFonts<HTMLDivElement>(TEMPLATE_FONT_FAMILIES);
 
   const handleUseTemplate = (state: Partial<EditorState>) => {
     updateState({
@@ -96,26 +142,9 @@ export default function Plantillas() {
         <p className="text-gray-600">Comienza tu diseño rápidamente seleccionando una de las plantillas preconfiguradas.</p>
       </div>
 
-      <div ref={templateGridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {TEMPLATES.map(tpl => (
-           <div key={tpl.id} className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all text-center flex flex-col items-center">
-             <div className="w-full h-48 bg-gray-50 rounded-2xl mb-6 flex items-center justify-center border" style={{ backgroundColor: tpl.state.backgroundColor || 'transparent' }}>
-               <h3 className="text-3xl text-center leading-tight" style={{
-                 fontFamily: tpl.state.fontFamily,
-                 color: tpl.state.textColor,
-                 textShadow: tpl.state.shadowBlur ? `${tpl.state.shadowOffsetX}px ${tpl.state.shadowOffsetY}px ${tpl.state.shadowBlur}px ${tpl.state.shadowColor}` : 'none',
-                 WebkitTextStroke: tpl.state.strokeWidth ? `${tpl.state.strokeWidth}px ${tpl.state.strokeColor}` : 'none',
-                 transform: tpl.state.rotation ? `rotate(${tpl.state.rotation}deg)` : undefined,
-                 letterSpacing: tpl.state.letterSpacing != null ? `${tpl.state.letterSpacing}px` : undefined,
-               }}>
-                 {tpl.state.text.split('\n').map((line, i) => <div key={i}>{line}</div>)}
-               </h3>
-             </div>
-             <h2 className="text-xl font-bold mb-4">{tpl.title}</h2>
-             <button onClick={() => handleUseTemplate(tpl.state)} className="w-full bg-[#5A4AD2] text-white font-medium py-3 rounded-xl hover:bg-[#4F46E5] transition">
-               Usar Plantilla
-             </button>
-           </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {TEMPLATES.map((tpl) => (
+          <TemplateCard key={tpl.id} tpl={tpl} onUse={handleUseTemplate} />
         ))}
       </div>
 
