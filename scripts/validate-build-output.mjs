@@ -294,6 +294,15 @@ for (const htmlFile of htmlFiles) {
     );
   }
 
+  if (canonical === 'https://generadordelettering.org/herramientas/combinador-de-fuentes') {
+    assert(
+      html.includes('Subtítulo para combinar fuentes') &&
+      html.includes('Ver CSS de esta combinación') &&
+      html.includes('Cómo elegir un par tipográfico que funcione') &&
+      html.includes('lettering-subtitle'),
+      'Original font pairing lab must expose its editable inputs, CSS and instruction in prerendered HTML'
+    );
+  }
   if (canonical === 'https://generadordelettering.org/herramientas/paletas-de-color') {
     assert(
       html.includes('Comprueba el contraste antes de diseñar') &&
