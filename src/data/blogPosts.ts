@@ -6,6 +6,7 @@ export interface BlogSource {
 
 export interface BlogPostData {
   slug: string;
+  category: 'Gaming' | 'Redes sociales' | 'Unicode' | 'Diseño' | 'Práctica';
   title: string;
   seoTitle?: string;
   excerpt: string;
@@ -20,6 +21,7 @@ export interface BlogPostData {
 export const BLOG_POSTS: BlogPostData[] = [
   {
     slug: 'mejores-nombres-insanos-free-fire',
+    category: 'Gaming',
     title: '10 nombres insanos para Free Fire con símbolos y alas (2026)',
     seoTitle: 'Nombres Insanos Free Fire: 10 Ideas + Símbolos (2026)',
     excerpt: '10 ideas de nombres insanos para Free Fire con alas, símbolos y estilos Unicode, más consejos de legibilidad y compatibilidad para crear tu propio nick.',
@@ -119,6 +121,7 @@ Prueba varias combinaciones, guarda las que mejor se lean en tu dispositivo y el
   },
   {
     slug: 'biografia-tiktok-aesthetic-dark',
+    category: 'Redes sociales',
     title: 'Biografía Aesthetic Dark en TikTok: Guía para escribirla paso a paso',
     seoTitle: 'Biografía Aesthetic Dark para TikTok: Guía Paso a Paso',
     excerpt: 'Ideas para dar a tu perfil de TikTok una estética dark o grunge con texto Unicode, frases breves y una composición visual coherente.',
@@ -224,6 +227,7 @@ Empieza hoy mismo tu 're-branding'. Experimenta, combina estilos y busca la oscu
   },
   {
     slug: 'letras-invisibles-espacios-guia-redes-sociales',
+    category: 'Unicode',
     title: 'Cómo crear espacios y letras invisibles para Instagram y Juegos',
     seoTitle: 'Letras Invisibles y Espacios para Instagram y Juegos',
     excerpt: 'Todo lo que necesitas saber sobre los caracteres Unicode transparentes y cómo usarlos para crear espacios en blanco donde las apps no te dejan.',
@@ -291,6 +295,7 @@ La personalización digital suele explorar las posibilidades que ofrecen Unicode
   },
   {
     slug: 'diferencias-lettering-caligrafia-tipografia',
+    category: 'Diseño',
     title: 'Diferencias entre Lettering, Caligrafía y Tipografía: Guía Completa de Arte Tipográfico',
     seoTitle: 'Lettering vs Caligrafía vs Tipografía: Diferencias Clave',
     excerpt: '¿No sabes si estás haciendo lettering, caligrafía o tipografía? Descubre las diferencias clave, técnicas, materiales e historia de cada disciplina artística.',
@@ -367,6 +372,7 @@ En nuestro sitio web cuentas con el **Creador de Lettering Digital en Español**
   },
   {
     slug: 'fuentes-aesthetic-para-copiar-y-pegar-instagram',
+    category: 'Unicode',
     title: 'Las Mejores Fuentes Aesthetic para Copiar y Pegar en Instagram, TikTok y WhatsApp',
     seoTitle: 'Fuentes Aesthetic para Instagram, TikTok y WhatsApp',
     excerpt: 'Guía de letras aesthetic, cursivas, góticas y decorativas basadas en Unicode, con ejemplos y consejos de compatibilidad para copiar y pegar.',
@@ -450,6 +456,7 @@ Prueba ahora nuestro [Generador de Nombres para Instagram](/herramientas/generad
 
   {
     slug: 'como-comprobar-letras-unicode-copiar-pegar',
+    category: 'Unicode',
     title: 'Cómo comprobar letras Unicode antes de copiarlas a una bio o nick',
     seoTitle: 'Cómo comprobar letras Unicode: ejemplos y prueba de compatibilidad',
     excerpt: 'Prueba práctica con ejemplos de Unicode, marcas combinantes y letras rodeadas para elegir texto copiable y legible antes de usarlo en un perfil.',
@@ -464,6 +471,7 @@ Prueba ahora nuestro [Generador de Nombres para Instagram](/herramientas/generad
   },
   {
     slug: 'lettering-digital-tres-estilos-paso-a-paso',
+    category: 'Diseño',
     title: 'Lettering digital paso a paso: un texto con tres estilos diferentes',
     seoTitle: 'Lettering digital: 3 ejemplos prácticos paso a paso',
     excerpt: 'Ejercicio original de lettering digital con tres composiciones, valores HEX, criterios de legibilidad y exportación PNG, JPG o WEBP.',
@@ -475,6 +483,7 @@ Prueba ahora nuestro [Generador de Nombres para Instagram](/herramientas/generad
 ,
   {
     slug: 'plan-practica-lettering-siete-dias',
+    category: 'Práctica',
     title: 'Plan de práctica de lettering de 7 días con ejercicios y hojas SVG',
     seoTitle: 'Práctica de Lettering: 7 Días de Ejercicios y Hojas SVG',
     excerpt: 'Plan original de siete sesiones para practicar trazos, letras, espaciado y florituras con hojas A4, preguntas de revisión y ejercicios repetibles.',
