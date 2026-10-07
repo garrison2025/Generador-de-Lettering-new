@@ -36,6 +36,9 @@ jobs:
       - name: Content validation
         run: npm run validate
 
+      - name: GSC opportunity analysis unit tests
+        run: npm run test:gsc
+
       - name: TypeScript check
         run: npm run lint
 
