@@ -239,8 +239,8 @@ for (const htmlFile of htmlFiles) {
 
   assert(
     html.includes('name="google-adsense-account"') &&
-    !/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(html),
-    `AdSense site-verification meta or intrusive third-party ad guard failed: ${canonical}`
+    html.includes('name="monetag"'),
+    `AdSense site-verification or owner-authorized Monetag metadata missing: ${canonical}`
   );
   if (canonical === 'https://generadordelettering.org/blog/como-comprobar-letras-unicode-copiar-pegar') {
     assert(
