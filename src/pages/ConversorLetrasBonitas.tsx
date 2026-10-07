@@ -4,6 +4,7 @@ import { Copy, Check, Sparkles, PenTool, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
+import { GeoAnswerBlock } from '../components/GeoAnswerBlock';
 import { FONT_MAPS, DECORATORS } from '../data/unicodeStyles';
 
 const STYLES = [
@@ -145,7 +146,7 @@ const faqSchema = {
       "name": "¿Cómo funciona el cambiador de letras bonitas?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nuestro generador convierte tu texto normal a cientos de caracteres Unicode especiales. Simplemente necesitas ingresar tu frase en la caja de texto. Al instante te daremos muchísimas versiones diferentes como 'letras cursivas', 'letras raras', 'tachadas' y 'aesthetic'. Luego solo tienes que elegir la que te guste, copiarla y pegarla (copy/paste) en tus redes sociales."
+        "text": "El conversor aplica 72 estilos y transformaciones al texto mediante caracteres Unicode, signos combinantes, adornos y separadores. Escribes una vez, comparas los resultados y copias la variante que prefieras."
       }
     },
     {
@@ -153,7 +154,7 @@ const faqSchema = {
       "name": "¿En qué aplicaciones puedo pegar estas letras decoradas?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Las letras que generas aquí se pueden usar prácticamente en todas las redes sociales, incluyendo Biografías de Instagram, TikTok, Facebook (estados o perfil), Estados de WhatsApp, YouTube, X (Twitter), Discord, Twitch, Free Fire y Roblox. Los sistemas operativos (Android, iOS y Windows) soportan el estándar Unicode."
+        "text": "Muchas aplicaciones aceptan estos caracteres porque son texto Unicode, pero la compatibilidad no es idéntica en todas las plataformas, campos o dispositivos. Algunos símbolos pueden rechazarse o mostrarse como cuadros si la aplicación o la fuente disponible no incluye ese carácter."
       }
     },
     {
@@ -161,7 +162,7 @@ const faqSchema = {
       "name": "¿Puedo usar el conversor de letras para tatuajes o diseños?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "¡Por supuesto! Muchos usuarios usan las previsualizaciones góticas o cursivas caligráficas como referencia para sus bocetos de diseño o tatuajes. Si lo que buscas es una imagen final detallada, te sugerimos que además de copiar este texto, uses nuestra Herramienta de Lettering y Editor para personalizar sombras, bordes y el estilo visual completo."
+        "text": "Puedes usar el texto generado como referencia visual. Para una composición en imagen con control de tipografía, color, borde y sombra, utiliza el Editor de Lettering. Para un tatuaje definitivo, el resultado debe tratarse solo como referencia y revisarse con el profesional que realizará el diseño."
       }
     },
     {
@@ -169,7 +170,7 @@ const faqSchema = {
       "name": "¿Es gratis usar este generador de fuentes?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No necesitas descargar, instalar aplicaciones ni registrarte. Las funciones disponibles actualmente se pueden utilizar gratis desde el navegador y permiten probar múltiples estilos aesthetic."
+        "text": "No necesitas instalar una fuente ni crear una cuenta. Las funciones disponibles actualmente se pueden usar gratis desde el navegador y ofrecen 72 estilos o transformaciones para comparar."
       }
     }
   ]
@@ -309,10 +310,32 @@ export default function ConversorLetrasBonitas() {
             to="/herramientas/conversor-texto"
             className="font-semibold text-[#5A4AD2] hover:underline"
           >
-            ¿Quieres comparar 50+ estilos Unicode sin adornos? Abrir Conversor de Letras Online →
+            ¿Quieres comparar 70+ estilos Unicode en una lista general? Abrir Conversor de Letras Online →
           </Link>
         </div>
       </div>
+
+      <GeoAnswerBlock
+        id="conversor-letras-bonitas"
+        answer={
+          <>
+            Este conversor ofrece <strong>72 estilos y transformaciones decorativas</strong> para convertir una frase en
+            texto Unicode copiable. No instala una tipografía: sustituye, combina o rodea caracteres para producir
+            variantes que puedes copiar como texto.
+          </>
+        }
+        facts={[
+          { label: 'Estilos configurados', value: '72 variantes entre alfabetos estilizados, signos combinantes, separadores y adornos.' },
+          { label: 'Entrada', value: 'Hasta 500 caracteres por conversión.' },
+          { label: 'Salida', value: 'Texto copiable; no genera una imagen ni un archivo TTF/OTF.' },
+          { label: 'Procesamiento', value: 'La transformación se calcula directamente en el navegador.' },
+        ]}
+        limitation="Una plataforma puede aceptar, rechazar o mostrar de forma distinta ciertos caracteres. Comprueba siempre el resultado en el campo y dispositivo donde vayas a publicarlo."
+        source={{
+          label: 'Unicode Standard',
+          href: 'https://www.unicode.org/standard/standard.html',
+        }}
+      />
 
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-12">
         <div className="bg-gray-50 border-b border-gray-100 px-6 py-4 flex justify-between items-center">
@@ -412,7 +435,7 @@ export default function ConversorLetrasBonitas() {
             Guía Completa sobre el Conversor de Letras Bonitas y Fuentes Unicode
           </h2>
           <p className="text-gray-600 leading-relaxed">
-            El <strong>Conversor de Letras Bonitas</strong> de Generador de Lettering es una herramienta diseñada para transformar texto estándar en más de 50 variantes tipográficas estéticas, letras cursivas, fuentes góticas, caracteres encerrados en círculos y decoraciones alfanuméricas. A diferencia de instalar archivos de fuentes TTF o OTF en tu dispositivo, los resultados generados aquí funcionan mediante caracteres del estándar internacional <strong>Unicode</strong>, lo que permite copiarlos y pegarlos directamente en perfiles de Instagram, biografías de TikTok, estados de WhatsApp, comentarios de YouTube y nicknames de juegos como Free Fire o Roblox.
+            El <strong>Conversor de Letras Bonitas</strong> aplica 72 estilos y transformaciones: alfabetos matemáticos estilizados, caracteres encerrados, signos combinantes, separadores y adornos. A diferencia de instalar archivos TTF u OTF, el resultado sigue siendo texto formado por caracteres Unicode. Eso permite copiarlo y pegarlo en muchos campos de texto, aunque cada aplicación puede imponer sus propias restricciones o carecer de una fuente que muestre algún carácter.
           </p>
         </div>
 
@@ -423,7 +446,7 @@ export default function ConversorLetrasBonitas() {
               ¿Qué es Unicode y cómo funcionan estas letras?
             </h3>
             <p className="text-gray-600 text-sm leading-relaxed">
-              El consorcio Unicode asigna un código numérico único a miles de símbolos, alfabetos históricos y variantes tipográficas matemáticas (Mathematical Alphanumeric Symbols). Cuando escribes una letra normal como "A", nuestro conversor la mapea a su equivalente en alfabetos góticos (𝕬), cursivos (𝒜), en negrita (𝗔) o burbuja (Ⓐ). Por eso el sistema operativo no lo reconoce como una "fuente de sistema cambiada", sino como símbolos especiales válidos globalmente.
+              Unicode define puntos de código para caracteres de numerosos sistemas de escritura, símbolos y bloques especializados. Algunas transformaciones de esta herramienta usan, por ejemplo, caracteres del bloque Mathematical Alphanumeric Symbols; otras añaden marcas combinantes o adornos. El resultado no cambia la fuente instalada del dispositivo: cambia los caracteres del texto. La visualización concreta depende de la aplicación y de las fuentes disponibles.
             </p>
           </div>
 
@@ -433,10 +456,10 @@ export default function ConversorLetrasBonitas() {
               Clasificación de Estilos Disponibles
             </h3>
             <ul className="text-gray-600 text-sm space-y-2 list-disc list-inside">
-              <li><strong>Letras Cursivas y Manuscritas:</strong> Ideales para frases poéticas, nombres de marca elegantes e invitaciones.</li>
-              <li><strong>Letras Góticas y Fraktur:</strong> Perfectas para estética dark, metal, nicknames agresivos y tatuajes.</li>
-              <li><strong>Circulares y Cuadradas (Burbujas):</strong> Geniales para destacar números, listas y llamadas a la acción.</li>
-              <li><strong>Efectos Zalgo y Tachados:</strong> Utilizados en memes, estética glitch y formatos underground.</li>
+              <li><strong>Cursivas y estilos matemáticos:</strong> Variantes para nombres, títulos breves y perfiles.</li>
+              <li><strong>Góticas y Fraktur:</strong> Opciones visuales para estética dark o nicks; conviene comprobar legibilidad.</li>
+              <li><strong>Circulares y cuadradas:</strong> Caracteres encerrados que pueden servir para etiquetas o elementos breves.</li>
+              <li><strong>Zalgo, tachados y combinantes:</strong> Efectos decorativos que pueden reducir la legibilidad y la compatibilidad.</li>
             </ul>
           </div>
         </div>
@@ -446,7 +469,7 @@ export default function ConversorLetrasBonitas() {
             💡 Recomendaciones de Accesibilidad y Lectores de Pantalla
           </h3>
           <p className="text-sm text-amber-800 leading-relaxed">
-            Las herramientas de asistencia visual y los lectores de pantalla (como TalkBack en Android o VoiceOver en iOS) interpretan las letras matemáticas especiales según su código Unicode (por ejemplo, leyendo "Alfabeto matemático cursivo A" en lugar de simplemente "A"). 
+            Los lectores de pantalla pueden anunciar algunos caracteres estilizados o combinantes de forma diferente al texto latino básico, y el comportamiento depende del lector, idioma, sistema y carácter concreto. 
           </p>
           <p className="text-sm text-amber-800 leading-relaxed font-medium">
             <strong>Consejo Pro:</strong> Utiliza las letras bonitas decoradas para destacar tu nombre de usuario, palabras clave o títulos breves. Mantén el cuerpo principal de textos o párrafos largos en texto estándar para facilitar la lectura y reducir problemas de compatibilidad.
@@ -464,28 +487,28 @@ export default function ConversorLetrasBonitas() {
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Cómo funciona el cambiador de letras bonitas?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Nuestro generador convierte tu texto normal a cientos de caracteres Unicode especiales. Simplemente necesitas ingresar tu frase en la caja de texto. Al instante te daremos muchísimas versiones diferentes como "letras cursivas", "letras raras", "tachadas" y "aesthetic". Luego solo tienes que elegir la que te guste, copiarla y pegarla (copy/paste) en tus redes sociales.
+              El conversor aplica <strong>72 estilos y transformaciones</strong> al texto mediante caracteres Unicode, signos combinantes, adornos y separadores. Escribe una vez, compara los resultados y copia la variante que prefieras.
             </p>
           </div>
 
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿En qué aplicaciones puedo pegar estas letras decoradas?</h3>
             <p className="text-gray-600 leading-relaxed">
-              Las letras que generas aquí se pueden usar prácticamente en todas las redes sociales, incluyendo <strong>Biografías de Instagram, TikTok, Facebook (estados o perfil), Estados de WhatsApp, YouTube, X (Twitter), Discord, Twitch, Free Fire y Roblox</strong>. Los sistemas operativos (Android, iOS y Windows) soportan el estándar Unicode.
+              Muchas aplicaciones aceptan estos caracteres porque siguen siendo texto Unicode, pero la compatibilidad no es idéntica en todos los campos, plataformas o dispositivos. Algunos símbolos pueden rechazarse o mostrarse como cuadros si la aplicación o la fuente disponible no incluye ese carácter.
             </p>
           </div>
 
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Puedo usar el conversor de letras para tatuajes o diseños?</h3>
             <p className="text-gray-600 leading-relaxed">
-              ¡Por supuesto! Muchos usuarios usan las previsualizaciones góticas o cursivas caligráficas como referencia para sus bocetos de diseño o tatuajes. Si lo que buscas es una imagen final detallada, te sugerimos que además de copiar este texto, uses nuestra <strong>Herramienta de Lettering y Editor</strong> para personalizar sombras, bordes y el estilo visual completo.
+              Puedes usar el texto como referencia visual. Si necesitas una composición en imagen con control de tipografía, color, borde y sombra, utiliza el <Link to="/editor" className="font-semibold text-[#5A4AD2] hover:underline">Editor de Lettering</Link>. Para un tatuaje definitivo, trata la salida solo como referencia y revísala con el profesional que realizará el diseño.
             </p>
           </div>
 
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">¿Es gratis usar este generador de fuentes?</h3>
             <p className="text-gray-600 leading-relaxed">
-              No necesitas descargar, instalar aplicaciones ni registrarte. Las funciones disponibles actualmente se pueden utilizar gratis desde el navegador y permiten probar <strong>más de 50 estilos <em>aesthetic</em></strong>.
+              No necesitas instalar una fuente ni crear una cuenta. Las funciones disponibles actualmente se pueden usar gratis desde el navegador y permiten probar <strong>72 estilos o transformaciones</strong>.
             </p>
           </div>
         </div>
