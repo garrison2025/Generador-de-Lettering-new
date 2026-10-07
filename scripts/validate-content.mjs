@@ -1336,9 +1336,11 @@ function validateGscIntentSeparation() {
     'Home must keep its image-design lettering intent and explicit Unicode-converter escape hatch'
   );
 
-  const freeFireArticle = posts.match(
-    /slug:\s*'mejores-nombres-insanos-free-fire',[\s\S]*?\n\s*},\n\s*\{/
-  )?.[0] || '';
+  const freeFireStart = posts.indexOf("slug: 'mejores-nombres-insanos-free-fire'");
+  const freeFireEnd = posts.indexOf("\n  {\n    slug:", freeFireStart + 1);
+  const freeFireArticle = freeFireStart >= 0
+    ? posts.slice(freeFireStart, freeFireEnd >= 0 ? freeFireEnd : posts.length)
+    : '';
 
   assert(freeFireArticle, 'Could not locate the Free Fire ideas article');
   assert(
