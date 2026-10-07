@@ -236,6 +236,53 @@ export default function Herramientas() {
             </div>
           </div>
         </section>
+
+        <section className="px-4 pb-16">
+          <div className="max-w-6xl mx-auto">
+            <div className="rounded-3xl bg-white border border-gray-200 p-6 sm:p-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">¿Qué herramienta necesitas según el resultado?</h2>
+              <p className="mt-3 text-gray-600 leading-relaxed">
+                No todas las páginas generan el mismo tipo de contenido. La diferencia principal es si necesitas
+                <strong> texto Unicode copiable</strong>, <strong>un nombre listo para probar</strong> o <strong>una imagen diseñada</strong>.
+                Elige en función de lo que vas a pegar o publicar, no solo del estilo visual de las letras.
+              </p>
+              <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-5">
+                <div className="rounded-2xl bg-indigo-50/60 border border-indigo-100 p-5">
+                  <h3 className="text-lg font-bold text-gray-900">Quiero letras para copiar</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                    Escribe tu frase en el <Link to="/herramientas/conversor-texto" className="font-semibold text-indigo-700 hover:underline">Conversor de Letras</Link>.
+                    Compara variantes Unicode y copia una. Para un perfil con estilo decorativo,
+                    prueba el <Link to="/herramientas/conversor-letras-bonitas" className="font-semibold text-indigo-700 hover:underline">conversor aesthetic</Link>.
+                  </p>
+                  <p className="mt-3 text-xs text-gray-600"><strong>Límite:</strong> algunas aplicaciones rechazan o muestran de otro modo los símbolos Unicode.</p>
+                </div>
+                <div className="rounded-2xl bg-amber-50/60 border border-amber-100 p-5">
+                  <h3 className="text-lg font-bold text-gray-900">Quiero probar un nombre</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                    Usa el <Link to="/herramientas/generador-de-nombres-para-free-fire" className="font-semibold text-indigo-700 hover:underline">generador de nicks de Free Fire</Link> si necesitas prefijos o símbolos de clan;
+                    para un perfil social, el <Link to="/herramientas/generador-de-nombres-para-instagram" className="font-semibold text-indigo-700 hover:underline">generador de Instagram</Link> incluye ideas y variantes visuales.
+                  </p>
+                  <p className="mt-3 text-xs text-gray-600"><strong>Límite:</strong> el nombre debe comprobarse en la aplicación antes de guardarlo.</p>
+                </div>
+                <div className="rounded-2xl bg-emerald-50/60 border border-emerald-100 p-5">
+                  <h3 className="text-lg font-bold text-gray-900">Quiero un cartel o imagen</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                    Empieza con el <Link to="/herramientas/creador-de-lettering" className="font-semibold text-indigo-700 hover:underline">Creador de Lettering</Link> para probar un estilo,
+                    luego abre el <Link to="/editor" className="font-semibold text-indigo-700 hover:underline">Editor Avanzado</Link> si necesitas controlar el lienzo, el borde o la sombra.
+                  </p>
+                  <p className="mt-3 text-xs text-gray-600"><strong>Salida:</strong> una imagen PNG, JPG o WEBP, no texto copiable en una biografía.</p>
+                </div>
+              </div>
+              <div className="mt-6 rounded-2xl bg-gray-50 p-5 border border-gray-100">
+                <h3 className="font-bold text-gray-900">Dos comprobaciones útiles antes de publicar</h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                  Si un nick no se puede pegar, consulta nuestra <Link to="/blog/como-comprobar-letras-unicode-copiar-pegar" className="font-semibold text-indigo-700 hover:underline">guía con laboratorio Unicode</Link>.
+                  Si una imagen se ve recargada, sigue el <Link to="/blog/lettering-digital-tres-estilos-paso-a-paso" className="font-semibold text-indigo-700 hover:underline">ejercicio de tres estilos</Link> y compara contraste, espaciado y efectos antes de exportar.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </>
   );

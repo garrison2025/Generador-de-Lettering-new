@@ -233,6 +233,65 @@ export default function Editor({ embedded = false }: { embedded?: boolean }) {
            <ControlPanel />
         </div>
       </div>
+
+      {!embedded && (
+        <section className="mt-12 rounded-3xl border border-gray-200 bg-white p-6 sm:p-8" aria-labelledby="editor-workflow-title">
+          <h2 id="editor-workflow-title" className="text-2xl font-bold text-gray-900">
+            Cómo revisar tu lettering antes de exportar
+          </h2>
+          <p className="mt-3 text-gray-600 leading-relaxed">
+            El editor permite tomar decisiones que son fáciles de pasar por alto al usar un estilo automático.
+            Esta secuencia sirve para un título, una tarjeta digital o una portada: prueba un cambio cada vez
+            y comprueba la vista previa antes de descargar.
+          </p>
+          <ol className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <li className="rounded-xl bg-gray-50 border border-gray-100 p-5">
+              <h3 className="font-bold text-gray-900">1. Empieza con texto y fuente</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                Introduce tu palabra o frase. Elige una fuente legible y adapta el tamaño al lienzo.
+                Una palabra corta puede tolerar una caligrafía compleja; una frase larga suele agradecer una forma sencilla.
+              </p>
+            </li>
+            <li className="rounded-xl bg-gray-50 border border-gray-100 p-5">
+              <h3 className="font-bold text-gray-900">2. Comprueba el contraste</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                Ajusta primero los colores de texto y fondo. La sombra y el contorno no deben ser la única forma
+                de distinguir las letras. Revisa la composición a tamaño reducido.
+              </p>
+            </li>
+            <li className="rounded-xl bg-gray-50 border border-gray-100 p-5">
+              <h3 className="font-bold text-gray-900">3. Controla bordes y rotación</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                Prueba contorno, espaciado o inclinación con moderación. Si una letra queda demasiado cerca del borde,
+                reduce el tamaño o ajusta la posición antes de exportar.
+              </p>
+            </li>
+            <li className="rounded-xl bg-gray-50 border border-gray-100 p-5">
+              <h3 className="font-bold text-gray-900">4. Exporta para el destino real</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                Elige PNG si necesitas transparencia, JPG para imágenes sin ella o WEBP cuando el destino lo admite.
+                Las opciones ampliadas aumentan los píxeles, pero no establecen un tamaño físico de impresión.
+              </p>
+            </li>
+          </ol>
+          <div className="mt-5 rounded-xl border border-indigo-100 bg-indigo-50/60 p-5">
+            <h3 className="font-bold text-gray-900">¿Qué conviene guardar si vas a seguir editando?</h3>
+            <p className="mt-2 text-sm text-gray-700 leading-relaxed">
+              Parte de la configuración del editor se conserva localmente en el navegador. Esa persistencia no equivale
+              a un proyecto sincronizado en la nube y no garantiza recuperar fondos subidos a la página. Exporta una
+              copia final antes de cambiar de dispositivo o borrar los datos del navegador.
+            </p>
+            <p className="mt-3 text-sm text-gray-700">
+              ¿No sabes qué estilo elegir? Compara nuestras{' '}
+              <Link to="/plantillas" className="font-semibold text-indigo-700 hover:underline">seis plantillas</Link>
+              {' '}o sigue el{' '}
+              <Link to="/blog/lettering-digital-tres-estilos-paso-a-paso" className="font-semibold text-indigo-700 hover:underline">
+                ejercicio original de tres diseños
+              </Link>.
+            </p>
+          </div>
+        </section>
+      )}
     </div>
     </>
   );
