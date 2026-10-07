@@ -6,7 +6,7 @@ import { ChevronLeft, Calendar, List } from 'lucide-react';
 import { BLOG_POSTS } from '../data/blogPosts';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
-import { ORGANIZATION_ID } from '../seo/siteEntities';
+import { ORGANIZATION_ID, WEBSITE_ID } from '../seo/siteEntities';
 
 const POST_DATE_FORMATTER = new Intl.DateTimeFormat('es-ES', {
   year: 'numeric',
@@ -99,6 +99,9 @@ export default function BlogPost() {
             "headline": post.title,
             "description": post.excerpt,
             "image": post.image ? [post.image] : [],
+            "isPartOf": {
+              "@id": WEBSITE_ID
+            },
             "datePublished": post.date,
             "dateModified": post.updated || post.date,
             "author": {
