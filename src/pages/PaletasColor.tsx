@@ -6,6 +6,7 @@ import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 import { GeoAnswerBlock } from '../components/GeoAnswerBlock';
 import { EDITOR_DEFAULT_STATE, useEditorStore } from '@/store/useEditorStore';
+import { contrastRatio, contrastResults } from '../utils/colorContrast';
 
 const PALETTES = [
   { name: 'Ocaso Cálido', colors: ['#FF6B6B', '#FF8E53', '#FFAF3B', '#FFD166', '#FFF0A8'] },
@@ -49,6 +50,11 @@ const paletteBreadcrumbSchema = {
 export default function PaletasColor() {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const [copiedPalette, setCopiedPalette] = useState<string | null>(null);
+  const [foregroundColor, setForegroundColor] = useState('#1D3557');
+  const [backgroundColor, setBackgroundColor] = useState('#F1FAEE');
+  const [contrastMessage, setContrastMessage] = useState<string | null>(null);
+  const ratio = contrastRatio(foregroundColor, backgroundColor);
+  const checks = contrastResults(ratio);
   const updateState = useEditorStore((state) => state.updateState);
   const navigate = useNavigate();
 
@@ -125,8 +131,99 @@ export default function PaletasColor() {
           { label: 'Editor', value: 'Al abrir una paleta, el editor usa el primer y el último color como extremos del gradiente.' },
           { label: 'Uso', value: 'Referencia rápida para lettering, fondos y pruebas visuales.' },
         ]}
-        limitation="Los nombres y combinaciones son sugerencias visuales. La herramienta no comprueba automáticamente contraste WCAG, legibilidad de texto ni adecuación de marca."
+        limitation="Las paletas son sugerencias visuales. El comprobador calcula contraste WCAG para dos colores opacos; no garantiza accesibilidad del diseño completo, contraste sobre gradientes, ni legibilidad según tipografía y tamaño."
       />
+
+      <section aria-labelledby="contrast-title" className="my-10 rounded-3xl border border-indigo-200 bg-indigo-50/60 p-5 md:p-8">
+        <div className="max-w-3xl">
+          <h2 id="contrast-title" className="text-2xl font-black text-gray-900">
+            Comprueba el contraste antes de diseñar
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-gray-700">
+            Prueba dos colores HEX y comprueba matemáticamente si cumplen los umbrales de contraste
+            de las pautas WCAG para texto. La calculadora funciona en este navegador y no necesita
+            enviar tus colores a ningún servidor. Para un gradiente, revisa también los puntos más claros.
+          </p>
+        </div>
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label className="block rounded-xl border border-indigo-100 bg-white p-4">
+              <span className="block text-sm font-bold text-gray-800">Color del texto</span>
+              <span className="mt-2 flex items-center gap-3">
+                <input
+                  aria-label="Elegir color del texto"
+                  type="color"
+                  value={foregroundColor}
+                  onChange={(event) => setForegroundColor(event.currentTarget.value.toUpperCase())}
+                  className="h-11 w-16 shrink-0 cursor-pointer rounded-md border border-gray-200 bg-white"
+                />
+                <span className="text-sm font-mono font-semibold text-gray-800">{foregroundColor.toUpperCase()}</span>
+              </span>
+            </label>
+            <label className="block rounded-xl border border-indigo-100 bg-white p-4">
+              <span className="block text-sm font-bold text-gray-800">Color del fondo</span>
+              <span className="mt-2 flex items-center gap-3">
+                <input
+                  aria-label="Elegir color del fondo"
+                  type="color"
+                  value={backgroundColor}
+                  onChange={(event) => setBackgroundColor(event.currentTarget.value.toUpperCase())}
+                  className="h-11 w-16 shrink-0 cursor-pointer rounded-md border border-gray-200 bg-white"
+                />
+                <span className="text-sm font-mono font-semibold text-gray-800">{backgroundColor.toUpperCase()}</span>
+              </span>
+            </label>
+            <div className="sm:col-span-2 rounded-xl border border-gray-200 bg-white p-4">
+              <p className="text-xs font-bold uppercase tracking-wide text-gray-500">Ratio calculado</p>
+              <p className="mt-1 text-3xl font-black tabular-nums text-gray-900" aria-live="polite">
+                {ratio.toFixed(2)}:1
+              </p>
+              <ul className="mt-3 space-y-1 text-sm text-gray-700" aria-label="Resultados de contraste">
+                <li>AA texto normal (4.5:1): <strong>{checks.aaNormal ? 'Cumple' : 'No cumple'}</strong></li>
+                <li>AA texto grande (3:1): <strong>{checks.aaLarge ? 'Cumple' : 'No cumple'}</strong></li>
+                <li>AAA texto normal (7:1): <strong>{checks.aaaNormal ? 'Cumple' : 'No cumple'}</strong></li>
+              </ul>
+              <button
+                type="button"
+                onClick={() => {
+                  setForegroundColor('#000000');
+                  setBackgroundColor('#FFFFFF');
+                  setContrastMessage('Ejemplo de referencia: negro sobre blanco (21:1).');
+                }}
+                className="mt-4 min-h-11 rounded-lg bg-indigo-100 px-4 py-2 text-sm font-bold text-indigo-800 hover:bg-indigo-200"
+              >
+                Ver ejemplo de máximo contraste
+              </button>
+            </div>
+          </div>
+          <div className="flex min-h-60 flex-col justify-center rounded-2xl border border-gray-200 p-6" style={{ backgroundColor }}>
+            <p className="text-3xl font-black leading-tight" style={{ color: foregroundColor }}>
+              Lettering legible
+            </p>
+            <p className="mt-3 text-base" style={{ color: foregroundColor }}>
+              Así se ve una frase de prueba sobre el fondo seleccionado.
+            </p>
+            <p className="mt-5 rounded-md bg-white/95 px-3 py-2 text-xs text-gray-800">
+              Este ejemplo usa colores sólidos opacos. Los umbrales WCAG son una comprobación
+              del contraste, no una evaluación completa del diseño.
+            </p>
+          </div>
+        </div>
+        {contrastMessage && <p role="status" className="mt-4 text-sm text-indigo-800">{contrastMessage}</p>}
+        <p className="mt-5 text-xs leading-relaxed text-gray-600">
+          Referencia técnica:{' '}
+          <a
+            className="font-semibold text-indigo-700 underline underline-offset-2"
+            href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            W3C — WCAG 2.2, contraste mínimo (1.4.3)
+          </a>.
+          El cálculo considera el contraste entre dos colores sRGB sólidos y no sustituye
+          la evaluación de la interfaz completa.
+        </p>
+      </section>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {PALETTES.map((palette) => {
@@ -176,6 +273,17 @@ export default function PaletasColor() {
               </button>
               
               <div className="p-5">
+                <button
+                  type="button"
+                  className="mb-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-2 text-xs font-bold text-indigo-700 hover:bg-indigo-100"
+                  onClick={() => {
+                    setForegroundColor(palette.colors[0]);
+                    setBackgroundColor(palette.colors[4]);
+                    setContrastMessage(`Probando el primer color y el último de la paleta ${palette.name}. Puedes ajustar ambos colores arriba.`);
+                  }}
+                >
+                  Comprobar contraste entre extremos
+                </button>
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <h3 className="font-bold text-gray-900 text-lg leading-tight">{palette.name}</h3>
