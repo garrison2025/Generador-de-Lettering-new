@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" role="img" aria-labelledby="title desc">
+<title id="title">Comparación ilustrativa entre texto estándar y caracteres Unicode decorativos</title>
+<desc id="desc">Tres tarjetas comparan un texto habitual, letras matemáticas y caracteres rodeados. El resultado depende del dispositivo.</desc>
+<rect width="960" height="430" rx="30" fill="#f6f8ff"/>
+<text x="52" y="72" font-family="system-ui,sans-serif" font-size="29" font-weight="700" fill="#17213b">¿Fuente o carácter diferente?</text>
+<text x="52" y="111" font-family="system-ui,sans-serif" font-size="18" fill="#56617d">Ejemplos ilustrativos: el resultado puede cambiar según la fuente del sistema.</text>
+<rect x="50" y="155" width="266" height="213" rx="22" fill="#ffffff" stroke="#dfe4f5" stroke-width="2"/>
+<rect x="348" y="155" width="266" height="213" rx="22" fill="#ffffff" stroke="#dfe4f5" stroke-width="2"/>
+<rect x="646" y="155" width="266" height="213" rx="22" fill="#ffffff" stroke="#dfe4f5" stroke-width="2"/>
+<rect x="70" y="175" width="140" height="32" rx="16" fill="#ebefff"/><text x="88" y="197" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#4338ca">TEXTO BÁSICO</text>
+<rect x="368" y="175" width="160" height="32" rx="16" fill="#fff0df"/><text x="382" y="197" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#a64b05">LETRAS ESTILIZADAS</text>
+<rect x="666" y="175" width="178" height="32" rx="16" fill="#e8fbf6"/><text x="679" y="197" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#087d5b">CARACTERES CIRCULARES</text>
+<text x="182" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="46" font-weight="700" fill="#1e293b">HOLA</text>
+<text x="480" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="43" fill="#1e293b">𝗛𝗢𝗟𝗔</text>
+<text x="778" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="43" fill="#1e293b">ⒽⓄⓁⒶ</text>
+<text x="182" y="329" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#64748b">Letras A–Z habituales</text>
+<text x="480" y="329" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#64748b">Otros puntos de código</text>
+<text x="778" y="329" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#64748b">Símbolos Unicode distintos</text>
+<text x="50" y="404" font-family="system-ui,sans-serif" font-size="16" fill="#475569">Prueba de lectura y pegado: primero en el navegador, después en la app de destino.</text>
+</svg>
