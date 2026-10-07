@@ -235,6 +235,29 @@ try:
     wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#main-content canvas")))
     assert_no_runtime_errors("Creator canvas hydration")
 
+    # Specialized landing pages must do more than repeat the generic editor:
+    # their original example controls must populate the real canvas editor.
+    for route, expected_text in [
+        ("/generador-de-letras-goticas", "REINO\\nANTIGUO"),
+        ("/letras-para-instagram", "Un día\\na la vez"),
+    ]:
+        open_path(route)
+        buttons = wait.until(EC.presence_of_all_elements_located((
+            By.XPATH, '//button[contains(normalize-space(.), "Probar este ejemplo en el editor")]'
+        )))
+        if len(buttons) != 3:
+            fail(f"{route}: expected 3 editable design examples, got {len(buttons)}")
+        buttons[0].click()
+        editor_text = wait.until(EC.presence_of_element_located((
+            By.CSS_SELECTOR, "#seo-embedded-editor textarea"
+        )))
+        wait.until(lambda d: editor_text.get_attribute("value") == expected_text.replace("\\\\n", "\\n"))
+        wait.until(EC.presence_of_element_located((
+            By.CSS_SELECTOR, "#seo-embedded-editor canvas"
+        )))
+        assert_no_horizontal_overflow("editable specialized example " + route)
+        assert_no_runtime_errors("editable specialized example " + route)
+
     # SPA navigation from a deeply scrolled page should open the next route at the top.
     open_path("/blog", "Guías de Lettering")
     driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight)")
