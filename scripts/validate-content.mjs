@@ -620,7 +620,7 @@ function validateDistinctUnicodeWorkflows() {
     'Aesthetic converter must allow meaningful filtering, deduplication and exact-style comparison'
   );
   assert(
-    audit.includes('32 indexable routes') &&
+    audit.includes('32 sitemap routes') &&
     audit.includes('GSC') &&
     audit.includes('do not guarantee AdSense approval'),
     'AdSense content audit must document route coverage, protections and limitations'
