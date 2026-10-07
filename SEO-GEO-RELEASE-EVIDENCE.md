@@ -31,9 +31,9 @@ The accepted baseline remains `seo/gsc-baseline-2026-10-07.json`. Protected winn
 
 ## L1 evidence
 
-GitHub Actions Quality run **#439** passed on implementation commit `886899752bc01bb0e8a3af12e585b8ace1178fbf`.
+GitHub Actions Quality run **#445** (workflow run `37556500223`) passed on implementation commit `7945c64c516dc04bbc061c8748f326cc9a32b023`.
 
-The successful workflow covered the repository's deterministic release chain, including content validation, TypeScript, production build/prerender, generated metadata/schema checks, performance budgets, and mobile browser smoke coverage.
+The successful workflow covered the repository's deterministic release chain, including dependency audit, content/SEO-GEO governance validation, TypeScript, production build/prerender, generated metadata/schema checks, performance budgets, and mobile browser smoke coverage.
 
 ## Production follow-up
 
