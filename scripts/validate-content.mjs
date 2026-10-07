@@ -1025,6 +1025,67 @@ function validateSearchIntentOwnership() {
   }
 }
 
+function validateGeoExtractability() {
+  const answerComponent = read('src/components/GeoAnswerBlock.tsx');
+  const creator = read('src/pages/CreadorLettering.tsx');
+  const editor = read('src/pages/Editor.tsx');
+  const pretty = read('src/pages/ConversorLetrasBonitas.tsx');
+  const pairings = read('src/pages/CombinadorFuentes.tsx');
+  const palettes = read('src/pages/PaletasColor.tsx');
+  const practice = read('src/pages/PlantillasPractica.tsx');
+  const seoLandings = read('src/pages/SeoPage.tsx');
+  const toolsHub = read('src/pages/Herramientas.tsx');
+
+  assert(
+    answerComponent.includes('Respuesta rápida') &&
+    answerComponent.includes('<strong className="text-gray-800">Límite:</strong>'),
+    'Reusable GEO answer block must keep a direct answer and explicit limitation'
+  );
+
+  for (const [path, source] of [
+    ['src/pages/CreadorLettering.tsx', creator],
+    ['src/pages/Editor.tsx', editor],
+    ['src/pages/ConversorLetrasBonitas.tsx', pretty],
+    ['src/pages/CombinadorFuentes.tsx', pairings],
+    ['src/pages/PaletasColor.tsx', palettes],
+    ['src/pages/PlantillasPractica.tsx', practice],
+    ['src/pages/SeoPage.tsx', seoLandings]
+  ]) {
+    assert(
+      source.includes('GeoAnswerBlock'),
+      `Important GEO page must expose a self-contained answer block: ${path}`
+    );
+  }
+
+  const styleBlock = pretty.match(/const STYLES = \[([\s\S]*?)\n\];/);
+  assert(styleBlock, 'Could not locate ConversorLetrasBonitas STYLES array');
+  const aestheticStyleCount = [...styleBlock[1].matchAll(/\{\s*id:\s*'[^']+'/g)].length;
+  assert(
+    aestheticStyleCount === 72 &&
+    pretty.includes('<strong>72 estilos y transformaciones decorativas</strong>') &&
+    pretty.includes('72 estilos o transformaciones'),
+    `ConversorLetrasBonitas style claims must match configured styles; found ${aestheticStyleCount}`
+  );
+  assert(
+    pretty.includes('https://www.unicode.org/standard/standard.html'),
+    'Unicode converter must retain its primary technical source link'
+  );
+
+  const disallowedClaims = [
+    [pretty, 'prácticamente en todas', 'overbroad cross-platform Unicode compatibility claim'],
+    [pretty, 'cientos de caracteres Unicode especiales', 'uncounted Unicode quantity claim'],
+    [pretty, 'símbolos especiales válidos globalmente', 'global compatibility claim'],
+    [seoLandings, 'imanes de seguidores', 'unsupported follower-growth claim'],
+    [seoLandings, 'alta fidelidad', 'unsupported font fidelity claim'],
+    [seoLandings, 'ideales para agujas finas', 'unsupported tattoo technique claim'],
+    [seoLandings, 'dura más tiempo legible', 'unsupported tattoo longevity claim'],
+    [toolsHub, 'que más utilizan nuestros visitantes', 'unsupported popularity claim']
+  ];
+  for (const [source, phrase, label] of disallowedClaims) {
+    assert(!source.includes(phrase), `GEO/content trust regression: ${label}`);
+  }
+}
+
 function validateSeoGeoStandardAlignment() {
   const brief = read('SEO-GEO-PROJECT-BRIEF.md');
   const evidence = read('SEO-GEO-RELEASE-EVIDENCE.md');
@@ -1311,6 +1372,7 @@ validateLegacyCanonicalUrls();
 validateEditorPrerenderSafety();
 validatePrerenderStorageSafety();
 validateSearchIntentOwnership();
+validateGeoExtractability();
 validateSeoGeoStandardAlignment();
 validateGscBaselineProtection();
 validateGscIntentSeparation();
