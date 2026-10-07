@@ -251,10 +251,20 @@ try:
         editor_text = wait.until(EC.presence_of_element_located((
             By.CSS_SELECTOR, "#seo-embedded-editor textarea"
         )))
-        wait.until(lambda d: editor_text.get_attribute("value") == expected_text.replace("\\\\n", "\\n"))
-        wait.until(EC.presence_of_element_located((
-            By.CSS_SELECTOR, "#seo-embedded-editor canvas"
-        )))
+        expected_value = expected_text.replace("\\\\n", "\\n")
+        try:
+            wait.until(lambda d: editor_text.get_attribute("value") == expected_value)
+        except TimeoutException:
+            fail(
+                f"{route}: first example did not populate editor text. "
+                f"Expected {expected_value!r}, got {editor_text.get_attribute('value')!r}"
+            )
+        try:
+            wait.until(EC.presence_of_element_located((
+                By.CSS_SELECTOR, "#seo-embedded-editor canvas"
+            )))
+        except TimeoutException:
+            fail(f"{route}: canvas missing after applying an example")
         assert_no_horizontal_overflow("editable specialized example " + route)
         assert_no_runtime_errors("editable specialized example " + route)
 
