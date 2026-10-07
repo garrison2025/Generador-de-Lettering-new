@@ -20,7 +20,7 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
       desc: 'Crea nicks insanos con letras bonitas, alas, coronas y espacio invisible.',
       path: '/herramientas/generador-de-nombres-para-free-fire',
       icon: <Flame className="w-5 h-5 text-amber-500" />,
-      badge: 'Popular Gaming'
+      badge: 'Nombres FF'
     },
     {
       title: 'Generador de Nombres para Instagram',
@@ -31,7 +31,7 @@ export function RelatedTools({ currentPath }: RelatedToolsProps) {
     },
     {
       title: 'Conversor de Letras Online',
-      desc: 'Cambia texto normal a más de 50 estilos Unicode listos para copiar y pegar.',
+      desc: 'Convierte texto en más de 70 estilos Unicode para copiar y pegar.',
       path: '/herramientas/conversor-texto',
       icon: <Type className="w-5 h-5 text-[#4F46E5]" />,
       badge: 'Copy & Paste'
