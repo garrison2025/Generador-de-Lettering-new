@@ -1,3 +1,9 @@
+export interface BlogSource {
+  label: string;
+  url: string;
+  note?: string;
+}
+
 export interface BlogPostData {
   slug: string;
   title: string;
@@ -8,6 +14,7 @@ export interface BlogPostData {
   content: string;
   keywords: string;
   image?: string;
+  sources?: BlogSource[];
 }
 
 export const BLOG_POSTS: BlogPostData[] = [
@@ -20,7 +27,19 @@ export const BLOG_POSTS: BlogPostData[] = [
     updated: '2026-10-07',
     keywords: 'nombres insanos free fire, ideas nombres free fire, nicks insanos free fire, nombres con simbolos free fire, alas para nicks free fire',
     image: 'https://generadordelettering.org/og-image.jpg',
-    content: `En la vasta y competitiva arena de **Garena Free Fire**, tu habilidad con las armas, tus reflejos y tus rotaciones estratégicas no son las únicas cosas que te hacen destacar frente al resto de las escuadras. Antes siquiera de disparar tu primera bala o aterrizar en la zona de conflicto, ya estás enviando un mensaje claro a tus oponentes a través de tu nombre de usuario (Nick). Un **nombre rudo, 'insano' y estético** puede ayudarte a diferenciar visualmente tu perfil y a mantener una identidad reconocible entre partidas, clips y comunidades. Un nick sencillo y uno decorado transmiten estilos distintos; la elección depende de la imagen que quieras proyectar.
+    sources: [
+      {
+        label: 'Unicode — Hangul Compatibility Jamo (U+3164 HANGUL FILLER)',
+        url: 'https://www.unicode.org/Public/UCD/latest/charts/nameslist/3130/',
+        note: 'Referencia técnica para identificar U+3164; que Free Fire lo acepte depende de las reglas vigentes del juego.'
+      },
+      {
+        label: 'Unicode Standard',
+        url: 'https://www.unicode.org/standard/standard.html',
+        note: 'Referencia general para los caracteres Unicode usados en símbolos y variantes de texto.'
+      }
+    ],
+    content: `En **Garena Free Fire**, el nick forma parte de la identidad visible del perfil. Un nombre sencillo y uno decorado transmiten estilos distintos; la elección depende de la imagen que quieras proyectar y de qué caracteres acepte la versión actual del juego.
 
 En esta guía actualizada para **2026** reunimos 10 ideas de **nombres insanos para Free Fire**, explicamos cómo combinar símbolos y estilos Unicode y mostramos una forma práctica de crear variantes que sigan siendo legibles.
 
@@ -28,15 +47,13 @@ Si ya tienes una palabra base y solo quieres transformarla visualmente, utiliza 
 
 ## 1. La importancia de un nombre 'Insano' en Free Fire
 
-El término 'insano' en la comunidad hispanohablante de Free Fire se ha popularizado enormemente en los últimos años. Se refiere a los jugadores que tienen mecánicas de juego rápidas (como la colocación de paredes Gloo agachado, el tiro a la cabeza con escopeta o el uso ágil de francotiradores), y también a una actitud avasalladora. El jugador 'insano' no campea; el jugador insano rushea sin miedo.
+En esta guía usamos **"insano" como una etiqueta estética**, no como una categoría oficial del juego. Se refiere aquí a nicks de apariencia intensa, competitiva o llamativa.
 
-Para acompañar ese nivel de juego agresivo y elegante, el nombre debe estar a la altura. El propósito de un nick insano es sobre todo visual: diferenciar tu cuenta y expresar un estilo propio. Los símbolos pueden aportar personalidad, pero conviene no sacrificar legibilidad ni compatibilidad.
+El objetivo es visual: combinar una base corta con símbolos, espaciado o estilos Unicode sin perder legibilidad. Un adorno como ꧁ ༒ 𝕯𝖆𝖗𝖐 ༒ ꧂ puede cambiar mucho la apariencia del nombre, pero conviene preparar también una versión más simple por si algún carácter no es aceptado o no se muestra correctamente.
 
-Además, un nombre distintivo puede ser más fácil de reconocer en partidas, clips y comunidades. Los símbolos y estilos como ꧁ ༒ 𝕯𝖆𝖗𝖐 ༒ ꧂ ayudan a diferenciar visualmente el nick, siempre que siga siendo legible.
+## 2. Diez ideas de nombres base para tu nick
 
-## 2. Los 10 Mejores Nombres Base para tu Nick 
-
-A continuación, te presentamos el *Top 10* de bases de nombres. Estos nombres por sí solos ya tienen presencia, pero brillan cuando se les añaden símbolos especiales (ej. coronas, espacios invisibles y alas). Más adelante explicaremos cómo aplicarles la decoración.
+Estas son diez bases editoriales para empezar. Puedes usarlas tal cual o combinarlas con símbolos, espaciado y adornos, siempre comprobando el resultado dentro del juego.
 
 1. **V E N O M** (Simboliza toxicidad y agresión letal).
 2. **K I L L E R** (Un clásico agresivo y fácil de reconocer).
@@ -76,7 +93,7 @@ Este tipo de carácter también puede usarse para separar visualmente prefijos d
 
 ## 5. Cuidado con el límite de caracteres y el cambio
 
-Cambiar el nombre puede requerir una tarjeta u otros recursos dentro del juego; el coste y las condiciones pueden variar con las actualizaciones o la región. Antes de confirmar el cambio, revisa cómo se ve el diseño dentro de Free Fire.
+Antes de confirmar cualquier cambio de nick, revisa las condiciones y el coste que muestre la versión actual de Free Fire en tu cuenta. Esos detalles pueden cambiar y no los fijamos desde esta guía.
 
 Algunas letras o símbolos pueden mostrarse como cuadros vacíos si el dispositivo o la fuente instalada no incluye ese carácter. También es posible que el juego rechace determinados símbolos después de una actualización.
 
@@ -98,9 +115,7 @@ Si tú juegas con tu pareja o amigos inseparables, combinar nicks genera un fuer
 
 ## 7. Conclusión: Hazlo tuyo
 
-Al final del día, tu cuenta es el reflejo de tu espíritu competitivo. Herramientas como 'Generador de Lettering' hacen el trabajo duro al transformar tu texto en milisegundos, evitando que pierdas horas buscando los caracteres raros en la web buscando tablas aburridas de Unicode. 
-
-Prueba varias combinaciones, guarda las que mejor se lean en tu dispositivo y elige una que encaje con tu forma de jugar y con la identidad que quieras mantener en Free Fire.`
+Prueba varias combinaciones, guarda las que mejor se lean en tu dispositivo y elige una que encaje con la identidad que quieras mantener en Free Fire. Si una variante falla, reduce adornos o vuelve a caracteres más simples antes de confirmar el cambio.`
   },
   {
     slug: 'biografia-tiktok-aesthetic-dark',
@@ -108,9 +123,21 @@ Prueba varias combinaciones, guarda las que mejor se lean en tu dispositivo y el
     seoTitle: 'Biografía Aesthetic Dark para TikTok: Guía Paso a Paso',
     excerpt: 'Ideas para dar a tu perfil de TikTok una estética dark o grunge con texto Unicode, frases breves y una composición visual coherente.',
     date: '2024-05-15',
-    updated: '2026-10-06',
+    updated: '2026-10-07',
     keywords: 'biografía tiktok, estética aesthetic dark, biografía aesthetic, letras para tiktok, bio tiktok ideas',
     image: 'https://generadordelettering.org/og-image.jpg',
+    sources: [
+      {
+        label: 'TikTok Support — Setting up your profile',
+        url: 'https://support.tiktok.com/en/getting-started/setting-up-your-profile/editing-your-profile',
+        note: 'Referencia de primera parte para la diferencia entre nickname y username y para cambios del perfil.'
+      },
+      {
+        label: 'Unicode Standard — Mathematical Alphanumeric Symbols',
+        url: 'https://www.unicode.org/versions/Unicode18.0.0/core-spec/chapter-22/',
+        note: 'Estos caracteres se definieron para notación matemática/técnica; su uso aesthetic es una reutilización visual.'
+      }
+    ],
     content: `Las estéticas Dark Aesthetic, Grunge y Dark Academia siguen siendo referencias visuales reconocibles en TikTok y otras redes. Una biografía coherente con ese estilo puede ayudar a que el perfil comunique rápidamente su identidad visual.
 
 La biografía es uno de los primeros elementos que ve una persona al entrar en el perfil. Por eso conviene que el texto sea breve, legible y consistente con el contenido que publicas.
@@ -121,28 +148,25 @@ La biografía es uno de los primeros elementos que ve una persona al entrar en e
 
 TikTok muestra la interfaz con las tipografías definidas por la propia aplicación y el sistema operativo. El texto de una bio, sin embargo, puede incluir muchos caracteres Unicode que se ven distintos al alfabeto latino básico.
 
-Entrar al reino del 'Aesthetic Dark' significa rechazar ese aburrimiento. Una biografía gótica puede aprovechar caracteres Unicode de alfabetos matemáticos y otros bloques compatibles para mostrar variantes visuales distintas al texto latino básico. TikTok recibe esos caracteres como texto Unicode; la apariencia final depende del sistema, la fuente y la versión de la aplicación.
+Una biografía gótica puede reutilizar caracteres Unicode de distintos bloques para producir variantes visuales del alfabeto latino. En particular, algunos estilos usan **Mathematical Alphanumeric Symbols**: Unicode los define para notación matemática o técnica, así que emplearlos como decoración social es una reutilización visual, no un cambio de fuente dentro de TikTok. La apariencia final depende del sistema, la fuente y la versión de la aplicación.
 
-**La elección de tu Fuente:**
-Para la vibra 'dark', hay tres estilos principales que debes usar a través de nuestro sitio web:
-* **Gótico o Fractur**: Letras densas, medievales y pesadas de leer. (Eje: 𝕯𝖆𝖗𝖐 𝕬𝖊𝖘𝖙𝖍𝖊𝖙𝖎𝖈). El peso de la letra automáticamente evoca seriedad e intimidad literaria.
-* **Cursiva Monoluminosa**: Muy romántica pero melancólica. (Eje: 𝓶𝓮𝓵𝓪𝓷𝓬𝓱𝓸𝓵𝔂). Como sacada de un diario de vampiros o una carta romántica destruida.
-* **Texto Tachado o Subrayado Múltiple**: El estilo de Glitch/Zalgo que implica que algo se está corrompiendo.
+**Tres opciones visuales para probar:**
+* **Gótico / Fraktur visual**: Letras densas y angulosas. Ejemplo: 𝕯𝖆𝖗𝖐 𝕬𝖊𝖘𝖙𝖍𝖊𝖙𝖎𝖈.
+* **Cursiva estilizada**: Caracteres de aspecto manuscrito. Ejemplo: 𝓶𝓮𝓵𝓪𝓷𝓬𝓱𝓸𝓵𝔂.
+* **Tachado, subrayado o combinantes**: Efectos que alteran la lectura y conviene usar solo en fragmentos breves.
 
 ## 2. Puntillismo y Emoticonos Minimalistas 
 
-La diferencia clave entre una bio K-pop y una Dark Aesthetic es la **ausencia del ruido cromático**. En otras palabras: no uses emojis de colores chillones (🚫 No uses caras sonrientes amarillas, flores rosadas ni fuegos).
+Una estética dark suele recurrir a una paleta visual más contenida. No existe una lista oficial de emojis "correctos"; lo útil es elegir pocos elementos y repetirlos con coherencia.
 
-**Tus Aliados:**
-Los emojis correctos son pocos y muy elegidos: 
-🕷️ (Araña), 🕸️ (Telaraña), 🦇 (Murciélago), 🥀 (Rosa marchita), 🖤 (Corazón negro), 🎧 (Auriculares, el 'silent mode'), 🕯️ (Vela), ♟️ (Ajedrez).
+**Ejemplos que puedes probar:**
+🕷️ (Araña), 🕸️ (Telaraña), 🦇 (Murciélago), 🥀 (Rosa marchita), 🖤 (Corazón negro), 🎧 (Auriculares), 🕯️ (Vela), ♟️ (Ajedrez).
 
-Pero aún mejor que los emojis son los **símbolos de texto Unicode planos** o Kaomojis melancólicos:
-- ⋆ (Mini estrella)
-- ⚰️ (Ataúd)
-- ♰ (Cruz celta o grial)
-- ๑ (Símbolo enigmático tailandés)
-- ; (Punto y coma, un clásico para la reflexión)
+También puedes mezclar **símbolos Unicode** con texto:
+- ⋆ (estrella)
+- ⚰️ (ataúd)
+- ♰ (símbolo de cruz)
+- ๑ (carácter tailandés usado aquí solo como adorno visual)
 
 ### 3. La Estructura de la Biografía
 
@@ -186,9 +210,9 @@ Un enlace a Instagram con un buen símbolo de flecha ↓ ig: @usuario ↓.
 
 ## 5. El Nombre en la Parte Superior
 
-No limites el rediseño solo a la caja de biografía; el **nombre a mostrar (Display Name)** (que se ve arriba grande en la cuenta y en los comentarios) juega un rol vital. A diferencia de tu @usuario, el Display Name permite espacios y caracteres raros libremente. 
+TikTok distingue entre el **nickname (nombre visible)** y el **username (@usuario)**. Son campos diferentes y TikTok mantiene reglas propias para cada uno; antes de guardar una variante decorada, comprueba en la aplicación qué caracteres y longitud admite actualmente.
 
-Si te llamas María, puedes probar variantes como 𝖒 𝖆 𝖗 𝖎 𝖆 ♰ o [ m a r ]. La idea es mantener cierta coherencia entre el nombre visible, la biografía y el estilo general del perfil sin sacrificar la legibilidad. 
+Si te llamas María, puedes probar variantes visuales como 𝖒 𝖆 𝖗 𝖎 𝖆 ♰ o [ m a r ] en el campo que las acepte. Mantén también una versión legible por si algún carácter se muestra de forma distinta en otro dispositivo. 
 
 ## 6. Sinergia Total del Canal
 
@@ -204,9 +228,21 @@ Empieza hoy mismo tu 're-branding'. Experimenta, combina estilos y busca la oscu
     seoTitle: 'Letras Invisibles y Espacios para Instagram y Juegos',
     excerpt: 'Todo lo que necesitas saber sobre los caracteres Unicode transparentes y cómo usarlos para crear espacios en blanco donde las apps no te dejan.',
     date: '2024-05-16',
-    updated: '2026-10-06',
+    updated: '2026-10-07',
     keywords: 'letras invisibles, espacio invisible free fire, espacio en blanco instagram, como hacer letras transparentes, caracter vacio',
     image: 'https://generadordelettering.org/og-image.jpg',
+    sources: [
+      {
+        label: 'Unicode — Hangul Compatibility Jamo (U+3164 HANGUL FILLER)',
+        url: 'https://www.unicode.org/Public/UCD/latest/charts/nameslist/3130/',
+        note: 'Confirma el nombre y punto de código de U+3164.'
+      },
+      {
+        label: 'Unicode Standard',
+        url: 'https://www.unicode.org/standard/standard.html',
+        note: 'Referencia general para puntos de código y caracteres Unicode.'
+      }
+    ],
     content: `¿Alguna vez te has frustrado porque Instagram elimina tus saltos de línea y junta todos tus párrafos en un gran bloque de texto ilegible? ¿O intentaste poner un espacio entre las palabras de tu nombre de Free Fire y el juego te arrojó un error de 'Símbolo no permitido'? 
 
 Muchas aplicaciones normalizan o eliminan determinados espacios comunes en nombres, biografías o formularios. Algunos caracteres Unicode sin una forma visible pueden conservarse en ciertos campos y producir un efecto de separación, aunque su compatibilidad depende de cada plataforma.
@@ -215,7 +251,7 @@ En esta guía explicamos qué son técnicamente los llamados caracteres invisibl
 
 ## 1. ¿Qué es exactamente el Espacio Invisible?
 
-No hay magia oscura, solo matemáticas e informática aplicadas. La mayoría de sistemas y aplicaciones modernas utilizan **Unicode** para representar texto de muchos idiomas, símbolos y emoji. Unicode asigna puntos de código a caracteres definidos por el estándar, aunque la forma visual y la cobertura disponible dependen de las fuentes y del software de cada dispositivo.
+Unicode asigna puntos de código a caracteres definidos por el estándar. La representación visual de esos caracteres depende del software y de las fuentes disponibles en cada dispositivo.
 
 Unicode incluye distintos caracteres cuyo aspecto puede ser vacío o casi invisible. Uno de los más utilizados para este efecto es **Hangul Filler (U+3164)**, un carácter definido en Unicode que algunas interfaces muestran sin una forma visible. Que una aplicación lo acepte o conserve depende de sus propias reglas.
 
@@ -335,9 +371,21 @@ En nuestro sitio web cuentas con el **Creador de Lettering Digital en Español**
     seoTitle: 'Fuentes Aesthetic para Instagram, TikTok y WhatsApp',
     excerpt: 'Colección completa de letras aesthetic, cursivas, lindas y góticas con símbolos para decorar tus publicaciones y biografías de redes sociales.',
     date: '2024-06-05',
-    updated: '2026-10-06',
+    updated: '2026-10-07',
     keywords: 'fuentes aesthetic copiar y pegar, letras aesthetic para instagram, convertidor de letras bonitas, fuentes para tiktok, letras bonitas copiar',
     image: 'https://generadordelettering.org/og-image.jpg',
+    sources: [
+      {
+        label: 'Unicode Standard — Mathematical Alphanumeric Symbols',
+        url: 'https://www.unicode.org/versions/Unicode18.0.0/core-spec/chapter-22/',
+        note: 'Explica el propósito original de los alfabetos matemáticos que a veces se reutilizan con fines decorativos.'
+      },
+      {
+        label: 'Unicode Standard',
+        url: 'https://www.unicode.org/standard/standard.html',
+        note: 'Referencia general sobre el estándar de caracteres.'
+      }
+    ],
     content: `En redes sociales visuales como **Instagram, TikTok, Pinterest y WhatsApp**, la tipografía y la forma de presentar una bio pueden ayudar a comunicar personalidad o identidad de marca, aunque por sí solas no determinan el alcance ni el crecimiento de una cuenta.
 
 Una forma sencilla de cambiar el aspecto visual de una Biografía (Bio) o de determinadas descripciones es usar **Fuentes y Letras Aesthetic para Copiar y Pegar** basadas en caracteres Unicode.
@@ -350,9 +398,9 @@ En este artículo, te explicamos cómo funcionan estos tipos de letra, mostramos
 
 Muchos usuarios se preguntan: *¿Cómo es posible pegar una letra cursiva o gótica en Instagram si la aplicación no tiene un selector de fuentes oficial en la Biografía?*
 
-La respuesta está en los **Caracteres Unicode**. El teclado estándar que usas en tu teléfono (Gboard o iOS) muestra caracteres latinos normales. Sin embargo, el estándar internacional Unicode contiene un repertorio muy amplio de símbolos y caracteres matemáticos alfanuméricos. 
+La respuesta está en los **caracteres Unicode**. Algunas variantes visuales usan caracteres del bloque Mathematical Alphanumeric Symbols y otras combinan símbolos, letras encerradas o marcas. Unicode define los alfabetos matemáticos para notación matemática/técnica; usarlos en una bio es una reutilización decorativa.
 
-Nuestro [Conversor de Letras Bonitas](/herramientas/conversor-letras-bonitas) toma el texto que escribes y lo mapea automáticamente a estos símbolos Unicode especiales, transformando tu texto plano en variantes que muchas redes sociales pueden mostrar sin instalar una fuente adicional.
+Nuestro [Conversor de Letras Bonitas](/herramientas/conversor-letras-bonitas) sustituye o combina caracteres para producir texto copiable. No instala una fuente adicional y la visualización puede cambiar según la plataforma, el sistema y las fuentes disponibles.
 
 ---
 
@@ -361,22 +409,22 @@ Nuestro [Conversor de Letras Bonitas](/herramientas/conversor-letras-bonitas) to
 ### 🌸 Estilo Soft / Soft Girl
 Un estilo tierno, limpio y rodeado de símbolos de flores, estrellas y mariposas.
 - *Ejemplo:* 🌸 𝓼𝓸𝓯𝓽 𝓿𝓲𝓫𝓮𝓼 🌸
-- *Ideal para:* Cuentas de moda, lifestyle, papelería y diarios digitales.
+- *Ejemplo de uso:* Cuentas de moda, lifestyle, papelería y diarios digitales.
 
 ### 🖤 Estilo Dark Aesthetic & Gótico
 Fuentes imponentes con ángulos marcados y sombras misteriosas.
 - *Ejemplo:* 𝕯𝖆𝖗𝖐 𝕬𝖓𝖌𝖊𝖑 🕷️
-- *Ideal para:* Perfiles de gaming, arte alternativo y nombres de Free Fire.
+- *Ejemplo de uso:* Perfiles de gaming, arte alternativo y nombres de Free Fire.
 
 ### ✨ Estilo Minimalista / Versalitas (Small Caps)
 Letras mayúsculas en miniatura que aportan una elegancia sofisticada y limpia.
 - *Ejemplo:* ꜱᴛᴀʏ ᴍɪɴᴅꜰᴜʟ 💫
-- *Ideal para:* Biografías de fotógrafos, marcas personales y diseñadores.
+- *Ejemplo de uso:* Biografías de fotógrafos, marcas personales y diseñadores.
 
 ### 💖 Estilo Cursiva Elegante (Monoline Script)
 Simula la caligrafía manuscrita fina realizada con pluma estilográfica.
 - *Ejemplo:* 𝒞𝓇𝑒𝒶𝓉𝒾𝓋𝑒 𝒮𝑜𝓊𝓁 🌿
-- *Ideal para:* Bodas, poesía, frases motivacionales y estética vintage.
+- *Ejemplo de uso:* Bodas, poesía, frases motivacionales y estética vintage.
 
 ---
 
@@ -386,16 +434,16 @@ Simula la caligrafía manuscrita fina realizada con pluma estilográfica.
 2. Escribe tu frase, nombre o biografía en la caja de texto superior.
 3. Al instante, verás aparecer decenas de estilos estilizados (cursivas, con burbujas, góticas, tachadas y espaciadas).
 4. Haz clic en el botón **"Copiar"** al lado de tu estilo favorito.
-5. Abre Instagram, TikTok o WhatsApp, ve a "Editar Perfil" y pega el texto en el campo de Biografía o Nombre. ¡Listo!
+5. Abre la aplicación donde quieras usarlo, pega la variante en el campo correspondiente y comprueba que todos los caracteres sean aceptados y legibles antes de guardar.
 
 ---
 
 ## 4. Consejos para No Sobrecargar tu Perfil
 
-Aunque las letras bonitas lucen fantásticas, la clave de un perfil profesional es la **legibilidad**:
-- **No uses fuentes extremadamente cargadas para nombres largos:** Es mejor usar un estilo limpio para el nombre de usuario y dejar las letras decorativas para los títulos de la Bio.
-- **Añade saltos de línea limpios:** Utiliza nuestro botón de *Espacio Invisible* si quieres separar frases sin que Instagram las junte.
-- **Usa emojis con moderación:** Selecciona 2 o 3 emojis que mantengan la paleta de colores de tu perfil.
+Las variantes decorativas pueden reducir la **legibilidad** y la accesibilidad:
+- **Evita estilos muy cargados en nombres largos:** una variante más simple suele ser más fácil de leer y copiar.
+- **Prueba los caracteres invisibles antes de guardar:** cada plataforma puede normalizarlos o rechazarlos.
+- **Usa adornos y emojis con moderación:** demasiados símbolos pueden dificultar la lectura o ocupar espacio adicional.
 
 Prueba ahora nuestro [Generador de Nombres para Instagram](/herramientas/generador-de-nombres-para-instagram) o crea un diseño gráfico personalizado con nuestro [Creador de Lettering Digital](/herramientas/creador-de-lettering)!`
   }
