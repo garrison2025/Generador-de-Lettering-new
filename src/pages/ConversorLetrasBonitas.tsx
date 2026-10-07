@@ -239,6 +239,7 @@ export default function ConversorLetrasBonitas() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [category, setCategory] = useState<StyleGroup>('all');
   const [styleSearch, setStyleSearch] = useState('');
+  const [uniqueOnly, setUniqueOnly] = useState(false);
   const [savedStyleIds, setSavedStyleIds] = useState<string[]>([]);
   const [favoritesHydrated, setFavoritesHydrated] = useState(false);
   const [persistentFavorites, setPersistentFavorites] = useState(true);
@@ -296,14 +297,21 @@ export default function ConversorLetrasBonitas() {
 
   const visibleStyles = useMemo(() => {
     const search = normalizedStyleName(styleSearch.trim());
-    return convertedStyles.filter((style) =>
+    const matches = convertedStyles.filter((style) =>
       (category === 'all' ||
         (category === 'saved'
           ? savedStyleIds.includes(style.id)
           : groupForStyle(style.id) === category)) &&
       (!search || normalizedStyleName(style.name).includes(search))
     );
-  }, [convertedStyles, category, savedStyleIds, styleSearch]);
+    if (!uniqueOnly) return matches;
+    const seen = new Set<string>();
+    return matches.filter((style) => {
+      if (seen.has(style.converted)) return false;
+      seen.add(style.converted);
+      return true;
+    });
+  }, [convertedStyles, category, savedStyleIds, styleSearch, uniqueOnly]);
 
   const chosenStyle = convertedStyles.find((style) => style.id === selectedStyleId) || convertedStyles[0];
   const countOriginalPoints = Array.from(deferredInput).length;
@@ -490,6 +498,16 @@ export default function ConversorLetrasBonitas() {
             className="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-11 pr-4 text-sm text-gray-900 outline-none focus:border-[#5A4AD2]"
           />
         </div>
+        <label className="mt-4 flex min-h-11 items-center gap-3 rounded-xl border border-gray-100 bg-gray-50 px-4 py-2 text-sm font-semibold text-gray-700">
+          <input
+            type="checkbox"
+            checked={uniqueOnly}
+            onChange={(event) => setUniqueOnly(event.currentTarget.checked)}
+            aria-label="Ocultar variantes repetidas"
+            className="h-5 w-5 accent-[#5A4AD2]"
+          />
+          Ocultar variantes repetidas en esta selección
+        </label>
         <p className="mt-3 text-sm text-gray-600" role="status">
           Se muestran {visibleStyles.length} de {STYLES.length} estilos configurados.
           {!persistentFavorites ? ' Tu navegador no permite guardar la selección de forma permanente.' : ''}
@@ -525,8 +543,8 @@ export default function ConversorLetrasBonitas() {
           </div>
           <div className="min-w-0 rounded-xl bg-white border border-indigo-200 p-4">
             <h3 className="text-xs font-bold uppercase tracking-wide text-gray-500">{chosenStyle?.name}</h3>
-            <p className="mt-2 min-h-12 break-all text-lg text-gray-900">{chosenStyle?.converted || '—'}</p>
-            <p className="mt-3 text-xs text-gray-600">Puntos de código: {countOutputPoints} · UTF-16: {chosenStyle?.converted.length || 0}</p>
+            <p className="mt-2 min-h-12 break-all text-lg text-gray-900">{deferredInput ? chosenStyle?.converted || '—' : '—'}</p>
+            <p className="mt-3 text-xs text-gray-600">Puntos de código: {deferredInput ? countOutputPoints : 0} · UTF-16: {deferredInput ? chosenStyle?.converted.length || 0 : 0}</p>
           </div>
         </div>
         <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
@@ -585,7 +603,13 @@ export default function ConversorLetrasBonitas() {
               </div>
               <button
                 type="button"
-                onClick={() => setSelectedStyleId(style.id)}
+                onClick={() => {
+                  setSelectedStyleId(style.id);
+                  document.getElementById('aesthetic-compare-title')?.scrollIntoView({
+                    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                    block: 'start',
+                  });
+                }}
                 className="min-h-11 rounded-lg border border-indigo-100 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-800 hover:bg-indigo-100"
                 aria-label={`Comparar estilo ${style.name}`}
               >
