@@ -57,9 +57,68 @@ const PAIRINGS = [
   }
 ];
 
-const PAIRING_FONT_FAMILIES = [
-  ...new Set(PAIRINGS.flatMap((pairing) => [pairing.primaryFont, pairing.secondaryFont]))
-];
+type PairingDefinition = (typeof PAIRINGS)[number];
+
+function PairingCard({
+  pairing,
+  customText,
+  fontSize,
+  onTry,
+}: {
+  pairing: PairingDefinition;
+  customText: string;
+  fontSize: number;
+  onTry: (pairing: PairingDefinition) => void;
+}) {
+  const previewRef = useVisibleFonts<HTMLDivElement>(
+    [pairing.primaryFont, pairing.secondaryFont],
+    '120px 0px'
+  );
+
+  return (
+    <div
+      ref={previewRef}
+      className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 p-8 flex flex-col gap-6 group"
+    >
+      <div className="flex justify-between items-center pb-4 border-b border-gray-50">
+        <span className="font-bold text-[#5A4AD2] tracking-tight">{pairing.title}</span>
+        <div className="text-right">
+          <span className="block text-xs font-bold text-gray-900">{pairing.primaryFont}</span>
+          <span className="block text-[10px] uppercase tracking-wider text-gray-500 mt-0.5">
+            {pairing.secondaryFont === 'system-ui' ? 'Sistema' : pairing.secondaryFont}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex-1 flex flex-col justify-center gap-4 py-4 overflow-hidden">
+        <h2
+          className={`${pairing.primaryClass.replace(/text-\dxl/g, '')} leading-tight truncate w-full transition-all duration-100`}
+          style={{
+            fontSize: `${fontSize}px`,
+            fontFamily: pairing.primaryFont,
+          }}
+        >
+          {customText || pairing.preview}
+        </h2>
+        <p
+          className={`${pairing.secondaryClass} text-sm line-clamp-2`}
+          style={{ fontFamily: pairing.secondaryFont }}
+        >
+          El arte de dibujar letras requiere paciencia, práctica y sobre todo, una excelente selección tipográfica para destacar el mensaje.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => onTry(pairing)}
+        className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#5A4AD2] transition w-fit group-hover:translate-x-1"
+      >
+        Probar {pairing.primaryFont} en el Editor
+        <ArrowRight className="w-4 h-4" />
+      </button>
+    </div>
+  );
+}
 
 const pairingSchema = {
   "@context": "https://schema.org",
@@ -91,7 +150,6 @@ export default function CombinadorFuentes() {
   const [fontSize, setFontSize] = useState(36);
   const updateState = useEditorStore((state) => state.updateState);
   const navigate = useNavigate();
-  const pairingGridRef = useVisibleFonts<HTMLDivElement>(PAIRING_FONT_FAMILIES);
 
   const tryPrimaryFont = (pairing: (typeof PAIRINGS)[number]) => {
     updateState({
@@ -158,40 +216,15 @@ export default function CombinadorFuentes() {
         </div>
       </div>
 
-      <div ref={pairingGridRef} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {PAIRINGS.map((pairing) => (
-          <div key={pairing.title} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 p-8 flex flex-col gap-6 group">
-            <div className="flex justify-between items-center pb-4 border-b border-gray-50">
-              <span className="font-bold text-[#5A4AD2] tracking-tight">{pairing.title}</span>
-              <div className="text-right">
-                <span className="block text-xs font-bold text-gray-900">{pairing.primaryFont}</span>
-                <span className="block text-[10px] uppercase tracking-wider text-gray-500 mt-0.5">{pairing.secondaryFont === 'system-ui' ? 'Sistema' : pairing.secondaryFont}</span>
-              </div>
-            </div>
-            
-            <div className="flex-1 flex flex-col justify-center gap-4 py-4 overflow-hidden">
-              <h2 className={`${pairing.primaryClass.replace(/text-\dxl/g, '')} leading-tight truncate w-full transition-all duration-100`} style={{
-                fontSize: `${fontSize}px`,
-                fontFamily: pairing.primaryFont
-              }}>
-                {customText || pairing.preview}
-              </h2>
-              <p className={`${pairing.secondaryClass} text-sm line-clamp-2`} style={{
-                fontFamily: pairing.secondaryFont
-              }}>
-                El arte de dibujar letras requiere paciencia, práctica y sobre todo, una excelente selección tipográfica para destacar el mensaje.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => tryPrimaryFont(pairing)}
-              className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#5A4AD2] transition w-fit group-hover:translate-x-1"
-            >
-              Probar {pairing.primaryFont} en el Editor
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
+          <PairingCard
+            key={pairing.title}
+            pairing={pairing}
+            customText={customText}
+            fontSize={fontSize}
+            onTry={tryPrimaryFont}
+          />
         ))}
       </div>
       
