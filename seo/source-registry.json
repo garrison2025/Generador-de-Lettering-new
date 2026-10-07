@@ -93,6 +93,16 @@
         "Mathematical Alphanumeric Symbols are defined for mathematical or technical notation"
       ],
       "refresh": "on a major Unicode version update or when mathematical-alphanumeric copy changes"
+    },
+    {
+      "id": "tiktok-profile-editing",
+      "class": "first-party platform documentation",
+      "source": "https://support.tiktok.com/en/getting-started/setting-up-your-profile/editing-your-profile",
+      "owner": "TikTok",
+      "supports": [
+        "TikTok distinguishes profile nickname and username controls"
+      ],
+      "refresh": "before adding or changing hard TikTok profile-field claims"
     }
   ],
   "platform_claim_policy": {
