@@ -34,6 +34,7 @@ export function enrichRouteSchema(schema: Record<string, any>) {
 
   return {
     ...schema,
+    "@id": schema["@id"] ?? (typeof schema.url === "string" ? `${schema.url}#webapp` : undefined),
     provider: schema.provider ?? { "@id": ORGANIZATION_ID },
     isPartOf: schema.isPartOf ?? { "@id": WEBSITE_ID }
   };
