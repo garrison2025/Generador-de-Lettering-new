@@ -56,9 +56,11 @@ export default function Privacidad() {
             3. Cookies, almacenamiento local y consentimiento
           </h2>
           <p>
-            Guardamos en el navegador la preferencia <code>cookie_consent</code> para recordar si aceptaste o rechazaste las
-            tecnologías publicitarias no esenciales. En la implementación actual, los scripts publicitarios configurados por
-            el sitio se cargan únicamente después de una aceptación explícita.
+            Guardamos en el navegador la preferencia <code>cookie_consent</code> para recordar si aceptaste o rechazaste
+            la activación de los proveedores opcionales. El script de Google AdSense se incluye de forma asíncrona
+            en el encabezado de todas las páginas para verificar el sitio con Google y puede realizar solicitudes técnicas
+            antes de que elijas una opción. Los scripts de Monetag y Adsterra se activan mediante nuestro cargador
+            únicamente después de una aceptación explícita.
           </p>
           <p>
             Rechazar el consentimiento no impide necesariamente todas las solicitudes a servicios externos: por ejemplo,
@@ -75,11 +77,12 @@ export default function Privacidad() {
             4. Publicidad de terceros
           </h2>
           <p>
-            Cuando el usuario acepta las tecnologías publicitarias, el sitio puede cargar servicios de terceros actualmente
-            configurados, entre ellos <strong>Google AdSense</strong>, <strong>Monetag</strong> y <strong>Adsterra</strong>.
-            Estos proveedores pueden recibir información técnica del navegador y utilizar cookies u otras tecnologías de
-            acuerdo con sus propias políticas. La verificación de propiedad de AdSense se publica en una etiqueta estática,
-            mientras que los scripts publicitarios se activan solo después de aceptar estas tecnologías.
+            El encabezado de cada página incluye el script asíncrono de <strong>Google AdSense</strong>, utilizado
+            para la verificación de propiedad y la integración publicitaria. Una vez aceptadas las preferencias,
+            nuestro sitio también puede cargar <strong>Monetag</strong> y <strong>Adsterra</strong>. Los proveedores
+            pueden recibir información técnica del navegador y tratar datos de acuerdo con sus propias políticas.
+            El botón de rechazo del sitio impide que nuestro cargador active Monetag y Adsterra; no bloquea
+            la solicitud inicial del script de Google AdSense.
           </p>
           <p>
             Puedes consultar información sobre las tecnologías publicitarias de Google en{' '}
