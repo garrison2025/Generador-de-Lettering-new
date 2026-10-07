@@ -396,6 +396,9 @@ try:
     saved_category = wait.until(EC.element_to_be_clickable((
         By.XPATH, '//button[normalize-space(.)="Guardados (1)"]'
     )))
+    # A sticky header covers controls if the browser's default scroll places
+    # their top edge at viewport y=0. Center them before interaction.
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'instant'})", saved_category)
     saved_category.click()
     assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Quitar estilo Gótica Clásica de guardados"]')
     assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Comparar estilo Gótica Clásica"]')
