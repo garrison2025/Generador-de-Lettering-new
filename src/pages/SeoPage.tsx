@@ -4,6 +4,7 @@ import Editor from './Editor';
 import { EDITOR_DEFAULT_STATE, useEditorStore, type EditorState } from '@/store/useEditorStore';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
+import { GeoAnswerBlock } from '../components/GeoAnswerBlock';
 import { Sparkles, HelpCircle, BookOpen, CheckCircle, PenTool } from 'lucide-react';
 
 interface FaqItem {
@@ -19,6 +20,10 @@ interface SeoRouteConfig {
   breadcrumbName: string;
   h1Title: string;
   introText: string;
+  directAnswer: string;
+  output: string;
+  limitation: string;
+  alternative: string;
   features: string[];
   steps: string[];
   faqs: FaqItem[];
@@ -34,7 +39,11 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     breadcrumbName: 'Letras Góticas',
     defaultState: { fontFamily: 'Pirata One', text: 'Estilo Gótico', textColor: '#000000', backgroundColor: '#F3F4F6' },
     h1Title: 'Generador de Letras Góticas y Fuentes Medievales Online',
-    introText: 'La tipografía gótica (también conocida como Blackletter o Fraktur) se asocia con trazos oscuros, ángulos marcados y una estética medieval. Nuestro generador permite diseñar frases y nombres góticos con sombras, contornos, colores y exportación de imagen desde el navegador.',
+    introText: 'La categoría Blackletter agrupa estilos de letra de apariencia gótica; Fraktur es una de sus familias históricas. Este generador permite crear una composición visual con tipografías de ese estilo, sombras, contornos, colores y exportación de imagen desde el navegador.',
+    directAnswer: 'Este generador crea una imagen con estética gótica o Blackletter a partir de tu texto. No convierte la frase en un alfabeto Unicode gótico para copiar y pegar.',
+    output: 'PNG, JPG o WEBP con la composición visual.',
+    limitation: 'El resultado es una referencia gráfica y depende de la tipografía elegida; no es un archivo de fuente ni un diseño vectorial.',
+    alternative: 'Para texto Unicode copiable utiliza el Conversor de Letras del sitio.',
     features: [
       'Fuentes de estilo gótico y Blackletter disponibles en el editor.',
       'Sombras, contornos, colores personalizados y fondos configurables.',
@@ -69,9 +78,13 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     breadcrumbName: 'Letras Cursivas',
     defaultState: { fontFamily: 'Dancing Script', text: 'Hermosa Cursiva', textColor: '#5A4AD2' },
     h1Title: 'Generador de Letras Cursivas y Caligrafía Elegante',
-    introText: 'Las letras cursivas y las fuentes manuscritas aportan una distinción estética inigualable a invitaciones de boda, logos de marcas de lujo, frases inspiradoras y publicaciones en redes sociales. Transforma tus palabras con la fluidez del trazo con pluma o pincel.',
+    introText: 'Las tipografías cursivas y manuscritas pueden dar un aspecto caligráfico a invitaciones, títulos, logotipos de prueba y publicaciones visuales. Aquí puedes comparar varios estilos Script, ajustar la composición y exportarla como imagen.',
+    directAnswer: 'Este generador crea una composición visual con tipografías cursivas y manuscritas. El texto se renderiza como diseño de imagen, no como una fuente instalada ni como caracteres Unicode copiados.',
+    output: 'PNG, JPG o WEBP con la composición cursiva.',
+    limitation: 'La legibilidad cambia según la fuente, el tamaño y la longitud del texto; revisa el diseño en su tamaño de uso real.',
+    alternative: 'Para letras cursivas copiables en chats o bios utiliza el Conversor de Letras Unicode.',
     features: [
-      'Colección de tipografías Script y Brush Calligraphy de alta fidelidad.',
+      'Selección de tipografías Script y Brush Calligraphy disponibles en el editor.',
       'Efectos de trazo continuo, degradados pasteles y sombras suaves.',
       'Exportación de la composición como imagen en PNG, JPG o WEBP.',
       'Fondos transparentes o de color y relaciones de lienzo configurables.'
@@ -85,7 +98,7 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     faqs: [
       {
         question: '¿Qué tipo de letra cursiva es mejor para invitaciones?',
-        answer: 'Tipografías como Dancing Script y Great Vibes son ideales por sus ligaduras elegantes, gran legibilidad y trazo caligráfico equilibrado.'
+        answer: 'Dancing Script y Great Vibes pueden servir como puntos de partida visuales, pero la elección depende del tamaño, la longitud del texto y el nivel de legibilidad que necesite la invitación.'
       },
       {
         question: '¿Puedo copiar y pegar estas letras cursivas en WhatsApp?',
@@ -100,9 +113,13 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     breadcrumbName: 'Letras para Instagram',
     defaultState: { fontFamily: 'Pacifico', text: 'Post de\nInstagram', textColor: '#FF6B6B' },
     h1Title: 'Generador de Letras y Fuentes Aesthetic para Instagram',
-    introText: 'Destaca en el feed e historias de Instagram con textos con estilo, fuentes aesthetic, tipografías llamativas y diseños gráficos personalizados. Convierte tu biografía y tus publicaciones en imanes de seguidores.',
+    introText: 'Crea composiciones visuales con texto, colores, sombras y tipografías para publicaciones o historias. Esta página usa el editor de imagen; para una biografía o nombre copiable necesitas una variante Unicode.',
+    directAnswer: 'Esta página genera imágenes tipográficas para contenido visual de Instagram. No cambia la fuente de Instagram ni convierte por sí sola una bio en texto copiable.',
+    output: 'Imagen PNG, JPG o WEBP para una composición visual.',
+    limitation: 'Instagram puede redimensionar, recortar o recomprimir imágenes; revisa el resultado en la vista previa de publicación antes de compartirlo.',
+    alternative: 'Para una bio o nombre copiable utiliza el Conversor de Letras Bonitas o el Generador de Nombres para Instagram.',
     features: [
-      'Formatos optimizados para historias, posts cuadrados (1:1) y reels.',
+      'Lienzos configurables para composiciones cuadradas, verticales u horizontales.',
       'Combina fuentes modernas con símbolos decorativos, colores y sombras.',
       'Frases de ejemplo para empezar rápidamente una composición aesthetic.',
       'Interfaz responsive para móviles, tablets y escritorio; el resultado puede variar según navegador y dispositivo.'
@@ -131,11 +148,15 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     breadcrumbName: 'Letras para Tatuajes',
     defaultState: { fontFamily: 'Amatic SC', text: 'Tattoo Art', textColor: '#000000', strokeWidth: 1 },
     h1Title: 'Generador de Bocetos de Letras para Tatuajes (Tattoo Lettering)',
-    introText: 'Crear un tatuaje con letras requiere una precisión absoluta en el trazo, la escala y la tipografía. Nuestro generador te permite previsualizar nombres, fechas con números romanos y frases en estilos chicano, gótico, fino y caligráfico antes de acudir con tu tatuador.',
+    introText: 'Este generador permite previsualizar nombres, fechas y frases con distintas tipografías y grosores antes de llevar una referencia visual a un profesional. La herramienta sirve para explorar composición y estilo, no para producir un stencil final listo para tatuar.',
+    directAnswer: 'El generador crea una referencia visual de lettering para tatuajes. Permite comparar tipografías, escala, contorno y composición antes de comentar la idea con un tatuador.',
+    output: 'Imagen PNG, JPG o WEBP que puedes usar como referencia visual.',
+    limitation: 'No genera un stencil profesional ni evalúa cómo funcionará el diseño sobre una zona concreta de piel; esa adaptación corresponde al tatuador.',
+    alternative: 'Usa la imagen como punto de partida y pide al profesional que ajuste tamaño, espaciado, grosor y técnica.',
     features: [
-      'Previsualización de tatuajes con fondo blanco limpio para calcar o imprimir.',
-      'Líneas de contorno ajustables (Stroke) ideales para agujas finas.',
-      'Estilos populares: Gótico Chicano, Fine Line, Script Tradicional y Cursiva.',
+      'Previsualización con fondo claro para revisar forma, escala y composición.',
+      'Líneas de contorno ajustables para explorar trazos más finos o más gruesos.',
+      'Estilos visuales como gótico, script, cursiva y opciones de trazo fino.',
       'Exportación de imágenes ampliadas para compartir una referencia visual con tu tatuador.'
     ],
     steps: [
@@ -150,8 +171,8 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
         answer: 'Puedes llevar la imagen como referencia de tipografía y composición. El stencil definitivo debe prepararlo o revisarlo el tatuador según tamaño, ubicación, técnica y legibilidad.'
       },
       {
-        question: '¿Qué tipo de letra para tatuaje dura más tiempo legible?',
-        answer: 'Las fuentes con buen espacio entre letras (kerning) y líneas no demasiado apretadas mantienen la legibilidad a lo largo de los años a medida que la tinta se asienta.'
+        question: '¿El resultado es un stencil listo para tatuar?',
+        answer: 'No. La imagen es una referencia visual. El stencil definitivo debe prepararlo o revisarlo el tatuador según tamaño, ubicación, técnica, grosor y legibilidad.'
       }
     ]
   }
@@ -178,7 +199,11 @@ export default function SeoPage() {
     breadcrumbName: 'Lettering',
     defaultState: {},
     h1Title: 'Estudio de Lettering y Caligrafía Digital',
-    introText: 'Diseña arte tipográfico personalizado con herramientas profesionales en línea.',
+    introText: 'Diseña una composición tipográfica personalizada directamente en el navegador.',
+    directAnswer: 'Esta página crea una composición visual de lettering a partir de texto y controles de estilo.',
+    output: 'Imagen exportable desde el editor.',
+    limitation: 'El resultado es gráfico y no sustituye un archivo de fuente o un editor vectorial.',
+    alternative: 'Para texto Unicode copiable utiliza los conversores del sitio.',
     features: ['Edición tipográfica', 'Sombras y contornos', 'Exportación de imagen'],
     steps: ['Escribe tu texto', 'Elige tu fuente', 'Descarga'],
     faqs: [
@@ -248,6 +273,18 @@ export default function SeoPage() {
             <h1 className="text-2xl md:text-4xl font-black text-gray-900 tracking-tight leading-tight">
               {currentConfig.h1Title}
             </h1>
+
+            <GeoAnswerBlock
+              id={`seo-answer-${currentConfig.breadcrumbName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+              answer={currentConfig.directAnswer}
+              facts={[
+                { label: 'Resultado', value: currentConfig.output },
+                { label: 'Qué puedes ajustar', value: 'Texto, tipografía, tamaño, color, contorno, sombra y fondo.' },
+                { label: 'Tipo de herramienta', value: 'Editor visual de imagen ejecutado en el navegador.' },
+                { label: 'Alternativa', value: currentConfig.alternative },
+              ]}
+              limitation={currentConfig.limitation}
+            />
 
             <p className="text-gray-700 text-base leading-relaxed">
               {currentConfig.introText}
