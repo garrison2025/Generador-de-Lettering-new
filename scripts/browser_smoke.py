@@ -185,7 +185,9 @@ try:
     assert_no_horizontal_overflow("conversor 500-char Unicode output")
 
     # Clearing the input must not turn instructional text into copyable output.
-    driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Borrar texto"]').click()
+    clear_input = driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Borrar texto"]')
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'})", clear_input)
+    clear_input.click()
     copy_cursive = driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Copiar estilo Cursiva Mágica"]')
     wait.until(lambda d: not copy_cursive.is_enabled())
     wait.until(lambda d: copy_cursive.find_element(By.XPATH, '../div[2]/p').text == '—')
@@ -218,7 +220,9 @@ try:
     wait.until(lambda d: compare_copy.is_enabled())
     compare_copy.click()
     wait.until(lambda d: 'Texto comparado copiado' in compare_copy.text)
-    driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Borrar texto"]').click()
+    clear_input = driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Borrar texto"]')
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'})", clear_input)
+    clear_input.click()
     wait.until(lambda d: not copy_aesthetic.is_enabled() and not compare_copy.is_enabled())
     wait.until(lambda d: 'Texto comparado copiado' not in compare_copy.text)
     wait.until(EC.presence_of_element_located((By.XPATH, '//p[@title=""][normalize-space(.)="—"]')))
