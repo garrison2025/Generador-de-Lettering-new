@@ -10,6 +10,9 @@
     <meta data-rh="true" name="keywords" content="letras bonitas, conversor de letras, tipografias, letras para Instagram, letras cursivas, letras góticas, copiar y pegar" />
     <meta name="author" content="Generador de Lettering" />
     <meta name="google-adsense-account" content="ca-pub-1528586776567779" />
+    <!-- Google AdSense ownership verification: present in every route's <head>. -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1528586776567779"
+     crossorigin="anonymous"></script>
     <meta name="monetag" content="7c3922469417dad557b4f10939f75588" />
     
     <!-- Open Graph Default Fallbacks -->
@@ -32,14 +35,13 @@
     
     <title data-rh="true">Conversor de Letras Bonitas | Generador de Tipografías</title>
 
-    <!-- AdSense verification is visible to crawlers; ad requests need opt-in. -->
+    <!-- Google AdSense loads statically for the requested verification; other ad networks remain consent-gated. -->
     <script>
       (function() {
         var monetizationScheduled = false;
         var monetizationEngagementArmed = false;
         var monetizationStarted = false;
         var monetizationFallbackTimer = null;
-        var adsenseLoaded = false;
 
         function hasAcceptedConsent() {
           try {
@@ -57,20 +59,6 @@
           script.async = true;
           if (configure) configure(script);
           (target || document.head || document.documentElement).appendChild(script);
-        }
-
-        function loadAdSense() {
-          if (adsenseLoaded || !hasAcceptedConsent()) return;
-          adsenseLoaded = true;
-          appendScript(
-            'adsense-script',
-            'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1528586776567779',
-            document.head,
-            function(script) { script.crossOrigin = 'anonymous'; }
-          );
-          ['scroll', 'click', 'touchstart', 'mousemove'].forEach(function(eventName) {
-            window.removeEventListener(eventName, loadAdSense);
-          });
         }
 
         function clearMonetizationEngagementListeners() {
@@ -102,12 +90,6 @@
             document.body
           );
 
-          ['scroll', 'click', 'touchstart', 'mousemove'].forEach(function(eventName) {
-            window.addEventListener(eventName, loadAdSense, { passive: true, once: true });
-          });
-
-          // Keep AdSense even farther away from the initial rendering path.
-          setTimeout(loadAdSense, 5000);
         }
 
         function startMonetizationFromEngagement() {
