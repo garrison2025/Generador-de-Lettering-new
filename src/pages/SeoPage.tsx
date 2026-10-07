@@ -5,11 +5,20 @@ import { EDITOR_DEFAULT_STATE, useEditorStore, type EditorState } from '@/store/
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
 import { GeoAnswerBlock } from '../components/GeoAnswerBlock';
-import { Sparkles, HelpCircle, BookOpen, CheckCircle, PenTool } from 'lucide-react';
+import { Sparkles, HelpCircle, CheckCircle, PenTool } from 'lucide-react';
+import { useVisibleFonts } from '../hooks/useVisibleFonts';
 
 interface FaqItem {
   question: string;
   answer: string;
+}
+
+interface SeoStarterDesign {
+  label: string;
+  goal: string;
+  explain: string;
+  test: string;
+  state: Partial<EditorState>;
 }
 
 interface SeoRouteConfig {
@@ -17,6 +26,7 @@ interface SeoRouteConfig {
   description: string;
   keywords: string;
   defaultState: Partial<EditorState>;
+  starterDesigns: SeoStarterDesign[];
   breadcrumbName: string;
   h1Title: string;
   introText: string;
@@ -31,6 +41,49 @@ interface SeoRouteConfig {
 
 const SEO_LANDING_BASE_STATE: EditorState = EDITOR_DEFAULT_STATE;
 
+// These are genuine interactive examples, not placeholder article cards.
+// Their font loads are triggered only when each card nears the viewport.
+function StarterDesignCard({ design, onApply }: { design: SeoStarterDesign; onApply: (design: SeoStarterDesign) => void }) {
+  const fontFamily = design.state.fontFamily || 'system-ui';
+  const fontRef = useVisibleFonts<HTMLDivElement>([fontFamily], '100px 0px');
+  return (
+    <article ref={fontRef} className="flex flex-col rounded-2xl border border-gray-200 bg-white overflow-hidden">
+      <div
+        className="flex items-center justify-center min-h-36 p-5 text-center overflow-hidden"
+        style={{ backgroundColor: design.state.backgroundColor || '#FFFFFF' }}
+        aria-label={`Vista previa de ejemplo: ${design.label}`}
+      >
+        <span
+          className="block max-w-full break-words whitespace-pre-line leading-tight"
+          style={{
+            fontFamily,
+            color: design.state.textColor || '#111827',
+            fontSize: 'clamp(1.3rem, 2.8vw, 2.25rem)',
+            textShadow: design.state.shadowBlur
+              ? `0px 2px ${design.state.shadowBlur / 2}px ${design.state.shadowColor || '#000000'}`
+              : undefined,
+          }}
+        >{design.state.text}</span>
+      </div>
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="text-lg font-bold text-gray-900">{design.label}</h3>
+        <p className="mt-2 text-sm font-semibold text-indigo-800">{design.goal}</p>
+        <p className="mt-2 text-sm text-gray-600 leading-relaxed">{design.explain}</p>
+        <p className="mt-3 text-xs text-gray-600 leading-relaxed">
+          <strong className="text-gray-800">Qué comprobar:</strong> {design.test}
+        </p>
+        <button
+          type="button"
+          onClick={() => onApply(design)}
+          className="mt-5 min-h-11 w-full rounded-xl bg-[#5A4AD2] text-white text-sm font-bold hover:bg-[#4F46E5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5A4AD2]"
+        >
+          Probar este ejemplo en el editor
+        </button>
+      </div>
+    </article>
+  );
+}
+
 const SEO_CONFIG: Record<string, SeoRouteConfig> = {
   '/generador-de-letras-goticas': {
     title: 'Generador de Letras Góticas Online | Caligrafía Antigua Gratis',
@@ -38,6 +91,56 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     keywords: 'generador de letras goticas, letras goticas online, tipografia gotica, fuentes goticas gratis, letras medievales',
     breadcrumbName: 'Letras Góticas',
     defaultState: { fontFamily: 'Pirata One', text: 'Estilo Gótico', textColor: '#000000', backgroundColor: '#F3F4F6' },
+    starterDesigns: [
+          {
+                "label": "Título medieval de alto contraste",
+                "goal": "Portada o cabecera de una historia de fantasía.",
+                "explain": "El negro sobre fondo marfil mantiene la forma de los caracteres visible sin recurrir a una sombra gruesa.",
+                "test": "Comprueba la abertura interior de la G y la legibilidad de las letras al reducir el tamaño.",
+                "state": {
+                      "text": "REINO\nANTIGUO",
+                      "fontFamily": "Pirata One",
+                      "fontSize": 84,
+                      "textColor": "#111827",
+                      "backgroundColor": "#F9F3E5",
+                      "strokeWidth": 0,
+                      "shadowBlur": 0,
+                      "letterSpacing": 2
+                }
+          },
+          {
+                "label": "Blackletter nocturno",
+                "goal": "Cartel de un evento con estética oscura.",
+                "explain": "Usa una familia Fraktur con color claro sobre un fondo muy oscuro. El contorno fino debe acompañar, no tapar, los detalles.",
+                "test": "Si las letras parecen fusionarse, retira el contorno antes de añadir más efectos.",
+                "state": {
+                      "text": "NOCTURNO",
+                      "fontFamily": "UnifrakturMaguntia",
+                      "fontSize": 76,
+                      "textColor": "#F5E6C8",
+                      "backgroundColor": "#191726",
+                      "strokeWidth": 1,
+                      "strokeColor": "#A78BFA",
+                      "shadowBlur": 0
+                }
+          },
+          {
+                "label": "Iniciales góticas para una marca ficticia",
+                "goal": "Ensayar un monograma visual, no crear un logotipo registrado.",
+                "explain": "Reducir el texto a dos iniciales permite observar la silueta antes de experimentar con nombres largos.",
+                "test": "Compara el resultado con letras básicas y verifica que se puedan distinguir ambas iniciales.",
+                "state": {
+                      "text": "AR",
+                      "fontFamily": "Pirata One",
+                      "fontSize": 130,
+                      "textColor": "#3F2A19",
+                      "backgroundColor": "#FFF7ED",
+                      "strokeWidth": 0,
+                      "shadowBlur": 0,
+                      "letterSpacing": 12
+                }
+          }
+    ],
     h1Title: 'Generador de Letras Góticas y Fuentes Medievales Online',
     introText: 'La categoría Blackletter agrupa estilos de letra de apariencia gótica; Fraktur es una de sus familias históricas. Este generador permite crear una composición visual con tipografías de ese estilo, sombras, contornos, colores y exportación de imagen desde el navegador.',
     directAnswer: 'Este generador crea una imagen con estética gótica o Blackletter a partir de tu texto. No convierte la frase en un alfabeto Unicode gótico para copiar y pegar.',
@@ -77,6 +180,53 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     keywords: 'generador de letras cursivas, letras cursivas online, fuentes manuscritas, tipografia cursiva elegante, letras de carta',
     breadcrumbName: 'Letras Cursivas',
     defaultState: { fontFamily: 'Dancing Script', text: 'Hermosa Cursiva', textColor: '#5A4AD2' },
+    starterDesigns: [
+          {
+                "label": "Invitación manuscrita",
+                "goal": "Encabezado de invitación o mensaje de agradecimiento.",
+                "explain": "El trazo fino y el fondo claro centran la atención en la forma sin una sombra que compita con la letra.",
+                "test": "Prueba un tamaño más pequeño y observa si las ligaduras se mantienen diferenciadas.",
+                "state": {
+                      "text": "Con cariño",
+                      "fontFamily": "Great Vibes",
+                      "fontSize": 92,
+                      "textColor": "#55394A",
+                      "backgroundColor": "#FFF8F3",
+                      "strokeWidth": 0,
+                      "shadowBlur": 0
+                }
+          },
+          {
+                "label": "Frase casual con pincel",
+                "goal": "Tarjeta digital o portada informal.",
+                "explain": "Una letra de ritmo más suelto favorece frases breves frente a cuerpos de texto completos.",
+                "test": "Ajusta los saltos de línea y comprueba que la primera palabra no toque los bordes.",
+                "state": {
+                      "text": "Hoy es\nun buen día",
+                      "fontFamily": "Dancing Script",
+                      "fontSize": 69,
+                      "textColor": "#175E58",
+                      "backgroundColor": "#E9F8F4",
+                      "strokeWidth": 0,
+                      "shadowBlur": 0
+                }
+          },
+          {
+                "label": "Firma tipográfica conceptual",
+                "goal": "Ensayar una firma para un proyecto personal.",
+                "explain": "Un solo nombre con buen espacio negativo es más fácil de evaluar que un nombre y subtítulo en la misma línea.",
+                "test": "Sustituye el nombre de ejemplo y comprueba que la primera y la última letra siguen leyéndose.",
+                "state": {
+                      "text": "Valentina",
+                      "fontFamily": "Tangerine",
+                      "fontSize": 128,
+                      "textColor": "#20243A",
+                      "backgroundColor": "#F5F6FA",
+                      "strokeWidth": 0,
+                      "shadowBlur": 0
+                }
+          }
+    ],
     h1Title: 'Generador de Letras Cursivas y Caligrafía Elegante',
     introText: 'Las tipografías cursivas y manuscritas pueden dar un aspecto caligráfico a invitaciones, títulos, logotipos de prueba y publicaciones visuales. Aquí puedes comparar varios estilos Script, ajustar la composición y exportarla como imagen.',
     directAnswer: 'Este generador crea una composición visual con tipografías cursivas y manuscritas. El texto se renderiza como diseño de imagen, no como una fuente instalada ni como caracteres Unicode copiados.',
@@ -102,7 +252,7 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
       },
       {
         question: '¿Puedo copiar y pegar estas letras cursivas en WhatsApp?',
-        answer: 'Sí. Además de descargar el diseño en formato imagen, puedes usar nuestro conversor de texto Unicode para copiar caracteres cursivos en WhatsApp e Instagram.'
+        answer: 'Esta página crea una imagen, no letras copiables. Si necesitas caracteres cursivos para pegar en WhatsApp o Instagram, abre nuestro Conversor de Letras Unicode.'
       }
     ]
   },
@@ -112,6 +262,54 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     keywords: 'letras para instagram, letras bonitas instagram, fuentes instagram aesthetic, bio instagram bonita, creador frases instagram',
     breadcrumbName: 'Letras para Instagram',
     defaultState: { fontFamily: 'Pacifico', text: 'Post de\nInstagram', textColor: '#FF6B6B' },
+    starterDesigns: [
+          {
+                "label": "Cita minimalista para un post",
+                "goal": "Imagen tipográfica para una publicación visual.",
+                "explain": "La frase corta y el contraste alto funcionan como punto de partida para una tarjeta digital.",
+                "test": "Revisa en un teléfono que el texto siga centrado y con márgenes visibles.",
+                "state": {
+                      "text": "Un día\na la vez",
+                      "fontFamily": "Playfair Display",
+                      "fontSize": 70,
+                      "textColor": "#344054",
+                      "backgroundColor": "#F5F1E9",
+                      "strokeWidth": 0,
+                      "shadowBlur": 0
+                }
+          },
+          {
+                "label": "Story de estilo neón",
+                "goal": "Tarjeta de texto para una historia o vídeo vertical.",
+                "explain": "Sobre un fondo oscuro, una sombra de color aporta energía sin exigir añadir muchos símbolos.",
+                "test": "Comprueba que el texto no desaparezca bajo controles o recortes de la app de destino.",
+                "state": {
+                      "text": "MI MOMENTO",
+                      "fontFamily": "Space Grotesk",
+                      "fontSize": 66,
+                      "textColor": "#AAFFEC",
+                      "backgroundColor": "#120F29",
+                      "shadowColor": "#A855F7",
+                      "shadowBlur": 17,
+                      "strokeWidth": 0
+                }
+          },
+          {
+                "label": "Tarjeta de celebración",
+                "goal": "Mensaje gráfico para felicitar a alguien.",
+                "explain": "Una caligrafía expresiva y una paleta cálida diferencian el titular del fondo.",
+                "test": "Al exportar, revisa que los signos de apertura/cierre no queden recortados.",
+                "state": {
+                      "text": "¡Felicidades!",
+                      "fontFamily": "Pacifico",
+                      "fontSize": 74,
+                      "textColor": "#AE4533",
+                      "backgroundColor": "#FFF1E6",
+                      "strokeWidth": 0,
+                      "shadowBlur": 0
+                }
+          }
+    ],
     h1Title: 'Generador de Letras y Fuentes Aesthetic para Instagram',
     introText: 'Crea composiciones visuales con texto, colores, sombras y tipografías para publicaciones o historias. Esta página usa el editor de imagen; para una biografía o nombre copiable necesitas una variante Unicode.',
     directAnswer: 'Esta página genera imágenes tipográficas para contenido visual de Instagram. No cambia la fuente de Instagram ni convierte por sí sola una bio en texto copiable.',
@@ -125,7 +323,7 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
       'Interfaz responsive para móviles, tablets y escritorio; el resultado puede variar según navegador y dispositivo.'
     ],
     steps: [
-      'Escribe el texto de tu publicación o biografía.',
+      'Escribe un título o una frase para tu publicación o historia visual; para una bio Unicode utiliza el conversor de letras.',
       'Aplica estilos de letra aesthetic (Neón, Retro, Minimalista).',
       'Personaliza el fondo o mantenlo transparente.',
       'Descarga la composición como imagen; para texto copiable en la bio utiliza el conversor Unicode del sitio.'
@@ -147,6 +345,53 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     keywords: 'letras para tatuajes, generador letras tatuajes, fuentes tattoo, tipografias para tatuar, bocetos de letras tatuajes',
     breadcrumbName: 'Letras para Tatuajes',
     defaultState: { fontFamily: 'Amatic SC', text: 'Tattoo Art', textColor: '#000000', strokeWidth: 1 },
+    starterDesigns: [
+          {
+                "label": "Nombre con trazos finos",
+                "goal": "Referencia visual para hablar de tipografía con un profesional.",
+                "explain": "El fondo claro y un color oscuro permiten comparar contraformas y espaciado sin un efecto decorativo.",
+                "test": "Consulta al tatuador cómo adaptar detalles pequeños al tamaño y ubicación definitivos.",
+                "state": {
+                      "text": "Elena",
+                      "fontFamily": "Sacramento",
+                      "fontSize": 110,
+                      "textColor": "#202020",
+                      "backgroundColor": "#FFFFFF",
+                      "strokeWidth": 0,
+                      "shadowBlur": 0
+                }
+          },
+          {
+                "label": "Iniciales de estilo gótico",
+                "goal": "Explorar una referencia de monograma.",
+                "explain": "Dos letras en Blackletter hacen más visible qué partes son finas y cuáles necesitan simplificación.",
+                "test": "Evita convertir esta vista previa directamente en stencil: la revisión técnica corresponde al profesional.",
+                "state": {
+                      "text": "L M",
+                      "fontFamily": "UnifrakturMaguntia",
+                      "fontSize": 128,
+                      "textColor": "#111111",
+                      "backgroundColor": "#FFFDF8",
+                      "strokeWidth": 0,
+                      "shadowBlur": 0
+                }
+          },
+          {
+                "label": "Palabra de estilo manual",
+                "goal": "Comparar una opción menos ornamental para una palabra significativa.",
+                "explain": "El texto grande ayuda a detectar irregularidades antes de reducir la escala.",
+                "test": "Revisa todas las letras a la escala de uso y pide al tatuador ajustar la composición.",
+                "state": {
+                      "text": "Siempre",
+                      "fontFamily": "Caveat",
+                      "fontSize": 104,
+                      "textColor": "#1F2937",
+                      "backgroundColor": "#F7F7F7",
+                      "strokeWidth": 0,
+                      "shadowBlur": 0
+                }
+          }
+    ],
     h1Title: 'Generador de Bocetos de Letras para Tatuajes (Tattoo Lettering)',
     introText: 'Este generador permite previsualizar nombres, fechas y frases con distintas tipografías y grosores antes de llevar una referencia visual a un profesional. La herramienta sirve para explorar composición y estilo, no para producir un stencil final listo para tatuar.',
     directAnswer: 'El generador crea una referencia visual de lettering para tatuajes. Permite comparar tipografías, escala, contorno y composición antes de comentar la idea con un tatuador.',
@@ -161,8 +406,8 @@ const SEO_CONFIG: Record<string, SeoRouteConfig> = {
     ],
     steps: [
       'Escribe el nombre, fecha o frase de tu próximo tatuaje.',
-      'Prueba diferentes fuentes estilo Tattoo Script o Chicano Lettering.',
-      'Ajusta el grosor de línea para que tu tatuador tenga una guía clara.',
+      'Prueba distintas tipografías script, manuales o góticas y elige una referencia visual según la legibilidad del nombre o la frase.',
+      'Prueba distintas opciones de grosor y espacio, sin asumir que el resultado tiene la escala o precisión de un stencil profesional.',
       'Exporta el diseño como referencia y consulta con tu tatuador antes de preparar el stencil definitivo.'
     ],
     faqs: [
@@ -198,6 +443,7 @@ export default function SeoPage() {
     keywords: 'generador de lettering, letras bonitas',
     breadcrumbName: 'Lettering',
     defaultState: {},
+    starterDesigns: [],
     h1Title: 'Estudio de Lettering y Caligrafía Digital',
     introText: 'Diseña una composición tipográfica personalizada directamente en el navegador.',
     directAnswer: 'Esta página crea una composición visual de lettering a partir de texto y controles de estilo.',
@@ -212,6 +458,18 @@ export default function SeoPage() {
         answer: 'Actualmente las funciones disponibles se pueden usar sin registro ni suscripción.'
       }
     ]
+  };
+
+  const applyStarterDesign = (design: SeoStarterDesign) => {
+    updateState({
+      ...SEO_LANDING_BASE_STATE,
+      ...currentConfig.defaultState,
+      ...design.state,
+    });
+    document.getElementById('seo-embedded-editor')?.scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      block: 'start',
+    });
   };
 
   const breadcrumbSchema = {
@@ -256,8 +514,10 @@ export default function SeoPage() {
         jsonSchema={[breadcrumbSchema, faqSchema]}
       />
       
-      {/* Editor Component */}
-      <Editor embedded />
+      {/* Keep the real canvas visible: sample designs populate the same editor, not a mock form. */}
+      <div id="seo-embedded-editor" className="scroll-mt-24">
+        <Editor embedded />
+      </div>
 
       {/* Rich Educational Content below Editor (Passes Google AdSense Quality & E-E-A-T Review) */}
       <div className="bg-[#F8F9FC] py-12 px-4 border-t border-gray-200">
@@ -299,6 +559,25 @@ export default function SeoPage() {
               ))}
             </div>
           </section>
+
+          {currentConfig.starterDesigns.length > 0 && (
+            <section className="bg-white rounded-3xl p-5 md:p-8 border border-gray-100 shadow-sm space-y-5" aria-labelledby="seo-examples-title">
+              <div>
+                <h2 id="seo-examples-title" className="text-2xl font-bold text-gray-900">
+                  Tres ejemplos específicos para probar
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                  Cada propuesta modifica de verdad el texto, la tipografía y los colores del editor superior.
+                  Los ajustes son orientativos: cambia una propiedad, compara el resultado y conserva la versión que se lea mejor.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {currentConfig.starterDesigns.map((design) => (
+                  <StarterDesignCard key={design.label} design={design} onApply={applyStarterDesign} />
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Step-by-Step Instructions */}
           <section className="bg-white rounded-3xl p-8 md:p-12 border border-gray-100 shadow-sm space-y-6">

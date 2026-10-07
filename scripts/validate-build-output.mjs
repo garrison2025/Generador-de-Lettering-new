@@ -263,6 +263,37 @@ for (const htmlFile of htmlFiles) {
     );
   }
 
+  const specialtyExamples = {
+    'https://generadordelettering.org/generador-de-letras-goticas': [
+      'Título medieval de alto contraste',
+      'Blackletter nocturno',
+      'Iniciales góticas para una marca ficticia'
+    ],
+    'https://generadordelettering.org/generador-de-letras-cursivas': [
+      'Invitación manuscrita',
+      'Frase casual con pincel',
+      'Firma tipográfica conceptual'
+    ],
+    'https://generadordelettering.org/letras-para-instagram': [
+      'Cita minimalista para un post',
+      'Story de estilo neón',
+      'Tarjeta de celebración'
+    ],
+    'https://generadordelettering.org/letras-para-tatuajes': [
+      'Nombre con trazos finos',
+      'Iniciales de estilo gótico',
+      'Palabra de estilo manual'
+    ]
+  };
+  if (canonical in specialtyExamples) {
+    assert(
+      html.includes('Tres ejemplos específicos para probar') &&
+      html.includes('Probar este ejemplo en el editor') &&
+      specialtyExamples[canonical].every((label) => html.includes(label)),
+      `Specialized route must provide three actionable, original design examples in raw HTML: ${canonical}`
+    );
+  }
+
   if (canonical === 'https://generadordelettering.org/plantillas') {
     assert(
       html.includes('Cómo utilizar estas seis plantillas') &&

@@ -21,6 +21,23 @@ The site has real original web tools and search traffic, but at audit time the f
 - Improve the homepage's helpful navigation and replace unsupported popularity/superlative language.
 - Include original guides in the sitemap and relevant internal navigation.
 
+## Specialized landing-page originality check (2026-10-07)
+
+Four low-traffic visual-editor landing pages previously rendered the same embedded editor with broadly
+similar instructions. That is a plausible **thin / insufficiently differentiated content** risk, not
+proof of Google's internal review decision. Their actual GSC performance for the last settled 28 days
+was: Gothic 16 clicks / 399 impressions, Cursive 40 / 564, Tattoo 29 / 770, Instagram visual-editor 0 / 26.
+
+In this release, each of those four existing URLs now includes **three distinct, editable starting
+designs** (12 total). Every example has a specific use case, an explanation of why the design uses
+those choices, and an objective check to make before export. Clicking an example applies its
+font, text, colors and effects to the **real editor** above it. The existing SEO titles/H1/canonicals
+and the GSC winner pages were not modified.
+
+Audit follow-up: verify samples work on a small phone and offer genuinely useful outcomes. Do
+not claim 12 examples or a specific article count automatically satisfies AdSense; continue
+checking the quality, honesty and usefulness of the whole site.
+
 ## Required checks before requesting another review
 
 1. **Deploy & fetch:** verify the new production commit was deployed; open the homepage, three new articles, the Unicode inspector, every main tool, `/robots.txt` and `/ads.txt` on mobile and desktop. Production issues cannot be inferred from passing GitHub tests alone.
