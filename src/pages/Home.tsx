@@ -339,7 +339,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <Link to="/blog/como-comprobar-letras-unicode-copiar-pegar" className="block rounded-xl bg-white border border-indigo-100 p-5 text-left hover:border-indigo-400 transition">
               <strong className="block text-gray-900">¿Se ven bien tus letras Unicode?</strong>
               <span className="mt-2 block text-sm text-gray-600">Compara ejemplos y examina los puntos de código antes de pegar un nombre o biografía.</span>
@@ -347,6 +347,10 @@ export default function Home() {
             <Link to="/blog/lettering-digital-tres-estilos-paso-a-paso" className="block rounded-xl bg-white border border-indigo-100 p-5 text-left hover:border-indigo-400 transition">
               <strong className="block text-gray-900">Un texto, tres diseños reales</strong>
               <span className="mt-2 block text-sm text-gray-600">Ejercicio paso a paso con colores y decisiones de lettering que puedes reproducir.</span>
+            </Link>
+            <Link to="/blog/plan-practica-lettering-siete-dias" className="block rounded-xl bg-white border border-indigo-100 p-5 text-left hover:border-indigo-400 transition">
+              <strong className="block text-gray-900">7 días de práctica guiada</strong>
+              <span className="mt-2 block text-sm text-gray-600">Plan con ejercicios originales, hojas A4 y criterios de revisión para cada sesión.</span>
             </Link>
           </div>
           <div className="text-center">
