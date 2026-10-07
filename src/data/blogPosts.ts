@@ -184,7 +184,7 @@ Ejemplo: 'i lost myself inside a dream' (traducido como prefieras, la estética 
 **Línea 3: Las Redes / Extra (opcional).**
 Un enlace a Instagram con un buen símbolo de flecha ↓ ig: @usuario ↓.
 
-## 4. Ejemplos Reales Listos para Copiar
+## 4. Ejemplos de composición para adaptar
 
 ¿Falta de inspiración? Aquí tienes ejemplos pre-fabricados. Simplemente modifica los nombres o los signos zodiacales.
 
@@ -300,13 +300,13 @@ La personalización digital suele explorar las posibilidades que ofrecen Unicode
     image: 'https://generadordelettering.org/og-image.jpg',
     content: `En el fascinante mundo de las artes visuales y el diseño gráfico, es extremadamente común escuchar términos como **Lettering**, **Caligrafía** y **Tipografía** usados como sinónimos intercambiables. Sin embargo, para cualquier diseñador, ilustrador o entusiasta de las letras bonitas, entender la frontera conceptual y técnica entre estas tres disciplinas es fundamental.
 
-Aunque las tres comparten el mismo objeto de estudio —las letras y los signos tipográficos—, **la forma en que se construyen y su propósito son completamente diferentes**. En esta guía detallada, desglosaremos cada uno de estos conceptos, sus herramientas, su historia y cómo puedes aprovechar nuestro [Creador de Lettering Online](/herramientas/creador-de-lettering) para llevar tus composiciones al siguiente nivel.
+Aunque las tres trabajan con letras y signos, sus métodos y objetivos suelen diferir. Las fronteras no son absolutas —por ejemplo, una pieza puede combinar caligrafía y lettering—, pero estas distinciones prácticas ayudan a entender qué estás diseñando y con qué proceso.
 
 ---
 
 ## 1. ¿Qué es la Caligrafía? (El Arte de Escribir)
 
-La **Caligrafía** se define como el arte de *escribir letras de forma bella*. La palabra proviene del griego *kalligraphía* (*kallos* = belleza, y *graphein* = escribir).
+La **caligrafía** se centra en producir formas de letra mediante el gesto de escritura y el control de una herramienta.
 
 La característica definitoria de la caligrafía es que la forma de las letras nace del gesto de escritura y del manejo de una herramienta. Según el estilo, una letra puede construirse con uno o varios trazos, pero el ritmo, el ángulo y la presión tienen un papel central.
 
@@ -328,9 +328,9 @@ Aquí no estás "escribiendo" de una sola pasada. En el lettering, cada letra es
 > *"En la caligrafía escribes una letra con un gesto de escritura; en el lettering dibujas y retocas esa letra hasta construir la forma buscada."*
 
 ### Tipos Populares de Lettering:
-1. **Brush Lettering:** Simula el trazo caligráfico pero dibujado y perfeccionado con efectos digitales o marcadores.
-2. **Chalk Lettering:** Diseñado en pizarras con tiza (muy común en menús de cafeterías y eventos).
-3. **Lettering Digital:** Creado con vectores o herramientas como nuestro [Creador de Lettering Digital](/herramientas/creador-de-lettering), permitiendo sombras 3D y exportación PNG en HD.
+1. **Brush Lettering:** Letras de apariencia gestual que pueden construirse con pincel, rotulador o mediante retoque.
+2. **Chalk Lettering:** Lettering pensado para superficies de pizarra o para imitar visualmente ese material.
+3. **Lettering Digital:** Letras construidas o ajustadas en una herramienta digital; pueden ser vectoriales o rasterizadas según el software. Nuestro [Creador de Lettering Digital](/herramientas/creador-de-lettering) produce una composición exportable como imagen.
 
 ---
 
@@ -338,7 +338,7 @@ Aquí no estás "escribiendo" de una sola pasada. En el lettering, cada letra es
 
 La **Tipografía** estudia y diseña sistemas de letras, números y signos reproducibles, además de cómo se organizan para facilitar lectura, jerarquía y expresión visual.
 
-Cuando abres Microsoft Word o Photoshop y seleccionas *Helvetica*, *Times New Roman* o *Pacifico*, estás usando una **fuente tipográfica**. Alguien (un diseñador tipográfico) se encargó de dibujar individualmente la letra A, B, C, los números y los acentos, asegurándose de que la distancia entre cada letra (kerning) sea armoniosa sin importar qué palabra escribas.
+Cuando seleccionas una fuente como *Helvetica*, *Times New Roman* o *Pacifico*, utilizas un conjunto reproducible de glifos y métricas. El diseño tipográfico también abarca decisiones de espaciado, proporción y comportamiento entre caracteres; el kerning es solo una parte de ese sistema.
 
 ---
 
@@ -348,20 +348,20 @@ Cuando abres Microsoft Word o Photoshop y seleccionas *Helvetica*, *Times New Ro
 | :--- | :--- | :--- | :--- |
 | **Acción principal** | Escribir con un gesto caligráfico | Dibujar y ajustar formas | Diseñar y componer sistemas de caracteres |
 | **Trazo** | Guiado por el gesto, ritmo y herramienta | Construido y retocado en varios pasos | Formas reproducibles dentro de un sistema |
-| **Resultado** | Pieza hecha a mano rápida | Ilustración tipográfica detallada | Archivo de fuente (.ttf / .otf) |
+| **Resultado** | Escritura caligráfica basada en el gesto | Forma de letra dibujada y retocada | Sistema reproducible de tipos y composición; puede incluir archivos de fuente |
 | **Herramientas** | Pincel, plumilla, pluma | Lápiz, iPad, Vectores, Creadores Web | Software de diseño de fuentes |
 
 ---
 
 ## 5. ¿Cómo Empezar a Practicar Lettering Digital Gratis?
 
-No necesitas gastar cientos de dólares en licencias de programas complejos como Illustrator o Procreate para iniciarte en el arte de las letras. 
+Puedes empezar a practicar con papel y lápiz o con una herramienta digital gratuita antes de decidir si necesitas software especializado.
 
 En nuestro sitio web cuentas con el **Creador de Lettering Digital en Español**, donde puedes:
 - Escribir cualquier frase o nombre.
 - Aplicar tipografías manuscritas, góticas y de neón.
 - Ajustar sombras 3D, contornos brillantes y degradados.
-- Exportar en alta resolución PNG o JPG lista para tus redes o imprimir.
+- Exportar en PNG, JPG o WEBP en resolución normal o ampliada; para impresión profesional conviene revisar aparte tamaño físico y DPI.
 
 ¡Ponte creativo y empieza a dibujar tus propias letras hoy mismo!`
   },
@@ -369,7 +369,7 @@ En nuestro sitio web cuentas con el **Creador de Lettering Digital en Español**
     slug: 'fuentes-aesthetic-para-copiar-y-pegar-instagram',
     title: 'Las Mejores Fuentes Aesthetic para Copiar y Pegar en Instagram, TikTok y WhatsApp',
     seoTitle: 'Fuentes Aesthetic para Instagram, TikTok y WhatsApp',
-    excerpt: 'Colección completa de letras aesthetic, cursivas, lindas y góticas con símbolos para decorar tus publicaciones y biografías de redes sociales.',
+    excerpt: 'Guía de letras aesthetic, cursivas, góticas y decorativas basadas en Unicode, con ejemplos y consejos de compatibilidad para copiar y pegar.',
     date: '2024-06-05',
     updated: '2026-10-07',
     keywords: 'fuentes aesthetic copiar y pegar, letras aesthetic para instagram, convertidor de letras bonitas, fuentes para tiktok, letras bonitas copiar',
@@ -432,7 +432,7 @@ Simula la caligrafía manuscrita fina realizada con pluma estilográfica.
 
 1. Entra a nuestro **[Conversor de Letras Bonitas y Fuentes Aesthetic](/herramientas/conversor-letras-bonitas)**.
 2. Escribe tu frase, nombre o biografía en la caja de texto superior.
-3. Al instante, verás aparecer decenas de estilos estilizados (cursivas, con burbujas, góticas, tachadas y espaciadas).
+3. Verás una lista de estilos configurados, entre ellos cursivas, burbujas, góticas, tachadas y variantes espaciadas.
 4. Haz clic en el botón **"Copiar"** al lado de tu estilo favorito.
 5. Abre la aplicación donde quieras usarlo, pega la variante en el campo correspondiente y comprueba que todos los caracteres sean aceptados y legibles antes de guardar.
 
