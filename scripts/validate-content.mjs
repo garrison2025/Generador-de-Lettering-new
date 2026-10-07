@@ -485,9 +485,20 @@ function validateMonetizationConfig() {
   assert(adsPublisher, 'Could not find a valid Google DIRECT publisher entry in public/ads.txt');
   assert(scriptPublisher, 'Could not find the AdSense publisher ID in index.html');
   assert(accountPublisher === adsPublisher, 'Static AdSense account verification meta must match ads.txt');
-  assert(!/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(html), 'No competing vignette/social-bar networks are permitted during AdSense review');
-  assert(!/monetag|adsterra/i.test(read('src/components/CookieConsent.tsx')), 'Consent must describe only configured ad providers');
-  assert(!/monetag|adsterra/i.test(read('src/pages/Privacidad.tsx')), 'Privacy policy must describe only configured ad providers');
+  assert(
+    html.includes('name="monetag"') &&
+    html.includes("'monetag-vignette'") &&
+    html.includes('https://n6wxm.com/vignette.min.js') &&
+    html.includes("'adsterra-social-bar'") &&
+    html.includes('profitableratecpmnetwork.com'),
+    'Original Monetag and Adsterra configurations must not be removed without owner approval'
+  );
+  assert(
+    /Google AdSense, Monetag y Adsterra/.test(read('src/components/CookieConsent.tsx')) &&
+    /<strong>Monetag<\/strong>/.test(read('src/pages/Privacidad.tsx')) &&
+    /<strong>Adsterra<\/strong>/.test(read('src/pages/Privacidad.tsx')),
+    'Cookie banner and privacy policy must disclose all enabled ad networks'
+  );
   assert(
     adsPublisher === scriptPublisher,
     `AdSense publisher mismatch: ads.txt=${adsPublisher}, script=${scriptPublisher}`
