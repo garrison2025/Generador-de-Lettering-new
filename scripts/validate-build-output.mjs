@@ -79,6 +79,19 @@ const sitemapUrls = new Set(
 
 const prerenderedUrls = sitemapUrls;
 
+const geoAnswerRequiredUrls = new Set([
+  'https://generadordelettering.org/editor',
+  'https://generadordelettering.org/herramientas/creador-de-lettering',
+  'https://generadordelettering.org/herramientas/conversor-letras-bonitas',
+  'https://generadordelettering.org/herramientas/combinador-de-fuentes',
+  'https://generadordelettering.org/herramientas/paletas-de-color',
+  'https://generadordelettering.org/herramientas/plantillas-practica',
+  'https://generadordelettering.org/generador-de-letras-goticas',
+  'https://generadordelettering.org/generador-de-letras-cursivas',
+  'https://generadordelettering.org/letras-para-instagram',
+  'https://generadordelettering.org/letras-para-tatuajes'
+]);
+
 const schemaRequiredUrls = new Set([
   'https://generadordelettering.org/',
   'https://generadordelettering.org/editor',
@@ -187,6 +200,19 @@ for (const htmlFile of htmlFiles) {
   }
   if (schemaRequiredUrls.has(canonical)) {
     assert(schemaMatches.length > 0, `Expected prerendered JSON-LD for ${canonical}`);
+  }
+
+  if (geoAnswerRequiredUrls.has(canonical)) {
+    assert(
+      html.includes('Respuesta rápida') && html.includes('Límite:'),
+      `Important GEO route is missing its extractable answer/limitation block in raw HTML: ${canonical}`
+    );
+  }
+  if (canonical === 'https://generadordelettering.org/herramientas/conversor-letras-bonitas') {
+    assert(
+      html.includes('https://www.unicode.org/standard/standard.html'),
+      'Prerendered Unicode converter must expose its primary Unicode Standard source link'
+    );
   }
 
   if (prerenderedUrls.has(canonical)) {
