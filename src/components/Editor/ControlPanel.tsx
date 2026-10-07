@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useEditorStore, type EditorState } from '@/store/useEditorStore';
 import { useShallow } from 'zustand/react/shallow';
-import { FONTS, PRESET_COLORS, loadFont } from '@/lib/fonts';
+import { FONTS, PRESET_COLORS, queueFonts } from '@/lib/fonts';
 import { AlignLeft, AlignCenter, AlignRight, Check, ChevronDown } from 'lucide-react';
 
 type ColorField =
@@ -92,7 +92,7 @@ function FontOption({
     if (!node) return;
 
     const loadPreview = () => {
-      void loadFont(font.family);
+      queueFonts([font.family]);
     };
 
     if (typeof IntersectionObserver === 'undefined') {
@@ -108,7 +108,7 @@ function FontOption({
       },
       {
         root: node.parentElement,
-        rootMargin: '80px 0px',
+        rootMargin: '40px 0px',
       }
     );
 
@@ -123,8 +123,9 @@ function FontOption({
       role="option"
       aria-selected={isSelected}
       className={`w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-[#FCD34D] transition-colors ${isSelected ? 'bg-gray-50' : ''}`}
-      onPointerEnter={() => void loadFont(font.family)}
-      onFocus={() => void loadFont(font.family)}
+      onPointerEnter={() => queueFonts([font.family])}
+      onFocus={() => queueFonts([font.family])}
+      onTouchStart={() => queueFonts([font.family])}
       onClick={onSelect}
     >
       <div className="w-4 flex justify-center text-[#5A4AD2]">
