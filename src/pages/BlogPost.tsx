@@ -63,6 +63,18 @@ const BLOG_CTA: Record<string, [string, string][]> = {
     ['Conversor de Letras Bonitas', '/herramientas/conversor-letras-bonitas'],
     ['Generador de Nombres para Instagram', '/herramientas/generador-de-nombres-para-instagram'],
   ],
+  'como-comprobar-letras-unicode-copiar-pegar': [
+    ['Conversor de Letras', '/herramientas/conversor-texto'],
+    ['Conversor de Letras Bonitas', '/herramientas/conversor-letras-bonitas'],
+  ],
+  'lettering-digital-tres-estilos-paso-a-paso': [
+    ['Creador de Lettering', '/herramientas/creador-de-lettering'],
+    ['Combinador de Fuentes', '/herramientas/combinador-de-fuentes'],
+  ],
+  'plan-practica-lettering-siete-dias': [
+    ['Descargar hojas de práctica', '/herramientas/plantillas-practica'],
+    ['Editor de Lettering', '/editor'],
+  ],
 };
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
