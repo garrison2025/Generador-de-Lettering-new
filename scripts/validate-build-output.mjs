@@ -135,14 +135,50 @@ for (const htmlFile of htmlFiles) {
   );
   assert(twitterUrl === canonical, `twitter:url must match canonical in ${htmlFile}`);
 
+  const siteSchemaMatches = [
+    ...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*data-seo-site-schema=["']true["'][^>]*>([\s\S]*?)<\/script>/gi)
+  ];
+  assert(siteSchemaMatches.length === 1, `Expected exactly one site identity JSON-LD graph in ${htmlFile}`);
+  let siteSchema;
+  try {
+    siteSchema = JSON.parse(siteSchemaMatches[0][1]);
+  } catch (error) {
+    throw new Error(`Invalid site identity JSON-LD in ${htmlFile}: ${error.message}`);
+  }
+  const siteGraph = Array.isArray(siteSchema?.['@graph']) ? siteSchema['@graph'] : [];
+  const organization = siteGraph.find((item) => item?.['@id'] === 'https://generadordelettering.org/#organization');
+  const website = siteGraph.find((item) => item?.['@id'] === 'https://generadordelettering.org/#website');
+  assert(
+    organization?.['@type'] === 'Organization' && organization?.name === 'Generador de Lettering',
+    `Stable Organization entity missing from ${htmlFile}`
+  );
+  assert(
+    website?.['@type'] === 'WebSite' &&
+    website?.publisher?.['@id'] === 'https://generadordelettering.org/#organization',
+    `Stable WebSite -> Organization relationship missing from ${htmlFile}`
+  );
+
   const schemaMatches = [
     ...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*data-seo-schema=["']true["'][^>]*>([\s\S]*?)<\/script>/gi)
   ];
   for (const schemaMatch of schemaMatches) {
     try {
-      JSON.parse(schemaMatch[1]);
+      const parsed = JSON.parse(schemaMatch[1]);
+      if (parsed?.['@type'] === 'WebApplication') {
+        assert(
+          parsed?.provider?.['@id'] === 'https://generadordelettering.org/#organization',
+          `WebApplication provider must reference the stable Organization entity in ${htmlFile}`
+        );
+        assert(
+          parsed?.isPartOf?.['@id'] === 'https://generadordelettering.org/#website',
+          `WebApplication isPartOf must reference the stable WebSite entity in ${htmlFile}`
+        );
+      }
     } catch (error) {
-      throw new Error(`Invalid prerendered JSON-LD in ${htmlFile}: ${error.message}`);
+      if (error instanceof SyntaxError) {
+        throw new Error(`Invalid prerendered JSON-LD in ${htmlFile}: ${error.message}`);
+      }
+      throw error;
     }
   }
   if (schemaRequiredUrls.has(canonical)) {
