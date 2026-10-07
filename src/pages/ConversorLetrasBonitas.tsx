@@ -1,6 +1,6 @@
 import { copyText } from '../utils/copyText';
-import { useState, useDeferredValue, useMemo } from 'react';
-import { Copy, Check, Sparkles, PenTool, ChevronLeft } from 'lucide-react';
+import { useState, useDeferredValue, useMemo, useEffect } from 'react';
+import { Copy, Check, Sparkles, PenTool, ChevronLeft, Star, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
@@ -90,6 +90,22 @@ const STYLES = [
   { id: 'coronitas', name: 'Coronitas VIP (👑)' },
   { id: 'armas', name: 'Pistolas (︻╦╤─)' },
 ];
+
+const FAVORITES_STORAGE_KEY = 'lettering_aesthetic_favorite_styles_v1';
+const FAVORITES_LIMIT = 12;
+type StyleGroup = 'all' | 'letters' | 'effects' | 'decorations' | 'saved';
+
+function groupForStyle(id: string): Exclude<StyleGroup, 'all' | 'saved'> {
+  if (FONT_MAPS[id]) return 'letters';
+  if (DECORATORS[id]?.modifier || DECORATORS[id]?.reverse) return 'effects';
+  return 'decorations';
+}
+
+function normalizedStyleName(name: string) {
+  return name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+
 
 function convertText(text: string, styleId: string) {
   if (!text) return 'Letras Bonitas';
@@ -221,6 +237,54 @@ export default function ConversorLetrasBonitas() {
   const deferredInput = useDeferredValue(inputText);
   const inputCharacterCount = Array.from(inputText).length;
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [category, setCategory] = useState<StyleGroup>('all');
+  const [styleSearch, setStyleSearch] = useState('');
+  const [savedStyleIds, setSavedStyleIds] = useState<string[]>([]);
+  const [favoritesHydrated, setFavoritesHydrated] = useState(false);
+  const [persistentFavorites, setPersistentFavorites] = useState(true);
+  const [favoriteMessage, setFavoriteMessage] = useState<string | null>(null);
+  const [selectedStyleId, setSelectedStyleId] = useState('cursiva');
+
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
+      if (stored) {
+        const parsed: unknown = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          const safeIds = parsed.filter((value): value is string =>
+            typeof value === 'string' && STYLES.some((style) => style.id === value)
+          );
+          setSavedStyleIds([...new Set(safeIds)].slice(0, FAVORITES_LIMIT));
+        }
+      }
+    } catch {
+      setPersistentFavorites(false);
+    } finally {
+      setFavoritesHydrated(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!favoritesHydrated) return;
+    try {
+      window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(savedStyleIds));
+      setPersistentFavorites(true);
+    } catch {
+      setPersistentFavorites(false);
+    }
+  }, [savedStyleIds, favoritesHydrated]);
+
+  const toggleFavorite = (id: string) => {
+    if (savedStyleIds.includes(id)) {
+      setSavedStyleIds((previous) => previous.filter((saved) => saved !== id));
+      setFavoriteMessage('El estilo se ha quitado de tu selección.');
+    } else if (savedStyleIds.length >= FAVORITES_LIMIT) {
+      setFavoriteMessage('Puedes guardar hasta 12 estilos. Quita uno para añadir otro.');
+    } else {
+      setSavedStyleIds((previous) => [...previous, id]);
+      setFavoriteMessage('Estilo añadido a tu selección para comparar.');
+    }
+  };
 
   const convertedStyles = useMemo(
     () => STYLES.map((style) => ({
@@ -229,6 +293,21 @@ export default function ConversorLetrasBonitas() {
     })),
     [deferredInput]
   );
+
+  const visibleStyles = useMemo(() => {
+    const search = normalizedStyleName(styleSearch.trim());
+    return convertedStyles.filter((style) =>
+      (category === 'all' ||
+        (category === 'saved'
+          ? savedStyleIds.includes(style.id)
+          : groupForStyle(style.id) === category)) &&
+      (!search || normalizedStyleName(style.name).includes(search))
+    );
+  }, [convertedStyles, category, savedStyleIds, styleSearch]);
+
+  const chosenStyle = convertedStyles.find((style) => style.id === selectedStyleId) || convertedStyles[0];
+  const countOriginalPoints = Array.from(deferredInput).length;
+  const countOutputPoints = Array.from(chosenStyle?.converted || '').length;
 
   const copyToClipboard = async (text: string, id: string) => {
     if (!(await copyText(text))) {
@@ -365,8 +444,114 @@ export default function ConversorLetrasBonitas() {
         </div>
       </div>
 
+      <section aria-labelledby="aesthetic-collection-title" className="mb-8 rounded-3xl border border-indigo-100 bg-white p-5 sm:p-7 shadow-sm">
+        <h2 id="aesthetic-collection-title" className="text-xl sm:text-2xl font-black text-gray-900">
+          Tu colección aesthetic: filtra, compara y guarda estilos
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-gray-600">
+          Este modo está pensado para elegir uno o dos estilos para un perfil o biografía, no solo recorrer una
+          lista. Selecciona una categoría, busca por nombre y guarda hasta 12 favoritos en este navegador.
+          Los favoritos guardan el <strong>tipo de estilo</strong>, no tu texto personal.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoría">
+          {([
+            ['all', 'Todos'],
+            ['letters', 'Letras'],
+            ['effects', 'Efectos'],
+            ['decorations', 'Adornos'],
+            ['saved', `Guardados (${savedStyleIds.length})`],
+          ] as const).map(([group, label]) => (
+            <button
+              key={group}
+              type="button"
+              aria-pressed={category === group}
+              onClick={() => setCategory(group)}
+              className={`min-h-11 rounded-xl px-4 py-2 text-sm font-bold border transition ${
+                category === group
+                  ? 'bg-[#5A4AD2] text-white border-[#5A4AD2]'
+                  : 'bg-indigo-50 text-indigo-800 border-indigo-100 hover:bg-indigo-100'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <div className="relative mt-5">
+          <label htmlFor="aesthetic-style-search" className="mb-2 block text-sm font-bold text-gray-800">
+            Buscar un estilo
+          </label>
+          <Search className="absolute bottom-3 left-3 h-5 w-5 text-gray-500 pointer-events-none" aria-hidden="true" />
+          <input
+            id="aesthetic-style-search"
+            type="search"
+            value={styleSearch}
+            onChange={(event) => setStyleSearch(event.currentTarget.value.slice(0, 60))}
+            placeholder="Prueba cursiva, gótica, tachado, corazones..."
+            className="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-11 pr-4 text-sm text-gray-900 outline-none focus:border-[#5A4AD2]"
+          />
+        </div>
+        <p className="mt-3 text-sm text-gray-600" role="status">
+          Se muestran {visibleStyles.length} de {STYLES.length} estilos configurados.
+          {!persistentFavorites ? ' Tu navegador no permite guardar la selección de forma permanente.' : ''}
+        </p>
+        {favoriteMessage && <p role="status" className="mt-2 text-xs text-indigo-800">{favoriteMessage}</p>}
+      </section>
+
+      <section aria-labelledby="aesthetic-compare-title" className="mb-8 rounded-3xl border border-gray-200 bg-indigo-50/40 p-5 sm:p-7">
+        <h2 id="aesthetic-compare-title" className="text-xl font-black text-gray-900">
+          Compara el texto normal con un estilo antes de pegarlo
+        </h2>
+        <p className="mt-2 text-sm text-gray-600 leading-relaxed">
+          Las variantes son caracteres Unicode, no archivos de fuentes. Un adorno puede aumentar la longitud
+          del texto o producir símbolos que una plataforma no acepte. Esta prueba calcula puntos de código
+          y unidades UTF-16; <strong>no comprueba los límites internos de una red social</strong>.
+        </p>
+        <label htmlFor="aesthetic-compare-style" className="mt-5 mb-2 block text-sm font-bold text-gray-800">
+          Estilo para comparar
+        </label>
+        <select
+          id="aesthetic-compare-style"
+          value={selectedStyleId}
+          onChange={(event) => setSelectedStyleId(event.currentTarget.value)}
+          className="w-full rounded-xl border border-gray-200 bg-white p-3 text-sm text-gray-900"
+        >
+          {convertedStyles.map((style) => <option key={style.id} value={style.id}>{style.name}</option>)}
+        </select>
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="min-w-0 rounded-xl bg-white border border-gray-200 p-4">
+            <h3 className="text-xs font-bold uppercase tracking-wide text-gray-500">Tu texto original</h3>
+            <p className="mt-2 min-h-12 break-all text-lg text-gray-900">{deferredInput || '—'}</p>
+            <p className="mt-3 text-xs text-gray-600">Puntos de código: {countOriginalPoints} · UTF-16: {deferredInput.length}</p>
+          </div>
+          <div className="min-w-0 rounded-xl bg-white border border-indigo-200 p-4">
+            <h3 className="text-xs font-bold uppercase tracking-wide text-gray-500">{chosenStyle?.name}</h3>
+            <p className="mt-2 min-h-12 break-all text-lg text-gray-900">{chosenStyle?.converted || '—'}</p>
+            <p className="mt-3 text-xs text-gray-600">Puntos de código: {countOutputPoints} · UTF-16: {chosenStyle?.converted.length || 0}</p>
+          </div>
+        </div>
+        <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <button
+            type="button"
+            onClick={() => copyToClipboard(chosenStyle?.converted || '', `compare-${selectedStyleId}`)}
+            disabled={!deferredInput}
+            className="min-h-11 rounded-xl bg-[#5A4AD2] px-5 py-3 text-sm font-bold text-white hover:bg-[#4F46E5] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {copiedId === `compare-${selectedStyleId}` ? 'Texto comparado copiado' : 'Copiar el estilo comparado'}
+          </button>
+          <Link to="/blog/como-comprobar-letras-unicode-copiar-pegar" className="text-sm font-semibold text-indigo-800 hover:underline">
+            Cómo comprobar compatibilidad antes de guardar →
+          </Link>
+        </div>
+      </section>
+
+      {visibleStyles.length === 0 && (
+        <p className="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-5 text-sm text-gray-700" role="status">
+          No hay estilos en esta selección. Cambia el filtro o borra el texto de búsqueda.
+        </p>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {convertedStyles.map((style) => {
+        {visibleStyles.map((style) => {
           const converted = style.converted;
           const isCopied = copiedId === style.id;
           
@@ -378,12 +563,36 @@ export default function ConversorLetrasBonitas() {
               }`}
             >
               <div className="flex-1 w-full overflow-hidden">
-                <span className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">{style.name}</span>
+                <div className="mb-3 flex items-start justify-between gap-2">
+                  <span className="block text-xs font-bold text-gray-500 uppercase tracking-wider">{style.name}</span>
+                  <button
+                    type="button"
+                    aria-label={savedStyleIds.includes(style.id) ? `Quitar estilo ${style.name} de guardados` : `Guardar estilo ${style.name}`}
+                    aria-pressed={savedStyleIds.includes(style.id)}
+                    onClick={() => toggleFavorite(style.id)}
+                    className={`flex min-h-11 min-w-11 items-center justify-center rounded-xl border ${
+                      savedStyleIds.includes(style.id)
+                        ? 'border-amber-200 bg-amber-50 text-amber-700'
+                        : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-amber-300'
+                    }`}
+                  >
+                    <Star className="h-5 w-5" fill={savedStyleIds.includes(style.id) ? 'currentColor' : 'none'} aria-hidden="true" />
+                  </button>
+                </div>
                 <p className="text-2xl text-gray-900 break-words w-full max-h-32 overflow-y-auto pr-2 custom-scrollbar" title={converted}>
                   {converted}
                 </p>
               </div>
               <button
+                type="button"
+                onClick={() => setSelectedStyleId(style.id)}
+                className="min-h-11 rounded-lg border border-indigo-100 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-800 hover:bg-indigo-100"
+                aria-label={`Comparar estilo ${style.name}`}
+              >
+                Comparar este estilo
+              </button>
+              <button
+                type="button"
                 onClick={() => copyToClipboard(converted, style.id)}
                 aria-label={`Copiar estilo ${style.name}`}
                 className={`w-full shrink-0 flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-bold transition-all ${
