@@ -477,9 +477,14 @@ function validateMonetizationConfig() {
 
   const adsPublisher = ads.match(/^google\.com,\s*(pub-\d+),\s*DIRECT,\s*f08c47fec0942fa0\s*$/m)?.[1];
   const scriptPublisher = html.match(/adsbygoogle\.js\?client=ca-(pub-\d+)/)?.[1];
+  const accountPublisher = html.match(/<meta\s+name="google-adsense-account"\s+content="ca-(pub-\d+)"\s*\/>/)?.[1];
 
   assert(adsPublisher, 'Could not find a valid Google DIRECT publisher entry in public/ads.txt');
   assert(scriptPublisher, 'Could not find the AdSense publisher ID in index.html');
+  assert(accountPublisher === adsPublisher, 'Static AdSense account verification meta must match ads.txt');
+  assert(!/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(html), 'No competing vignette/social-bar networks are permitted during AdSense review');
+  assert(!/monetag|adsterra/i.test(read('src/components/CookieConsent.tsx')), 'Consent must describe only configured ad providers');
+  assert(!/monetag|adsterra/i.test(read('src/pages/Privacidad.tsx')), 'Privacy policy must describe only configured ad providers');
   assert(
     adsPublisher === scriptPublisher,
     `AdSense publisher mismatch: ads.txt=${adsPublisher}, script=${scriptPublisher}`
