@@ -1032,25 +1032,25 @@ function validateGscBaselineProtection() {
     {
       source: 'src/pages/LetrasFreeFire.tsx',
       title: 'Letras para Free Fire con Símbolos | Copiar y Pegar',
-      h1Needles: ['>Generador de Letras para Free Fire</h1>'],
+      h1: 'Generador de Letras para Free Fire',
       canonical: 'https://generadordelettering.org/herramientas/letras-free-fire'
     },
     {
       source: 'src/pages/LetrasTikTok.tsx',
       title: 'Conversor de Letras Bonitas para TikTok Aesthetic (Copiar y Pegar)',
-      h1Needles: ['Conversor de <span', '>Letras Bonitas para TikTok</span>'],
+      h1: 'Conversor de Letras Bonitas para TikTok',
       canonical: 'https://generadordelettering.org/herramientas/letras-tiktok'
     },
     {
       source: 'src/pages/GeneradorNombresInstagram.tsx',
       title: 'Generador de Nombres para Instagram - Letras Bonitas y Bio Aesthetic',
-      h1Needles: ['>Generador de Nombres para Instagram</h1>'],
+      h1: 'Generador de Nombres para Instagram',
       canonical: 'https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram'
     },
     {
       source: 'src/pages/LetrasAzules.tsx',
       title: 'Letras Azules para Copiar | Generador de Letras en Cuadraditos',
-      h1Needles: ['>Letras Azules y Cuadradas</h1>'],
+      h1: 'Letras Azules y Cuadradas',
       canonical: 'https://generadordelettering.org/herramientas/letras-azules'
     }
   ];
@@ -1066,9 +1066,15 @@ function validateGscBaselineProtection() {
       source.includes(`title="${page.title}"`),
       `Protected GSC winner title changed without new evidence: ${page.source}`
     );
+    const h1Block = source.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1] || '';
+    const normalizedH1 = h1Block
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\{[^}]+\}/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
     assert(
-      page.h1Needles.every((needle) => source.includes(needle)),
-      `Protected GSC winner H1 changed without new evidence: ${page.source}`
+      normalizedH1 === page.h1,
+      `Protected GSC winner H1 changed without new evidence: ${page.source} (found "${normalizedH1}")`
     );
     assert(
       source.includes(`canonical="${page.canonical}"`),
