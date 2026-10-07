@@ -558,6 +558,12 @@ function validateEditorFontPipeline() {
     'Editor font previews must use queued requests instead of one stylesheet request per option'
   );
   assert(
+    controls.includes('window.requestAnimationFrame') &&
+    controls.includes('scheduleValueChange') &&
+    controls.includes('flushPendingValue'),
+    'Editor sliders must coalesce preview updates to the animation-frame budget'
+  );
+  assert(
     !canvas.includes('fontLoaded') &&
     canvas.includes('{dimensions.width > 0 && (') &&
     canvas.includes('stageRef.current?.batchDraw()'),
