@@ -141,8 +141,8 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-7">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Herramientas populares de letras y nombres</h2>
-              <p className="text-gray-500 mt-2">Accede directamente a nuestros generadores más utilizados para redes sociales y gaming.</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Herramientas de letras y nombres</h2>
+              <p className="text-gray-500 mt-2">Accede a los conversores y generadores del sitio según lo que necesitas crear o copiar.</p>
             </div>
             <Link to="/herramientas/conversor-texto" className="text-sm font-semibold text-[#4F46E5] hover:underline">
               Ver conversor de letras →
@@ -198,7 +198,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-[32px] font-bold text-gray-900 mb-4">¿Por qué elegir nuestro Generador de Lettering?</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto text-lg">Nuestro generador de lettering ofrece una experiencia única con características diseñadas para hacer tu proceso creativo más fácil y divertido.</p>
+            <p className="text-gray-500 max-w-2xl mx-auto text-lg">La herramienta combina presets, tipografías y controles de imagen. Estas son las funciones que puedes probar y comparar en tu propio diseño.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -339,6 +339,16 @@ export default function Home() {
             </div>
           </div>
           
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <Link to="/blog/como-comprobar-letras-unicode-copiar-pegar" className="block rounded-xl bg-white border border-indigo-100 p-5 text-left hover:border-indigo-400 transition">
+              <strong className="block text-gray-900">¿Se ven bien tus letras Unicode?</strong>
+              <span className="mt-2 block text-sm text-gray-600">Compara ejemplos y examina los puntos de código antes de pegar un nombre o biografía.</span>
+            </Link>
+            <Link to="/blog/lettering-digital-tres-estilos-paso-a-paso" className="block rounded-xl bg-white border border-indigo-100 p-5 text-left hover:border-indigo-400 transition">
+              <strong className="block text-gray-900">Un texto, tres diseños reales</strong>
+              <span className="mt-2 block text-sm text-gray-600">Ejercicio paso a paso con colores y decisiones de lettering que puedes reproducir.</span>
+            </Link>
+          </div>
           <div className="text-center">
              <Link to="/blog" className="inline-flex items-center gap-2 border border-gray-300 bg-white text-gray-600 px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition shadow-sm">
                Visitar el Blog
