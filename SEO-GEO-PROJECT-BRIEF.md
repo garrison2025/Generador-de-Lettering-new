@@ -66,7 +66,7 @@ Important pages should:
 - Keep original value in the interactive tools; do not create duplicate answer-only versions for AI systems.
 - Use stable Organization/WebSite entity IDs across structured data.
 
-No special Google AI markup is required. `llms.txt` is not currently required and is intentionally not added without a specific interoperability need.
+No special Google AI markup is required. The existing `/llms.txt` and `/llms-full.txt` files are retained only as optional interoperability summaries for non-Google systems; they are not treated as Google indexing or ranking requirements.
 
 ## 6. Evidence and source registry
 
@@ -75,7 +75,7 @@ No special Google AI markup is required. `llms.txt` is not currently required an
 | current GSC clicks/impressions/CTR/position | `seo/gsc-baseline-2026-10-07.json` from user-provided GSC screenshots | next accepted GSC review |
 | configured converter style count | `src/pages/ConversorTexto.tsx` and deterministic CI validation | style-array change |
 | tool behavior / browser-local conversion | implementation source and browser smoke tests | implementation change |
-| Unicode character semantics | Unicode Standard, https://www.unicode.org/standard/standard.html | when Unicode-specific claims materially change |
+| Unicode Regional Indicator semantics | `seo/source-registry.json` → Unicode Consortium latest names list | when Unicode-specific claims materially change |
 | external platform acceptance/limits | visible cautious wording; no hard guarantee without first-party evidence | platform behavior change or new sourced claim |
 
 Claims about TikTok, Instagram, Free Fire, browsers, or third-party compatibility must be phrased as platform-dependent unless supported by current first-party documentation.
@@ -114,7 +114,7 @@ The small set of specialized SEO landing pages is allowed only while each route 
 ## 11. Search and AI crawler policy
 
 - Googlebot/Bing/search crawlers: public site remains crawlable.
-- Existing robots policy allows the public site and separately names GPTBot, ClaudeBot, and PerplexityBot.
+- Existing robots policy allows the public site and separately names GPTBot, ClaudeBot, and PerplexityBot; those directives are an owner/product-crawler policy, not an SEO requirement.
 - No instruction may describe Google-Extended as a Search ranking/indexing control.
 - No new training/product crawler restriction or permission is inferred from SEO needs; owner policy should control future changes.
 
