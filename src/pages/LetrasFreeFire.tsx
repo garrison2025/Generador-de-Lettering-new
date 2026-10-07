@@ -315,7 +315,7 @@ export default function LetrasFreeFire() {
                 className={`order-1 sm:order-2 shrink-0 flex items-center justify-center gap-2 px-4 py-2.5 w-full sm:w-auto rounded-lg font-bold transition-all ${
                   isCopied 
                     ? 'bg-green-100 text-green-700' 
-                    : 'bg-gray-100 text-gray-700 opacity-0 sm:opacity-100 group-hover:opacity-100 hover:bg-[#FACC15] hover:text-gray-900'
+                    : 'bg-gray-100 text-gray-700 hover:bg-[#FACC15] hover:text-gray-900'
                 }`}
               >
                 {isCopied ? (

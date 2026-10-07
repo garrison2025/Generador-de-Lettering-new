@@ -108,7 +108,7 @@ function normalizedStyleName(name: string) {
 
 
 function convertText(text: string, styleId: string) {
-  if (!text) return 'Letras Bonitas';
+  if (!text) return '';
 
   let result = text;
 
@@ -236,7 +236,7 @@ export default function ConversorLetrasBonitas() {
   const [inputText, setInputText] = useState('Letras hermosas');
   const deferredInput = useDeferredValue(inputText);
   const inputCharacterCount = Array.from(inputText).length;
-  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [copied, setCopied] = useState<{ id: string; text: string; input: string } | null>(null);
   const [category, setCategory] = useState<StyleGroup>('all');
   const [styleSearch, setStyleSearch] = useState('');
   const [uniqueOnly, setUniqueOnly] = useState(false);
@@ -314,16 +314,18 @@ export default function ConversorLetrasBonitas() {
   }, [convertedStyles, category, savedStyleIds, styleSearch, uniqueOnly]);
 
   const chosenStyle = convertedStyles.find((style) => style.id === selectedStyleId) || convertedStyles[0];
+  const isCompareCopied = copied?.id === `compare-${selectedStyleId}` && copied.text === chosenStyle?.converted && copied.input === inputText;
   const countOriginalPoints = Array.from(deferredInput).length;
   const countOutputPoints = Array.from(chosenStyle?.converted || '').length;
 
   const copyToClipboard = async (text: string, id: string) => {
+    const result = { id, text, input: inputText };
     if (!(await copyText(text))) {
       window.alert('No se pudo copiar automáticamente. Selecciona el texto y cópialo manualmente.');
       return;
     }
-    setCopiedId(id);
-    setTimeout(() => setCopiedId((current) => current === id ? null : current), 2000);
+    setCopied(result);
+    setTimeout(() => setCopied((current) => current === result ? null : current), 2000);
   };
 
   return (
@@ -552,10 +554,10 @@ export default function ConversorLetrasBonitas() {
           <button
             type="button"
             onClick={() => copyToClipboard(chosenStyle?.converted || '', `compare-${selectedStyleId}`)}
-            disabled={!deferredInput}
+            disabled={!inputText || inputText !== deferredInput}
             className="min-h-11 rounded-xl bg-[#5A4AD2] px-5 py-3 text-sm font-bold text-white hover:bg-[#4F46E5] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {copiedId === `compare-${selectedStyleId}` ? 'Texto comparado copiado' : 'Copiar el estilo comparado'}
+            {isCompareCopied ? 'Texto comparado copiado' : 'Copiar el estilo comparado'}
           </button>
           <Link to="/blog/como-comprobar-letras-unicode-copiar-pegar" className="text-sm font-semibold text-indigo-800 hover:underline">
             Cómo comprobar compatibilidad antes de guardar →
@@ -572,7 +574,7 @@ export default function ConversorLetrasBonitas() {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {visibleStyles.map((style) => {
           const converted = style.converted;
-          const isCopied = copiedId === style.id;
+          const isCopied = copied?.id === style.id && copied.text === converted && copied.input === inputText;
           
           return (
             <div 
@@ -599,7 +601,7 @@ export default function ConversorLetrasBonitas() {
                   </button>
                 </div>
                 <p className="text-2xl text-gray-900 break-words w-full max-h-32 overflow-y-auto pr-2 custom-scrollbar" title={converted}>
-                  {converted}
+                  {converted || '—'}
                 </p>
               </div>
               <button
@@ -619,8 +621,9 @@ export default function ConversorLetrasBonitas() {
               <button
                 type="button"
                 onClick={() => copyToClipboard(converted, style.id)}
+                disabled={!inputText || inputText !== deferredInput}
                 aria-label={`Copiar estilo ${style.name}`}
-                className={`w-full shrink-0 flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-bold transition-all ${
+                className={`w-full shrink-0 flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-bold transition-all disabled:cursor-not-allowed disabled:opacity-50 ${
                   isCopied 
                     ? 'bg-green-100 text-green-700' 
                     : 'bg-gray-50 text-gray-700 border border-gray-200 hover:bg-[#5A4AD2] hover:text-white hover:border-[#5A4AD2]'

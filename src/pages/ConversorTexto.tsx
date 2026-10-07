@@ -235,23 +235,24 @@ export default function ConversorTexto() {
   const [inputText, setInputText] = useState('Lettering Mágico');
   const deferredInput = useDeferredValue(inputText);
   const inputCharacterCount = Array.from(inputText).length;
-  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [copied, setCopied] = useState<{ id: string; text: string; input: string } | null>(null);
 
   const convertedStyles = useMemo(
     () => STYLES.map((style) => ({
       ...style,
-      converted: convertText(deferredInput || 'Escribe algo', style.id),
+      converted: convertText(deferredInput, style.id),
     })),
     [deferredInput]
   );
 
   const copyToClipboard = async (text: string, id: string) => {
+    const result = { id, text, input: inputText };
     if (!(await copyText(text))) {
       window.alert('No se pudo copiar automáticamente. Selecciona el texto y cópialo manualmente.');
       return;
     }
-    setCopiedId(id);
-    setTimeout(() => setCopiedId((current) => current === id ? null : current), 2000);
+    setCopied(result);
+    setTimeout(() => setCopied((current) => current === result ? null : current), 2000);
   };
 
   return (
@@ -331,6 +332,7 @@ export default function ConversorTexto() {
       <div className="space-y-4">
         {convertedStyles.map((style) => {
           const converted = style.converted;
+          const isCopied = copied?.id === style.id && copied.text === converted && copied.input === inputText;
 
           return (
             <div key={style.id} className="min-w-0 bg-white border text-center md:text-left border-gray-200 rounded-xl p-4 flex flex-col md:flex-row items-stretch md:items-center gap-4 hover:border-[#5A4AD2]/50 transition-colors">
@@ -339,19 +341,20 @@ export default function ConversorTexto() {
               </div>
               <div className="min-w-0 flex-1 overflow-hidden">
                 <p className="text-xl md:text-2xl text-gray-900 break-all md:truncate px-2 sm:px-4 py-2 border-b md:border-b-0 border-gray-100 w-full leading-relaxed" title={converted}>
-                  {converted}
+                  {converted || '—'}
                 </p>
               </div>
               <button
                 onClick={() => copyToClipboard(converted, style.id)}
+                disabled={!inputText || inputText !== deferredInput}
                 aria-label={`Copiar estilo ${style.name}`}
-                className={`shrink-0 flex items-center justify-center gap-2 px-6 py-3 w-full md:w-auto rounded-xl font-bold transition-all shadow-sm hover:-translate-y-0.5 ${
-                  copiedId === style.id 
+                className={`shrink-0 flex items-center justify-center gap-2 px-6 py-3 w-full md:w-auto rounded-xl font-bold transition-all shadow-sm hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 ${
+                  isCopied
                     ? 'bg-green-100 text-green-700 ring-2 ring-green-400 border-transparent' 
                     : 'bg-white border border-gray-200 text-gray-700 hover:bg-[#5A4AD2] hover:text-white hover:border-[#5A4AD2]'
                 }`}
               >
-                {copiedId === style.id ? (
+                {isCopied ? (
                   <>
                     <Check className="w-5 h-5" />
                     Copiado

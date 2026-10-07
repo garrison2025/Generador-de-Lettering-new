@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { copyText } from '../utils/copyText';
 
 const SAMPLES = [
   { label: 'Texto básico', text: 'HOLA' },
@@ -6,17 +7,46 @@ const SAMPLES = [
   { label: 'Letras rodeadas', text: 'ⒽⓄⓁⒶ' },
   { label: 'Marcas combinantes', text: 'H̲O̲L̲A̲' },
   { label: 'Relleno U+3164', text: 'A\u3164B' },
+  { label: 'Espacio normal', text: 'A B' },
+  { label: 'Espacio sin salto U+00A0', text: 'A\u00A0B' },
+  { label: 'Ancho cero U+200B', text: 'A\u200BB' },
+  { label: 'Solo relleno U+3164', text: '\u3164' },
+  { label: 'Acento combinado', text: 'e\u0301' },
+  { label: 'Emoji con ZWJ', text: '👩‍💻' },
 ];
 
-export default function UnicodeInspector() {
-  const [input, setInput] = useState('𝗛𝗢𝗟𝗔');
+const CHARACTER_LABELS: Record<string, string> = {
+  ' ': 'Espacio',
+  '\u00A0': 'Espacio sin salto',
+  '\u200B': 'Espacio de ancho cero',
+  '\u200D': 'Unión de ancho cero (ZWJ)',
+  '\u3164': 'Relleno Hangul',
+  '\n': 'Salto de línea (LF)',
+  '\r': 'Retorno de carro (CR)',
+  '\t': 'Tabulación',
+};
+
+export default function UnicodeInspector({ initialText = '𝗛𝗢𝗟𝗔' }: { initialText?: string }) {
+  const [input, setInput] = useState(initialText);
+  const [copiedText, setCopiedText] = useState<string | null>(null);
+  const [copyFailed, setCopyFailed] = useState(false);
   const points = useMemo(() => Array.from(input), [input]);
 
-  const chooseText = (value: string) => setInput(value);
+  const chooseText = (value: string) => {
+    setInput(value);
+    setCopiedText(null);
+    setCopyFailed(false);
+  };
+
+  const copyInspectedText = async () => {
+    const success = await copyText(input);
+    setCopiedText(success ? input : null);
+    setCopyFailed(!success);
+  };
 
   return (
     <section aria-labelledby="unicode-inspector-title" className="my-10 rounded-3xl border border-indigo-200 bg-indigo-50/50 p-5 md:p-7">
-      <h2 id="unicode-inspector-title" className="text-2xl font-black text-gray-900">
+      <h2 id="unicode-inspector-title" className="scroll-mt-24 text-2xl font-black text-gray-900">
         Laboratorio Unicode: compara los caracteres reales
       </h2>
       <p className="mt-2 text-sm leading-relaxed text-gray-700">
@@ -43,12 +73,27 @@ export default function UnicodeInspector() {
         id="unicode-inspector-input"
         className="w-full min-h-24 rounded-xl border border-gray-300 bg-white p-4 text-xl text-gray-900 outline-none focus:ring-2 focus:ring-indigo-500"
         value={input}
-        onChange={(e) => setInput(Array.from(e.currentTarget.value).slice(0, 80).join(''))}
+        onChange={(e) => chooseText(Array.from(e.currentTarget.value).slice(0, 80).join(''))}
         spellCheck={false}
         aria-describedby="unicode-inspector-help"
       />
       <p id="unicode-inspector-help" className="mt-1 text-xs text-gray-600">
         Límite local de la demo: 80 puntos de código; no representa ningún límite de TikTok, Instagram o juegos.
+      </p>
+      <button
+        type="button"
+        onClick={copyInspectedText}
+        disabled={!input}
+        className="mt-4 min-h-11 rounded-xl bg-[#5A4AD2] px-4 py-2 text-sm font-bold text-white hover:bg-[#4F46E5] disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        Copiar el texto examinado
+      </button>
+      <p role="status" className="mt-2 text-sm text-gray-700">
+        {copyFailed
+          ? 'No se pudo copiar. Selecciona el contenido de la caja y cópialo manualmente.'
+          : copiedText !== null && copiedText === input
+            ? 'Texto examinado copiado.'
+            : 'Se copia solo el contenido de la caja, incluidos los caracteres que no se ven.'}
       </p>
 
       <dl className="mt-5 grid grid-cols-2 gap-3">
@@ -70,8 +115,8 @@ export default function UnicodeInspector() {
         <ol className="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
           {points.map((character, index) => (
             <li key={index} className="min-w-0 rounded-lg border border-gray-200 bg-white p-3 text-center">
-              <span className="block break-all text-lg font-semibold text-gray-900">
-                {character.trim() ? character : '␣'}
+              <span className={`block font-semibold text-gray-900 ${CHARACTER_LABELS[character] ? 'break-words text-sm' : 'break-all text-lg'}`}>
+                {CHARACTER_LABELS[character] || character}
               </span>
               <span className="mt-1 block font-mono text-xs text-indigo-800">
                 U+{character.codePointAt(0)!.toString(16).toUpperCase().padStart(4, '0')}

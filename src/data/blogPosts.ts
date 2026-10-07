@@ -145,7 +145,7 @@ Prueba varias combinaciones, guarda las que mejor se lean en tu dispositivo y el
 
 La biografía es uno de los primeros elementos que ve una persona al entrar en el perfil. Por eso conviene que el texto sea breve, legible y consistente con el contenido que publicas.
 
-¿Pero cómo lo logras? No basta simplemente con usar emojis oscuros. Implica una combinación minuciosa de escritura creativa, **tipografías alteradas (fuentes raras)** e iconos estratégicos que crean un ecosistema *aesthetic*. En esta guía repasamos paso a paso los elementos que puedes combinar para conseguir una bio coherente con ese estilo.
+Empieza por decidir qué debe entender una persona de tu perfil: tu nombre, el tema de tus publicaciones y, si hace falta, una forma de encontrarte en otra red. Después elige un solo recurso visual. Los ejemplos de esta guía son propuestas editoriales para adaptar, no perfiles reales ni pruebas de crecimiento en TikTok.
 
 ## 1. El poder visual de tu Biografía 
 
@@ -177,19 +177,19 @@ TikTok limita el espacio disponible en la biografía y esas reglas pueden cambia
 Una estructura útil para una bio 'dark curation' es un esquema breve de hasta tres líneas:
 
 **Línea 1: El seudónimo / Signo Astrológico.**
-No pongas 'Hola soy Jorge de Chile'. Pon algo misterioso usando fuentes pequeñas (Small Caps). 
-Ejemplo: 𝖛𝖎𝖗𝖌𝖔 // 19 y.o 
+Usa un nombre corto que siga siendo reconocible. No necesitas publicar tu edad o ubicación para conseguir esta estética. Mantén el nombre en texto normal si una variante decorada dificulta leerlo.
+Ejemplo: Luna · cuaderno nocturno.
 
 **Línea 2: La Frase (Quote) o Concepto.**
-Acá va una película de culto, un artista o una línea lírica deprimente.
-Ejemplo: 'i lost myself inside a dream' (traducido como prefieras, la estética dark a veces prefiere el inglés todo en minúsculas).
+Describe el tema con palabras propias. Una frase concreta da más información que una colección de símbolos.
+Ejemplo: Bocetos, café y noches de lluvia.
 
 **Línea 3: Las Redes / Extra (opcional).**
-Un enlace a Instagram con un buen símbolo de flecha ↓ ig: @usuario ↓.
+Incluye solo un dato útil, como tu nombre en otra red. Escribir una dirección o una flecha en la bio no garantiza que TikTok la convierta en un enlace; comprueba las opciones de tu cuenta.
 
 ## 4. Ejemplos de composición para adaptar
 
-¿Falta de inspiración? Aquí tienes ejemplos pre-fabricados. Simplemente modifica los nombres o los signos zodiacales.
+Prueba estos puntos de partida y sustituye el contenido por información sobre tu propio proyecto. Conserva una versión en texto normal por si la aplicación rechaza la decoración.
 
 **El Estilo 'Dark Academia Literario':**
     a lover of dead poets 🥀
@@ -223,19 +223,49 @@ Una biografía dark suele funcionar mejor cuando guarda cierta coherencia con el
 
 Si buscas una estética dark, puedes probar sombras más marcadas, grano moderado, una paleta apagada y audios que encajen con el tono del contenido. Combina esos recursos con **[Letras para TikTok](/herramientas/letras-tiktok)** solo cuando ayuden a la lectura y mantén suficiente contraste en pantalla.
 
-Empieza hoy mismo tu 're-branding'. Experimenta, combina estilos y busca la oscuridad elegante en cada detalle.`
+## 7. Ejercicio completo: una bio para un cuaderno de dibujo
+
+**Objetivo del ejemplo:** explicar que Luna comparte dibujos de ambiente nocturno. No necesitamos una edad, una ciudad ni una frase ajena.
+
+**Borrador demasiado cargado:**
+
+> ☾ ⋆ 𝕷𝖚𝖓𝖆 ⋆ ☾ // dark vibes // arte // lluvia // café // @luna
+
+**Versión revisada en texto normal:**
+
+> Luna · bocetos nocturnos
+> Dibujo escenas de lluvia y café.
+
+**Variante decorada para comparar:** cambia solo Luna por 𝕷𝖚𝖓𝖆. El tema permanece en letras normales para que se lea con facilidad. El cambio es visual; no demuestra que TikTok vaya a recomendar más el perfil.
+
+1. Copia el borrador normal en el campo de biografía y comprueba el espacio que permite tu cuenta.
+2. Sustituye solo el nombre por la variante decorada con [Letras para TikTok](/herramientas/letras-tiktok).
+3. Comprueba tildes, saltos de línea y el nombre a tamaño real en otro dispositivo si puedes.
+4. Si aparece un cuadro vacío, se corta una línea o cuesta leer el tema, vuelve a la versión normal.
+
+**Resultado que debes poder comprobar:** alguien que no conoce tu cuenta puede decir de qué tratan tus publicaciones. Esa es una comprobación más útil que contar adornos.`
   },
   {
     slug: 'letras-invisibles-espacios-guia-redes-sociales',
     category: 'Unicode',
     title: 'Cómo crear espacios y letras invisibles para Instagram y Juegos',
     seoTitle: 'Letras Invisibles y Espacios para Instagram y Juegos',
-    excerpt: 'Todo lo que necesitas saber sobre los caracteres Unicode transparentes y cómo usarlos para crear espacios en blanco donde las apps no te dejan.',
+    excerpt: 'Distingue espacios normales, relleno Hangul y caracteres de ancho cero con ejemplos inspeccionables, copia exacta y una prueba de compatibilidad paso a paso.',
     date: '2024-05-16',
     updated: '2026-10-07',
     keywords: 'letras invisibles, espacio invisible free fire, espacio en blanco instagram, como hacer letras transparentes, caracter vacio',
     image: 'https://generadordelettering.org/og-image.jpg',
     sources: [
+      {
+        label: 'Unicode — General Punctuation (U+200B y U+200D)',
+        url: 'https://www.unicode.org/charts/PDF/U2000.pdf',
+        note: 'Tabla oficial para ZERO WIDTH SPACE y ZERO WIDTH JOINER; sus funciones no son las de un espacio normal.'
+      },
+      {
+        label: 'Unicode — Latin-1 Supplement (U+00A0)',
+        url: 'https://www.unicode.org/charts/PDF/U0080.pdf',
+        note: 'Identifica NO-BREAK SPACE y su relación con el espacio U+0020.'
+      },
       {
         label: 'Unicode — Hangul Compatibility Jamo (U+3164 HANGUL FILLER)',
         url: 'https://www.unicode.org/Public/UCD/latest/charts/nameslist/3130/',
@@ -247,7 +277,7 @@ Empieza hoy mismo tu 're-branding'. Experimenta, combina estilos y busca la oscu
         note: 'Referencia general para puntos de código y caracteres Unicode.'
       }
     ],
-    content: `¿Alguna vez te has frustrado porque Instagram elimina tus saltos de línea y junta todos tus párrafos en un gran bloque de texto ilegible? ¿O intentaste poner un espacio entre las palabras de tu nombre de Free Fire y el juego te arrojó un error de 'Símbolo no permitido'? 
+    content: `Un texto puede parecer vacío y contener caracteres. Antes de usarlo en una biografía o un nombre, conviene saber cuál estás copiando: un espacio normal, un carácter de ancho cero y un relleno Hangul no son lo mismo.
 
 Muchas aplicaciones normalizan o eliminan determinados espacios comunes en nombres, biografías o formularios. Algunos caracteres Unicode sin una forma visible pueden conservarse en ciertos campos y producir un efecto de separación, aunque su compatibilidad depende de cada plataforma.
 
@@ -259,16 +289,30 @@ Unicode asigna puntos de código a caracteres definidos por el estándar. La rep
 
 Unicode incluye distintos caracteres cuyo aspecto puede ser vacío o casi invisible. Uno de los más utilizados para este efecto es **Hangul Filler (U+3164)**, un carácter definido en Unicode que algunas interfaces muestran sin una forma visible. Que una aplicación lo acepte o conserve depende de sus propias reglas.
 
+| Carácter | Código | Qué lo distingue | Ejemplo en el laboratorio |
+| --- | --- | --- | --- |
+| Espacio normal | U+0020 | Separación habitual entre palabras | Espacio normal |
+| Espacio sin salto | U+00A0 | Evita un salto de línea en esa posición | Espacio sin salto U+00A0 |
+| Espacio de ancho cero | U+200B | Permite separación o control de salto sin ancho propio | Ancho cero U+200B |
+| Relleno Hangul | U+3164 | Carácter del bloque Hangul Compatibility Jamo; no es un espacio normal | Relleno U+3164 |
+
+Los nombres y códigos proceden de las tablas de Unicode enlazadas al final. Ninguno de ellos certifica que una red social lo admita.
+
+### Experimento reproducible con A y B
+
+Abre el [laboratorio de esta página](#unicode-inspector-title). Compara **Espacio normal**, **Ancho cero U+200B** y **Relleno U+3164**. En los tres casos hay **3 puntos de código y 3 unidades UTF-16**: A, el carácter intermedio y B. La separación visible puede cambiar, aunque el recuento sea idéntico.
+
+Después pulsa **Solo relleno U+3164**. La caja puede parecer vacía, pero el contador marca **1** y la lista identifica **U+3164**. El botón **Copiar el texto examinado** copia únicamente ese carácter. Si borras la caja, ambos recuentos pasan a **0** y la copia se desactiva. Así distingues un carácter sin forma visible de una cadena realmente vacía.
+
 ## 2. Aplicaciones Prácticas: Los Saltos de Línea en Instagram
 
 El tratamiento de líneas en blanco y caracteres invisibles puede cambiar entre versiones de Instagram. Históricamente algunos usuarios han recurrido a puntos, guiones o caracteres de apariencia vacía para conservar separaciones visuales, pero conviene comprobar el resultado en la versión actual de la aplicación antes de publicar.
 
-**La Solución:**
-1. Escribes tu primer párrafo.
-2. Das un 'Enter' (salto de línea).
-3. Pegas el **carácter invisible** (puedes generarlo en nuestro generador de texto).
-4. Das otro 'Enter'.
-5. Escribes tu segundo párrafo.
+**Prueba antes de modificar una publicación:**
+1. Escribe dos párrafos con un salto de línea normal y revisa primero si ya consigues la separación que buscas.
+2. Si necesitas comparar, copia **Solo relleno U+3164** desde el laboratorio y colócalo entre dos saltos de línea en un borrador.
+3. Compara ambas versiones a tamaño real. No publiques únicamente para comprobar un carácter.
+4. Si el relleno aparece como un cuadro, se elimina o perjudica la lectura, conserva la versión con saltos normales.
 
 Después de pegarlo, revisa la vista previa antes de publicar. Instagram puede conservar, normalizar o eliminar el carácter según la versión y el campo utilizado, por lo que este método no debe considerarse garantizado.
 
@@ -281,9 +325,16 @@ Para probarlo:
 - Inserta el espacio invisible desde la herramienta y revisa el resultado.
 - Si el juego rechaza el nick, prueba una variante más corta o elimina caracteres especiales.
 
-## 4. WhatsApp: Enviando mensajes 'Vacíos'
+## 4. Cómo comprobar qué conservó una aplicación
 
-Algunas aplicaciones de mensajería distinguen entre espacios normales y otros caracteres Unicode. Si quieres probar un mensaje visualmente vacío, pega un carácter invisible y comprueba si la versión actual de la aplicación lo acepta antes de enviarlo. La interfaz y las reglas pueden cambiar, así que el resultado no es idéntico en todos los dispositivos.
+Copia una muestra desde el laboratorio, pégala en un borrador del campo de destino y vuelve a copiarla desde allí a la caja del laboratorio. Compara los códigos, no solo el aspecto. Esta comprobación local puede revelar que el campo eliminó un carácter; no reproduce todas las transformaciones que la plataforma podría hacer al guardar.
+
+| Resultado observado | Siguiente paso |
+| --- | --- |
+| Aparece un cuadro o un símbolo inesperado | Quita el carácter; la fuente o el campo puede no representarlo como esperabas |
+| La separación desaparece al volver a copiar | Compara los códigos: el campo puede haber eliminado o sustituido el carácter |
+| El nombre se rechaza | Usa letras y espacios admitidos; no repitas caracteres para intentar eludir la validación |
+| Se ve bien en un dispositivo y mal en otro | Prioriza una versión simple y comprueba ambas vistas |
 
 ## 5. El uso de letras invisibles no es 'Hackeo'
 
@@ -362,13 +413,21 @@ Cuando seleccionas una fuente como *Helvetica*, *Times New Roman* o *Pacifico*, 
 
 Puedes empezar a practicar con papel y lápiz o con una herramienta digital gratuita antes de decidir si necesitas software especializado.
 
-En nuestro sitio web cuentas con el **Creador de Lettering Digital en Español**, donde puedes:
+En nuestro sitio web, el **Creador de Lettering Digital en Español** permite componer texto con fuentes existentes. No tiene una herramienta para dibujar o retocar el contorno de cada glifo. Puedes:
 - Escribir cualquier frase o nombre.
 - Aplicar tipografías manuscritas, góticas y de neón.
 - Ajustar sombras 3D, contornos brillantes y degradados.
 - Exportar en PNG, JPG o WEBP en resolución normal o ampliada; para impresión profesional conviene revisar aparte tamaño físico y DPI.
 
-¡Ponte creativo y empieza a dibujar tus propias letras hoy mismo!`
+### Ejercicio: el mismo mensaje, tres procesos
+
+Usa la palabra **Luz** y conserva una muestra de cada proceso:
+
+- **Caligrafía:** escríbela con lápiz o rotulador, observando el gesto y la dirección de cada trazo.
+- **Lettering dibujado:** esboza el contorno de las tres letras y retoca una unión o una contraforma. No necesitas empezar con una fuente instalada.
+- **Composición tipográfica:** escribe Luz en el editor, elige una fuente y cambia tamaño, espaciado y color. Los glifos pertenecen a esa fuente; no has diseñado un alfabeto nuevo.
+
+**Qué comparar:** en qué versión cambiaste la forma de una letra y en cuál cambiaste la disposición de caracteres ya definidos. Si quieres practicar el dibujo a mano, continúa con las [hojas de práctica](/herramientas/plantillas-practica); si necesitas una imagen con texto, abre el [editor](/editor).`
   },
   {
     slug: 'fuentes-aesthetic-para-copiar-y-pegar-instagram',
@@ -450,6 +509,23 @@ Las variantes decorativas pueden reducir la **legibilidad** y la accesibilidad:
 - **Evita estilos muy cargados en nombres largos:** una variante más simple suele ser más fácil de leer y copiar.
 - **Prueba los caracteres invisibles antes de guardar:** cada plataforma puede normalizarlos o rechazarlos.
 - **Usa adornos y emojis con moderación:** demasiados símbolos pueden dificultar la lectura o ocupar espacio adicional.
+
+## 5. Compara un resultado con medidas concretas
+
+Escribe **HOLA** en el conversor. Estas medidas describen las cadenas del ejemplo, no los límites de Instagram, TikTok o WhatsApp:
+
+| Variante | Resultado | Puntos de código | Unidades UTF-16 |
+| --- | --- | --- | --- |
+| Texto normal | HOLA | 4 | 4 |
+| Sans negrita | 𝗛𝗢𝗟𝗔 | 4 | 8 |
+| Burbujas claras | ⒽⓄⓁⒶ | 4 | 4 |
+| Subrayado simple | H̲O̲L̲A̲ | 8 | 8 |
+
+La negrita sustituye letras por caracteres suplementarios. El subrayado añade una marca combinante a cada letra. Por eso dos resultados que parecen tener cuatro letras pueden tener recuentos distintos. Puedes reproducirlos con los botones del [laboratorio Unicode](/blog/como-comprobar-letras-unicode-copiar-pegar#unicode-inspector-title).
+
+Repite después con **José** o **Muñoz**. En los mapas de este conversor, los caracteres acentuados y la ñ que no tienen sustituto se conservan. No borres una tilde para forzar una apariencia uniforme: cambia de estilo si la mezcla de letras dificulta leer el nombre.
+
+**Criterio para elegir:** mantén datos importantes, como el tema del perfil y la forma de contacto, en texto fácil de reconocer. Usa decoración en un fragmento corto y comprueba la vista real de la aplicación antes de guardar.
 
 Prueba ahora nuestro [Generador de Nombres para Instagram](/herramientas/generador-de-nombres-para-instagram) o crea un diseño gráfico personalizado con nuestro [Creador de Lettering Digital](/herramientas/creador-de-lettering)!`
   },

@@ -81,7 +81,7 @@ export default function Contacto() {
                 <div>
                   <h3 className="font-bold text-gray-900 text-base">Correo Electrónico</h3>
                   <p className="text-xs text-gray-500 mt-1">Escríbenos directamente a:</p>
-                  <a href="mailto:contacto@generadordelettering.org" className="text-sm font-semibold text-[#5A4AD2] hover:underline mt-1 block">
+                  <a href="mailto:contacto@generadordelettering.org" className="text-sm font-semibold text-[#5A4AD2] hover:underline mt-1 block break-all">
                     contacto@generadordelettering.org
                   </a>
                 </div>

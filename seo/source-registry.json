@@ -113,6 +113,22 @@
         "The Unicode text segmentation rules distinguish code points from user-perceived text units"
       ],
       "refresh": "when the Unicode compatibility guide changes"
+    },
+    {
+      "id": "unicode-general-punctuation",
+      "class": "official specification",
+      "source": "https://www.unicode.org/charts/PDF/U2000.pdf",
+      "owner": "Unicode Consortium",
+      "supports": ["U+200B ZERO WIDTH SPACE and U+200D ZERO WIDTH JOINER names and roles"],
+      "refresh": "when invisible-character examples change"
+    },
+    {
+      "id": "unicode-latin-1-spaces",
+      "class": "official specification",
+      "source": "https://www.unicode.org/charts/PDF/U0080.pdf",
+      "owner": "Unicode Consortium",
+      "supports": ["U+00A0 NO-BREAK SPACE and its relationship to U+0020 SPACE"],
+      "refresh": "when invisible-character examples change"
     }
   ],
   "platform_claim_policy": {

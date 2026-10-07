@@ -244,7 +244,22 @@ export default function PlantillasPractica() {
           </div>
         ))}
       </div>
-      
+      <section aria-labelledby="practice-print-title" className="mt-10 rounded-2xl border border-gray-200 bg-white p-5 sm:p-8">
+        <h2 id="practice-print-title" className="text-2xl font-bold text-gray-900">Cómo usar la hoja que descargas</h2>
+        <ol className="mt-4 list-decimal space-y-3 pl-5 text-gray-600 leading-relaxed">
+          <li>Abre el SVG en tu navegador y elige Imprimir. Selecciona papel A4, orientación vertical y revisa la vista previa antes de imprimir.</li>
+          <li>Prueba escala 100 %. Si la impresora recorta las guías, usa ajustar al área imprimible: cambiará el tamaño físico, pero conservará las proporciones.</li>
+          <li>Sigue una fila de muestra y repite la misma forma en una hoja aparte. Compara altura, inclinación y separación; cambia una sola de esas propiedades en la siguiente fila.</li>
+        </ol>
+        <p className="mt-4 text-sm text-gray-600 leading-relaxed">
+          Los alfabetos de muestra usan la fuente cursiva disponible en tu dispositivo, por lo que su dibujo puede variar.
+          Son referencias para practicar formas y espaciado; no son un alfabeto de pincel con instrucciones de presión o dirección del trazo.
+        </p>
+        <Link to="/blog/plan-practica-lettering-siete-dias" className="mt-4 inline-block font-semibold text-[#5A4AD2] hover:underline">
+          Seguir el plan de siete sesiones con objetivos y revisión →
+        </Link>
+      </section>
+
       <div className="mt-16 bg-[#F8F9FC] border border-gray-200 rounded-2xl p-8 lg:p-12">
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="w-16 h-16 bg-white shrink-0 rounded-full flex items-center justify-center shadow-sm border border-gray-100">

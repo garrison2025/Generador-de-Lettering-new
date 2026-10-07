@@ -242,6 +242,7 @@ export default function BlogPost() {
           </div>
 
           {post.slug === 'como-comprobar-letras-unicode-copiar-pegar' && <UnicodeInspector />}
+          {post.slug === 'letras-invisibles-espacios-guia-redes-sociales' && <UnicodeInspector initialText={'A\u3164B'} />}
 
           {post.sources && post.sources.length > 0 && (
             <section

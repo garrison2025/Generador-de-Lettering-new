@@ -183,6 +183,57 @@ try:
     wait.until(lambda d: len(d.find_element(By.ID, "text-input").get_attribute("value")) == 500)
     assert_no_horizontal_overflow("conversor 500-char Unicode output")
 
+    # Clearing the input must not turn instructional text into copyable output.
+    driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Borrar texto"]').click()
+    copy_cursive = driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Copiar estilo Cursiva Mágica"]')
+    wait.until(lambda d: not copy_cursive.is_enabled())
+    wait.until(lambda d: copy_cursive.find_element(By.XPATH, '../div[2]/p').text == '—')
+    assert conversor.get_attribute("value") == "", "Clear action must empty the input"
+    replace_value(conversor, "Hola")
+    wait.until(lambda d: copy_cursive.is_enabled())
+    wait.until(lambda d: copy_cursive.find_element(By.XPATH, '../div[2]/p').text == 'ℋℴ𝓁𝒶')
+
+    # Feedback must describe the current output, and a repeat copy gets its own timeout.
+    copy_cursive.click()
+    wait.until(lambda d: 'Copiado' in copy_cursive.text)
+    time.sleep(1.1)
+    copy_cursive.click()
+    time.sleep(1.1)
+    assert 'Copiado' in copy_cursive.text, 'The first copy timeout cleared the second confirmation'
+    replace_value(conversor, 'Adios')
+    wait.until(lambda d: 'Copiado' not in copy_cursive.text)
+
+    # Aesthetic cards and comparison must agree on empty input and copied feedback.
+    open_path('/herramientas/conversor-letras-bonitas')
+    aesthetic = wait.until(EC.element_to_be_clickable((By.ID, 'text-input')))
+    copy_aesthetic = driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Copiar estilo Cursiva Mágica"]')
+    compare_copy = driver.find_element(By.XPATH, '//button[contains(., "Copiar el estilo comparado")]')
+    replace_value(aesthetic, 'Hola')
+    wait.until(lambda d: copy_aesthetic.is_enabled())
+    copy_aesthetic.click()
+    wait.until(lambda d: '¡Copiado!' in copy_aesthetic.text)
+    replace_value(aesthetic, 'Adios')
+    wait.until(lambda d: '¡Copiado!' not in copy_aesthetic.text)
+    wait.until(lambda d: compare_copy.is_enabled())
+    compare_copy.click()
+    wait.until(lambda d: 'Texto comparado copiado' in compare_copy.text)
+    driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Borrar texto"]').click()
+    wait.until(lambda d: not copy_aesthetic.is_enabled() and not compare_copy.is_enabled())
+    wait.until(lambda d: 'Texto comparado copiado' not in compare_copy.text)
+    wait.until(EC.presence_of_element_located((By.XPATH, '//p[@title=""][normalize-space(.)="—"]')))
+    assert not driver.find_elements(By.XPATH, '//p[@title="Letras Bonitas"]'), 'Empty input generated default copyable text'
+    assert_no_horizontal_overflow('aesthetic empty input')
+
+    # Free Fire copy controls must be visible without hovering on a narrow phone.
+    driver.set_window_size(320, 800)
+    open_path('/herramientas/letras-free-fire')
+    copy_names = driver.find_elements(By.CSS_SELECTOR, 'button[aria-label^="Copiar nombre "]')
+    assert copy_names, 'Free Fire copy controls are missing'
+    for button in copy_names:
+        assert button.value_of_css_property('opacity') == '1', 'Free Fire copy control is transparent on mobile'
+    assert_no_horizontal_overflow('Free Fire visible mobile copy controls')
+    driver.set_window_size(390, 844)
+
     # TikTok: 500-codepoint boundary and persisted favorite hydration.
     open_path("/herramientas/letras-tiktok", "TikTok")
     tiktok = wait.until(EC.element_to_be_clickable((By.ID, "tiktok-input")))
@@ -316,6 +367,23 @@ try:
     ] == ["4", "8"])
     assert_no_horizontal_overflow("Unicode inspector learning activity")
     assert_no_runtime_errors("Unicode inspector learning activity")
+
+    # The invisible-character guide must provide the promised experiment.
+    open_path('/blog/letras-invisibles-espacios-guia-redes-sociales')
+    filler = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[normalize-space(.)="Solo relleno U+3164"]')))
+    filler.click()
+    inspector_input = driver.find_element(By.ID, 'unicode-inspector-input')
+    wait.until(lambda d: inspector_input.get_attribute('value') == '\u3164')
+    wait.until(lambda d: [node.text for node in d.find_elements(By.CSS_SELECTOR, section_selector + ' dl dd')] == ['1', '1'])
+    assert 'Relleno Hangul' in driver.find_element(By.CSS_SELECTOR, section_selector + ' ol').text
+    inspector_copy = driver.find_element(By.XPATH, '//button[normalize-space(.)="Copiar el texto examinado"]')
+    inspector_copy.click()
+    wait.until(EC.visibility_of_element_located((By.XPATH, '//p[normalize-space(.)="Texto examinado copiado."]')))
+    replace_value(inspector_input, '')
+    wait.until(lambda d: not inspector_copy.is_enabled())
+    wait.until(lambda d: [node.text for node in d.find_elements(By.CSS_SELECTOR, section_selector + ' dl dd')] == ['0', '0'])
+    assert_no_horizontal_overflow('invisible-character guide experiment')
+    assert_no_runtime_errors('invisible-character guide experiment')
 
     # Original added-value tool: WCAG contrast calculator must react to choices.
     open_path("/herramientas/paletas-de-color", "Paletas de Color")
