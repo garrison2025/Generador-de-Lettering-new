@@ -1025,6 +1025,69 @@ function validateSearchIntentOwnership() {
   }
 }
 
+function validateBlogSourceEvidence() {
+  const posts = read('src/data/blogPosts.ts');
+  const renderer = read('src/pages/BlogPost.tsx');
+  const sourceRegistry = JSON.parse(read('seo/source-registry.json'));
+  const registryUrls = new Set(
+    (Array.isArray(sourceRegistry?.sources) ? sourceRegistry.sources : [])
+      .map((entry) => entry?.source)
+      .filter(Boolean)
+  );
+
+  assert(
+    renderer.includes('Fuentes y referencias') &&
+    renderer.includes('"citation": post.sources.map((source) => source.url)'),
+    'Blog renderer must expose visible references and mirror them into BlogPosting citation schema'
+  );
+
+  const declaredSourceUrls = [...posts.matchAll(/\burl:\s*'([^']+)'/g)].map((match) => match[1]);
+  assert(declaredSourceUrls.length >= 8, 'Technical blog posts must keep their primary-source references');
+  for (const url of declaredSourceUrls) {
+    assert(
+      registryUrls.has(url),
+      `Blog source URL is missing from seo/source-registry.json: ${url}`
+    );
+  }
+
+  for (const slug of [
+    'mejores-nombres-insanos-free-fire',
+    'biografia-tiktok-aesthetic-dark',
+    'letras-invisibles-espacios-guia-redes-sociales',
+    'fuentes-aesthetic-para-copiar-y-pegar-instagram'
+  ]) {
+    const postStart = posts.indexOf(`slug: '${slug}'`);
+    assert(postStart >= 0, `Missing blog post for source validation: ${slug}`);
+    const nextPost = posts.indexOf("\n  {\n    slug:", postStart + 1);
+    const postBlock = posts.slice(postStart, nextPost >= 0 ? nextPost : posts.length);
+    assert(
+      postBlock.includes('sources: ['),
+      `Evidence-sensitive article must declare visible primary sources: ${slug}`
+    );
+  }
+
+  const disallowedBlogClaims = [
+    ['popularizado enormemente', 'unsourced community-trend claim'],
+    ['El jugador \'insano\' no campea', 'unsourced gameplay stereotype'],
+    ['permite espacios y caracteres raros libremente', 'unsupported TikTok field guarantee'],
+    ['Ejemplos Reales Listos para Copiar', 'fabricated real-example framing'],
+    ['cientos de dólares', 'unsupported software-cost comparison'],
+    ['lista para tus redes o imprimir', 'unsupported print-readiness claim'],
+    ['Colección completa de letras aesthetic', 'unsupported completeness claim'],
+    ['prácticamente en todas', 'overbroad platform compatibility claim']
+  ];
+  for (const [phrase, label] of disallowedBlogClaims) {
+    assert(!posts.includes(phrase), `Blog evidence regression: ${label}`);
+  }
+
+  assert(
+    posts.includes('Unicode los define para notación matemática o técnica') &&
+    posts.includes('U+3164') &&
+    posts.includes('HANGUL FILLER'),
+    'Technical blog explanations must preserve the Unicode intent and Hangul Filler caveats'
+  );
+}
+
 function validateGeoExtractability() {
   const answerComponent = read('src/components/GeoAnswerBlock.tsx');
   const creator = read('src/pages/CreadorLettering.tsx');
@@ -1372,6 +1435,7 @@ validateLegacyCanonicalUrls();
 validateEditorPrerenderSafety();
 validatePrerenderStorageSafety();
 validateSearchIntentOwnership();
+validateBlogSourceEvidence();
 validateGeoExtractability();
 validateSeoGeoStandardAlignment();
 validateGscBaselineProtection();
