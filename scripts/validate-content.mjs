@@ -593,6 +593,30 @@ function validateUniqueSpecializedLandingProjects() {
   );
 }
 
+function validateOriginalFontPairingValue() {
+  const page = read('src/pages/CombinadorFuentes.tsx');
+  assert(
+    page.includes("const [secondaryText, setSecondaryText]") &&
+    page.includes("const [subtitleSize, setSubtitleSize]") &&
+    page.includes('Subtítulo para combinar fuentes') &&
+    page.includes('Tamaño del subtítulo'),
+    'Font pairing must let visitors edit both text levels and their sizes'
+  );
+  assert(
+    page.includes('function pairingCss(') &&
+    page.includes('Ver CSS de esta combinación') &&
+    page.includes('Copiar CSS') &&
+    page.includes('copyText(snippet)') &&
+    page.includes('no la instala'),
+    'Font pairing lab must produce genuinely copyable CSS and explain separate font loading'
+  );
+  assert(
+    page.includes('Cómo elegir un par tipográfico que funcione') &&
+    page.includes('Incluye tildes, eñes y palabras largas'),
+    'Font pairing lab must teach practical title/subtitle compatibility testing'
+  );
+}
+
 function validateOriginalContrastValue() {
   const tool = read('src/pages/PaletasColor.tsx');
   const implementation = read('src/utils/colorContrast.ts');
@@ -1580,6 +1604,7 @@ validateMonetizationConfig();
 validateAdSenseContentReadiness();
 validateAdSenseToolDepth();
 validateOriginalContrastValue();
+validateOriginalFontPairingValue();
 validateUniqueSpecializedLandingProjects();
 validateCriticalBaseFontLoading();
 validateDeferredPreviewFontLoading();
