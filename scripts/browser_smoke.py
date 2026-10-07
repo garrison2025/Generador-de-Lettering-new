@@ -367,6 +367,50 @@ try:
     assert_no_horizontal_overflow("font pairing CSS snippet at 320px")
     assert_no_runtime_errors("font pairing CSS snippet")
 
+    # AdSense original-value improvement: the aesthetic converter is a curated
+    # Unicode selection lab, distinct from the generic 70+ style copy list.
+    open_path("/herramientas/conversor-letras-bonitas", "Conversor de Letras Bonitas")
+    aesthetic_search = wait.until(EC.element_to_be_clickable((
+        By.ID, "aesthetic-style-search"
+    )))
+    replace_value(aesthetic_search, "gotica")
+    assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Guardar estilo Gótica Clásica"]'), (
+        "Accent-insensitive aesthetic style search did not retain Gótica Clásica"
+    )
+    save_gothic = wait.until(EC.element_to_be_clickable((
+        By.CSS_SELECTOR, 'button[aria-label="Guardar estilo Gótica Clásica"]'
+    )))
+    save_gothic.click()
+    wait.until(lambda d: d.find_elements(
+        By.CSS_SELECTOR, 'button[aria-label="Quitar estilo Gótica Clásica de guardados"]'
+    ))
+    wait.until(lambda d: d.find_elements(
+        By.XPATH, '//button[normalize-space(.)="Guardados (1)"]'
+    ))
+
+    # Favorites must survive browser reload without hydration errors.
+    driver.refresh()
+    wait.until(lambda d: d.find_elements(
+        By.XPATH, '//button[normalize-space(.)="Guardados (1)"]'
+    ))
+    saved_category = wait.until(EC.element_to_be_clickable((
+        By.XPATH, '//button[normalize-space(.)="Guardados (1)"]'
+    )))
+    saved_category.click()
+    assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Quitar estilo Gótica Clásica de guardados"]')
+    assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Comparar estilo Gótica Clásica"]')
+    wait.until(lambda d: "Se muestran 1 de 72" in d.find_element(
+        By.CSS_SELECTOR, 'section[aria-labelledby="aesthetic-collection-title"]'
+    ).text)
+    compare_gothic = wait.until(EC.element_to_be_clickable((
+        By.CSS_SELECTOR, 'button[aria-label="Comparar estilo Gótica Clásica"]'
+    )))
+    compare_gothic.click()
+    wait.until(lambda d: d.find_element(By.ID, "aesthetic-compare-style").get_attribute("value") == "gotica")
+    assert driver.find_elements(By.CSS_SELECTOR, 'section[aria-labelledby="aesthetic-compare-title"]')
+    assert_no_horizontal_overflow("aesthetic selection and Unicode comparison at 320px")
+    assert_no_runtime_errors("aesthetic favorites after browser reload")
+
     # Full mobile route audit: every sitemap URL must hydrate without runtime errors,
     # retain one H1/canonical/title, and fit inside a 390px viewport.
     driver.set_window_size(390, 844)
