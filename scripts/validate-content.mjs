@@ -496,6 +496,50 @@ function validateMonetizationConfig() {
   );
 }
 
+function validateAdSenseContentReadiness() {
+  const blog = read('src/data/blogPosts.ts');
+  const homepage = read('src/pages/Home.tsx');
+  const article = read('src/pages/BlogPost.tsx');
+  const inspector = read('src/components/UnicodeInspector.tsx');
+  const review = read('adsense/REVIEW-CHECKLIST.md');
+
+  for (const slug of [
+    'como-comprobar-letras-unicode-copiar-pegar',
+    'lettering-digital-tres-estilos-paso-a-paso',
+    'plan-practica-lettering-siete-dias'
+  ]) {
+    assert(blog.includes(`slug: '${slug}'`), `Original learning resource missing: ${slug}`);
+    assert(homepage.includes(`/blog/${slug}`), `Homepage must surface original learning resource: ${slug}`);
+  }
+
+  assert(
+    blog.includes('(/guia-unicode-comparacion.svg)') &&
+    blog.includes('(/guia-lettering-tres-estilos.svg)') &&
+    fs.existsSync('public/guia-unicode-comparacion.svg') &&
+    fs.existsSync('public/guia-lettering-tres-estilos.svg'),
+    'Original learning examples must have the actual illustrative assets'
+  );
+  assert(
+    blog.includes("category: 'Gaming'") &&
+    blog.includes("category: 'Unicode'") &&
+    blog.includes("category: 'Diseño'") &&
+    blog.includes("category: 'Práctica'"),
+    'Editorial categories must reflect subjects, not visual array indexes'
+  );
+  assert(
+    article.includes('UnicodeInspector') &&
+    inspector.includes('codePointAt(0)') &&
+    inspector.includes('Unidades UTF-16'),
+    'Unicode learning page must include an interactive, technically accurate inspection activity'
+  );
+  assert(
+    review.includes('Google-certified TCF CMP') &&
+    review.includes('AdSense verification') &&
+    review.includes('no published approval guarantee'),
+    'AdSense review checklist must explain actual account/regulatory work and lack of an approval guarantee'
+  );
+}
+
 function validateCriticalBaseFontLoading() {
   const html = read('index.html');
   const css = read('src/index.css');
@@ -1427,6 +1471,7 @@ validateBlogLastmod();
 validateInternalLinks();
 validateLlmsLinks();
 validateMonetizationConfig();
+validateAdSenseContentReadiness();
 validateCriticalBaseFontLoading();
 validateDeferredPreviewFontLoading();
 validateEditorFontPipeline();
