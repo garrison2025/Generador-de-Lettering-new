@@ -1025,6 +1025,78 @@ function validateSearchIntentOwnership() {
   }
 }
 
+function validateGscBaselineProtection() {
+  const baseline = JSON.parse(read('seo/gsc-baseline-2026-10-07.json'));
+
+  const protectedPages = [
+    {
+      source: 'src/pages/LetrasFreeFire.tsx',
+      title: 'Letras para Free Fire con Símbolos | Copiar y Pegar',
+      h1: 'Generador de Letras para Free Fire',
+      canonical: 'https://generadordelettering.org/herramientas/letras-free-fire'
+    },
+    {
+      source: 'src/pages/LetrasTikTok.tsx',
+      title: 'Conversor de Letras Bonitas para TikTok Aesthetic (Copiar y Pegar)',
+      h1: 'Conversor de Letras Bonitas para TikTok',
+      canonical: 'https://generadordelettering.org/herramientas/letras-tiktok'
+    },
+    {
+      source: 'src/pages/GeneradorNombresInstagram.tsx',
+      title: 'Generador de Nombres para Instagram - Letras Bonitas y Bio Aesthetic',
+      h1: 'Generador de Nombres para Instagram',
+      canonical: 'https://generadordelettering.org/herramientas/generador-de-nombres-para-instagram'
+    },
+    {
+      source: 'src/pages/LetrasAzules.tsx',
+      title: 'Letras Azules para Copiar | Generador de Letras en Cuadraditos',
+      h1: 'Letras Azules y Cuadradas',
+      canonical: 'https://generadordelettering.org/herramientas/letras-azules'
+    }
+  ];
+
+  assert(
+    Array.isArray(baseline.winner_pages) && baseline.winner_pages.length === protectedPages.length,
+    'GSC baseline must keep the four validated winner pages'
+  );
+
+  for (const page of protectedPages) {
+    const source = read(page.source);
+    assert(
+      source.includes(`title="${page.title}"`),
+      `Protected GSC winner title changed without new evidence: ${page.source}`
+    );
+    assert(
+      source.includes(`>${page.h1}</h1>`),
+      `Protected GSC winner H1 changed without new evidence: ${page.source}`
+    );
+    assert(
+      source.includes(`canonical="${page.canonical}"`),
+      `Protected GSC winner canonical changed: ${page.source}`
+    );
+  }
+
+  const conversor = read('src/pages/ConversorTexto.tsx');
+  const home = read('src/pages/Home.tsx');
+  const posts = read('src/data/blogPosts.ts');
+
+  assert(
+    conversor.includes('title="Conversor de Letras | 70+ Estilos para Copiar y Pegar"') &&
+    conversor.includes('>Conversor de Letras para Copiar y Pegar</h1>'),
+    'Active Conversor CTR experiment changed before a new GSC read'
+  );
+  assert(
+    home.includes('title="Generador de Lettering Online Gratis | Diseña tus Letras"') &&
+    home.includes('>Lettering Online</span> Gratis'),
+    'Active Home CTR experiment changed before a new GSC read'
+  );
+  assert(
+    posts.includes("seoTitle: 'Nombres Insanos Free Fire: 10 Ideas + Símbolos (2026)'") &&
+    posts.includes("title: '10 nombres insanos para Free Fire con símbolos y alas (2026)'"),
+    'Active Free Fire blog CTR experiment changed before a new GSC read'
+  );
+}
+
 function validateGscIntentSeparation() {
   const home = read('src/pages/Home.tsx');
   const posts = read('src/data/blogPosts.ts');
@@ -1135,6 +1207,7 @@ validateLegacyCanonicalUrls();
 validateEditorPrerenderSafety();
 validatePrerenderStorageSafety();
 validateSearchIntentOwnership();
+validateGscBaselineProtection();
 validateGscIntentSeparation();
 validateTrustAndBreadcrumbs();
 
