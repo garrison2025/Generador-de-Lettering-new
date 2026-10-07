@@ -4,6 +4,7 @@ import { PenTool, Palette, Copy, Check, Droplet } from 'lucide-react';
 import { useState } from 'react';
 import { SEO } from '../components/SEO';
 import { RelatedTools } from '../components/RelatedTools';
+import { GeoAnswerBlock } from '../components/GeoAnswerBlock';
 import { EDITOR_DEFAULT_STATE, useEditorStore } from '@/store/useEditorStore';
 
 const PALETTES = [
@@ -106,9 +107,26 @@ export default function PaletasColor() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">Paletas de Color para Lettering</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Descubre combinaciones de colores perfectas. Haz clic en cualquier color para copiar su código HEX o copia el gradiente CSS.
+          Explora combinaciones de color de ejemplo. Haz clic en un color para copiar su código HEX, copia el gradiente CSS o envía una paleta al editor.
         </p>
       </div>
+
+      <GeoAnswerBlock
+        id="paletas-color"
+        answer={
+          <>
+            La página reúne <strong>11 paletas de cinco colores</strong>. Puedes copiar cada valor HEX, copiar un
+            `linear-gradient` CSS con los cinco colores o abrir la paleta en el Editor de Lettering.
+          </>
+        }
+        facts={[
+          { label: 'Paletas', value: '11 combinaciones predefinidas × 5 colores.' },
+          { label: 'Copiar', value: 'HEX individual, arreglo de colores o gradiente CSS.' },
+          { label: 'Editor', value: 'Al abrir una paleta, el editor usa el primer y el último color como extremos del gradiente.' },
+          { label: 'Uso', value: 'Referencia rápida para lettering, fondos y pruebas visuales.' },
+        ]}
+        limitation="Los nombres y combinaciones son sugerencias visuales. La herramienta no comprueba automáticamente contraste WCAG, legibilidad de texto ni adecuación de marca."
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {PALETTES.map((palette) => {
@@ -200,7 +218,7 @@ export default function PaletasColor() {
       <div className="mt-16 bg-gradient-to-br from-[#5A4AD2]/10 to-indigo-50 rounded-3xl p-8 md:p-12 text-center border border-[#5A4AD2]/20 shadow-inner">
         <h2 className="text-3xl font-black text-gray-900 mb-4 tracking-tight">¿Listo para usar estos colores?</h2>
         <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-          Lleva estas paletas a nuestro editor y crea piezas de lettering o fondos con gradientes espectaculares al instante.
+          Lleva una paleta al editor para probarla como gradiente de texto o como punto de partida para una composición.
         </p>
         <Link to="/editor" className="inline-flex items-center justify-center gap-2 bg-[#5A4AD2] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#4F46E5] transition shadow-md hover:shadow-lg w-full sm:w-auto">
           <PenTool className="w-5 h-5" />
