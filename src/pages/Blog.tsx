@@ -67,10 +67,10 @@ export default function Blog() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {BLOG_POSTS.map((post, idx) => (
+        {BLOG_POSTS.map((post) => (
           <article key={post.slug} className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
-            <span className={`text-xs font-bold tracking-wider uppercase mb-3 ${idx % 3 === 0 ? 'text-[#FF6B6B]' : idx % 3 === 1 ? 'text-[#34D399]' : 'text-[#FBBF24]'}`}>
-              {idx % 3 === 0 ? 'Tutoriales' : idx % 3 === 1 ? 'Gaming' : 'Trucos'}
+            <span className="text-xs font-bold tracking-wider uppercase mb-3 text-[#5A4AD2]">
+              {post.category}
             </span>
             <h2 className="text-2xl font-bold mb-4 leading-tight text-gray-900 hover:text-[#5A4AD2] transition-colors">
               <Link to={`/blog/${post.slug}`}>{post.title}</Link>
