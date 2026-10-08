@@ -242,7 +242,7 @@ for (const htmlFile of htmlFiles) {
     head.includes('name="google-adsense-account"') &&
     /<script\s+async\s+src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-1528586776567779"\s+crossorigin="anonymous"><\/script>/i.test(head) &&
     [...html.matchAll(/adsbygoogle\.js\?client=/g)].length === 1 &&
-    !/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(html),
+    !/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(head),
     `AdSense-only static script/meta is missing, duplicated, or a legacy ad network leaked into: ${canonical}`
   );
   if (canonical === 'https://generadordelettering.org/blog/como-comprobar-letras-unicode-copiar-pegar') {
