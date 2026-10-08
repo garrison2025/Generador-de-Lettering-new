@@ -240,10 +240,10 @@ for (const htmlFile of htmlFiles) {
   const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
   assert(
     head.includes('name="google-adsense-account"') &&
-    head.includes('name="monetag"') &&
     /<script\s+async\s+src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-1528586776567779"\s+crossorigin="anonymous"><\/script>/i.test(head) &&
-    [...html.matchAll(/adsbygoogle\.js\?client=/g)].length === 1,
-    `AdSense static verification script/meta is missing, outside <head>, or duplicated: ${canonical}`
+    [...html.matchAll(/adsbygoogle\.js\?client=/g)].length === 1 &&
+    !/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(html),
+    `AdSense-only static script/meta is missing, duplicated, or a legacy ad network leaked into: ${canonical}`
   );
   if (canonical === 'https://generadordelettering.org/blog/como-comprobar-letras-unicode-copiar-pegar') {
     assert(
