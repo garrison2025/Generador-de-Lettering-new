@@ -494,7 +494,13 @@ try:
     )))
     # A sticky header covers controls if the browser's default scroll places
     # their top edge at viewport y=0. Center them before interaction.
-    driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'instant'})", saved_category)
+    wait.until(lambda d: d.execute_script("""
+        const button = arguments[0];
+        button.scrollIntoView({block: 'center', behavior: 'instant'});
+        const rect = button.getBoundingClientRect();
+        const hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+        return hit && button.contains(hit);
+    """, saved_category))
     saved_category.click()
     assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Quitar estilo Gótica Clásica de guardados"]')
     assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Comparar estilo Gótica Clásica"]')
