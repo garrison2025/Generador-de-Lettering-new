@@ -4,6 +4,7 @@ import time
 import xml.etree.ElementTree as ET
 from urllib.parse import urlparse
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -278,6 +279,20 @@ try:
     open_path("/editor", "Editor de Lettering")
     wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#main-content canvas")))
     assert_no_runtime_errors("Editor canvas hydration")
+
+    # Selection handles must appear on the very first click.
+    editor_text = driver.find_element(By.CSS_SELECTOR, '#main-content textarea')
+    replace_value(editor_text, 'Hola')
+    editor_text.send_keys(Keys.TAB)
+    driver.execute_async_script(
+        "const done = arguments[0]; document.fonts.ready.then(() => done());"
+    )
+    canvas = driver.find_element(By.CSS_SELECTOR, '#main-content canvas')
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'})", canvas)
+    time.sleep(0.2)
+    unselected_canvas = driver.execute_script("return arguments[0].toDataURL()", canvas)
+    ActionChains(driver).move_to_element(canvas).click().perform()
+    wait.until(lambda d: d.execute_script("return arguments[0].toDataURL()", canvas) != unselected_canvas)
 
     # Changing fonts must never blank/remount the Konva canvas while the web font resolves.
     font_picker = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[aria-haspopup="listbox"]')))
