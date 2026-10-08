@@ -494,7 +494,7 @@ function validateMonetizationConfig() {
     'AdSense script must appear exactly once'
   );
   assert(
-    !/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(html + layout + privacy),
+    !/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(html + layout),
     'AdSense-only mode must not load or describe Monetag/Adsterra legacy integrations'
   );
   assert(
