@@ -49,6 +49,13 @@ export function CanvasArea() {
 
   const [bgImageObj] = useImage(backgroundImage || '');
 
+  useEffect(() => {
+    // The transformer mounts after selection, so bind it after React commits.
+    if (isSelected && groupRef.current && trRef.current) {
+      trRef.current.nodes([groupRef.current]);
+    }
+  }, [isSelected]);
+
   let stageWidth = dimensions.width;
   let stageHeight = dimensions.height;
 
@@ -281,15 +288,9 @@ export function CanvasArea() {
                  })}
                  onClick={() => {
                    setIsSelected(true);
-                   if (groupRef.current && trRef.current) {
-                     trRef.current.nodes([groupRef.current]);
-                   }
                  }}
                  onTap={() => {
                    setIsSelected(true);
-                   if (groupRef.current && trRef.current) {
-                     trRef.current.nodes([groupRef.current]);
-                   }
                  }}
                  onDragEnd={(event) => {
                    useEditorStore.getState().updateState({

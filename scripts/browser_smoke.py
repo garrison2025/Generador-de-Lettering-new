@@ -4,6 +4,7 @@ import time
 import xml.etree.ElementTree as ET
 from urllib.parse import urlparse
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -279,6 +280,20 @@ try:
     wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#main-content canvas")))
     assert_no_runtime_errors("Editor canvas hydration")
 
+    # Selection handles must appear on the very first click.
+    editor_text = driver.find_element(By.CSS_SELECTOR, '#main-content textarea')
+    replace_value(editor_text, 'Hola')
+    editor_text.send_keys(Keys.TAB)
+    driver.execute_async_script(
+        "const done = arguments[0]; document.fonts.ready.then(() => done());"
+    )
+    canvas = driver.find_element(By.CSS_SELECTOR, '#main-content canvas')
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'})", canvas)
+    time.sleep(0.2)
+    unselected_canvas = driver.execute_script("return arguments[0].toDataURL()", canvas)
+    ActionChains(driver).move_to_element(canvas).click().perform()
+    wait.until(lambda d: d.execute_script("return arguments[0].toDataURL()", canvas) != unselected_canvas)
+
     # Changing fonts must never blank/remount the Konva canvas while the web font resolves.
     font_picker = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[aria-haspopup="listbox"]')))
     font_picker.click()
@@ -479,8 +494,16 @@ try:
     )))
     # A sticky header covers controls if the browser's default scroll places
     # their top edge at viewport y=0. Center them before interaction.
-    driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'instant'})", saved_category)
-    saved_category.click()
+    wait.until(lambda d: d.execute_script("""
+        const button = arguments[0];
+        button.scrollIntoView({block: 'center', behavior: 'instant'});
+        const rect = button.getBoundingClientRect();
+        const hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+        return hit && button.contains(hit);
+    """, saved_category))
+    # Use the centered pointer position; Chrome's element-click command scrolls
+    # this filter back under the sticky header on the Linux runner.
+    ActionChains(driver).move_to_element(saved_category).click().perform()
     assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Quitar estilo Gótica Clásica de guardados"]')
     assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Comparar estilo Gótica Clásica"]')
     wait.until(lambda d: "Se muestran 1 de 72" in d.find_element(
