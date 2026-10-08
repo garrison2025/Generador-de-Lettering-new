@@ -501,7 +501,9 @@ try:
         const hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
         return hit && button.contains(hit);
     """, saved_category))
-    saved_category.click()
+    # Use the centered pointer position; Chrome's element-click command scrolls
+    # this filter back under the sticky header on the Linux runner.
+    ActionChains(driver).move_to_element(saved_category).click().perform()
     assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Quitar estilo Gótica Clásica de guardados"]')
     assert driver.find_elements(By.CSS_SELECTOR, 'button[aria-label="Comparar estilo Gótica Clásica"]')
     wait.until(lambda d: "Se muestran 1 de 72" in d.find_element(
