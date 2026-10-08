@@ -158,16 +158,24 @@ def assert_document_basics(path: str) -> None:
 
 
 try:
-    # First visit: consent must be usable on a phone and must not shift the page horizontally.
+    # AdSense-only monetization: verification must be in the page head and
+    # the old third-party-ad consent UI must no longer be mounted.
     driver.get(BASE_URL + "/")
-    dialog = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, '[role="dialog"]')))
-    assert_no_horizontal_overflow("cookie consent")
-    decline = dialog.find_element(By.XPATH, ".//button[contains(., 'Rechazar')]")
-    decline.click()
-    wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, '[role="dialog"]')))
-    consent = driver.execute_script("return localStorage.getItem('cookie_consent')")
-    if consent != "declined":
-        fail(f"cookie consent was not persisted as declined: {consent!r}")
+    assert driver.find_elements(By.CSS_SELECTOR, "meta[name='google-adsense-account'][content='ca-pub-1528586776567779']"), (
+        "Missing or incorrect AdSense account meta"
+    )
+    adsense_scripts = driver.find_elements(
+        By.CSS_SELECTOR,
+        "script[src*='pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1528586776567779']",
+    )
+    assert len(adsense_scripts) == 1, f"Expected exactly one AdSense script, found {len(adsense_scripts)}"
+    assert not driver.find_elements(By.CSS_SELECTOR, '[role="dialog"]'), (
+        "Legacy third-party-ad consent dialog should not be mounted in AdSense-only mode"
+    )
+    page_source = driver.page_source.lower()
+    assert "monetag" not in page_source and "adsterra" not in page_source, (
+        "Legacy Monetag/Adsterra markers leaked into production HTML"
+    )
 
     # Mobile navigation opens, closes with Escape, and does not create page overflow.
     menu_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[aria-label="Abrir menú"]')))
