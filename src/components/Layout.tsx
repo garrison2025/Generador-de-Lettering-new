@@ -1,8 +1,6 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigationType } from 'react-router-dom';
 import { PenTool, Menu, X } from 'lucide-react';
-
-const CookieConsent = lazy(() => import('./CookieConsent'));
 
 
 export default function Layout() {
@@ -221,22 +219,6 @@ export default function Layout() {
                   <li><Link to="/contacto" className="hover:text-[#4F46E5]">Contacto</Link></li>
                   <li><Link to="/politica-de-privacidad" className="hover:text-[#4F46E5]">Privacidad</Link></li>
                   <li><Link to="/terminos-y-condiciones" className="hover:text-[#4F46E5]">Términos</Link></li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        try {
-                          localStorage.removeItem('cookie_consent');
-                        } catch {
-                          // Reload still removes any in-memory ad scripts from this page.
-                        }
-                        window.location.reload();
-                      }}
-                      className="hover:text-[#4F46E5] text-left"
-                    >
-                      Preferencias de cookies
-                    </button>
-                  </li>
                   <li><a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="hover:text-[#4F46E5] text-xs text-gray-400">llms.txt (interoperabilidad)</a></li>
                 </ul>
               </div>
@@ -255,9 +237,6 @@ export default function Layout() {
           </div>
         </footer>
       )}
-      <Suspense fallback={null}>
-        <CookieConsent />
-      </Suspense>
     </div>
   );
 }

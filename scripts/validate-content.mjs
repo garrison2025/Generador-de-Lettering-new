@@ -477,6 +477,8 @@ function validateLlmsLinks() {
 function validateMonetizationConfig() {
   const html = read('index.html');
   const ads = read('public/ads.txt');
+  const layout = read('src/components/Layout.tsx');
+  const privacy = read('src/pages/Privacidad.tsx');
 
   const adsPublisher = ads.match(/^google\.com,\s*(pub-\d+),\s*DIRECT,\s*f08c47fec0942fa0\s*$/m)?.[1];
   const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
@@ -484,39 +486,28 @@ function validateMonetizationConfig() {
   const accountPublisher = html.match(/<meta\s+name="google-adsense-account"\s+content="ca-(pub-\d+)"\s*\/>/)?.[1];
 
   assert(adsPublisher, 'Could not find a valid Google DIRECT publisher entry in public/ads.txt');
-  assert(scriptPublisher, 'The required async AdSense verification script must be in the static <head>, not injected after consent');
+  assert(scriptPublisher, 'Required async AdSense script must be present in the static <head>');
+  assert(accountPublisher === adsPublisher, 'Static AdSense account verification meta must match ads.txt');
+  assert(adsPublisher === scriptPublisher, `AdSense publisher mismatch: ads.txt=${adsPublisher}, script=${scriptPublisher}`);
   assert(
     [...html.matchAll(/adsbygoogle\.js\?client=/g)].length === 1,
-    'AdSense verification script must appear exactly once to avoid duplicate network requests'
-  );
-  assert(accountPublisher === adsPublisher, 'Static AdSense account verification meta must match ads.txt');
-  assert(
-    html.includes('name="monetag"') &&
-    html.includes("'monetag-vignette'") &&
-    html.includes('https://n6wxm.com/vignette.min.js') &&
-    html.includes("'adsterra-social-bar'") &&
-    html.includes('profitableratecpmnetwork.com'),
-    'Original Monetag and Adsterra configurations must not be removed without owner approval'
+    'AdSense script must appear exactly once'
   );
   assert(
-    /Google AdSense/.test(read('src/components/CookieConsent.tsx')) &&
-    /Monetag y Adsterra/.test(read('src/components/CookieConsent.tsx')) &&
-    /<strong>Google AdSense<\/strong>/.test(read('src/pages/Privacidad.tsx')) &&
-    /<strong>Monetag<\/strong>/.test(read('src/pages/Privacidad.tsx')) &&
-    /<strong>Adsterra<\/strong>/.test(read('src/pages/Privacidad.tsx')),
-    'Cookie banner and privacy policy must disclose all enabled ad networks'
+    !/monetag|adsterra|n6wxm|profitableratecpmnetwork/i.test(html + layout),
+    'AdSense-only mode must not load or describe Monetag/Adsterra legacy integrations'
   );
   assert(
-    adsPublisher === scriptPublisher,
-    `AdSense publisher mismatch: ads.txt=${adsPublisher}, script=${scriptPublisher}`
+    !layout.includes('CookieConsent') &&
+    !layout.includes('cookie_consent') &&
+    !layout.includes('Preferencias de cookies'),
+    'Legacy third-party-ad consent UI must not remain mounted after moving to AdSense-only mode'
   );
-
   assert(
-    html.includes("localStorage.getItem('cookie_consent') === 'accepted'"),
-    'Monetization loader is missing the explicit accepted-consent gate'
+    privacy.includes('<strong>Google AdSense</strong> es la única red publicitaria configurada actualmente'),
+    'Privacy policy must explicitly describe the current AdSense-only advertising setup'
   );
 }
-
 function validateAdSenseContentReadiness() {
   const blog = read('src/data/blogPosts.ts');
   const homepage = read('src/pages/Home.tsx');

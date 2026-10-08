@@ -21,7 +21,7 @@ export default function Privacidad() {
 
         <div className="text-base text-gray-700 space-y-6 leading-relaxed">
           <p className="text-sm bg-gray-100 inline-block px-3 py-1 rounded-full font-medium text-gray-600">
-            Última actualización: 7 de octubre de 2026
+            Última actualización: 8 de octubre de 2026
           </p>
 
           <p>
@@ -56,33 +56,28 @@ export default function Privacidad() {
             3. Cookies, almacenamiento local y consentimiento
           </h2>
           <p>
-            Guardamos en el navegador la preferencia <code>cookie_consent</code> para recordar si aceptaste o rechazaste
-            la activación de los proveedores opcionales. El script de Google AdSense se incluye de forma asíncrona
-            en el encabezado de todas las páginas para verificar el sitio con Google y puede realizar solicitudes técnicas
-            antes de que elijas una opción. Los scripts de Monetag y Adsterra se activan mediante nuestro cargador
-            únicamente después de una aceptación explícita.
+            El sitio puede utilizar almacenamiento local para recordar ajustes del editor, favoritos de herramientas y otras
+            preferencias funcionales. La publicidad del sitio se integra exclusivamente mediante <strong>Google AdSense</strong>.
+            El script asíncrono oficial de AdSense se incluye en el encabezado de las páginas y puede realizar solicitudes a
+            servicios de Google de acuerdo con la configuración publicitaria aplicada en AdSense.
           </p>
           <p>
-            Rechazar el consentimiento no impide necesariamente todas las solicitudes a servicios externos: por ejemplo,
-            determinados recursos visuales como fuentes web pueden descargarse desde proveedores externos para mostrar la
-            interfaz correctamente.
+            La gestión de consentimiento publicitario que pueda exigir una región debe configurarse mediante las herramientas
+            de privacidad compatibles con Google AdSense. Nuestro sitio ya no carga redes publicitarias adicionales ni utiliza
+            el antiguo selector local que activaba Monetag o Adsterra.
           </p>
           <p>
-            Puedes cambiar tu elección en cualquier momento mediante <strong>“Preferencias de cookies”</strong> en el pie de
-            página. Esa opción elimina la preferencia guardada y recarga el sitio para que puedas aceptar o rechazar de nuevo;
-            la recarga también evita que continúen activos en esa página scripts publicitarios cargados con una aceptación anterior.
+            Algunos recursos externos, como fuentes web, también pueden generar solicitudes técnicas al proveedor correspondiente
+            para poder mostrar correctamente la interfaz.
           </p>
 
           <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900 border-b pb-2">
             4. Publicidad de terceros
           </h2>
           <p>
-            El encabezado de cada página incluye el script asíncrono de <strong>Google AdSense</strong>, utilizado
-            para la verificación de propiedad y la integración publicitaria. Una vez aceptadas las preferencias,
-            nuestro sitio también puede cargar <strong>Monetag</strong> y <strong>Adsterra</strong>. Los proveedores
-            pueden recibir información técnica del navegador y tratar datos de acuerdo con sus propias políticas.
-            El botón de rechazo del sitio impide que nuestro cargador active Monetag y Adsterra; no bloquea
-            la solicitud inicial del script de Google AdSense.
+            <strong>Google AdSense</strong> es la única red publicitaria configurada actualmente en el sitio. El encabezado
+            de cada página incluye su script asíncrono oficial y la etiqueta de cuenta correspondiente. No cargamos scripts
+            publicitarios de Monetag, Adsterra ni otras redes adicionales desde la aplicación.
           </p>
           <p>
             Puedes consultar información sobre las tecnologías publicitarias de Google en{' '}
