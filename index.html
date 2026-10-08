@@ -13,7 +13,6 @@
     <!-- Google AdSense ownership verification: present in every route's <head>. -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1528586776567779"
      crossorigin="anonymous"></script>
-    <meta name="monetag" content="7c3922469417dad557b4f10939f75588" />
     
     <!-- Open Graph Default Fallbacks -->
     <meta data-rh="true" property="og:site_name" content="Generador de Lettering" />
@@ -35,107 +34,7 @@
     
     <title data-rh="true">Conversor de Letras Bonitas | Generador de Tipografías</title>
 
-    <!-- Google AdSense loads statically for the requested verification; other ad networks remain consent-gated. -->
-    <script>
-      (function() {
-        var monetizationScheduled = false;
-        var monetizationEngagementArmed = false;
-        var monetizationStarted = false;
-        var monetizationFallbackTimer = null;
-
-        function hasAcceptedConsent() {
-          try {
-            return localStorage.getItem('cookie_consent') === 'accepted';
-          } catch (e) {
-            return false;
-          }
-        }
-
-        function appendScript(id, src, target, configure) {
-          if (document.getElementById(id)) return;
-          var script = document.createElement('script');
-          script.id = id;
-          script.src = src;
-          script.async = true;
-          if (configure) configure(script);
-          (target || document.head || document.documentElement).appendChild(script);
-        }
-
-        function clearMonetizationEngagementListeners() {
-          ['pointerdown', 'scroll', 'touchstart'].forEach(function(eventName) {
-            window.removeEventListener(eventName, startMonetizationFromEngagement);
-          });
-          window.removeEventListener('keydown', startMonetizationFromEngagement);
-          if (monetizationFallbackTimer) {
-            clearTimeout(monetizationFallbackTimer);
-            monetizationFallbackTimer = null;
-          }
-        }
-
-        function loadMonetizationScripts() {
-          if (monetizationStarted || !hasAcceptedConsent() || !document.body) return;
-          monetizationStarted = true;
-          clearMonetizationEngagementListeners();
-
-          appendScript(
-            'monetag-vignette',
-            'https://n6wxm.com/vignette.min.js',
-            document.head,
-            function(script) { script.dataset.zone = '11705116'; }
-          );
-
-          appendScript(
-            'adsterra-social-bar',
-            'https://pl26707745.profitableratecpmnetwork.com/aa/3e/7c/aa3e7c6a9214fa224ddd32eef045cb13.js',
-            document.body
-          );
-
-        }
-
-        function startMonetizationFromEngagement() {
-          if (!hasAcceptedConsent()) return;
-          loadMonetizationScripts();
-        }
-
-        function armMonetizationAfterEngagement() {
-          if (monetizationEngagementArmed || monetizationStarted || !hasAcceptedConsent()) return;
-          monetizationEngagementArmed = true;
-
-          ['pointerdown', 'scroll', 'touchstart'].forEach(function(eventName) {
-            window.addEventListener(eventName, startMonetizationFromEngagement, { passive: true, once: true });
-          });
-          window.addEventListener('keydown', startMonetizationFromEngagement, { once: true });
-
-          // Do not let third-party ad code compete with the first render/LCP.
-          // Users who do not interact still get monetization after a conservative delay.
-          monetizationFallbackTimer = setTimeout(startMonetizationFromEngagement, 8000);
-        }
-
-        function scheduleMonetizationScripts() {
-          if (monetizationScheduled || !hasAcceptedConsent()) return;
-          monetizationScheduled = true;
-
-          var scheduleIdle = function() {
-            if ('requestIdleCallback' in window) {
-              requestIdleCallback(armMonetizationAfterEngagement, { timeout: 3000 });
-            } else {
-              setTimeout(armMonetizationAfterEngagement, 1500);
-            }
-          };
-
-          if (document.readyState === 'complete') {
-            scheduleIdle();
-          } else {
-            window.addEventListener('load', scheduleIdle, { once: true });
-          }
-        }
-
-        window.addEventListener('cookie-consent-accepted', scheduleMonetizationScripts);
-        if (hasAcceptedConsent()) {
-          scheduleMonetizationScripts();
-        }
-      })();
-    </script>
+    <!-- Google AdSense is the only advertising integration on the site. -->
   </head>
   <body>
     <div id="root"></div>
