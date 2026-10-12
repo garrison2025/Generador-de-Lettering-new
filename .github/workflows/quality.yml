@@ -39,6 +39,9 @@ jobs:
       - name: GSC opportunity analysis unit tests
         run: npm run test:gsc
 
+      - name: Profile tool unit tests
+        run: npm run test:tools
+
       - name: TypeScript check
         run: npm run lint
 

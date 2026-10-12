@@ -16,6 +16,10 @@ const staticPages = [
   ['/herramientas/conversor-texto', 'src/pages/ConversorTexto.tsx'],
   ['/herramientas/letras-azules', 'src/pages/LetrasAzules.tsx'],
   ['/herramientas/letras-free-fire', 'src/pages/LetrasFreeFire.tsx'],
+  ['/herramientas/simbolos-para-free-fire', 'src/pages/SimbolosFreeFire.tsx'],
+  ['/herramientas/letras-pequenas-para-free-fire', 'src/pages/LetrasPequenasFreeFire.tsx'],
+  ['/herramientas/descripcion-free-fire', 'src/pages/DescripcionFreeFire.tsx'],
+  ['/aesthetic-bio-maker', 'src/pages/AestheticBioMaker.tsx'],
   ['/herramientas/letras-tiktok', 'src/pages/LetrasTikTok.tsx'],
   ['/herramientas/conversor-letras-bonitas', 'src/pages/ConversorLetrasBonitas.tsx'],
   ['/herramientas/generador-de-nombres-para-instagram', 'src/pages/GeneradorNombresInstagram.tsx'],
@@ -324,6 +328,7 @@ for (const page of pages) {
   fs.mkdirSync(path.dirname(output), { recursive: true });
 
   let html = makeHead(baseHtml, page.route, page.title, page.description, page.keywords, page.publishedTime, page.modifiedTime, page.image);
+  if (page.route === '/aesthetic-bio-maker') html = html.replace('<html lang="es"', '<html lang="en"');
   html = await injectPrerenderedBody(html, page.route);
   const canonical = `${SITE}${page.route === '/' ? '/' : page.route}`;
   const expectedTitle = `<title data-rh="true">${escapeHtml(page.title)}</title>`;

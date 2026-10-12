@@ -396,7 +396,12 @@ export default function LetrasFreeFire() {
         </div>
       </section>
 
-      <RelatedTools currentPath="/herramientas/letras-free-fire" />
+        <nav aria-label="Herramientas especializadas de Free Fire" className="flex flex-wrap gap-4 my-6 font-semibold text-indigo-700">
+          <Link to="/herramientas/simbolos-para-free-fire">Biblioteca de símbolos para Free Fire</Link>
+          <Link to="/herramientas/letras-pequenas-para-free-fire">Letras pequeñas y etiquetas</Link>
+          <Link to="/herramientas/descripcion-free-fire">Descripciones y códigos de color</Link>
+        </nav>
+        <RelatedTools currentPath="/herramientas/letras-free-fire" />
     </div>
     </>
   );

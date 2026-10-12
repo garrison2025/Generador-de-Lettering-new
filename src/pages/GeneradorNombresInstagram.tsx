@@ -1094,6 +1094,9 @@ export default function GeneradorNombresInstagram() {
         </section>
 
         {/* Related Tools for Internal Linking SEO */}
+        <nav aria-label="Generador de biografías" className="my-6 font-semibold text-indigo-700">
+          <Link to="/aesthetic-bio-maker">Aesthetic Bio Maker: genera tres biografías completas (en inglés)</Link>
+        </nav>
         <RelatedTools currentPath="/herramientas/generador-de-nombres-para-instagram" />
       </div>
     </>

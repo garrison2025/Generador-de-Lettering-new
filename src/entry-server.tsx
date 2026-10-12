@@ -13,6 +13,10 @@ import PlantillasPractica from './pages/PlantillasPractica';
 import ConversorTexto from './pages/ConversorTexto';
 import LetrasAzules from './pages/LetrasAzules';
 import LetrasFreeFire from './pages/LetrasFreeFire';
+import SimbolosFreeFire from './pages/SimbolosFreeFire';
+import LetrasPequenasFreeFire from './pages/LetrasPequenasFreeFire';
+import DescripcionFreeFire from './pages/DescripcionFreeFire';
+import AestheticBioMaker from './pages/AestheticBioMaker';
 import LetrasTikTok from './pages/LetrasTikTok';
 import ConversorLetrasBonitas from './pages/ConversorLetrasBonitas';
 import GeneradorNombresInstagram from './pages/GeneradorNombresInstagram';
@@ -50,6 +54,10 @@ function PrerenderRoutes() {
           <Route path="herramientas/conversor-texto" element={<ConversorTexto />} />
           <Route path="herramientas/letras-azules" element={<LetrasAzules />} />
           <Route path="herramientas/letras-free-fire" element={<LetrasFreeFire />} />
+          <Route path="herramientas/simbolos-para-free-fire" element={<SimbolosFreeFire />} />
+          <Route path="herramientas/letras-pequenas-para-free-fire" element={<LetrasPequenasFreeFire />} />
+          <Route path="herramientas/descripcion-free-fire" element={<DescripcionFreeFire />} />
+          <Route path="aesthetic-bio-maker" element={<AestheticBioMaker />} />
           <Route path="herramientas/letras-tiktok" element={<LetrasTikTok />} />
           <Route path="herramientas/conversor-letras-bonitas" element={<ConversorLetrasBonitas />} />
           <Route path="herramientas/generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />

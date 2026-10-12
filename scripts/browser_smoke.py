@@ -14,6 +14,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 BASE_URL = os.environ.get("SMOKE_BASE_URL", "http://127.0.0.1:4173").rstrip("/")
 
 options = webdriver.ChromeOptions()
+if os.environ.get("SMOKE_CHROME_BINARY"):
+    options.binary_location = os.environ["SMOKE_CHROME_BINARY"]
 options.add_argument("--headless=new")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
@@ -517,6 +519,90 @@ try:
     assert driver.find_elements(By.CSS_SELECTOR, 'section[aria-labelledby="aesthetic-compare-title"]')
     assert_no_horizontal_overflow("aesthetic selection and Unicode comparison at 320px")
     assert_no_runtime_errors("aesthetic favorites after browser reload")
+
+    # Specialized tools: interactions and copied content, including edge cases.
+    from selenium.webdriver.support.ui import Select
+
+    def click_text(text):
+        button = wait.until(EC.element_to_be_clickable((By.XPATH, f'//button[normalize-space(.)="{text}"]')))
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'})", button)
+        ActionChains(driver).move_to_element(button).click().perform()
+        if text.startswith('Copiar') or text == 'Copy bio':
+            wait.until(lambda d: button.find_element(By.XPATH, '../span[@role="status"]').text in ('Copiado', 'Copied'))
+
+    open_path('/herramientas/simbolos-para-free-fire', 'Símbolos para Free Fire')
+    replace_value(driver.find_element(By.ID, 'symbol-nick'), 'José')
+    click_text('Copiar nick')
+    wait.until(lambda d: 'Copiado' in d.find_element(By.CSS_SELECTOR, '#main-content').text)
+    # Chromium clipboard read verifies that the browser copied the actual output.
+    driver.execute_cdp_cmd('Browser.grantPermissions', {'origin': BASE_URL, 'permissions': ['clipboardReadWrite', 'clipboardSanitizedWrite']})
+    copied = driver.execute_async_script('navigator.clipboard.readText().then(arguments[0]);')
+    assert copied == '♛José♛', f'Wrong symbol nick copied: {copied!r}'
+    replace_value(driver.find_element(By.ID, 'symbol-search'), 'corazon')
+    assert driver.find_elements(By.XPATH, '//h3[normalize-space(.)="Corazones"]')
+    assert not driver.find_elements(By.XPATH, '//h3[normalize-space(.)="Coronas"]')
+    driver.find_element(By.CSS_SELECTOR, '#main-content input[type="checkbox"]').click()
+    click_text('♡')
+    click_text('♥')
+    assert driver.find_element(By.ID, 'symbol-selection').get_attribute('value') == '♡♥'
+    click_text('Copiar símbolos')
+    assert driver.execute_async_script('navigator.clipboard.readText().then(arguments[0]);') == '♡♥'
+    replace_value(driver.find_element(By.ID, 'symbol-search'), 'no-such-symbol')
+    assert 'No hay coincidencias' in driver.find_element(By.CSS_SELECTOR, '#main-content').text
+    assert_no_horizontal_overflow('symbol selection at 320px')
+
+    open_path('/herramientas/letras-pequenas-para-free-fire', 'Letras Pequeñas')
+    replace_value(driver.find_element(By.ID, 'small-nick'), 'José')
+    wait.until(lambda d: d.find_element(By.CSS_SELECTOR, '#main-content output').text == 'Joséᵖʳᵒ')
+    Select(driver.find_element(By.ID, 'small-style')).select_by_value('small_caps')
+    wait.until(lambda d: d.find_element(By.CSS_SELECTOR, '#main-content output').text == 'Joséᴘʀᴏ')
+    click_text('Copiar sufijo')
+    assert driver.execute_async_script('navigator.clipboard.readText().then(arguments[0]);') == 'Joséᴘʀᴏ'
+    replace_value(driver.find_element(By.ID, 'small-nick'), '')
+    replace_value(driver.find_element(By.ID, 'small-tag'), '')
+    assert all(not button.is_enabled() for button in driver.find_elements(By.XPATH, '//button[starts-with(., "Copiar")]'))
+
+    open_path('/herramientas/descripcion-free-fire', 'Descripciones para Free Fire')
+    description = driver.find_element(By.ID, 'description-editor')
+    replace_value(description, '[FF0000]José\n[00FF00]♡')
+    preview = driver.find_element(By.CSS_SELECTOR, '[aria-label="Vista previa de descripción"]')
+    assert preview.text == 'José\n♡'
+    assert preview.find_element(By.CSS_SELECTOR, 'span').value_of_css_property('color') == 'rgba(255, 0, 0, 1)'
+    click_text('Copiar descripción')
+    copied_description = driver.execute_async_script('navigator.clipboard.readText().then(arguments[0]);')
+    assert copied_description.replace('\r\n', '\n') == '[FF0000]José\n[00FF00]♡', repr(copied_description)
+    replace_value(description, '<img src=x onerror=alert(1)>[bad]')
+    assert not preview.find_elements(By.TAG_NAME, 'img')
+    assert '[bad]' in preview.text
+    Select(driver.find_element(By.ID, 'description-style')).select_by_visible_text('Minimal')
+    first_template = driver.find_elements(By.XPATH, '//button[normalize-space(.)="Usar plantilla"]')[0]
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'})", first_template)
+    ActionChains(driver).move_to_element(first_template).click().perform()
+    assert description.get_attribute('value').startswith('[FFFFFF]')
+
+    open_path('/aesthetic-bio-maker', 'Aesthetic Bio Maker')
+    assert driver.execute_script('return document.documentElement.lang') == 'en'
+    replace_value(driver.find_element(By.ID, 'bio-name'), 'José')
+    Select(driver.find_element(By.ID, 'bio-style')).select_by_visible_text('Kawaii')
+    click_text('Generate 3 bios')
+    initial_bio = driver.find_element(By.CSS_SELECTOR, '[data-testid="bio-preview"]').text
+    click_text('Bio 2')
+    assert driver.find_element(By.CSS_SELECTOR, '[data-testid="bio-preview"]').text != initial_bio
+    replace_value(driver.find_element(By.ID, 'bio-line-0'), 'Mi mundo 🌸')
+    click_text('Copy bio')
+    assert driver.execute_async_script('navigator.clipboard.readText().then(arguments[0]);').replace('\r\n', '\n').startswith('Mi mundo 🌸\n')
+    Select(driver.find_element(By.ID, 'bio-platform')).select_by_visible_text('TikTok')
+    wait.until(lambda d: 'tiktok · simulated profile' in d.find_element(By.CSS_SELECTOR, '#main-content').text.lower())
+    assert_no_horizontal_overflow('bio preview at 320px')
+    for field in ['bio-name', 'bio-role', 'bio-interests']:
+        replace_value(driver.find_element(By.ID, field), '')
+    click_text('Generate 3 bios')
+    assert 'Enter a name, role or interest' in driver.find_element(By.CSS_SELECTOR, '#main-content').text
+    parent_tool_link = driver.find_element(By.CSS_SELECTOR, '#main-content a')
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'})", parent_tool_link)
+    ActionChains(driver).move_to_element(parent_tool_link).click().perform()
+    wait.until(lambda d: d.execute_script('return document.documentElement.lang') == 'es')
+    assert_no_runtime_errors('new profile tools')
 
     # Full mobile route audit: every sitemap URL must hydrate without runtime errors,
     # retain one H1/canonical/title, and fit inside a 390px viewport.

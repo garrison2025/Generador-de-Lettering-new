@@ -33,6 +33,10 @@ const ConversorLetrasBonitas = lazy(() => import('./pages/ConversorLetrasBonitas
 const GeneradorNombresInstagram = lazy(() => import('./pages/GeneradorNombresInstagram'));
 const GeneradorNombresFreeFire = lazy(() => import('./pages/GeneradorNombresFreeFire'));
 const CreadorLettering = lazy(() => import('./pages/CreadorLettering'));
+const SimbolosFreeFire = lazy(() => import('./pages/SimbolosFreeFire'));
+const LetrasPequenasFreeFire = lazy(() => import('./pages/LetrasPequenasFreeFire'));
+const DescripcionFreeFire = lazy(() => import('./pages/DescripcionFreeFire'));
+const AestheticBioMaker = lazy(() => import('./pages/AestheticBioMaker'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -58,6 +62,10 @@ export default function App() {
             <Route path="herramientas/conversor-texto" element={<ConversorTexto />} />
             <Route path="herramientas/letras-azules" element={<LetrasAzules />} />
             <Route path="herramientas/letras-free-fire" element={<LetrasFreeFire />} />
+            <Route path="herramientas/simbolos-para-free-fire" element={<SimbolosFreeFire />} />
+            <Route path="herramientas/letras-pequenas-para-free-fire" element={<LetrasPequenasFreeFire />} />
+            <Route path="herramientas/descripcion-free-fire" element={<DescripcionFreeFire />} />
+            <Route path="aesthetic-bio-maker" element={<AestheticBioMaker />} />
             <Route path="herramientas/letras-tiktok" element={<LetrasTikTok />} />
             <Route path="herramientas/conversor-letras-bonitas" element={<ConversorLetrasBonitas />} />
             <Route path="herramientas/generador-de-nombres-para-instagram" element={<GeneradorNombresInstagram />} />
