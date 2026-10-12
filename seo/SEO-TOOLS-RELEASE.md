@@ -11,9 +11,11 @@ Four browser-only tools, no API, database, paid service or new production depend
 | `/herramientas/descripcion-free-fire` | Ten original signatures across five styles, editable raw text, cursor insertion, six-digit color-tag simulation, editable length reference and copy including codes. |
 | `/aesthetic-bio-maker` | English local template engine generates three different complete bios from name, occupation and interests, with four moods, individual line editing, decorative insertion and two profile previews. |
 
-Existing `/herramientas/letras-free-fire` links to all three specialized tools. Existing Instagram names tool links to the Bio Maker. New pages link back to the main tools. These are the only content additions to existing pages; their original copy, keywords and tool behavior remain intact. Homepage, shared layout, AdSense head script, account metadata and `ads.txt` are unchanged.
+Existing `/herramientas/letras-free-fire` links to all three specialized tools. Existing Instagram names tool links to the Bio Maker. New pages link back to the main tools. Their original copy, keywords and tool behavior remain intact. Following the user's navigation request, the desktop tools dropdown, mobile menu and `/herramientas` directory also link all four tools; the directory's existing ItemList schema includes them automatically. Homepage source, AdSense head script, account metadata and `ads.txt` are unchanged.
 
 All four routes are lazy loaded, registered in SSR, included in the sitemap and prerendered with independent titles, descriptions, H1s and self-referencing canonicals. Bio Maker has English document and content language; Spanish shared navigation is retained.
+
+The symbol library's visible category headings explicitly cover `Símbolos de corona para Free Fire`, `Corazón para Free Fire`, `Símbolos insanos para Free Fire` and `Signos para Free Fire: figuras especiales`. Search includes these headings with accent normalization. These remain categories on one canonical page, not separate URLs. Existing primary-keyword titles, H1s and descriptions for all four tools are preserved. The desktop dropdown scrolls within short viewports so every old and new link remains reachable.
 
 ## Conditional-page intent gate
 

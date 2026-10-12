@@ -14,7 +14,7 @@ export default function SimbolosFreeFire() {
   const [multiple, setMultiple] = useState(false);
   const normalized = query.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
   const groups = SYMBOL_GROUPS.filter(group => category === 'Todos' || group.name === category).map(group => ({ ...group, symbols: group.symbols.filter(symbol =>
-    `${group.name} ${group.terms} ${symbol}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(normalized)) }));
+    `${group.name} ${group.heading} ${group.terms} ${symbol}`.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(normalized)) }));
   const result = name ? `${DECORATIONS[decoration][1]}${name}${selected}${DECORATIONS[decoration][2]}` : selected;
   return <>
     <SEO title="Símbolos para Free Fire para Copiar y Pegar | Coronas y Alas" description="Busca símbolos para Free Fire por categoría: coronas, corazones, alas y signos insanos. Copia uno o varios y combina tu nick en tiempo real." canonical="https://generadordelettering.org/herramientas/simbolos-para-free-fire" />
@@ -40,7 +40,7 @@ export default function SimbolosFreeFire() {
         </div>}
         {!groups.some(group => group.symbols.length) && <p role="status" className="my-4">No hay coincidencias. Prueba «corazón» o cambia la categoría.</p>}
         {groups.filter(group => group.symbols.length).map(group => <div key={group.name} className="my-5">
-          <h3 className="font-bold text-lg mb-3">{group.name}</h3>
+          <h3 className="font-bold text-lg mb-3">{group.heading}</h3>
           <div className="flex flex-wrap gap-3">{group.symbols.map(symbol => multiple ? <button type="button" className="rounded-xl border border-gray-300 bg-white min-w-12 p-3 text-xl" key={symbol} aria-label={`Añadir ${symbol}`} onClick={() => setSelected(value => Array.from(value + symbol).slice(0, 100).join(''))}>{symbol}</button> : <div key={symbol} className="border rounded-xl p-3"><span className="block text-2xl text-center mb-2">{symbol}</span><CopyButton text={symbol} label={`Copiar ${symbol}`} /></div>)}</div>
         </div>)}
       </section>

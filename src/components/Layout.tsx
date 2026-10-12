@@ -74,17 +74,21 @@ export default function Layout() {
             <Link to="/blog" className={`text-sm font-semibold hover:text-[#4F46E5] transition ${location.pathname.startsWith('/blog') ? 'text-[#4F46E5]' : 'text-gray-600'}`}>Blog</Link>
             
             <div className="relative group">
-              <button type="button" aria-haspopup="true" className={`flex items-center gap-1 text-sm font-semibold hover:text-[#4F46E5] transition ${location.pathname.startsWith('/herramientas') ? 'text-[#4F46E5]' : 'text-gray-600'}`}>
+              <button type="button" aria-haspopup="true" className={`flex items-center gap-1 text-sm font-semibold hover:text-[#4F46E5] transition ${location.pathname.startsWith('/herramientas') || location.pathname === '/aesthetic-bio-maker' ? 'text-[#4F46E5]' : 'text-gray-600'}`}>
                 Herramientas
                 <svg className="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </button>
-              <div className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 py-2 z-50">
+              <div className="absolute top-full right-0 mt-2 w-64 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 py-2 z-50">
                 <Link to="/herramientas" className="block px-4 py-2 text-sm font-bold text-[#4F46E5] hover:bg-[#4F46E5]/10 transition">Todas las herramientas</Link>
                 <div className="mx-3 my-1 border-t border-gray-100"></div>
                 <Link to="/herramientas/letras-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Letras para Free Fire</Link>
+                <Link to="/herramientas/simbolos-para-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Símbolos para Free Fire</Link>
+                <Link to="/herramientas/letras-pequenas-para-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Letras pequeñas para Free Fire</Link>
+                <Link to="/herramientas/descripcion-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Descripciones para Free Fire</Link>
                 <Link to="/herramientas/letras-tiktok" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Letras para TikTok</Link>
                 <Link to="/herramientas/letras-azules" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Letras Azules</Link>
                 <Link to="/herramientas/generador-de-nombres-para-instagram" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Nombres para Instagram</Link>
+                <Link to="/aesthetic-bio-maker" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Aesthetic Bio Maker (inglés)</Link>
                 <Link to="/herramientas/conversor-texto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition font-semibold">Conversor de Letras</Link>
                 <Link to="/herramientas/generador-de-nombres-para-free-fire" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#4F46E5]/10 hover:text-[#4F46E5] transition">Nombres para Free Fire</Link>
                 <div className="mx-3 my-1 border-t border-gray-100"></div>
@@ -137,7 +141,11 @@ export default function Layout() {
               <Link to="/herramientas/creador-de-lettering" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-bold text-[#5A4AD2] hover:bg-gray-50">Creador de Lettering</Link>
               <Link to="/herramientas/conversor-letras-bonitas" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Conv. Letras Bonitas</Link>
               <Link to="/herramientas/generador-de-nombres-para-instagram" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Nombres para Instagram</Link>
+              <Link to="/aesthetic-bio-maker" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Aesthetic Bio Maker (inglés)</Link>
               <Link to="/herramientas/letras-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50">Letras para Free Fire</Link>
+              <Link to="/herramientas/simbolos-para-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Símbolos para Free Fire</Link>
+              <Link to="/herramientas/letras-pequenas-para-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Letras pequeñas para Free Fire</Link>
+              <Link to="/herramientas/descripcion-free-fire" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50">Descripciones para Free Fire</Link>
               <Link to="/herramientas/letras-tiktok" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50">Letras para TikTok</Link>
               <Link to="/herramientas/letras-azules" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50">Letras Azules</Link>
               <Link to="/herramientas/conversor-texto" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50">Conversor de Letras</Link>

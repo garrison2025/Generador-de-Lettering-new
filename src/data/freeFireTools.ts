@@ -1,12 +1,12 @@
 import { FONT_MAPS } from './unicodeStyles';
 
 export const SYMBOL_GROUPS = [
-  { name: 'Coronas', terms: 'corona rey reina crown', symbols: ['♛', '♚', '♕', '♔', '亗', '👑'] },
-  { name: 'Corazones', terms: 'corazon corazón amor heart', symbols: ['♡', '♥', 'ღ', '❥', '❦', '❤', '💙', '🖤', '💔'] },
-  { name: 'Alas', terms: 'alas wings angel ángel', symbols: ['ʚ', 'ɞ', '༺', '༻', '꧁', '꧂', '𓆩', '𓆪'] },
-  { name: 'Estrellas', terms: 'estrella star brillo', symbols: ['★', '☆', '✦', '✧', '✩', '✪', '✫', '✬', '✯', '⋆'] },
-  { name: 'Insanos', terms: 'insano signos demonio calavera rayo', symbols: ['☠', '༒', '乂', 'メ', 'ϟ', '⚡', '×͜×', '╰‿╯'] },
-  { name: 'Figuras especiales', terms: 'especial patron patrón flor musica música signo', symbols: ['❖', '✿', '❀', 'ツ', 'シ', '۞', '☯', '☂', '☾', '♫', '♪', '✓', '〆', '『', '』', '【', '】'] },
+  { name: 'Coronas', heading: 'Símbolos de corona para Free Fire', terms: 'corona rey reina crown', symbols: ['♛', '♚', '♕', '♔', '亗', '👑'] },
+  { name: 'Corazones', heading: 'Corazón para Free Fire', terms: 'corazon corazón amor heart', symbols: ['♡', '♥', 'ღ', '❥', '❦', '❤', '💙', '🖤', '💔'] },
+  { name: 'Alas', heading: 'Símbolos de alas para Free Fire', terms: 'alas wings angel ángel', symbols: ['ʚ', 'ɞ', '༺', '༻', '꧁', '꧂', '𓆩', '𓆪'] },
+  { name: 'Estrellas', heading: 'Estrellas para Free Fire', terms: 'estrella star brillo', symbols: ['★', '☆', '✦', '✧', '✩', '✪', '✫', '✬', '✯', '⋆'] },
+  { name: 'Insanos', heading: 'Símbolos insanos para Free Fire', terms: 'insano signos demonio calavera rayo', symbols: ['☠', '༒', '乂', 'メ', 'ϟ', '⚡', '×͜×', '╰‿╯'] },
+  { name: 'Figuras especiales', heading: 'Signos para Free Fire: figuras especiales', terms: 'especial patron patrón flor musica música signo', symbols: ['❖', '✿', '❀', 'ツ', 'シ', '۞', '☯', '☂', '☾', '♫', '♪', '✓', '〆', '『', '』', '【', '】'] },
 ];
 
 export function smallText(text: string, style: 'mini_sup' | 'small_caps') {

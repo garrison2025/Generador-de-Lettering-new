@@ -184,9 +184,21 @@ try:
     menu_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[aria-label="Abrir menú"]')))
     menu_button.click()
     wait.until(EC.visibility_of_element_located((By.ID, "mobile-main-navigation")))
+    profile_tool_paths = [
+        '/herramientas/simbolos-para-free-fire',
+        '/herramientas/letras-pequenas-para-free-fire',
+        '/herramientas/descripcion-free-fire',
+        '/aesthetic-bio-maker',
+    ]
+    for path in profile_tool_paths:
+        assert driver.find_elements(By.CSS_SELECTOR, f'#mobile-main-navigation a[href="{path}"]'), f'Missing mobile tool: {path}'
     assert_no_horizontal_overflow("mobile navigation")
     driver.switch_to.active_element.send_keys(Keys.ESCAPE)
     wait.until(EC.invisibility_of_element_located((By.ID, "mobile-main-navigation")))
+
+    open_path('/herramientas', 'Herramientas de Letras')
+    for path in profile_tool_paths:
+        assert driver.find_elements(By.CSS_SELECTOR, f'#main-content a[href="{path}"] h3'), f'Missing tool card: {path}'
 
     # Broad Unicode converter: long no-space input must stay inside the mobile viewport.
     open_path("/herramientas/conversor-texto", "Conversor de Letras")
@@ -531,6 +543,8 @@ try:
             wait.until(lambda d: button.find_element(By.XPATH, '../span[@role="status"]').text in ('Copiado', 'Copied'))
 
     open_path('/herramientas/simbolos-para-free-fire', 'Símbolos para Free Fire')
+    for heading in ['Símbolos de corona para Free Fire', 'Corazón para Free Fire', 'Símbolos insanos para Free Fire', 'Signos para Free Fire: figuras especiales']:
+        assert driver.find_elements(By.XPATH, f'//h3[normalize-space(.)="{heading}"]'), f'Missing keyword heading: {heading}'
     replace_value(driver.find_element(By.ID, 'symbol-nick'), 'José')
     click_text('Copiar nick')
     wait.until(lambda d: 'Copiado' in d.find_element(By.CSS_SELECTOR, '#main-content').text)
@@ -539,8 +553,8 @@ try:
     copied = driver.execute_async_script('navigator.clipboard.readText().then(arguments[0]);')
     assert copied == '♛José♛', f'Wrong symbol nick copied: {copied!r}'
     replace_value(driver.find_element(By.ID, 'symbol-search'), 'corazon')
-    assert driver.find_elements(By.XPATH, '//h3[normalize-space(.)="Corazones"]')
-    assert not driver.find_elements(By.XPATH, '//h3[normalize-space(.)="Coronas"]')
+    assert driver.find_elements(By.XPATH, '//h3[normalize-space(.)="Corazón para Free Fire"]')
+    assert not driver.find_elements(By.XPATH, '//h3[normalize-space(.)="Símbolos de corona para Free Fire"]')
     driver.find_element(By.CSS_SELECTOR, '#main-content input[type="checkbox"]').click()
     click_text('♡')
     click_text('♥')

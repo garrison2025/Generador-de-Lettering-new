@@ -22,6 +22,24 @@ const popularTools = [
     icon: Flame
   },
   {
+    title: 'Símbolos para Free Fire',
+    description: 'Busca coronas, corazones, alas y símbolos insanos; combina varios y copia tu nick.',
+    path: '/herramientas/simbolos-para-free-fire',
+    icon: Sparkles
+  },
+  {
+    title: 'Letras Pequeñas para Free Fire',
+    description: 'Mezcla tu apodo con etiquetas en superíndice o Small Caps y compara posiciones.',
+    path: '/herramientas/letras-pequenas-para-free-fire',
+    icon: Type
+  },
+  {
+    title: 'Descripciones para Free Fire',
+    description: 'Edita firmas de perfil con plantillas, símbolos, códigos de color y contador.',
+    path: '/herramientas/descripcion-free-fire',
+    icon: Gamepad2
+  },
+  {
     title: 'Letras para TikTok',
     description: 'Fuentes aesthetic, cursivas y símbolos para bio, nombre visible y comentarios.',
     path: '/herramientas/letras-tiktok',
@@ -37,6 +55,12 @@ const popularTools = [
     title: 'Nombres para Instagram',
     description: 'Ideas de nombres, letras bonitas, símbolos y creador de bio aesthetic.',
     path: '/herramientas/generador-de-nombres-para-instagram',
+    icon: Instagram
+  },
+  {
+    title: 'Aesthetic Bio Maker',
+    description: 'Genera tres biografías completas en inglés, elige un estilo y edita cada línea.',
+    path: '/aesthetic-bio-maker',
     icon: Instagram
   },
   {
